@@ -10,6 +10,19 @@ Je m'explique : par exemple, je bosse sur le lexer de l'assembleur, je crée une
 
 La branche `dev` permet de recevoir tous les merges et devrait être globalement exempt de bugs (au maximum afin de faciliter l'intégration des features).
 
+En fait, on a un truc comme suit :
+
+```
+master
+  \___dev
+  |    |___asm
+  |    |    \___login-feature
+  |    |    \___logine2-feature2
+  |    |___vm
+  |         \___...
+  |___example
+```
+
 ## Messages de commits :
 
 Un petit guide pour qu'on puisse faire des commits avec des messages parlant.
