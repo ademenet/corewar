@@ -6,13 +6,13 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 19:16:43 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/11 19:20:31 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/11 19:29:36 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-t_header	asm_header_init(void)
+t_header	*asm_header_init(void)
 {
 	t_header	*new;
 
@@ -20,7 +20,7 @@ t_header	asm_header_init(void)
 		return (NULL);
 	if (new != NULL)
 	{
-		new->magic = 0;
+		new->magic = COREWAR_EXEC_MAGIC;
 		new->prog_name = NULL;
 		new->prog_size = 0;
 		new->comment = NULL;
