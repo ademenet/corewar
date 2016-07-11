@@ -6,12 +6,15 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/11 18:16:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/11 19:51:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
+
+# include "../../libft/libft.h"
+# include "../../libft/ft_printf/include/fpf_printf.h"
 
 /*
 ** Toutes les tailles sont en octets.
@@ -42,7 +45,7 @@
 **
 */
 
-typedef char	t_arg_type;
+typedef char		t_arg_type;
 
 # define T_REG					1
 # define T_DIR					2
@@ -50,19 +53,20 @@ typedef char	t_arg_type;
 # define T_LAB					8
 
 /*
-**
+** Ce qui suit est le travail en cours :
 */
 
-# define PROG_NAME_LENGTH		(128)
-# define COMMENT_LENGTH			(2048)
-# define COREWAR_EXEC_MAGIC		0xea83f3
+/*
+** Définition de la structure pour un processus
+*/
 
-typedef struct		header_s
+typedef struct		s_processus
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+	char			*name;
+	char			*comments;
+	char			reg[REG_NUMBER][REG_SIZE];
+
+}					t_proc;
+
 
 #endif
