@@ -6,7 +6,7 @@
 #    By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/11 18:14:04 by tvisenti          #+#    #+#              #
-#    Updated: 2016/07/11 18:17:17 by tvisenti         ###   ########.fr        #
+#    Updated: 2016/07/11 19:39:14 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,10 @@ LIB_PATH = ./lib
 INC_PATH = ./inc
 OBJ_PATH = ./obj
 
-SRC_NAME =	\
+SRC_NAME =	asm_main.c\
+			asm_parsing.c\
 
-LIB_NAME =	\
+LIB_NAME =	asm_init.c\
 
 INC_NAME =	asm.h\
 
