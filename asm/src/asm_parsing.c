@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/12 18:54:47 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/12 19:01:07 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 /*
 ** Récupére le nom et le comment et le stocke dans la struct(header)
-** Le dernier caractere est squizzé ! -> strcmp ???
 */
 
 int		asm_name_comment(char *line, t_header *head)
@@ -60,7 +59,7 @@ int		asm_parsing(char *champion, t_header *head)
 		return (-1);
 	while (get_next_line(fd, &line) > 0)
 	{
-		// ft_printf("%s\n", line);
+		ft_printf("%s\n", line);
 		if (line[0] == '.')
 		{
 		 if (asm_name_comment(line, head) == 0)
