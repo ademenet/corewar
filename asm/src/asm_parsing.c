@@ -6,15 +6,20 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/12 15:52:54 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/12 18:54:47 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
+// int		asm_check_instruct(char *line)
+// {
+//
+// }
+
 /*
 ** Récupére le nom et le comment et le stocke dans la struct(header)
-** La gestion des erreurs n'est pas bonne -> strcmp ?
+** Le dernier caractere est squizzé ! -> strcmp ???
 */
 
 int		asm_name_comment(char *line, t_header *head)
@@ -22,22 +27,22 @@ int		asm_name_comment(char *line, t_header *head)
 	int	first;
 	int	last;
 
-	first = 0;
-	last = 0;
-	if (ft_strcmp(NAME_CMD_STRING, line) < 0)
+	first = ft_strlen(NAME_CMD_STRING);
+	last = ft_strlen(COMMENT_CMD_STRING);
+	if (ft_strncmp(NAME_CMD_STRING, line, first) == 0)
 	{
-		first = ft_strlen(NAME_CMD_STRING) + 2;
-		last = ft_strlen(line) - first - 1;
-		if (ft_strlen(line) != first + last + 1)
+		if (first != ft_strclen(line, ' '))
 			return (0);
+		first = first + 2;
+		last = ft_strlen(line) - first - 1;
 		ft_strcpy(head->prog_name, ft_strsub(line, first, last));
 	}
-	else if (ft_strcmp(COMMENT_CMD_STRING, line) < 0)
+	else if (ft_strncmp(COMMENT_CMD_STRING, line, last) == 0)
 	{
-		first = ft_strlen(COMMENT_CMD_STRING) + 2;
-		last = ft_strlen(line) - first - 1;
-		if (ft_strlen(line) != first + last + 1)
+		if (last != ft_strclen(line, ' '))
 			return (0);
+		first = last + 2;
+		last = ft_strlen(line) - first - 1;
 		ft_strcpy(head->comment, ft_strsub(line, first, last));
 	}
 	else
@@ -55,12 +60,14 @@ int		asm_parsing(char *champion, t_header *head)
 		return (-1);
 	while (get_next_line(fd, &line) > 0)
 	{
-		ft_printf("%s\n", line);
+		// ft_printf("%s\n", line);
 		if (line[0] == '.')
 		{
-			if (asm_name_comment(line, head) == 0)
-				ft_printf("Error on name or comment\n");
+		 if (asm_name_comment(line, head) == 0)
+		 	printf("Wrong name or comment\n");
 		}
+		// else if (line[0] != '\n')
+		// 	asm_check_instruct(line);
 		free(line);
 	}
 	ft_printf("name : %s\n", head->prog_name);
