@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 19:16:43 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/11 19:29:36 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/12 12:27:52 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ t_header	*asm_header_init(void)
 {
 	t_header	*new;
 
-	if (!(new = (t_lem*)malloc(sizeof(t_lem))))
+	if (!(new = (t_header*)malloc(sizeof(t_header))))
 		return (NULL);
 	if (new != NULL)
 	{
 		new->magic = COREWAR_EXEC_MAGIC;
-		new->prog_name = NULL;
 		new->prog_size = 0;
-		new->comment = NULL;
+		ft_bzero(new->prog_name, PROG_NAME_LENGTH);
+		ft_bzero(new->comment, COMMENT_LENGTH);
 	}
 	return (new);
 }
