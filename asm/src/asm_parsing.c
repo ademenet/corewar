@@ -6,28 +6,64 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/11 19:21:16 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/12 15:52:54 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
+/*
+** Récupére le nom et le comment et le stocke dans la struct(header)
+** La gestion des erreurs n'est pas bonne -> strcmp ?
+*/
+
 int		asm_name_comment(char *line, t_header *head)
 {
-	if (ft_strcmp(".name", line) == 0)
-		head->prog_name = ft_strdup(line);
-	else if (ft_strcmp(".comment", line) == 0)
-		head->comment = ft_strdup(line);
-	return (0);
+	int	first;
+	int	last;
+
+	first = 0;
+	last = 0;
+	if (ft_strcmp(NAME_CMD_STRING, line) < 0)
+	{
+		first = ft_strlen(NAME_CMD_STRING) + 2;
+		last = ft_strlen(line) - first - 1;
+		if (ft_strlen(line) != first + last + 1)
+			return (0);
+		ft_strcpy(head->prog_name, ft_strsub(line, first, last));
+	}
+	else if (ft_strcmp(COMMENT_CMD_STRING, line) < 0)
+	{
+		first = ft_strlen(COMMENT_CMD_STRING) + 2;
+		last = ft_strlen(line) - first - 1;
+		if (ft_strlen(line) != first + last + 1)
+			return (0);
+		ft_strcpy(head->comment, ft_strsub(line, first, last));
+	}
+	else
+		return (0);
+	return (1);
 }
 
-int		asm_parsing(char *line, t_header *head)
+int		asm_parsing(char *champion, t_header *head)
 {
-	while (get_next_line(0, &line) > 0)
+	int fd;
+	char *line;
+
+	line = NULL;
+	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
+		return (-1);
+	while (get_next_line(fd, &line) > 0)
 	{
+		ft_printf("%s\n", line);
 		if (line[0] == '.')
-			asm_name_comment(line, head);
-		// free(line);
+		{
+			if (asm_name_comment(line, head) == 0)
+				ft_printf("Error on name or comment\n");
+		}
+		free(line);
 	}
+	ft_printf("name : %s\n", head->prog_name);
+	ft_printf("comment : %s\n", head->comment);
 	return (0);
 }
