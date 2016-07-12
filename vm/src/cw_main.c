@@ -9,3 +9,12 @@
 /*   Updated: 2016/07/11 15:54:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <corewar.h>
+
+int			main(int ac, char **av)
+{
+	if (!cw_param(av, ac))
+		return (ft_printf("Success\n"));
+	return (0);
+}

@@ -12,7 +12,8 @@
 
 #ifndef COREWAR_H
 # define COREWAR_H
-
+# include <libft.h>
+# include <fpf_printf.h>
 /*
 ** Toutes les tailles sont en octets.
 */
@@ -42,7 +43,7 @@
 **
 */
 
-typedef char	t_arg_type;
+typedef char		t_arg_type;
 
 # define T_REG					1
 # define T_DIR					2
@@ -64,5 +65,7 @@ typedef struct		header_s
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+int					cw_param(char **av, int ac);
 
 #endif
