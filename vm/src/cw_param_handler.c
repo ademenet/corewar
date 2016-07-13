@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/corewar.h"
+#include <corewar.h>
 
 int			cw_error_msg(char *msg)
 {
