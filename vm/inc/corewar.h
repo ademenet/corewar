@@ -66,6 +66,15 @@ typedef struct		header_s
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
 
+typedef struct 		s_champion
+{
+	header_t		header;
+	char			reg[REG_NUMBER][REG_SIZE];
+	long			pc;
+	int				carry;
+	int				cycle_cnt;
+}					t_champion;
+
 int					cw_param(char **av, int ac);
 
 #endif
