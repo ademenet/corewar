@@ -23,15 +23,15 @@ int			cw_param_fst_chk(int ac, int param, char **av)
 	int		n;
 
 	n = -1;
-	if (ac < 3)
+	if (ac < 2) // adapter s'il y a des options
 		return (cw_error_msg("Too few parameters\n"));
-	if (!ft_strcmp(av[param], "-dump"))
+	if (ft_strcmp(av[param], "-dump") == 0)
 		if ((n = ft_atoi(av[++param])) <= 0)
 			return (cw_error_msg("'dumb'must be a positive value\n"));
 	return (-1);
 }
 
-int			cw_param(char **av, int ac)
+int			cw_param(char **av, int ac, t_champion *champions)
 {
 	int		n;
 	int		param;
@@ -45,10 +45,10 @@ int			cw_param(char **av, int ac)
 	param = n == -1 ? 0 : 2;
 	while (++param < ac)
 	{
-		if (ft_strcmp(av[param], "-n"))
-			if (cw_cnb_assi(c_nb = ft_atoi(av[++param])))
-				return (cw_error_msg("Number already assigned to a player\n")); // possibilité de faire cette vrif dans create_champion
-		if (!create_champion(av[param], c_nb))
+		//if (ft_strcmp(av[param], "-n") == 0)
+			//if (cw_cnb_assi(c_nb = ft_atoi(av[++param]), champions))
+			//	return (cw_error_msg("Number already assigned to a player\n")); // possibilité de faire cette vrif dans create_champion
+		if (!cw_create_champion(av[param], c_nb, champions))
 			return (cw_error_msg("Wrong champion file !\n"));
 	}
 	return (1);

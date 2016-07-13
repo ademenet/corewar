@@ -12,9 +12,12 @@
 
 #include <corewar.h>
 
-int			main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	if (!cw_param(av, ac))
+	t_champion	*champions;
+
+	champions = NULL;
+	if (!cw_param(av, ac, champions))
 		return (ft_printf("Success\n"));
 	return (0);
 }
