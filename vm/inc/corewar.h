@@ -26,7 +26,7 @@
 
 # define MAX_ARGS_NUMBER		4
 # define MAX_PLAYERS			4
-# define MEM_SIZE				(4*1024)
+# define MEM_SIZE				(4 * 1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
@@ -75,6 +75,7 @@ typedef struct 		s_champion
 	int				cycle_cnt;
 }					t_champion;
 
-int					cw_param(char **av, int ac);
+int					cw_param(char **av, int ac, t_champion *champions);
+int					cw_create_champion(char *file, int c_nb, t_champion *champions);
 
 #endif
