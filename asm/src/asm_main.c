@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/12 13:45:34 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/13 12:10:51 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		main(int argc, char **argv)
 {
 	t_header	*head;
 
+	g_line = 0;
 	head = asm_header_init();
 	if (argc == 2)
 		asm_parsing(argv[1], head);
