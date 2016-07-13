@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/13 15:50:02 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/13 17:49:02 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			asm_check_label(char *str)
 	label = ft_strclen(str, LABEL_CHAR);
 	space = ft_strclen(str, ' ');
 	if (label + 1 != space && i != space)
-		return (0);
+		return (-1);
 	i = 0;
 	if (str[label] != LABEL_CHAR)
 		return(asm_error(4));
@@ -54,7 +54,13 @@ int		asm_check_instruct(char *line)
 	else
 		tab = ft_strsplit(line, ' ');
 	if (tab[0])
-		asm_check_label(tab[0]);
+	{
+		if (asm_check_label(tab[0]) == -1)
+		{
+			printf("DIRECT INSTRUCT\n");
+
+		}
+	}
 	return (1);
 }
 
@@ -69,12 +75,14 @@ int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
 		first = first + 2;
 		last = ft_strlen(line) - first - 1;
 		ft_strcpy(head->prog_name, ft_strsub(line, first, last));
+		head->prog_name[PROG_NAME_LENGTH] = '\0';
 	}
 	else if (ft_strncmp(COMMENT_CMD_STRING, line, last) == 0)
 	{
 		first = last + 2;
 		last = ft_strlen(line) - first - 1;
 		ft_strcpy(head->comment, ft_strsub(line, first, last));
+		head->comment[COMMENT_LENGTH] = '\0';
 	}
 	if (g_line == 1 && !head->prog_name[0])
 		return (asm_error(1));
