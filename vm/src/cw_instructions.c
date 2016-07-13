@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_instruct.c                                      :+:      :+:    :+:   */
+/*   cw_instructions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 13:44:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/12 17:48:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/13 15:06:46 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
-#include <stdio.h>
 
-// struct		s_process
-// {
-// 	char	*PC;
-// 	int		carry;
-// 	struct s_process	*next;
-// };
+#include <stdio.h> // supprimer
 
 void		cw_instr_or(char one, char two, char three)
 {

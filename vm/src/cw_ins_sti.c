@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_instr_add.c                                     :+:      :+:    :+:   */
+/*   cw_ins_sti.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/12 14:49:48 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/12 15:02:34 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/13 15:16:17 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/corewar.h"
-
-// Cette instruction prend 3 registres en paramètre, additionne le contenu des
-// 2 premiers et met le résultat dans le troisième. Cette opération modifie le
-// carry. add r2,r3,r5 additionne r2 et r3 et met le résultat dans r5
-
-int			cw_instr_add()
-{
-
-}
+/*
+** sti r2,%4,%5 sti copie REG_SIZE octet de r2 a l’adresse (4 + 5)
+** Les paramètres 2 et 3 sont des index. Si les paramètres 2 ou 3
+** sont des registres, on utilisera leur contenu comme un index.
+*/
