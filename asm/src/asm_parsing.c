@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/13 17:49:02 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/13 19:26:11 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,18 @@
 int			asm_check_label(char *str)
 {
 	int	i;
-	int	space;
-	int	label;
 
-	i = ft_strlen(str);
-	label = ft_strclen(str, LABEL_CHAR);
-	space = ft_strclen(str, ' ');
-	if (label + 1 != space && i != space)
-		return (-1);
 	i = 0;
-	if (str[label] != LABEL_CHAR)
-		return(asm_error(4));
-	while (str[i] && str[i] != '\n' && str[i] != LABEL_CHAR)
-	{
-		if (ft_strchr(LABEL_CHARS, str[i]) == NULL)
-			return(asm_error(3));
+	while (str[i] && ft_strchr(LABEL_CHARS, str[i]))
 		i++;
-	}
 	if (str[i] == LABEL_CHAR && i > 0)
 		return (1);
+	else if (str[i] && str[i] != ' ' && str[i] != '\0' && str[i] != '\n')
+	{
+		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
+			return(asm_error(4));
+		return(asm_error(3));
+	}
 	return (0);
 }
 
@@ -55,10 +48,10 @@ int		asm_check_instruct(char *line)
 		tab = ft_strsplit(line, ' ');
 	if (tab[0])
 	{
-		if (asm_check_label(tab[0]) == -1)
+		if (asm_check_label(tab[0]) == 0)
 		{
-			printf("DIRECT INSTRUCT\n");
-
+			printf("GO INSTRUCT\n");
+			// asm_check_instruct()
 		}
 	}
 	return (1);
@@ -127,7 +120,8 @@ int		asm_parsing(char *champion, t_header *head)
 	{
 		g_line++;
 		ft_printf("%s\n", line);
-		asm_check_instruct(line);
+		if (line[0] != COMMENT_CHAR)
+			asm_check_instruct(line);
 		free(line);
 	}
 	return (0);

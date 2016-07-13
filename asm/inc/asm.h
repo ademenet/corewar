@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/13 15:46:57 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/13 19:10:00 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ t_header	*asm_header_init(void);
 
 int			asm_check_label(char *str);
 int			asm_check_instruct(char *line);
-int		asm_copy_name_comment(char *line, t_header *head, int first,
-	int last);
-int		asm_handler_name_comment(int fd, char *line,
+int			asm_copy_name_comment(char *line, t_header *head,
+	int first, int last);
+int			asm_handler_name_comment(int fd, char *line,
 	t_header *head);
 int			asm_parsing(char *line, t_header *head);
 
