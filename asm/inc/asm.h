@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/12 15:51:13 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/13 15:46:57 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
+int					g_line;
+
 /*
 ** Header
 */
@@ -47,13 +49,19 @@ typedef struct		s_header
 ** Library
 */
 
+int			asm_error(int error);
 t_header	*asm_header_init(void);
 
 /*
 ** Source
 */
 
-int			asm_name_comment(char *line, t_header *head);
+int			asm_check_label(char *str);
+int			asm_check_instruct(char *line);
+int		asm_copy_name_comment(char *line, t_header *head, int first,
+	int last);
+int		asm_handler_name_comment(int fd, char *line,
+	t_header *head);
 int			asm_parsing(char *line, t_header *head);
 
 #endif
