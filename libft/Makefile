@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:07:17 by ademenet          #+#    #+#              #
-#    Updated: 2016/06/28 15:56:55 by ademenet         ###   ########.fr        #
+#    Updated: 2016/07/12 19:05:02 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SOURCES = ft_atoi.c\
 		  ft_strjoin.c\
 		  ft_strlcat.c\
 		  ft_strlen.c\
+		  ft_strclen.c\
 		  ft_strmap.c\
 		  ft_strmapi.c\
 		  ft_strncat.c\
