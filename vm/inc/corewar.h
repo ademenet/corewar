@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/13 14:58:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/14 15:52:05 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,39 @@ typedef struct		header_s
 ** Définition de la structure pour un processus :
 */
 
-typedef struct 		s_champion
+typedef struct 			s_champion
 {
-	header_t		header;
-	char			reg[REG_NUMBER][REG_SIZE];
-	long			pc;
-	int				carry;
-	int				cycle_cnt;
-}					t_champion;
+	header_t			header;
+	char				reg[REG_NUMBER][REG_SIZE];
+	long				pc;
+	int					carry;
+	unsigned long long	cycle_cnt; // mieux vaut passer en unsigned long long
+
+	// ajouts d'Alain
+	unsigned long long	live_cnt;
+}						t_champion;
+
+/*
+** Structure du processeur :
+*/
+
+typedef struct			s_proc
+{
+	unsigned long long	cyc_to_die;
+	unsigned long long	cyc;
+	unsigned long long	checks;
+}						t_proc;
+
+/*
+** Structure générale :
+*/
+
+typedef struct			s_glob
+{
+	t_champion			champions[5];
+	t_proc				*proc;
+}						t_glob;
+
+// definir une structure permettant d'acceder aux variables du processeur et des processus
 
 #endif

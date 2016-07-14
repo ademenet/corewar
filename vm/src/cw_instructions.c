@@ -6,23 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 13:44:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/13 15:06:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/14 18:14:13 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 #include <stdio.h> // supprimer
-
-void		cw_instr_or(char one, char two, char three)
-{
-	three = one | two;
-}
-
-void		cw_instr_and(char one, char two, char three)
-{
-	three = one & two;
-}
 
 int			cw_instruct_read_mem(int cycle_ready, )
 {
