@@ -32,4 +32,4 @@
 *.dSYM/
 *.su
 test
-get_next_line.c
+libft/get_next_line.c
