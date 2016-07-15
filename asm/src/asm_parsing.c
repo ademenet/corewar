@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/15 11:35:34 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/15 15:27:17 by gseropia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,29 +104,72 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 ** !!!! FAIRE FONCTION QUI JOIN + FREE EN MEME TEMPS !!!!
 ** VOIR POUR REALLOC
 */
-
-int		asm_parsing(char *champion, t_header *head)
+t_label *asm_label_init(void)
 {
-	int fd;
-	char *line;
+	t_label *new;
+	new = malloc(sizeof(t_label));
+	new->name = NULL;
+	new->next = NULL;
+	new->pos = 0;
+	return (new);
+}
+t_label *asm_parse_line(char *line, int fd)
+{
+	t_label *new;
+	new = NULL;
 
-	line = NULL;
-	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
-		return (-1);
-	if (asm_handler_name_comment(fd, line, head) == 0)
-		return (0);
-	if (get_next_line(fd, &line) > 0)
+	if (get_next_line(fd, &line) == 1)
 	{
-		g_file = ft_strdup(line);
-		g_file = ft_strjoin(g_file, "\n");
-		free(line);
+			if (asm_check_label(line) == 1)
+			{
+				new = asm_label_init();
+				new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
+				new->pos = 0;
+				new->next = asm_parse_line(line, fd);
+			}
+			else
+				return(asm_parse_line(line, fd));
 	}
-	while (get_next_line(fd, &line) > 0)
-	{
-		g_file = ft_strjoin(g_file, line);
-		g_file = ft_strjoin(g_file, "\n");
-		free(line);
-	}
-	printf("FILE : \n%s\n", g_file);
-	return (0);
+	return (new);
+}
+int        asm_parsing(char *champion, t_header *head)
+{
+    int         fd;
+    int            pos;
+    char         *line;
+    t_label *label;
+
+    pos = 0;
+    line = NULL;
+
+    if ((fd = open(champion, O_RDONLY, 0555)) == -1)
+        return (-1);
+    if (asm_handler_name_comment(fd, line, head) == 0)
+        return (0);
+		label = asm_parse_line(line, fd);
+    // while (get_next_line(fd, &line) > 0)
+    // {
+    //     if (line[0] == COMMENT_CHAR)
+    //         free(line);
+    //     else if (!g_file)
+    //     {
+    //       if (asm_parse_line(line, label, pos))
+    //         g_file = ft_strdup(line);
+    //         g_file = ft_strjoin(g_file, "\n");
+    //         free(line);
+    //     }
+    //     else
+    //     {
+		// 				asm_parse_line(line, label, pos);
+    //         g_file = ft_strjoin(g_file, line);
+    //         g_file = ft_strjoin(g_file, "\n");
+    //         free(line);
+    //     }
+    // }
+    while(label)
+    {
+        printf("qq----NAME : %s\n", label->name);
+        label = label->next;
+    }
+    return (0);
 }

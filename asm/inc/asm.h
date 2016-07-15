@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/15 11:32:10 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/15 14:56:33 by gseropia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ char				*g_file;
 /*
 ** Header
 */
+typedef struct    s_label
+{
+  char *name;
+  unsigned int  pos;
+  struct s_label  *next;
+
+}           t_label;
+
 
 typedef struct			s_header
 {
