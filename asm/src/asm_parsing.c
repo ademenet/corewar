@@ -6,42 +6,37 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/13 19:26:11 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/15 11:35:34 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-/*
-** Check si il y a un label et si celui-ci et le label_char sont bien formatés
-*/
-
-int			asm_check_label(char *str)
+int		asm_check_arg(char *line, int instruct)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] && ft_strchr(LABEL_CHARS, str[i]))
+	while (line[i] != ' ' || line[i] != '\t')
 		i++;
-	if (str[i] == LABEL_CHAR && i > 0)
-		return (1);
-	else if (str[i] && str[i] != ' ' && str[i] != '\0' && str[i] != '\n')
-	{
-		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
-			return(asm_error(4));
-		return(asm_error(3));
-	}
+	// if (instruct == 1 || instruct == 9 || instruct == 10 || instruct == 15)
+	// {
+	// 	asm_check_dir(line);
+	// }
 	return (0);
 }
 
 /*
 ** Verifie les instructions
+** !!! FREE LES TAB !!!
 */
 
 int		asm_check_instruct(char *line)
 {
 	char	**tab;
+	int		ret;
 
+	ret = 0;
 	if (ft_strchr(line, '\t'))
 		tab = ft_strsplit(line, '\t');
 	else
@@ -49,16 +44,15 @@ int		asm_check_instruct(char *line)
 	if (tab[0])
 	{
 		if (asm_check_label(tab[0]) == 0)
-		{
-			printf("GO INSTRUCT\n");
-			// asm_check_instruct()
-		}
+			ret = asm_instruct_name(line);
+		asm_check_arg(line, ret);
 	}
 	return (1);
 }
 
 /*
 ** Récupére le nom et le comment et le stocke dans la struct(header)
+** !!!! FAIRE DES FREE !!!!
 */
 
 int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
@@ -106,6 +100,11 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 	return (1);
 }
 
+/*
+** !!!! FAIRE FONCTION QUI JOIN + FREE EN MEME TEMPS !!!!
+** VOIR POUR REALLOC
+*/
+
 int		asm_parsing(char *champion, t_header *head)
 {
 	int fd;
@@ -116,13 +115,18 @@ int		asm_parsing(char *champion, t_header *head)
 		return (-1);
 	if (asm_handler_name_comment(fd, line, head) == 0)
 		return (0);
-	while (get_next_line(fd, &line) > 0)
+	if (get_next_line(fd, &line) > 0)
 	{
-		g_line++;
-		ft_printf("%s\n", line);
-		if (line[0] != COMMENT_CHAR)
-			asm_check_instruct(line);
+		g_file = ft_strdup(line);
+		g_file = ft_strjoin(g_file, "\n");
 		free(line);
 	}
+	while (get_next_line(fd, &line) > 0)
+	{
+		g_file = ft_strjoin(g_file, line);
+		g_file = ft_strjoin(g_file, "\n");
+		free(line);
+	}
+	printf("FILE : \n%s\n", g_file);
 	return (0);
 }
