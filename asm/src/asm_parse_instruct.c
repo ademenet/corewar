@@ -76,7 +76,7 @@ int			asm_check_label(char *str)
 		i++;
 	if (str[i] == LABEL_CHAR && i > 0)
 		return (1);
-	else if (str[i] && str[i] != ' ' && str[i] != '\0' && str[i] != '\n')
+	else if (str[i] && str[i] != ' ' && str[i] != '\0' && str[i] != '\n' && str[i] != '\t')
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return(asm_error(4));

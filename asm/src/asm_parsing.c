@@ -71,10 +71,10 @@ int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
 		ft_strcpy(head->comment, ft_strsub(line, first, last));
 		head->comment[COMMENT_LENGTH] = '\0';
 	}
-	if (g_line == 1 && !head->prog_name[0])
-		return (asm_error(1));
-	if (g_line > 1 && !head->comment[0])
-		return (asm_error(2));
+	// if (g_line == 1 && !head->prog_name[0])
+	// 	return (asm_error(1));
+	// if (g_line > 1 && !head->comment[0])
+	// 	return (asm_error(2));
 	return (1);
 }
 
@@ -87,16 +87,22 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 	int	first;
 	int	last;
 
-	while (get_next_line(fd, &line) > 0 && line[0] != '\0' &&
-	line[0] != '\n')
+	while (get_next_line(fd, &line) > 0)
 	{
 		g_line++;
-		ft_printf("%s\n", line);
-		first = ft_strlen(NAME_CMD_STRING);
-		last = ft_strlen(COMMENT_CMD_STRING);
-		if (asm_copy_name_comment(line, head, first, last) == 0)
-			return (0);
+	//	ft_printf("first :%s\n", line);
+		if (line[0] != COMMENT_CHAR && line[0] != '\0')
+		{
+			first = ft_strlen(NAME_CMD_STRING);
+			last = ft_strlen(COMMENT_CMD_STRING);
+			asm_copy_name_comment(line, head, first, last);
+			if (head->comment[0] && head->prog_name[0])
+		//		printf("name : %s\ncomment : %s\n", head->prog_name, head->comment);
+				return(1);
+		}
+	//	ft_printf("scon :%s\n", line);
 	}
+//	ft_printf("third :%s\n", line);
 	return (1);
 }
 
@@ -113,6 +119,7 @@ t_label *asm_label_init(void)
 	new->pos = 0;
 	return (new);
 }
+
 t_label *asm_parse_line(char *line, int fd)
 {
 	t_label *new;
@@ -120,18 +127,21 @@ t_label *asm_parse_line(char *line, int fd)
 
 	if (get_next_line(fd, &line) == 1)
 	{
-			if (asm_check_label(line) == 1)
+		//	printf("test :%s\n", line);
+			if (line[0] != COMMENT_CHAR && asm_check_label(line) == 1)
 			{
 				new = asm_label_init();
 				new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
 				new->pos = 0;
 				new->next = asm_parse_line(line, fd);
 			}
+		//	else if (asm_valid_line(line))
 			else
 				return(asm_parse_line(line, fd));
 	}
 	return (new);
 }
+
 int        asm_parsing(char *champion, t_header *head)
 {
     int         fd;
