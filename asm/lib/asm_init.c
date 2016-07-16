@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 19:16:43 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/15 11:15:26 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/16 15:37:55 by Transmetropolitan###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,17 @@ t_header	*asm_header_init(void)
 		ft_bzero(new->prog_name, PROG_NAME_LENGTH);
 		ft_bzero(new->comment, COMMENT_LENGTH);
 	}
+	return (new);
+}
+
+t_label		*asm_label_init(void)
+{
+	t_label		*new;
+
+	if (!(new = malloc(sizeof(t_label))))
+		return (NULL);
+	new->name = NULL;
+	new->next = NULL;
+	new->pos = 0;
 	return (new);
 }
