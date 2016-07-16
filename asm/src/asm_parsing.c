@@ -6,29 +6,28 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/15 15:27:17 by gseropia         ###   ########.fr       */
+/*   Updated: 2016/07/16 16:37:48 by Transmetropolitan###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-int		asm_check_arg(char *line, int instruct)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != ' ' || line[i] != '\t')
-		i++;
-	// if (instruct == 1 || instruct == 9 || instruct == 10 || instruct == 15)
-	// {
-	// 	asm_check_dir(line);
-	// }
-	return (0);
-}
+// int		asm_check_arg(char *line, int instruct)
+// {
+// 	int	i;
+//
+// 	i = 0;
+// 	while (line[i] != ' ' || line[i] != '\t')
+// 		i++;
+// 	// if (instruct == 1 || instruct == 9 || instruct == 10 || instruct == 15)
+// 	// {
+// 	// 	asm_check_dir(line);
+// 	// }
+// 	return (0);
+// }
 
 /*
 ** Verifie les instructions
-** !!! FREE LES TAB !!!
 */
 
 int		asm_check_instruct(char *line)
@@ -43,16 +42,16 @@ int		asm_check_instruct(char *line)
 		tab = ft_strsplit(line, ' ');
 	if (tab[0])
 	{
-		if (asm_check_label(tab[0]) == 0)
-			ret = asm_instruct_name(line);
-		asm_check_arg(line, ret);
+		ret = asm_instruct_name(line);
+		printf("ARG : %d\n", ret);
+		// asm_check_arg(line, ret);
 	}
-	return (1);
+	return (asm_free_tab(tab, 1));
 }
 
 /*
 ** Récupére le nom et le comment et le stocke dans la struct(header)
-** !!!! FAIRE DES FREE !!!!
+** !!!! FAIRE DES FREE + RETOUR ERROR !!!!
 */
 
 int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
@@ -71,10 +70,6 @@ int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
 		ft_strcpy(head->comment, ft_strsub(line, first, last));
 		head->comment[COMMENT_LENGTH] = '\0';
 	}
-	// if (g_line == 1 && !head->prog_name[0])
-	// 	return (asm_error(1));
-	// if (g_line > 1 && !head->comment[0])
-	// 	return (asm_error(2));
 	return (1);
 }
 
@@ -87,99 +82,77 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 	int	first;
 	int	last;
 
+	first = 0;
+	last = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		g_line++;
-	//	ft_printf("first :%s\n", line);
 		if (line[0] != COMMENT_CHAR && line[0] != '\0')
 		{
 			first = ft_strlen(NAME_CMD_STRING);
 			last = ft_strlen(COMMENT_CMD_STRING);
 			asm_copy_name_comment(line, head, first, last);
 			if (head->comment[0] && head->prog_name[0])
-		//		printf("name : %s\ncomment : %s\n", head->prog_name, head->comment);
 				return(1);
 		}
-	//	ft_printf("scon :%s\n", line);
 	}
-//	ft_printf("third :%s\n", line);
-	return (1);
+	return (0);
 }
 
 /*
-** !!!! FAIRE FONCTION QUI JOIN + FREE EN MEME TEMPS !!!!
-** VOIR POUR REALLOC
+** Join + free; voir realloc ?
+** !!!! Il faut traiter le label !!!!
 */
-t_label *asm_label_init(void)
-{
-	t_label *new;
-	new = malloc(sizeof(t_label));
-	new->name = NULL;
-	new->next = NULL;
-	new->pos = 0;
-	return (new);
-}
 
-t_label *asm_parse_line(char *line, int fd)
+t_label		*asm_parse_line(char *line, int fd)
 {
-	t_label *new;
+	t_label		*new;
+
 	new = NULL;
-
 	if (get_next_line(fd, &line) == 1)
 	{
-		//	printf("test :%s\n", line);
-			if (line[0] != COMMENT_CHAR && asm_check_label(line) == 1)
-			{
-				new = asm_label_init();
-				new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
-				new->pos = 0;
-				new->next = asm_parse_line(line, fd);
-			}
-		//	else if (asm_valid_line(line))
-			else
-				return(asm_parse_line(line, fd));
+		if (line[0] != COMMENT_CHAR && asm_check_label(line) == 1)
+		{
+			// printf("Found a label : %s\n", line);
+			new = asm_label_init();
+			new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
+			new->pos = 0;
+			// Enregistrer la suite du label //
+			new->next = asm_parse_line(line, fd);
+		}
+		else if (line[0] != COMMENT_CHAR && line[0] != '\0' && asm_check_label(line) == 0)
+		{
+			// printf("Found instruct :%s\n", line);
+			asm_check_instruct(line);
+			return(asm_parse_line(line, fd));
+		}
+		else
+			return(asm_parse_line(line, fd));
 	}
 	return (new);
 }
 
-int        asm_parsing(char *champion, t_header *head)
+int			asm_parsing(char *champion, t_header *head)
 {
-    int         fd;
-    int            pos;
-    char         *line;
-    t_label *label;
+    int			fd;
+    int			pos;
+    char		*line;
+    t_label		*label;
 
     pos = 0;
     line = NULL;
-
     if ((fd = open(champion, O_RDONLY, 0555)) == -1)
         return (-1);
     if (asm_handler_name_comment(fd, line, head) == 0)
         return (0);
-		label = asm_parse_line(line, fd);
-    // while (get_next_line(fd, &line) > 0)
+	label = asm_parse_line(line, fd);
+	// Verification de l'enregistrement des labels
+	// while(label)
     // {
-    //     if (line[0] == COMMENT_CHAR)
-    //         free(line);
-    //     else if (!g_file)
-    //     {
-    //       if (asm_parse_line(line, label, pos))
-    //         g_file = ft_strdup(line);
-    //         g_file = ft_strjoin(g_file, "\n");
-    //         free(line);
-    //     }
-    //     else
-    //     {
-		// 				asm_parse_line(line, label, pos);
-    //         g_file = ft_strjoin(g_file, line);
-    //         g_file = ft_strjoin(g_file, "\n");
-    //         free(line);
-    //     }
+    //     printf("Label : -%s-\n", label->name);
+    //     label = label->next;
     // }
-    while(label)
-    {
-        printf("qq----NAME : %s\n", label->name);
-        label = label->next;
-    }
+	// printf("Name : |%s|\n", head->prog_name);
+	// printf("Comment : |%s|\n", head->comment);
     return (0);
 }
