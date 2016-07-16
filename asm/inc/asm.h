@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/15 14:56:33 by gseropia         ###   ########.fr       */
+/*   Updated: 2016/07/16 16:16:39 by Transmetropolitan###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,24 @@
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
-int					g_line;
-char				*g_file;
+int						g_line;
+char					*g_file;
+
+/*
+** Labels
+*/
+
+typedef struct			s_label
+{
+  char					*name;
+  unsigned int			pos;
+  struct s_label		*next;
+
+}						t_label;
 
 /*
 ** Header
 */
-typedef struct    s_label
-{
-  char *name;
-  unsigned int  pos;
-  struct s_label  *next;
-
-}           t_label;
-
 
 typedef struct			s_header
 {
@@ -60,6 +64,9 @@ typedef struct			s_header
 
 int			asm_error(int error);
 t_header	*asm_header_init(void);
+t_label		*asm_label_init(void);
+
+int			asm_free_tab(char **tab, int ret);
 
 /*
 ** Source
@@ -69,10 +76,9 @@ int			asm_instruct_name_sec(char *line, int i);
 int			asm_instruct_name(char *line);
 int			asm_check_label(char *str);
 int			asm_check_instruct(char *line);
-int			asm_copy_name_comment(char *line, t_header *head,
-	int first, int last);
-int			asm_handler_name_comment(int fd, char *line,
-	t_header *head);
+int			asm_copy_name_comment(char *line, t_header *head, int first,
+	int last);
+int			asm_handler_name_comment(int fd, char *line, t_header *head);
 int			asm_parsing(char *line, t_header *head);
 
 #endif
