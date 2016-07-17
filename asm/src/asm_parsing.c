@@ -36,16 +36,20 @@ int		asm_check_instruct(char *line)
 	int		ret;
 
 	ret = 0;
+	
 	if (ft_strchr(line, '\t'))
 		tab = ft_strsplit(line, '\t');
 	else
 		tab = ft_strsplit(line, ' ');
+
 	if (tab[0])
 	{
-		ret = asm_instruct_name(line);
-		printf("ARG : %d\n", ret);
+		//ft_printf("test1\n");
+		//ret = asm_instruct_name(&line);
+		//printf("ARG : %d\n", ret);
 		// asm_check_arg(line, ret);
 	}
+	//ft_printf("test2\n");
 	return (asm_free_tab(tab, 1));
 }
 
@@ -98,6 +102,22 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 	}
 	return (0);
 }
+int check_valid_line(char *line)
+{
+	int fct = asm_instruct_name(&line);
+	if (fct == 1)
+	{	
+		line = line + 4;
+		while(*line == ' ' || *line == '\t')
+			*line++;
+		ft_printf("test line :%s\n", line);
+	}
+	line = NULL;
+return(0);	
+	
+	
+
+}
 
 /*
 ** Join + free; voir realloc ?
@@ -123,7 +143,8 @@ t_label		*asm_parse_line(char *line, int fd)
 		else if (line[0] != COMMENT_CHAR && line[0] != '\0' && asm_check_label(line) == 0)
 		{
 			// printf("Found instruct :%s\n", line);
-			asm_check_instruct(line);
+			
+			check_valid_line(line);
 			return(asm_parse_line(line, fd));
 		}
 		else

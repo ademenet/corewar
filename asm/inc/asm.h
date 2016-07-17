@@ -72,8 +72,8 @@ int			asm_free_tab(char **tab, int ret);
 ** Source
 */
 
-int			asm_instruct_name_sec(char *line, int i);
-int			asm_instruct_name(char *line);
+int			asm_instruct_name_sec(char **line);
+int			asm_instruct_name(char **line);
 int			asm_check_label(char *str);
 int			asm_check_instruct(char *line);
 int			asm_copy_name_comment(char *line, t_header *head, int first,

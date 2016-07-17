@@ -16,51 +16,54 @@
 ** Verifie si le nom de l'instruction est correct
 */
 
-int			asm_instruct_name_sec(char *line, int i)
+int			asm_instruct_name_sec(char **line)
 {
-	if (ft_strncmp("ldi", line, 3) == 0 && i == 3)
+	if (ft_strncmp("ldi", *line, 3) == 0)
 		return (10);
-	if (ft_strncmp("sti", line, 3) == 0 && i == 3)
+	//printf("On pointe ici : --%c--\n", *line);
+	if (ft_strncmp("sti", *line, 3) == 0)
 		return (11);
-	if (ft_strncmp("fork", line, 4) == 0 && i == 4)
+	//printf("On pointe la : --%c--\n", *line);
+	if (ft_strncmp("fork", *line, 4) == 0)
 		return (12);
-	if (ft_strncmp("lld", line, 3) == 0 && i == 3)
+	if (ft_strncmp("lld", *line, 3) == 0)
 		return (13);
-	if (ft_strncmp("lldi", line, 4) == 0 && i == 4)
+	if (ft_strncmp("lldi", *line, 4) == 0)
 		return (14);
-	if (ft_strncmp("lfork", line, 5) == 0 && i == 5)
+	if (ft_strncmp("lfork", *line, 5) == 0)
 		return (15);
-	if (ft_strncmp("aff", line, 3) == 0 && i == 3)
+	if (ft_strncmp("aff", *line, 3) == 0)
 		return (16);
 	return (asm_error(5));
 }
 
-int			asm_instruct_name(char *line)
+int			asm_instruct_name(char **line)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] != ' ' && line[i] != '\t')
-		i++;
-	if (ft_strncmp("live", line, 4) == 0 && i == 4)
+	while (**line == ' ' || **line == '\t')
+	{
+		//printf("On pointe ici : --%c--\n",*line);
+		(*line)++;
+	}
+	//printf("On pointe la : --%c--\n",*line);
+	if (ft_strncmp("live", *line, 4) == 0)
 		return (1);
-	if (ft_strncmp("ld", line, 2) == 0 && i == 2)
+	if (ft_strncmp("ld", *line, 2) == 0)
 		return (2);
-	if (ft_strncmp("st", line, 2) == 0 && i == 2)
+	if (ft_strncmp("st", *line, 2) == 0)
 		return (3);
-	if (ft_strncmp("add", line, 3) == 0 && i == 3)
+	if (ft_strncmp("add", *line, 3) == 0)
 		return (4);
-	if (ft_strncmp("sub", line, 3) == 0 && i == 3)
+	if (ft_strncmp("sub", *line, 3) == 0)
 		return (5);
-	if (ft_strncmp("and", line, 3) == 0 && i == 3)
+	if (ft_strncmp("and", *line, 3) == 0)
 		return (6);
-	if (ft_strncmp("or", line, 2) == 0 && i == 2)
+	if (ft_strncmp("or", *line, 2) == 0)
 		return (7);
-	if (ft_strncmp("xor", line, 3) == 0 && i == 3)
+	if (ft_strncmp("xor", *line, 3) == 0)
 		return (8);
-	if (ft_strncmp("zjmp", line, 4) == 0 && i == 4)
+	if (ft_strncmp("zjmp", *line, 4) == 0)
 		return (9);
-	return (asm_instruct_name_sec(line, i));
+	return (asm_instruct_name_sec(line));
 }
 
 /*
