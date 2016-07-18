@@ -24,10 +24,10 @@ int			cw_param_fst_chk(int ac, int param, char **av)
 
 	n = -1;
 	if (ac < 2) // adapter s'il y a des options
-		return (cw_error_msg("Too few parameters\n"));
+		return (cw_error_msg("Too few parameters"));
 	if (ft_strcmp(av[param], "-dump") == 0)
 		if ((n = ft_atoi(av[++param])) <= 0)
-			return (cw_error_msg("'dumb'must be a positive value\n"));
+			return (cw_error_msg("'dumb'must be a positive value"));
 	return (-1);
 }
 

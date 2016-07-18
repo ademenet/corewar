@@ -43,10 +43,10 @@ int				cw_get_header(t_proc *proc, int fd, int c_nb)
 		return (-1);
 	if (read(fd, header, sizeof(header_t)) == -1)
 		return (-2);
-	i = -1;
+	i = 4;
 	header->prog_size = cw_invert_endian(header->prog_size);
 	header->magic = cw_invert_endian(header->magic);
-	while (proc->champions[++i]);
+	while (proc->champions[--i] && i >= 0);
 	proc->champions[i] = malloc(sizeof(t_champion));
 	proc->champions[i]->header = header;
 	proc->champions[i]->num = c_nb;
