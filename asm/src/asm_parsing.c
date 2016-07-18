@@ -12,19 +12,28 @@
 
 #include "../inc/asm.h"
 
-// int		asm_check_arg(char *line, int instruct)
-// {
-// 	int	i;
-//
-// 	i = 0;
-// 	while (line[i] != ' ' || line[i] != '\t')
-// 		i++;
-// 	// if (instruct == 1 || instruct == 9 || instruct == 10 || instruct == 15)
-// 	// {
-// 	// 	asm_check_dir(line);
-// 	// }
-// 	return (0);
-// }
+int 	asm_check_dir(char **line)
+{
+	ft_printf("Alors on en est la : %s\n", *line);
+	return(1);
+
+}
+int		asm_check_arg(char *line, int instruct)
+{
+	int	i;
+
+	i = 0;
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (instruct == 1 || instruct == 9 || instruct == 12 || instruct == 15)
+	{
+		 if (asm_check_dir(&line))
+		 	return (1);
+	}
+	//if (instruct == 16 && asm_check_reg(&line))
+	//	return(1);
+	return (0);
+}
 
 /*
 ** Verifie les instructions
@@ -105,18 +114,20 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 int check_valid_line(char *line)
 {
 	int fct = asm_instruct_name(&line);
-	if (fct == 1)
+	if (fct == 1 || fct == 9 || fct == 12 || fct == 14 || fct == 15)
 	{	
 		line = line + 4;
-		while(*line == ' ' || *line == '\t')
-			*line++;
-		ft_printf("test line :%s\n", line);
+		//while(*line == ' ' || *line == '\t')
+		//	line++;
 	}
+	else if (fct == 2 || fct == 3 || fct == 7)
+		line = line + 2;
+	else
+		line = line + 3;
+	//ft_printf("test line :%s\n", line); 
+	asm_check_arg(line, fct);
 	line = NULL;
 return(0);	
-	
-	
-
 }
 
 /*
@@ -142,8 +153,7 @@ t_label		*asm_parse_line(char *line, int fd)
 		}
 		else if (line[0] != COMMENT_CHAR && line[0] != '\0' && asm_check_label(line) == 0)
 		{
-			// printf("Found instruct :%s\n", line);
-			
+			// printf("Found instruct :%s\n", line);	
 			check_valid_line(line);
 			return(asm_parse_line(line, fd));
 		}
