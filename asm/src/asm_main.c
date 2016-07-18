@@ -18,6 +18,7 @@ int		main(int argc, char **argv)
 
 	g_line = 0;
 	g_file = NULL;
+	g_pos = 0;
 	head = asm_header_init();
 	if (argc == 2)
 		asm_parsing(argv[1], head);

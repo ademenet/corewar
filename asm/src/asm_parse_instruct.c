@@ -21,15 +21,17 @@ int			asm_instruct_name_sec(char **line)
 	if (ft_strncmp("ldi", *line, 3) == 0)
 		return (10);
 	//printf("On pointe ici : --%c--\n", *line);
-	if (ft_strncmp("sti", *line, 3) == 0)
-		return (11);
+	if (ft_strncmp("ld", *line, 2) == 0)
+		return (2);
 	//printf("On pointe la : --%c--\n", *line);
 	if (ft_strncmp("fork", *line, 4) == 0)
 		return (12);
-	if (ft_strncmp("lld", *line, 3) == 0)
-		return (13);
+	if (ft_strncmp("st", *line, 2) == 0)
+		return (3);
 	if (ft_strncmp("lldi", *line, 4) == 0)
 		return (14);
+	if (ft_strncmp("lld", *line, 3) == 0)
+		return (13);
 	if (ft_strncmp("lfork", *line, 5) == 0)
 		return (15);
 	if (ft_strncmp("aff", *line, 3) == 0)
@@ -47,10 +49,6 @@ int			asm_instruct_name(char **line)
 	//printf("On pointe la : --%c--\n",*line);
 	if (ft_strncmp("live", *line, 4) == 0)
 		return (1);
-	if (ft_strncmp("ld", *line, 2) == 0)
-		return (2);
-	if (ft_strncmp("st", *line, 2) == 0)
-		return (3);
 	if (ft_strncmp("add", *line, 3) == 0)
 		return (4);
 	if (ft_strncmp("sub", *line, 3) == 0)
@@ -63,6 +61,8 @@ int			asm_instruct_name(char **line)
 		return (8);
 	if (ft_strncmp("zjmp", *line, 4) == 0)
 		return (9);
+	if (ft_strncmp("sti", *line, 3) == 0)
+		return (11);
 	return (asm_instruct_name_sec(line));
 }
 
@@ -75,6 +75,8 @@ int			asm_check_label(char *str)
 	int	i;
 
 	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+			i++;
 	while (str[i] && ft_strchr(LABEL_CHARS, str[i]))
 		i++;
 	if (str[i] == LABEL_CHAR && i > 0)

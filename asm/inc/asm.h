@@ -31,7 +31,9 @@
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
+#define REG_NUMBER				16
 int						g_line;
+int 					g_pos;
 char					*g_file;
 
 /*
@@ -80,5 +82,11 @@ int			asm_copy_name_comment(char *line, t_header *head, int first,
 	int last);
 int			asm_handler_name_comment(int fd, char *line, t_header *head);
 int			asm_parsing(char *line, t_header *head);
+
+int 		asm_check_virgule(char **line);
+int 		asm_check_dir(char **line, int op, int check);
+int 		asm_check_reg(char **line, int check);
+int 		asm_check_ind(char **line, int check);
+int			asm_check_arg(char *line, int instruct);
 
 #endif

@@ -28,6 +28,12 @@ int		asm_error(int error)
 		printf("Wrong format label_char -> line: %d\n", g_line);
 	if (error == 5)
 		printf("Wrong name of instruct -> line: %d\n", g_line);
+	if (error == 6)
+		printf("Wrong number of register -> line: %d\n", g_line);
+	if (error == 7)
+		printf("Not an indirect -> line: %d\n", g_line);
+	if (error == 8)
+		printf("Probleme d'arguments -> line: %d\n", g_line);
 	exit (0);
 	return (0);
 }

@@ -6,34 +6,11 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/17 15:09:53 by Transmetropolitan###   ########.fr       */
+/*   Updated: 2016/07/18 11:53:16 by gseropia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
-
-int 	asm_check_dir(char **line)
-{
-	ft_printf("Alors on en est la : %s\n", *line);
-	return(1);
-
-}
-int		asm_check_arg(char *line, int instruct)
-{
-	int	i;
-
-	i = 0;
-	while (*line == ' ' || *line == '\t')
-		line++;
-	if (instruct == 1 || instruct == 9 || instruct == 12 || instruct == 15)
-	{
-		 if (asm_check_dir(&line))
-		 	return (1);
-	}
-	//if (instruct == 16 && asm_check_reg(&line))
-	//	return(1);
-	return (0);
-}
 
 /*
 ** Verifie les instructions
@@ -53,14 +30,10 @@ int		asm_check_instruct(char *line)
 
 	if (tab[0])
 	{
-<<<<<<< HEAD
 		//ft_printf("test1\n");
-		//ret = asm_instruct_name(&line);
+		ret = asm_instruct_name(&line);
 		//printf("ARG : %d\n", ret);
-=======
-		ret = asm_instruct_name(line);
 		// printf("ARG : %d\n", ret);
->>>>>>> origin/tvisenti-asm
 		// asm_check_arg(line, ret);
 	}
 	//ft_printf("test2\n");
@@ -119,18 +92,18 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 int check_valid_line(char *line)
 {
 	int fct = asm_instruct_name(&line);
-	if (fct == 1 || fct == 9 || fct == 12 || fct == 14 || fct == 15)
-	{	
+	g_pos++;
+	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		line = line + 4;
-		//while(*line == ' ' || *line == '\t')
-		//	line++;
-	}
 	else if (fct == 2 || fct == 3 || fct == 7)
 		line = line + 2;
+	else if (fct == 15)
+		line = line + 5;
 	else
 		line = line + 3;
 	//ft_printf("test line :%s\n", line); 
-	asm_check_arg(line, fct);
+	if (!asm_check_arg(line, fct))
+		return(asm_error(8));
 	line = NULL;
 return(0);	
 }
@@ -140,31 +113,36 @@ return(0);
 ** !!!! Il faut traiter le label !!!!
 */
 
-t_label		*asm_parse_line(char *line, int fd)
+t_label		*asm_parse_line(char *line, int fd, int check)
 {
 	t_label		*new;
+	int 		ret;
 
+	ret = 1;
 	new = NULL;
-	if (get_next_line(fd, &line) == 1)
+
+	if (check == 1 && g_line++)
+		ret = get_next_line(fd, &line);
+	ft_printf("text: %s ---- g_line : %d ----g_pos : %d\n", line, g_line, g_pos);
+	if (ret > 0 && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
-		if (line[0] != COMMENT_CHAR && asm_check_label(line) == 1)
-		{
-			// printf("Found a label : %s\n", line);
-			new = asm_label_init();
-			new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
-			new->pos = 0;
-			// Enregistrer la suite du label //
-			new->next = asm_parse_line(line, fd);
-		}
-		else if (line[0] != COMMENT_CHAR && line[0] != '\0' && asm_check_label(line) == 0)
-		{
-			// printf("Found instruct :%s\n", line);	
-			check_valid_line(line);
-			return(asm_parse_line(line, fd));
-		}
+		new = asm_label_init();
+		new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
+		new->pos = g_pos;
+		// Enregistrer la suite du label //
+		if (asm_check_label(line) == 1)
+			new->next = asm_parse_line(line, fd, 1);
 		else
-			return(asm_parse_line(line, fd));
+			new->next = asm_parse_line(line + ft_strclen(line, LABEL_CHAR) + 1, fd, 0);
 	}
+	else if (ret && line[0] != COMMENT_CHAR && line[0] != '\0' && asm_check_label(line) == 0)
+	{
+		// printf("Found instruct :%s\n", line);
+		check_valid_line(line);
+		return(asm_parse_line(line, fd, 1));
+	}
+	else if (ret > 0)
+		return(asm_parse_line(line, fd, 1));
 	return (new);
 }
 
@@ -181,7 +159,7 @@ int			asm_parsing(char *champion, t_header *head)
         return (-1);
     if (asm_handler_name_comment(fd, line, head) == 0)
         return (0);
-	label = asm_parse_line(line, fd);
+	label = asm_parse_line(line, fd, 1);
 	// Verification de l'enregistrement des labels
 	// while(label)
     // {
