@@ -68,14 +68,19 @@ typedef struct		header_s
 
 typedef struct 		s_champion
 {
-	header_t		header;
+	header_t		*header;
 	char			reg[REG_NUMBER][REG_SIZE];
 	long			pc;
 	int				carry;
 	int				cycle_cnt;
 }					t_champion;
 
-int					cw_param(char **av, int ac, t_champion *champions);
-int					cw_create_champion(char *file, int c_nb, t_champion *champions);
+typedef struct 		s_proc
+{
+	t_champion		*champions[4];
+}					t_proc;
+
+int					cw_param(char **av, int ac, t_proc *proc);
+int					cw_create_champion(char *file, int c_nb, t_proc *proc);
 
 #endif
