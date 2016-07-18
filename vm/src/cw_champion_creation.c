@@ -12,16 +12,19 @@
 
 #include <corewar.h>
 
-int				cw_chk_champions(t_proc *proc, int i)
+int				cw_chk_champions(t_proc *proc)
 {
-	if (proc->champions[i]->header->magic != COREWAR_EXEC_MAGIC)
+	t_champion	*champ;
+
+	champ = cw_lst_last(proc->champions);
+	if (champ->header->magic != COREWAR_EXEC_MAGIC)
 	{
-		ft_printf("%s : ", proc->champions[i]->header->prog_name);
+		ft_printf("%s : ", champ->header->prog_name);
 		return (cw_error_msg("has a wrong magic number"));
 	}
-	if (proc->champions[i]->header->prog_size > CHAMP_MAX_SIZE)
+	if (champ->header->prog_size > CHAMP_MAX_SIZE)
 	{
-		ft_printf("%s : ", proc->champions[i]->header->prog_name);
+		ft_printf("%s : ", champ->header->prog_name);
 		return (cw_error_msg("is too fat"));
 	}
 	return (1);
@@ -37,20 +40,15 @@ int				cw_invert_endian(int x)
 int				cw_get_header(t_proc *proc, int fd, int c_nb)
 {
 	header_t	*header;
-	int			i;
 
 	if ((header = malloc(sizeof(header_t))) == NULL)
 		return (-1);
 	if (read(fd, header, sizeof(header_t)) == -1)
 		return (-2);
-	i = 4;
 	header->prog_size = cw_invert_endian(header->prog_size);
 	header->magic = cw_invert_endian(header->magic);
-	while (proc->champions[--i] && i >= 0);
-	proc->champions[i] = malloc(sizeof(t_champion));
-	proc->champions[i]->header = header;
-	proc->champions[i]->num = c_nb;
-	return (cw_chk_champions(proc, i));
+	cw_lst_push(&(proc->champions), cw_lst_new(header, c_nb));
+	return (cw_chk_champions(proc));
 }
 
 int				cw_create_champion(char *file, int c_nb, t_proc *proc)

@@ -15,16 +15,18 @@
 int				main(int ac, char **av)
 {
 	t_proc		proc;
-	int			i;
+	t_champion	*tmp;
 
-	i = -1;
-	while(++i < 4)
-		proc.champions[i] = NULL;
+	proc.champions = NULL;
 	if (!cw_param(av, ac, &proc))
 		return (ft_printf("Fail !\n"));
-	i = 4;
-	while(proc.champions[--i] && i >= 0)
-	ft_printf("%u %s %u %s\n", proc.champions[i]->header->magic, proc.champions[i]->header->prog_name,
-		proc.champions[i]->header->prog_size, proc.champions[i]->header->comment);
+	tmp = proc.champions;
+	ft_printf("je rentre\n");
+	while(tmp)
+	{
+		ft_printf("%u %s %u %s\n", tmp->header->magic, tmp->header->prog_name,
+		tmp->header->prog_size, tmp->header->comment);
+		tmp = tmp->next;
+	}
 	return (0);
 }
