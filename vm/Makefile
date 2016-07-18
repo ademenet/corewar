@@ -16,6 +16,7 @@ SRC_PATH = ./src/
 SRC_NAME = 	cw_main.c\
 			cw_param_handler.c\
 			cw_champion_creation.c\
+			cw_manage_list.c\
 
 OBJ = $(SRC_NAME:.c=.o)
 
