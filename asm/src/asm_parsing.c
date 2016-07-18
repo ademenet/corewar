@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/16 16:37:48 by Transmetropolitan###   ########.fr       */
+/*   Updated: 2016/07/17 15:09:53 by Transmetropolitan###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,14 @@ int		asm_check_instruct(char *line)
 
 	if (tab[0])
 	{
+<<<<<<< HEAD
 		//ft_printf("test1\n");
 		//ret = asm_instruct_name(&line);
 		//printf("ARG : %d\n", ret);
+=======
+		ret = asm_instruct_name(line);
+		// printf("ARG : %d\n", ret);
+>>>>>>> origin/tvisenti-asm
 		// asm_check_arg(line, ret);
 	}
 	//ft_printf("test2\n");
@@ -183,6 +188,7 @@ int			asm_parsing(char *champion, t_header *head)
     //     printf("Label : -%s-\n", label->name);
     //     label = label->next;
     // }
+	// Verification de l'enregistrement du nom et comment
 	// printf("Name : |%s|\n", head->prog_name);
 	// printf("Comment : |%s|\n", head->comment);
     return (0);

@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/16 16:33:07 by Transmetropolitan###   ########.fr       */
+/*   Updated: 2016/07/17 15:10:04 by Transmetropolitan###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,16 @@ int			asm_check_label(char *str)
 	while (str[i] && ft_strchr(LABEL_CHARS, str[i]))
 		i++;
 	if (str[i] == LABEL_CHAR && i > 0)
-		return (1);
-	else if (str[i] && str[i] != ' ' && str[i] != '\0' && str[i] != '\n' && str[i] != '\t')
+	{
+		i++;
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
+		if (str[i] == '\n' || str[i] == '\0')
+			return (1);
+		return (2);
+	}
+	else if (str[i] && str[i] != ' ' && str[i] != '\0' &&
+	str[i] != '\n' && str[i] != '\t')
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return(asm_error(4));
