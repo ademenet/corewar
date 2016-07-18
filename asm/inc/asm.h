@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/18 15:45:59 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/18 16:57:02 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char					*g_file;
 
 typedef struct			s_label
 {
-  char					*name;
-  unsigned int			pos;
-  struct s_label		*next;
+	char				*name;
+	unsigned int		pos;
+	struct s_label		*next;
 
 }						t_label;
 
@@ -55,10 +55,10 @@ typedef struct			s_label
 
 typedef struct			s_header
 {
-  unsigned int			magic;
-  char					prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int			prog_size;
-  char					comment[COMMENT_LENGTH + 1];
+	unsigned int		magic;
+	char				prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int		prog_size;
+	char				comment[COMMENT_LENGTH + 1];
 }						t_header;
 
 /*
@@ -66,23 +66,37 @@ typedef struct			s_header
 */
 
 int			asm_error(int error);
+
 t_header	*asm_header_init(void);
 t_label		*asm_label_init(void);
 
+void		asm_free_join(char *line);
 int			asm_free_tab(char **tab, int ret);
 
 /*
-** Source
+** asm_parse_instruct
 */
 
 int			asm_instruct_name_sec(char **line);
 int			asm_instruct_name(char **line);
 int			asm_check_label(char *str);
+int			asm_check_double_label(t_label *label);
 int			asm_check_instruct(char *line);
+
+/*
+** asm_check_instruct
+*/
+
 int			asm_copy_name_comment(char *line, t_header *head, int first,
 	int last);
 int			asm_handler_name_comment(int fd, char *line, t_header *head);
+int			check_valid_line(char *line);
+t_label		*asm_parse_line(char *line, int fd, int check);
 int			asm_parsing(char *line, t_header *head);
+
+/*
+** asm_check_instruct
+*/
 
 int 		asm_check_virgule(char **line);
 int 		asm_check_dir(char **line, int op, int check);
