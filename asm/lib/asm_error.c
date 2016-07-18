@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:08:37 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/14 12:58:07 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/18 16:48:21 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		asm_error(int error)
 		printf("Not an indirect -> line: %d\n", g_line);
 	if (error == 8)
 		printf("Probleme d'arguments -> line: %d\n", g_line);
+	if (error == 9)
+		printf("There's same label\n");
 	exit (0);
 	return (0);
 }
