@@ -6,11 +6,15 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/18 16:49:44 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/18 17:25:44 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+/*
+** Free le tableau
+*/
 
 int		asm_free_tab(char **tab, int ret)
 {
@@ -30,7 +34,7 @@ int		asm_free_tab(char **tab, int ret)
 }
 
 /*
-**
+** Fonction qui realloc la globale g_file
 */
 
 void	asm_free_join(char *line)

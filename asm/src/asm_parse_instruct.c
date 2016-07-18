@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/18 17:13:13 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/18 17:33:54 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			asm_check_label(char *str)
 
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
-			i++;
+		i++;
 	while (str[i] && ft_strchr(LABEL_CHARS, str[i]))
 		i++;
 	if (str[i] == LABEL_CHAR && i > 0)
@@ -87,8 +87,8 @@ int			asm_check_label(char *str)
 	str[i] != '\n' && str[i] != '\t')
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
-			return(asm_error(4));
-		return(asm_error(3));
+			return (asm_error(4));
+		return (asm_error(3));
 	}
 	return (0);
 }
@@ -111,25 +111,23 @@ int			asm_check_double_label(t_label *label)
 			return (asm_error(9));
 		label = label->next;
 	}
-	return(asm_check_double_label(start->next));
+	return (asm_check_double_label(start->next));
 }
 
 /*
 ** Verifie les instructions
 */
 
-int		asm_check_instruct(char *line)
+int			asm_check_instruct(char *line)
 {
 	char	**tab;
 	int		ret;
 
 	ret = 0;
-
 	if (ft_strchr(line, '\t'))
 		tab = ft_strsplit(line, '\t');
 	else
 		tab = ft_strsplit(line, ' ');
-
 	if (tab[0])
 		ret = asm_instruct_name(&line);
 	return (asm_free_tab(tab, 1));

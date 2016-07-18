@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/18 17:05:27 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/18 17:30:45 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,13 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 }
 
 /*
-** Incrémente line selon l'instruction passé
-*/
-
-int		check_valid_line(char *line)
-{
-	int fct;
-
-	fct = asm_instruct_name(&line);
-	g_pos++;
-	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
-		line = line + 4;
-	else if (fct == 2 || fct == 3 || fct == 7)
-		line = line + 2;
-	else if (fct == 15)
-		line = line + 5;
-	else
-		line = line + 3;
-	if (!asm_check_arg(line, fct))
-		return(asm_error(8));
-	line = NULL;
-	return (1);
-}
-
-/*
 ** Récursive qui récupere le nom du label, position dans une liste chainée
 */
 
-t_label		*asm_parse_line(char *line, int fd, int check)
+t_label	*asm_parse_line(char *line, int fd, int check)
 {
-	t_label		*new;
-	int 		ret;
+	t_label	*new;
+	int		ret;
 
 	ret = 1;
 	new = NULL;
@@ -121,7 +97,7 @@ t_label		*asm_parse_line(char *line, int fd, int check)
 ** Début du parsing
 */
 
-int			asm_parsing(char *champion, t_header *head)
+int		asm_parsing(char *champion, t_header *head)
 {
 	int			fd;
 	int			pos;
@@ -136,16 +112,19 @@ int			asm_parsing(char *champion, t_header *head)
 		return (0);
 	label = asm_parse_line(line, fd, 1);
 	asm_check_double_label(label);
-	// Verification de l'enregistrement des labels
-	// while (label)
-	// {
-	// 	printf("Label : -%s-\t", label->name);
-	// 	printf("Position : |%d|\n", label->pos);
-	// 	label = label->next;
-	// }
-	// printf("G_file : \n%sEND", g_file);
-	// Verification de l'enregistrement du nom et comment
-	// printf("Name : |%s|\n", head->prog_name);
-	// printf("Comment : |%s|\n", head->comment);
 	return (0);
 }
+
+/*
+** 	Verification de l'enregistrement des labels
+** 	while (label)
+** 	{
+** 		printf("Label : -%s-\t", label->name);
+** 		printf("Position : |%d|\n", label->pos);
+** 		label = label->next;
+** 	}
+** 	printf("G_file : \n%sEND", g_file);
+** 	Verification de l'enregistrement du nom et comment
+** 	printf("Name : |%s|\n", head->prog_name);
+** 	printf("Comment : |%s|\n", head->comment);
+*/
