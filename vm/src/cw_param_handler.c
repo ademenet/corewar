@@ -31,7 +31,7 @@ int			cw_param_fst_chk(int ac, int param, char **av)
 	return (-1);
 }
 
-int			cw_param(char **av, int ac, t_champion *champions)
+int			cw_param(char **av, int ac, t_proc *proc)
 {
 	int		n;
 	int		param;
@@ -48,7 +48,7 @@ int			cw_param(char **av, int ac, t_champion *champions)
 		//if (ft_strcmp(av[param], "-n") == 0)
 			//if (cw_cnb_assi(c_nb = ft_atoi(av[++param]), champions))
 			//	return (cw_error_msg("Number already assigned to a player\n")); // possibilité de faire cette vrif dans create_champion
-		if (!cw_create_champion(av[param], c_nb, champions))
+		if (!cw_create_champion(av[param], c_nb, proc))
 			return (cw_error_msg("Wrong champion file !\n"));
 	}
 	return (1);

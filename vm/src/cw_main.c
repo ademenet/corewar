@@ -14,10 +14,13 @@
 
 int				main(int ac, char **av)
 {
-	t_champion	*champions;
+	t_proc		proc;
+	int			i;
 
-	champions = NULL;
-	if (!cw_param(av, ac, champions))
+	i = -1;
+	while(++i < 4)
+		proc.champions[i] = NULL;
+	if (!cw_param(av, ac, &proc))
 		return (ft_printf("Success\n"));
 	return (0);
 }
