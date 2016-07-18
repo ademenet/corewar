@@ -73,6 +73,7 @@ typedef struct 		s_champion
 	long			pc;
 	int				carry;
 	int				cycle_cnt;
+	int				num;
 }					t_champion;
 
 typedef struct 		s_proc
