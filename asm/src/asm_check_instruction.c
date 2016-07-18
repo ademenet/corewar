@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   asm_check_instruction.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gseropia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/18 14:57:16 by gseropia         ###   ########.fr       */
+/*   Updated: 2016/07/18 17:11:12 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+/*
+** Check si le SEPARATOR_CHAR est correct
+*/
 
 int 	asm_check_virgule(char **line)
 {
@@ -21,9 +25,12 @@ int 	asm_check_virgule(char **line)
 	(*line)++;
 	while (**line == '\t' || **line == ' ')
 		(*line)++;
-//ft_printf("\nOn en est ici -> :%s:\n", *line);
 	return(1);
 }
+
+/*
+** Check si le direct est correct
+*/
 
 int 	asm_check_dir(char **line, int op, int check)
 {
@@ -34,7 +41,6 @@ int 	asm_check_dir(char **line, int op, int check)
 		else
 			g_pos = g_pos + 4;
 		(*line)++;
-		//ft_printf("Alors on en est la : %s\n", *line);
 		if(**line == LABEL_CHAR)
 			(*line)++;
 		while (**line && ft_strchr(LABEL_CHARS, **line))
@@ -45,10 +51,12 @@ int 	asm_check_dir(char **line, int op, int check)
 			return(asm_check_virgule(line));
 		return (1);
 	}
-	//else
-	//	return(asm_error(4));
 	return(0);
 }
+
+/*
+** Check si le registre est correct
+*/
 
 int 	asm_check_reg(char **line, int check)
 {
@@ -74,13 +82,17 @@ int 	asm_check_reg(char **line, int check)
 	return(0);
 }
 
+/*
+** Check si l'indirect est correct
+*/
+
 int asm_check_ind(char **line, int check)
 {
 	if (ft_isdigit(**line))
 	{
 		while(ft_isdigit(**line))
 			(*line)++;
-		if (**line != '\0' && **line != '\n' 
+		if (**line != '\0' && **line != '\n'
 			&& **line != SEPARATOR_CHAR && **line != ' ' && **line != '\t')
 			return(asm_error(7));
 		g_pos = g_pos + 2;
@@ -91,28 +103,50 @@ int asm_check_ind(char **line, int check)
 	return (0);
 }
 
-int		asm_check_arg(char *line, int instruct)
-{
-	int	i;
+/*
+** Check la suite de la validité des args de chaque instruct
+*/
 
-	i = 0;
-	//ft_printf("instruct ::: %d", instruct);
-	while (*line == ' ' || *line == '\t')
-		line++;
-	if (instruct == 1 || instruct == 9 || instruct == 12 || instruct == 15)
-		 if (asm_check_dir(&line, instruct, 0))
-		 	return (1);
-	if (instruct == 2)
-		if ((asm_check_dir(&line, instruct, 1) || asm_check_ind(&line, 1)) && asm_check_reg(&line, 0))
-			return(1);
-	if (instruct == 16 && asm_check_reg(&line, 0))
-		return(1);
-	if ((instruct == 6 || instruct == 7 || instruct == 8) && ((asm_check_dir(&line, instruct, 1) || asm_check_reg(&line, 1) || asm_check_ind(&line, 1))
-		&& (asm_check_dir(&line, instruct, 1) || asm_check_reg(&line, 1) || asm_check_ind(&line, 1)) && asm_check_reg(&line, 0)))
-		return(1);
-	if (instruct == 11 && asm_check_reg(&line, 1)
-		&& (asm_check_dir(&line, instruct, 1) || asm_check_reg(&line, 1) || asm_check_ind(&line, 1))
-		&& (asm_check_dir(&line, instruct, 0) || asm_check_reg(&line, 0)))
+int		asm_check_arg_sec(char *line, int op)
+{
+	if (op == 3 && (asm_check_dir(&line, op, 1) || asm_check_ind(&line, 1)) &&
+	asm_check_reg(&line, 0))
+		return (1);
+	if ((op == 4 || op == 5) && asm_check_reg(&line, 1) &&
+	asm_check_reg(&line, 1) && asm_check_reg(&line, 0))
+		return (1);
+	if ((op == 10 || op == 14) && (asm_check_dir(&line, op, 1) ||
+	asm_check_reg(&line, 1) || asm_check_ind(&line, 1)) &&
+	(asm_check_dir(&line, op, 1) || asm_check_reg(&line, 1)) &&
+	asm_check_reg(&line, 0))
 		return (1);
 	return (0);
+}
+
+/*
+** Check la validité des args de chaque instruct
+*/
+
+int		asm_check_arg(char *line, int op)
+{
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if ((op == 1 || op == 9 || op == 12 || op == 15) &&
+	asm_check_dir(&line, op, 0))
+		 	return (1);
+	if ((op == 2 || op == 13) && (asm_check_dir(&line, op, 1) ||
+	asm_check_ind(&line, 1)) && asm_check_reg(&line, 0))
+			return(1);
+	if ((op == 6 || op == 7 || op == 8) && ((asm_check_dir(&line, op, 1) ||
+	asm_check_reg(&line, 1) || asm_check_ind(&line, 1))
+	&& (asm_check_dir(&line, op, 1) || asm_check_reg(&line, 1) ||
+	asm_check_ind(&line, 1)) && asm_check_reg(&line, 0)))
+		return(1);
+	if (op == 11 && asm_check_reg(&line, 1) && (asm_check_dir(&line, op, 1) ||
+	 asm_check_reg(&line, 1) || asm_check_ind(&line, 1)) &&
+	 (asm_check_dir(&line, op, 0) || asm_check_reg(&line, 0)))
+		return (1);
+	if (op == 16 && asm_check_reg(&line, 0))
+		return(1);
+	return (asm_check_arg_sec(line, op));
 }
