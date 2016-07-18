@@ -81,6 +81,7 @@ typedef struct 		s_proc
 	t_champion		*champions[4];
 }					t_proc;
 
+int					cw_error_msg(char *msg);
 int					cw_param(char **av, int ac, t_proc *proc);
 int					cw_create_champion(char *file, int c_nb, t_proc *proc);
 

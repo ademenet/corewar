@@ -46,10 +46,10 @@ int			cw_param(char **av, int ac, t_proc *proc)
 	while (++param < ac)
 	{
 		//if (ft_strcmp(av[param], "-n") == 0)
-			//if (cw_cnb_assi(c_nb = ft_atoi(av[++param]), champions))
-			//	return (cw_error_msg("Number already assigned to a player\n")); // possibilité de faire cette vrif dans create_champion
+			//if (cw_cnb_chk(c_nb = ft_atoi(av[++param]), champions))
+			//	return (cw_error_msg("Number already assigned to a player\n")); // possibilité de faire cette verif dans create_champion
 		if (!cw_create_champion(av[param], c_nb, proc))
-			return (cw_error_msg("Wrong champion file !\n"));
+			return (cw_error_msg("Wrong champion file !"));
 	}
 	return (1);
 }

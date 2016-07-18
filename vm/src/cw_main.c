@@ -21,6 +21,10 @@ int				main(int ac, char **av)
 	while(++i < 4)
 		proc.champions[i] = NULL;
 	if (!cw_param(av, ac, &proc))
-		return (ft_printf("Success\n"));
+		return (ft_printf("Fail !\n"));
+	i = -1;
+	while(proc.champions[++i])
+	ft_printf("%u %s %u %s\n", proc.champions[i]->header->magic, proc.champions[i]->header->prog_name,
+		proc.champions[i]->header->prog_size, proc.champions[i]->header->comment);
 	return (0);
 }
