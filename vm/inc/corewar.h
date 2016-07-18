@@ -58,31 +58,38 @@ typedef char		t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		header_s
+typedef struct			header_s
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+  unsigned int			magic;
+  char					prog_name[PROG_NAME_LENGTH + 1];
+  unsigned int			prog_size;
+  char					comment[COMMENT_LENGTH + 1];
+}						header_t;
 
-typedef struct 		s_champion
+typedef struct 			s_champion
 {
-	header_t		*header;
-	char			reg[REG_NUMBER][REG_SIZE];
-	long			pc;
-	int				carry;
-	int				cycle_cnt;
-	int				num;
+	header_t			*header;
+	char				reg[REG_NUMBER][REG_SIZE];
+	long				pc;
+	int					carry;
+	int					cycle_cnt;
+	int					num;
+	struct s_champion	*next;
 }					t_champion;
 
 typedef struct 		s_proc
 {
-	t_champion		*champions[4];
+	t_champion		*champions;
 }					t_proc;
 
+t_champion			*cw_lst_new(header_t *header, int num);
+void				cw_lst_push(t_champion **begin, t_champion *new);
+void				cw_lst_add(t_champion *begin, t_champion *new);
+int					cw_lst_sze(t_champion *begin);
+t_champion			*cw_lst_last(t_champion *begin);
 int					cw_error_msg(char *msg);
 int					cw_param(char **av, int ac, t_proc *proc);
 int					cw_create_champion(char *file, int c_nb, t_proc *proc);
+
 
 #endif
