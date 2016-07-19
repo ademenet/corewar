@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/19 18:05:47 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:06:46 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,17 @@ int asm_write_reg(int fd, int size, t_label *label, int fct)
 int asm_call_good_function(int fct, int fd, t_label *label)
 {
   asm_move_g_file(fct, fd);
+  write(fd, &fct, 1);
   if (fct == 9 || fct == 12 || fct == 15)
-    asm_write_dir(fd, 2, label, fct);
-  if (fct == 1)
-    asm_write_dir(fd, 4, label, fct);
+    asm_write_dir(fd, 2, label, 0);
+	if (fct == 1)
+		asm_write_dir(fd, 4, label, 0);
+	if (fct == 16)
+	{
+		write(fd,"@", 1);
+		asm_write_reg(fd, 0);
+	}
+
   return (1);
 }
 

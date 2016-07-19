@@ -28,6 +28,9 @@
 # define LABEL_CHAR				':'
 # define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
+#define T_REG					1
+#define T_DIR					2
+#define T_IND					4
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -113,6 +116,9 @@ int						asm_check_ind(char **line, int check);
 /*
 ** asm_writer
 */
+int asm_write_dir(int fd, int size, t_label *label, int check);
+int asm_write_ind(int fd, int check);
+int asm_write_reg(int fd, int check);
 int                cw_invert_endian(int x);
 int		asm_binary_creator(int fd, t_label *label);
 char  *asm_morph_cor(char *champ);
