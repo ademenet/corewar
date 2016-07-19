@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 10:53:46 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/19 15:18:04 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,30 @@
 ** Récupére le nom et le comment et le stocke dans la struct(header)
 */
 
-int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
+int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 {
-	ft_printf("line :: %s\n", line);
-	if (ft_strncmp(NAME_CMD_STRING, line, first) == 0)
+	int	i;
+
+	i = -1;
+	if (ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
-		first = first + 2;
-		last = ft_strlen(line) - first - 1;
-		ft_strcpy(head->prog_name, ft_strsub(line, first, last));
-		head->prog_name[PROG_NAME_LENGTH] = '\0';
+		while (++i < name)
+			line++;
+		line = line + 2;
+		ft_strcpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')));
+		i = ft_strlen(head->prog_name) - 1;
 	}
-	else if (ft_strncmp(COMMENT_CMD_STRING, line, last) == 0)
+	else if (ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
-		first = last + 2;
-		last = ft_strlen(line) - first - 1;
-		ft_strcpy(head->comment, ft_strsub(line, first, last));
-		head->comment[COMMENT_LENGTH] = '\0';
+		while (++i < com)
+			line++;
+		line = line + 2;
+		ft_strcpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')));
+		i = ft_strlen(head->comment) - 1;
 	}
-	return (1);
+	if (head->comment[0] && head->prog_name[0])
+		return (1);
+	return (0);
 }
 
 /*
@@ -42,20 +48,19 @@ int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
 
 int		asm_handler_name_comment(int fd, char *line, t_header *head)
 {
-	int	first;
-	int	last;
+	int	name;
+	int	com;
 
-	first = 0;
-	last = 0;
+	name = 0;
+	com = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		g_line++;
 		if (line[0] != COMMENT_CHAR && line[0] != '\0')
 		{
-			first = ft_strlen(NAME_CMD_STRING);
-			last = ft_strlen(COMMENT_CMD_STRING);
-			asm_copy_name_comment(line, head, first, last);
-			if (head->comment[0] && head->prog_name[0])
+			name = ft_strlen(NAME_CMD_STRING);
+			com = ft_strlen(COMMENT_CMD_STRING);
+			if (asm_copy_name_comment(line, head, name, com) == 1)
 				return (1);
 		}
 	}
@@ -159,6 +164,8 @@ int		asm_parsing(char *champion, t_header *head)
 	asm_check_double_label(label);
 	asm_check_label_exist(label, g_file);
 	asm_reader(label, head, champion);
+	printf("-----NAME : -%s-\n", head->prog_name);
+	printf("-----COMMENT : -%s-\n", head->comment);
 	return (0);
 }
 
