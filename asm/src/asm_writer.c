@@ -28,7 +28,7 @@ int asm_header_creator(int fd, t_header *header)
   write(fd, &header->magic, 4);
   while(header->prog_name[i])
     write(fd, &header->prog_name[i++], 1);
-  i = i - 4;
+  //i = i - 4;
   while(i++ <= PROG_NAME_LENGTH)
     write(fd, "\0", 1);
   g_pos = cw_invert_endian(g_pos);
@@ -37,7 +37,7 @@ int asm_header_creator(int fd, t_header *header)
   i = 0;
   while(header->comment[i])
     write(fd, &header->comment[i++], 1);
-    i = i - 3;
+  //  i = i - 3;
   while(i++ <= COMMENT_LENGTH)
     write(fd, "\0", 1);
   return (1);
