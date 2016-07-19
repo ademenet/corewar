@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/18 17:33:54 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:35:18 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,60 +62,6 @@ int			asm_instruct_name(char **line)
 }
 
 /*
-** Check si il y a un label et si celui-ci et le label_char sont bien formatés
-*/
-
-int			asm_check_label(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	while (str[i] && ft_strchr(LABEL_CHARS, str[i]))
-		i++;
-	if (str[i] == LABEL_CHAR && i > 0)
-	{
-		i++;
-		while (str[i] == ' ' || str[i] == '\t')
-			i++;
-		if (str[i] == '\n' || str[i] == '\0')
-			return (1);
-		return (2);
-	}
-	else if (str[i] && str[i] != ' ' && str[i] != '\0' &&
-	str[i] != '\n' && str[i] != '\t')
-	{
-		printf("ERREUR == ---%s---", str);
-		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
-			return (asm_error(4));
-		return (asm_error(3));
-	}
-	return (0);
-}
-
-/*
-** Check si il y a un doublon dans les labels
-*/
-
-int			asm_check_double_label(t_label *label)
-{
-	t_label *start;
-
-	start = label;
-	if (!label)
-		return (1);
-	label = label->next;
-	while (label)
-	{
-		if (!ft_strcmp(start->name, label->name))
-			return (asm_error(9));
-		label = label->next;
-	}
-	return (asm_check_double_label(start->next));
-}
-
-/*
 ** Verifie les instructions
 */
 
@@ -130,7 +76,7 @@ int			asm_check_instruct(char *line)
 	else
 		tab = ft_strsplit(line, ' ');
 	if (tab[0])
-			if(!(ret = asm_instruct_name(&line)))
-				return(asm_error(5));
+		if (!(ret = asm_instruct_name(&line)))
+			return (asm_error(5));
 	return (asm_free_tab(tab, 1));
 }

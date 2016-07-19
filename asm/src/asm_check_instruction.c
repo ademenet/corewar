@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/18 17:33:35 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:25:48 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		asm_check_ind(char **line, int check)
 			(*line)++;
 		if (**line != '\0' && **line != '\n'
 			&& **line != SEPARATOR_CHAR && **line != ' ' && **line != '\t')
-				return (asm_error(7));
+			return (asm_error(7));
 		g_pos = g_pos + 2;
 		if (check == 1)
 			return (asm_check_virgule(line));
@@ -116,7 +116,7 @@ int		check_valid_line(char *line)
 	int fct;
 
 	if (!(fct = asm_instruct_name(&line)))
-		return(asm_error(5));
+		return (asm_error(5));
 	g_pos++;
 	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		line = line + 4;

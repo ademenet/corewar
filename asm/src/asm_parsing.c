@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 15:18:04 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:31:46 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 	i = -1;
 	if (ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
-			ft_printf("--%s--\n", line);
 		while (++i < name)
 			line++;
 		while (*line != '"')
 			line++;
 		line++;
 		ft_strcpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')));
-			ft_printf("--%s--\n", head->prog_name);
 		i = ft_strlen(head->prog_name) - 1;
 	}
 	else if (ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
@@ -43,8 +41,6 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 		ft_strcpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')));
 		i = ft_strlen(head->comment) - 1;
 	}
-	if (head->comment[0] && head->prog_name[0])
-		return (1);
 	return (0);
 }
 
@@ -66,7 +62,8 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 		{
 			name = ft_strlen(NAME_CMD_STRING);
 			com = ft_strlen(COMMENT_CMD_STRING);
-			if (asm_copy_name_comment(line, head, name, com) == 1)
+			asm_copy_name_comment(line, head, name, com);
+			if (head->comment[0] && head->prog_name[0])
 				return (1);
 		}
 	}
@@ -168,12 +165,13 @@ int		asm_parsing(char *champion, t_header *head)
 		return (-1);
 	if (asm_handler_name_comment(fd, line, head) == 0)
 		return (0);
+	printf("---Name    : -%s-\n", head->prog_name);
+	printf("---Comment : -%s-\n", head->comment);
 	label = asm_parse_line(line, fd, 1);
 	asm_check_double_label(label);
 	asm_check_label_exist(label, g_file);
 	asm_reader(label, head, champion);
-	printf("-----NAME : -%s-\n", head->prog_name);
-	printf("-----COMMENT : -%s-\n", head->comment);
+
 	return (0);
 }
 
