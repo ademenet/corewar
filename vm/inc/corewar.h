@@ -80,6 +80,7 @@ typedef struct 			s_champion
 typedef struct 		s_proc
 {
 	t_champion		*champions;
+	int				dump;
 }					t_proc;
 
 t_champion			*cw_lst_new(header_t *header, int num);
