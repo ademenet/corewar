@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 18:31:46 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:44:28 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,50 +102,6 @@ t_label	*asm_parse_line(char *line, int fd, int check)
 	else if (ret > 0)
 		return (asm_parse_line(line, fd, 1));
 	return (new);
-}
-
-/*
-**
-*/
-
-int		asm_match_label(t_label *label, char *str)
-{
-	int len;
-
-	len = 0;
-	while (label)
-	{
-		while (str[len] && str[len] != ' ' && str[len] != '\t' &&
-		str[len] != '\n' && str[len] != SEPARATOR_CHAR)
-			len++;
-		if (ft_strncmp(label->name, str, len) == 0)
-			return (1);
-		label = label->next;
-	}
-	return (asm_error(10));
-}
-
-/*
-** Check si le label existe bien dans la struct(header)
-*/
-
-int		asm_check_label_exist(t_label *label, char *str)
-{
-	while (*str != DIRECT_CHAR && *str != '\0')
-	{
-		str++;
-		if (*str == '%')
-		{
-			str++;
-			if (*str == LABEL_CHAR)
-			{
-				str++;
-				asm_match_label(label, str);
-			}
-		}
-	}
-	label = NULL;
-	return (1);
 }
 
 /*
