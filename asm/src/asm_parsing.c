@@ -112,6 +112,7 @@ int		asm_parsing(char *champion, t_header *head)
 		return (0);
 	label = asm_parse_line(line, fd, 1);
 	asm_check_double_label(label);
+	asm_reader(g_file, label, head, champion);
 	return (0);
 }
 

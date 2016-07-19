@@ -88,13 +88,16 @@ int		asm_check_reg(char **line, int check)
 
 int		asm_check_ind(char **line, int check)
 {
+	if (**line == '+' || **line == '-')
+		(*line)++;
+
 	if (ft_isdigit(**line))
 	{
 		while (ft_isdigit(**line))
 			(*line)++;
 		if (**line != '\0' && **line != '\n'
 			&& **line != SEPARATOR_CHAR && **line != ' ' && **line != '\t')
-			return (asm_error(7));
+				return (asm_error(7));
 		g_pos = g_pos + 2;
 		if (check == 1)
 			return (asm_check_virgule(line));

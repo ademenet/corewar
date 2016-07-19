@@ -18,8 +18,8 @@
 
 int		asm_check_arg_sec(char *line, int op)
 {
-	if (op == 3 && (asm_check_dir(&line, op, 1) || asm_check_ind(&line, 1)) &&
-	asm_check_reg(&line, 0))
+	if (op == 3 && asm_check_reg(&line, 1) && (asm_check_ind(&line, 0) ||
+	asm_check_reg(&line, 0)))
 		return (1);
 	if ((op == 4 || op == 5) && asm_check_reg(&line, 1) &&
 	asm_check_reg(&line, 1) && asm_check_reg(&line, 0))
