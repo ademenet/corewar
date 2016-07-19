@@ -35,7 +35,7 @@ int			asm_instruct_name_sec(char **line)
 		return (15);
 	if (ft_strncmp("aff", *line, 3) == 0 && ++g_pos)
 		return (16);
-	return (asm_error(5));
+	return (0);
 }
 
 int			asm_instruct_name(char **line)
@@ -86,6 +86,7 @@ int			asm_check_label(char *str)
 	else if (str[i] && str[i] != ' ' && str[i] != '\0' &&
 	str[i] != '\n' && str[i] != '\t')
 	{
+		printf("ERREUR == ---%s---", str);
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return (asm_error(4));
 		return (asm_error(3));
@@ -129,6 +130,7 @@ int			asm_check_instruct(char *line)
 	else
 		tab = ft_strsplit(line, ' ');
 	if (tab[0])
-		ret = asm_instruct_name(&line);
+			if(!(ret = asm_instruct_name(&line)))
+				return(asm_error(5));
 	return (asm_free_tab(tab, 1));
 }

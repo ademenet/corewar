@@ -43,6 +43,8 @@ int		asm_check_dir(char **line, int op, int check)
 		(*line)++;
 		if (**line == LABEL_CHAR)
 			(*line)++;
+		else if (**line == '+' || **line == '-')
+			(*line)++;
 		while (**line && ft_strchr(LABEL_CHARS, **line))
 			(*line)++;
 		while (**line == ' ' || **line == '\t')
@@ -90,7 +92,6 @@ int		asm_check_ind(char **line, int check)
 {
 	if (**line == '+' || **line == '-')
 		(*line)++;
-
 	if (ft_isdigit(**line))
 	{
 		while (ft_isdigit(**line))
@@ -114,7 +115,8 @@ int		check_valid_line(char *line)
 {
 	int fct;
 
-	fct = asm_instruct_name(&line);
+	if (!(fct = asm_instruct_name(&line)))
+		return(asm_error(5));
 	g_pos++;
 	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		line = line + 4;

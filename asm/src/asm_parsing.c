@@ -23,17 +23,23 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 	i = -1;
 	if (ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
+			ft_printf("--%s--\n", line);
 		while (++i < name)
 			line++;
-		line = line + 2;
+		while (*line != '"')
+			line++;
+		line++;
 		ft_strcpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')));
+			ft_printf("--%s--\n", head->prog_name);
 		i = ft_strlen(head->prog_name) - 1;
 	}
 	else if (ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
 		while (++i < com)
 			line++;
-		line = line + 2;
+		while (*line != '"')
+			line++;
+		line++;
 		ft_strcpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')));
 		i = ft_strlen(head->comment) - 1;
 	}
@@ -80,6 +86,8 @@ t_label	*asm_parse_line(char *line, int fd, int check)
 	new = NULL;
 	if (check == 1 && (ret = get_next_line(fd, &line)) && g_line++)
 		asm_free_join(line);
+	while (*line == ' ' || *line == '\t')
+		line++;
 	if (ret > 0 && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();

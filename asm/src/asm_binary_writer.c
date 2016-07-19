@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-int asm_check_opcode(int fct, int fd)
+int asm_move_g_file(int fct, int fd)
 {
   if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		g_file = g_file + 4;
@@ -26,21 +26,63 @@ int asm_check_opcode(int fct, int fd)
     g_file++;
   return (1);
 }
+int asm_write_dir(int fd, int size, t_label *label, int fct)
+{
+  int i;
 
-int asm_binary_creator(int fd)
+  i = 0;
+  g_file++;
+  write(fd, &fct, 1);
+  if (*g_file == LABEL_CHAR && g_file++)
+    while (label)
+    {
+      if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
+      {
+        i = label->pos - g_pos;
+        break ;
+      }
+      label = label->next;
+    }
+  else
+    i = ft_atoi(g_file);
+  i = cw_invert_endian(i);
+  write(fd, &i, size);
+  g_pos = g_pos + size;
+  return (1);
+}
+
+int asm_call_good_function(int fct, int fd, t_label *label)
+{
+  asm_move_g_file(fct, fd);
+  if (fct == 9 || fct == 12 || fct == 15)
+    asm_write_dir(fd, 2, label, fct);
+  if (fct == 1)
+    asm_write_dir(fd, 4, label, fct);
+  return (1);
+}
+
+int asm_binary_creator(int fd, t_label *label)
 {
   int fct;
 
   fct = 0;
-  if (asm_check_label(g_file))
+  if (!(fct = asm_instruct_name(&g_file)))
   {
-    while(*g_file && *g_file != LABEL_CHAR)
+    while (*g_file && *g_file != LABEL_CHAR)
       g_file++;
     g_file++;
-    while(*g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t'))
+    while (g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t'))
       g_file++;
+    fct = asm_instruct_name(&g_file);
   }
-  asm_check_opcode(fct = asm_instruct_name(&g_file), fd);
-  printf("le file entier :\n%s\net 11 normalement : %d", g_file, fct);
-  return(1);
+  asm_call_good_function(fct, fd, label);
+  while (*g_file && *g_file != '\n')
+    g_file++;
+  if (!*g_file)
+    return (1);
+  else
+    g_file++;
+  return(asm_binary_creator(fd, label));
+  printf("ON EN EST LA:\n%s\net opcode normalement : %d", g_file, fct);
+  return (1);
 }

@@ -113,8 +113,8 @@ int						asm_check_ind(char **line, int check);
 /*
 ** asm_writer
 */
-
-int		asm_binary_creator(int fd);
+int                cw_invert_endian(int x);
+int		asm_binary_creator(int fd, t_label *label);
 char  *asm_morph_cor(char *champ);
 int   asm_reader(t_label *label, t_header *header, char *champ);
 #endif

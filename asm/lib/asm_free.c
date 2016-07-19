@@ -39,6 +39,10 @@ int		asm_free_tab(char **tab, int ret)
 
 void	asm_free_join(char *line)
 {
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (*line == COMMENT_CHAR)
+		return ;
 	if (*line)
 	{
 		if (!g_file)
