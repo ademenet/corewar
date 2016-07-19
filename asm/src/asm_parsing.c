@@ -18,6 +18,7 @@
 
 int		asm_copy_name_comment(char *line, t_header *head, int first, int last)
 {
+	ft_printf("line :: %s\n", line);
 	if (ft_strncmp(NAME_CMD_STRING, line, first) == 0)
 	{
 		first = first + 2;
@@ -112,7 +113,7 @@ int		asm_parsing(char *champion, t_header *head)
 		return (0);
 	label = asm_parse_line(line, fd, 1);
 	asm_check_double_label(label);
-	asm_reader(g_file, label, head, champion);
+	asm_reader(label, head, champion);
 	return (0);
 }
 

@@ -111,5 +111,5 @@ int						asm_check_reg(char **line, int check);
 int						asm_check_ind(char **line, int check);
 
 char  *asm_morph_cor(char *champ);
-int   asm_reader(char *g_file, t_label *label, t_header *header, char *champ);
+int   asm_reader(t_label *label, t_header *header, char *champ);
 #endif
