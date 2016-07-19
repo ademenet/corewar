@@ -110,6 +110,11 @@ int						asm_check_dir(char **line, int op, int check);
 int						asm_check_reg(char **line, int check);
 int						asm_check_ind(char **line, int check);
 
+/*
+** asm_writer
+*/
+
+int		asm_binary_creator(int fd);
 char  *asm_morph_cor(char *champ);
 int   asm_reader(t_label *label, t_header *header, char *champ);
 #endif

@@ -126,6 +126,5 @@ int		check_valid_line(char *line)
 		line = line + 3;
 	if (!asm_check_arg(line, fct))
 		return (asm_error(8));
-	line = NULL;
 	return (1);
 }
