@@ -18,14 +18,15 @@ int				main(int ac, char **av)
 	t_champion	*tmp;
 
 	proc.champions = NULL;
-	if (!cw_param(av, ac, &proc))
+	proc.nb_champ = 0;
+	proc.dumb = 0;
+	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
 	tmp = proc.champions;
-	ft_printf("je rentre\n");
 	while(tmp)
 	{
-		ft_printf("%u %s %u %s\n", tmp->header->magic, tmp->header->prog_name,
-		tmp->header->prog_size, tmp->header->comment);
+		ft_printf("%u %s %u %s -> %d\n", tmp->header->magic, tmp->header->prog_name,
+		tmp->header->prog_size, tmp->header->comment, tmp->num);
 		tmp = tmp->next;
 	}
 	return (0);
