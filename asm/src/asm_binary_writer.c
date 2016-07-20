@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/19 18:21:31 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/20 12:23:15 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,56 @@ int		asm_move_g_file(int fct, int fd)
 	return (1);
 }
 
+int		asm_move_separator(void)
+{
+	while (*g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t' ||
+	*g_file == SEPARATOR_CHAR))
+		g_file++;
+	return (1);
+}
+
+int		asm_call_good_function_sec(int fct, int fd, t_label *label)
+{
+	if ((fct == 6 || fct == 7 || fct == 8) && ((asm_write_reg(fd, 1) ||
+		asm_write_dir(fd, 4, label, 1) || asm_write_ind(fd, 1)) &&
+		asm_move_separator() && ((asm_write_reg(fd, 1) ||
+		asm_write_dir(fd, 4, label, 1) || asm_write_ind(fd, 1))) &&
+		asm_move_separator()))
+		return (asm_write_reg(fd, 0));
+	else if (fct == 9 || fct == 12 || fct == 15)
+		return (asm_write_dir(fd, 2, label, 0));
+	else if (fct == 10 || fct == 14 && (((asm_write_reg(fd, 1) ||
+		asm_write_dir(fd, 2, label, 1) || asm_write_ind(fd, 1)) &&
+		asm_move_separator() && (asm_write_reg(fd, 1) ||
+		asm_write_dir(fd, 2, label, 1)) && asm_move_separator())))
+		return (asm_write_reg(fd, 0));
+	else if (fct == 11 && ((asm_write_reg(fd, 1) && asm_move_separator() &&
+		(asm_write_reg(fd, 1) || asm_write_dir(fd, 2, label, 1) ||
+		asm_write_ind(fd, 1)) && asm_move_separator() &&
+		(asm_write_reg(fd, 0) || asm_write_dir(fd, 2, label, 0)))))
+			return (1);
+	else if (fct == 16 && write(fd, "@", 1))
+		return (asm_write_reg(fd, 0));
+	return (1);
+}
+
+
 int		asm_call_good_function(int fct, int fd, t_label *label)
 {
 	asm_move_g_file(fct, fd);
 	write(fd, &fct, 1);
-	if (fct == 9 || fct == 12 || fct == 15)
-		asm_write_dir(fd, 2, label, 0);
 	if (fct == 1)
-		asm_write_dir(fd, 4, label, 0);
-	if (fct == 16)
-	{
-		write(fd, "@", 1);
-		asm_write_reg(fd, 0);
-	}
-	return (1);
+		return (asm_write_dir(fd, 4, label, 0));
+	else if ((fct == 2 || fct == 13) && ((asm_write_dir(fd, 4, label, 1) ||
+		asm_write_ind(fd, 1)) && asm_move_separator()))
+		return (asm_write_reg(fd, 0));
+	else if (fct == 3 && asm_write_reg(fd, 1) && asm_move_separator() &&
+		(asm_write_reg(fd, 0) || asm_write_ind(fd, 0)))
+		return (1);
+	else if ((fct == 4 || fct == 5) && asm_write_reg(fd, 1) &&
+		asm_write_reg(fd, 1) && asm_write_reg(fd, 0))
+		return (1);
+	return (asm_call_good_function_sec(fct, fd, label));
 }
 
 int		asm_binary_creator(int fd, t_label *label)

@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 10:38:48 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/19 18:25:12 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/20 09:02:48 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		asm_reader(t_label *label, t_header *header, char *champ)
 		g_pos = 0;
 		asm_binary_creator(fd, label);
 	}
+	ft_printf("Writing output program OK\n");
 	close(fd);
 	return (1);
 }

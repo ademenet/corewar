@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 18:48:40 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/20 09:07:03 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int						asm_reader(t_label *label, t_header *header,
 */
 
 int						asm_move_g_file(int fct, int fd);
+int						asm_move_separator(void);
 int						asm_call_good_function(int fct, int fd, t_label *label);
 int						asm_binary_creator(int fd, t_label *label);
 
