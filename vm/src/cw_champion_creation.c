@@ -12,6 +12,24 @@
 
 #include <corewar.h>
 
+int				cw_find_num(t_proc *proc, int c_nb)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
+	{
+		if (tmp->num == c_nb)
+		{
+			c_nb++;
+			tmp = proc->champions;
+		}
+		else
+			tmp = tmp->next;
+	}
+	return (c_nb);
+}
+
 int				cw_chk_champions(t_proc *proc)
 {
 	t_champion	*champ;
@@ -33,11 +51,11 @@ int				cw_chk_champions(t_proc *proc)
 int				cw_invert_endian(int x)
 {
 	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000)
-      | ((x << 24) & 0xff000000);
-      return (x);
+		| ((x << 24) & 0xff000000);
+	return (x);
 }
 
-int				cw_get_header(t_proc *proc, int fd, int c_nb)
+int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 {
 	header_t	*header;
 
@@ -47,18 +65,25 @@ int				cw_get_header(t_proc *proc, int fd, int c_nb)
 		return (-2);
 	header->prog_size = cw_invert_endian(header->prog_size);
 	header->magic = cw_invert_endian(header->magic);
-	cw_lst_push(&(proc->champions), cw_lst_new(header, c_nb));
+	if (n)
+		cw_lst_add(&(proc->champions), cw_lst_new(header, c_nb));
+	else
+		cw_lst_push(&(proc->champions), cw_lst_new(header, 0));
 	return (cw_chk_champions(proc));
 }
 
-int				cw_create_champion(char *file, int c_nb, t_proc *proc)
+int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 {
 	int			fd;
 	int			chk;
 
 	if ((fd = open(file, O_RDONLY, 0555)) == -1)
 		return (-1);
-	chk = cw_get_header(proc, fd, c_nb);
+	//ft_printf("qui vaut %d\n", c_nb);
+	chk = cw_get_header(proc, fd, c_nb, n);
+	c_nb = n ? c_nb : cw_find_num(proc, c_nb);
+	proc->champions->num = proc->champions->num ? proc->champions->num : c_nb;
+	//ft_printf("apred find, il vaut %d\n", proc->champions->num );
 	return (chk);
 	//ne pas oublier le close !
 }

@@ -35,6 +35,7 @@ SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 LIB = $(addprefix $(LIB_PATH),$(LIB_NAME))
 
 $(NAME): $(SRC)
+	@echo "____________________________________________________________________________________________________________________________"
 	@make -C $(LIB_PATH)
 	@$(CC) $(SRC) -o $(NAME) -I ./inc/ -I $(LIB_PATH) -I $(INC_PATH_P) $(LIB_PATH)libft.a $(LIB_PATH)ft_printf/libftprintf.a
 	@echo "Compilation success"

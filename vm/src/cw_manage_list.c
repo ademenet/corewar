@@ -40,19 +40,24 @@ void				cw_lst_push(t_champion **begin, t_champion *new)
 	}
 }
 
-void				cw_lst_add(t_champion *begin, t_champion *new)
+void				cw_lst_add(t_champion **begin, t_champion *new)
 {
 	t_champion		*tmp;
 
-	tmp = begin;
-	if (begin)
+	if (new == NULL)
+	{
+		ft_printf("In - cw_lst_add - new is NULL\n");
+		return ;
+	}
+	tmp = *begin;
+	if (*begin)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
 	else
-		begin = new;
+		*begin = new;
 }
 
 int					cw_lst_sze(t_champion *begin)
@@ -81,3 +86,4 @@ t_champion			*cw_lst_last(t_champion *begin)
 		tmp = tmp->next;
 	return (tmp);
 }
+
