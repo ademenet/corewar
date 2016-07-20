@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/20 14:38:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/20 14:42:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct					header_s
+typedef struct					s_header
 {
   unsigned int					magic;
   char							prog_name[PROG_NAME_LENGTH + 1];
   unsigned int					prog_size;
   char							comment[COMMENT_LENGTH + 1];
-}								header_t;
+}								t_header;
 
 /*
 ** Définition de la structure pour un processus :
@@ -62,7 +62,7 @@ typedef struct					header_s
 
 typedef struct 					s_champion
 {
-	header_t					*header;
+	t_header					*header;
 	char						reg[REG_NUMBER][REG_SIZE];
 	long						pc;
 	int							carry;
