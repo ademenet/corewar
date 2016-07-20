@@ -19,6 +19,11 @@ int		cw_invert_endian(int x)
 	return (x);
 }
 
+int		cw_invert_endian2(int x)
+{
+	x = ((x >> 8) & 0xff) | ((x << 8) & 0xff00);
+	return (x);
+}
 int		asm_header_creator(int fd, t_header *header)
 {
 	int	i;

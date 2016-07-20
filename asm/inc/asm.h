@@ -39,6 +39,7 @@
 
 int						g_line;
 int						g_pos;
+int 					g_temp;
 char					*g_file;
 
 /*

@@ -16,6 +16,7 @@ int 	asm_move_my_i(int i)
 {
 	while (g_file[i] != ',')
 			i++;
+		i++;
 	while (g_file[i] == '\t' || g_file[i] == ' ')
 		i++;
 	return(i);
@@ -31,21 +32,24 @@ int		asm_opcode(int fd, int arg, int i)
 	if ((g_file[i] == 'r' && (octout = 0x40)) || (g_file[i] == '%' && (octout = 0x80))
 		|| (octout = 0xC0))
 		octin = (octin | octout);
+	//ft_printf("ca donne ca au debut: %d\n", octin);
 	if (arg > 1)
 	{
 		i = asm_move_my_i(i);
 		if ((g_file[i] == 'r' && (octout = 0x10)) || (g_file[i] == '%' && (octout = 0x20))
-		|| (octout = 0xC))
+		|| (octout = 0x30))
 		octin = (octin | octout);
 	}
+	//ft_printf("ca donne ca apres: %d\n", octin);
 	if (arg > 2)
 	{
 		i = asm_move_my_i(i);
 		if ((g_file[i] == 'r' && (octout = 0x4)) || (g_file[i] == '%' && (octout = 0x8))
-		|| (octout = 0x30))
+		|| (octout = 0xC))
 		octin = (octin | octout);
 	}
 	write(fd, &octin, 1);
+	//ft_printf("ca donne ca a la fin: %d\n", octin);
 	return(1);
 }
 
@@ -56,22 +60,28 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 	i = 0;
 	if (*g_file != DIRECT_CHAR)
 		return (0);
-	g_file++;
-	if (*g_file == LABEL_CHAR && g_file++)
+	ft_printf("On rentre ici : %c\n", *g_file);
+	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{
+			//ft_printf("On rentre la : %s\n", label->name);
 			if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
 			{
+
 				i = label->pos - g_pos;
+				//ft_printf("OK avec pos = %d et g_pos = %d\n", label->pos, g_pos);
 				break ;
 			}
 			label = label->next;
 		}
 	else
 		i = ft_atoi(g_file);
-	i = cw_invert_endian(i);
-	g_file = g_file + write(fd, &i, size);
-	g_pos = g_pos + size;
+	if (size == 4)
+		i = cw_invert_endian(i);
+	else
+		i = cw_invert_endian2(i);
+	write(fd, &i, size);
+	g_temp = g_temp + size;
 	if (check)
 		asm_move_separator();
 	return (1);
@@ -82,9 +92,10 @@ int		asm_write_ind(int fd, int check)
 	int	i;
 
 	i = ft_atoi(g_file);
+	ft_printf("Ca fait %d et on est sur %c\n", i, *g_file);
 	i = cw_invert_endian(i);
 	write(fd, &i, T_IND);
-	g_pos = g_pos + T_IND;
+	g_temp = g_temp + T_IND;
 	if (check)
 		asm_move_separator();
 	return (1);
@@ -98,7 +109,7 @@ int		asm_write_reg(int fd, int check)
 		return (0);
 	i = ft_atoi(++g_file);
 	g_file = g_file + write(fd, &i, T_REG);
-	g_pos = g_pos + T_REG;
+	g_temp = g_temp + T_REG;
 	if (check)
 		asm_move_separator();
 	return (1);
