@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/20 15:20:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/20 15:26:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct 					s_proc
 {
 	t_champion					*champions;
 	// memoire du processeiur
-	char						*mem[MEM_SIZE];
+	char						mem[MEM_SIZE];
 	int							dump;
 	int							nb_proc;
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
