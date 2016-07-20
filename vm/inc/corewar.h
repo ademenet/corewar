@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/20 15:26:54 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/20 18:26:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ typedef struct 					s_champion
 	char						reg[REG_NUMBER][REG_SIZE];
 	long						pc;
 	int							carry;
-	int							cycle_cnt;
+	uint						inst_c;
 	int							num;
+	unsigned int				cycle_cnt;
+	unsigned int				lives;
+	char						is_champ;
 	struct s_champion			*next;
 }								t_champion;
 
@@ -78,19 +81,19 @@ typedef struct 					s_champion
 typedef struct 					s_proc
 {
 	t_champion					*champions;
-	// memoire du processeiur
+	// memoire du processeur
 	char						mem[MEM_SIZE];
 	int							dump;
-	int							nb_proc;
+	int							nb_proc; // nombre de processus courants
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
 	// CYCLE_DELTA tous les blablablas
-	uint						c_to_die;
+	unsigned int				c_to_die;
 	// c : index des cycles. Init à 0.
-	uint						c;
-	// ???
-	uint						checks;
+	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
-	uint						live[5];
+	unsigned int				live[5];
+	unsigned int				lives_total;
+	unsigned int				checks;
 }								t_proc;
 
 /*

@@ -6,15 +6,16 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/14 15:53:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/20 18:32:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
-int			process_nb = 0; // a ajouter a une structure contenant les processus
-
-t_glob		glob;
+// TODO cw_check_live_process()
+	// TODO verifier que les processus ont bien fait au moins un live
+// TODO verifier que CYCLE_TO_DIE != 0
+	// TODO renvoyer 0 sinon.
 
 /*
 ** Initialise la structure du processeur.
@@ -22,10 +23,32 @@ t_glob		glob;
 
 void		cw_proc_init(t_proc *proc)
 {
-	proc->cyc_to_die = CYCLE_TO_DIE;
-	proc->cyc = 0;
+	ft_bzero(proc->mem, MEM_SIZE);
+	proc->c_to_die = CYCLE_TO_DIE;
+	proc->c = 0;
+	ft_bzero(proc->live, 5);
+	proc->lives_total = 0;
 	proc->checks = 0;
-	ft_bzero(glob->proc->live, 5);
+}
+
+/*
+** cw_check_live_process checke si un processus a bien fait un live en
+** CYCLE_TO_DIE cycles.
+*/
+
+int			cw_check_live_process(t_proc *proc)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
+	{
+		if (tmp->lives == 0)
+			// kill le process en le retirant de la liste
+		tmp = tmp->next;
+	}
+	proc->checks++; // incremente le checks car on a effectue un nouveau check
+	return (1);
 }
 
 /*
@@ -37,16 +60,32 @@ void		cw_proc_init(t_proc *proc)
 
 int			cw_cycles(t_proc *proc)
 {
-	if (proc->cyc % CYCLE_TO_DIE == 0)
+	if (proc->checks % MAX_CHECKS == 0)
+		proc->c_to_die -= CYCLE_DELTA;
+	if (proc->c % CYCLE_TO_DIE == 0) // condition a verifier si on a decrementer ctd entre temps
+		cw_check_live_process(proc);
+	if (proc->lives_total >= NBR_LIVE)
+		proc->c_to_die -= CYCLE_DELTA;
+	return (1);
+}
+
+/*
+**
+*/
+
+int			cw_exec_process(t_proc *proc)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
 	{
-		proc->checks++:
-		while ()
+		if (proc->inst_c == 0)
+			// excuter l'instruction
+		else
+			proc->inst_c--; // sinon on decremente linstance de linstruction
+		tmp = tmp->next;
 	}
-		// TODO verifier que les processus ont bien fait au moins un live
-		// TODO verifier que CYCLE_TO_DIE != 0
-		// TODO renvoyer 0 sinon.
-	if (proc->checks % MAX_CHECKS == 0) // Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications, on le décrémente
-		proc->cyc_to_die -= CYCLE_DELTA; // ATTN ! En debut ou en fin de cycle ???
 	return (1);
 }
 
@@ -55,15 +94,13 @@ int			cw_cycles(t_proc *proc)
 ** Elle exécute les cycles, lit la mémoire tout en traitant les instructions.
 */
 
-int			cw_processor()
+int			cw_processor(t_proc *proc)
 {
-	t_proc	proc;
-
-	cw_proc_init(&proc); // initialise les variables de proc
-	while (cw_cycles(&proc)) // cw_cycles doit renvoyer 1 si il y a encore des choses à faire
+	cw_proc_init(proc);
+	while (cw_cycles(proc)) // cw_cycles doit renvoyer 1 si il y a encore des choses à faire
 	{
-		// on itère sur la liste de processus -> on vérifie que on a une instruction à faire ou pas
-		proc.cyc++; // incremente le cycle de 1
+		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+		proc->c++;
 	}
 	return (1);
 }
