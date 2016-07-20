@@ -12,6 +12,8 @@
 
 #include "../inc/asm.h"
 
+int		asm_opcode(int fd, int fct)
+
 int		asm_write_dir(int fd, int size, t_label *label, int check)
 {
 	int	i;
