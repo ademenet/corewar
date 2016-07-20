@@ -79,11 +79,9 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 
 	if ((fd = open(file, O_RDONLY, 0555)) == -1)
 		return (-1);
-	//ft_printf("qui vaut %d\n", c_nb);
 	chk = cw_get_header(proc, fd, c_nb, n);
 	c_nb = n ? c_nb : cw_find_num(proc, c_nb);
 	proc->champions->num = proc->champions->num ? proc->champions->num : c_nb;
-	//ft_printf("apred find, il vaut %d\n", proc->champions->num );
 	return (chk);
 	//ne pas oublier le close !
 }
