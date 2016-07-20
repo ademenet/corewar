@@ -81,17 +81,17 @@ typedef struct 		s_proc
 {
 	t_champion		*champions;
 	int				dump;
-	int				big_nb;
+	int				nb_champ;
 }					t_proc;
 
 t_champion			*cw_lst_new(header_t *header, int num);
 void				cw_lst_push(t_champion **begin, t_champion *new);
-void				cw_lst_add(t_champion *begin, t_champion *new);
+void				cw_lst_add(t_champion **begin, t_champion *new);
 int					cw_lst_sze(t_champion *begin);
 t_champion			*cw_lst_last(t_champion *begin);
 int					cw_error_msg(char *msg);
 int					cw_param(char **av, int ac, t_proc *proc);
-int					cw_create_champion(char *file, int c_nb, t_proc *proc);
+int					cw_create_champion(char *file, int c_nb, t_proc *proc, int n);
 
 
 #endif
