@@ -60,14 +60,13 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 	i = 0;
 	if (*g_file != DIRECT_CHAR)
 		return (0);
-	ft_printf("On rentre ici : %c\n", *g_file);
+	//ft_printf("On rentre ici : %c\n", *g_file);
 	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{
 			//ft_printf("On rentre la : %s\n", label->name);
 			if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
 			{
-
 				i = label->pos - g_pos;
 				//ft_printf("OK avec pos = %d et g_pos = %d\n", label->pos, g_pos);
 				break ;
@@ -92,7 +91,7 @@ int		asm_write_ind(int fd, int check)
 	int	i;
 
 	i = ft_atoi(g_file);
-	ft_printf("Ca fait %d et on est sur %c\n", i, *g_file);
+	//ft_printf("Ca fait %d et on est sur %c\n", i, *g_file);
 	i = cw_invert_endian(i);
 	write(fd, &i, T_IND);
 	g_temp = g_temp + T_IND;

@@ -69,7 +69,7 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label)
 
 int		asm_call_good_function(int fct, int fd, t_label *label)
 {
-	g_pos--;
+	
 	asm_move_g_file(fct, fd);
 	write(fd, &fct, 1);
 	if (fct == 1)
@@ -93,17 +93,25 @@ int		asm_binary_creator(int fd, t_label *label)
 	fct = 0;
 	if (!(fct = asm_instruct_name(&g_file)))
 	{
+		ft_printf("test----%s", g_file);
 		while (*g_file && *g_file != LABEL_CHAR)
 			g_file++;
 		g_file++;
-		while (g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t'))
+		while (*g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t'))
 			g_file++;
+
 		fct = asm_instruct_name(&g_file);
 	}
+	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
+		g_pos--;
+	//ft_printf("g_pps == %d\n", g_pos);
 	asm_call_good_function(fct, fd, label);
 	//write(fd, "D", 1);
+	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
+		g_pos++;
 	g_pos = g_pos + g_temp + 1;
 	g_temp = 0;
+	
 	while (*g_file && *g_file != '\n')
 		g_file++;
 	if (!*g_file)
