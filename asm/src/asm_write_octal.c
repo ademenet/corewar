@@ -12,7 +12,42 @@
 
 #include "../inc/asm.h"
 
-int		asm_opcode(int fd, int fct)
+int 	asm_move_my_i(int i)
+{
+	while (g_file[i] != ',')
+			i++;
+	while (g_file[i] == '\t' || g_file[i] == ' ')
+		i++;
+	return(i);
+}
+
+int		asm_opcode(int fd, int arg, int i)
+{
+	int octout;
+	int octin;
+
+	octin = 0;
+	octout = 0;
+	if ((g_file[i] == 'r' && (octout = 0x40)) || (g_file[i] == '%' && (octout = 0x80))
+		|| (octout = 0xC0))
+		octin = (octin | octout);
+	if (arg > 1)
+	{
+		i = asm_move_my_i(i);
+		if ((g_file[i] == 'r' && (octout = 0x10)) || (g_file[i] == '%' && (octout = 0x20))
+		|| (octout = 0xC))
+		octin = (octin | octout);
+	}
+	if (arg > 2)
+	{
+		i = asm_move_my_i(i);
+		if ((g_file[i] == 'r' && (octout = 0x4)) || (g_file[i] == '%' && (octout = 0x8))
+		|| (octout = 0x30))
+		octin = (octin | octout);
+	}
+	write(fd, &octin, 1);
+	return(1);
+}
 
 int		asm_write_dir(int fd, int size, t_label *label, int check)
 {

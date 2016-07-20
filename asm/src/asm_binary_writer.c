@@ -45,7 +45,7 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label)
 		return (asm_write_reg(fd, 0));
 	else if (fct == 9 || fct == 12 || fct == 15)
 		return (asm_write_dir(fd, 2, label, 0));
-	else if (fct == 10 || fct == 14 && asm_opcode(fd, 3, 0) &&
+	else if ((fct == 10 || fct == 14) && asm_opcode(fd, 3, 0) &&
 		(((asm_write_reg(fd, 1) || asm_write_dir(fd, 2, label, 1) ||
 		asm_write_ind(fd, 1)) && asm_move_separator() &&
 		(asm_write_reg(fd, 1) || asm_write_dir(fd, 2, label, 1)) &&

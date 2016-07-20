@@ -144,7 +144,7 @@ int						asm_check_double_label(t_label *label);
 /*
 ** Write_Octal
 */
-
+int		asm_opcode(int fd, int arg, int i);
 int						asm_write_dir(int fd, int size, t_label *label,
 	int check);
 int						asm_write_ind(int fd, int check);
