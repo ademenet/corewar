@@ -19,7 +19,7 @@ int				main(int ac, char **av)
 
 	proc.champions = NULL;
 	proc.nb_champ = 0;
-	proc.dumb = 0;
+	proc.dump = 0;
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
 	tmp = proc.champions;

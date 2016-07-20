@@ -18,7 +18,7 @@ int			cw_error_msg(char *msg)
 	return (0);
 }
 
-int			cw_param_fst_chk(int ac, int param, char **av, t_proc proc)
+int			cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 {
 	int		n;
 
@@ -79,7 +79,7 @@ int			cw_param(char **av, int ac, t_proc *proc)
 	n = 0;
 	param = 0;
 	c_nb = 0;
-	if (!cw_param_fst_chk(ac, 1, av))
+	if (!cw_param_fst_chk(ac, 1, av, proc))
 		return (0);
 	while (++param < ac)
 	{
