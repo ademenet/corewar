@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/20 18:32:12 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/21 15:39:31 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,21 @@ int			cw_cycles(t_proc *proc)
 }
 
 /*
-**
+** cw_exec_process itère sur chaque processus pour savoir s'il y a
+** quelque chose à faire ou pas.
 */
 
-int			cw_exec_process(t_proc *proc)
+int			cw_exec_process(t_proc *proc, t_instruct *instruct)
 {
 	t_champion	*tmp;
 
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (proc->inst_c == 0)
-			// excuter l'instruction
+		if (proc->champions->inst_c == 0)
+			instruct[proc->mem[proc->champions->pc] - 1]; // a tester !
 		else
-			proc->inst_c--; // sinon on decremente linstance de linstruction
+			proc->champions->inst_c--; // sinon on decremente le cycle de linstruction
 		tmp = tmp->next;
 	}
 	return (1);
@@ -96,10 +97,13 @@ int			cw_exec_process(t_proc *proc)
 
 int			cw_processor(t_proc *proc)
 {
+	t_instruct	instruct[16];
+
 	cw_proc_init(proc);
-	while (cw_cycles(proc)) // cw_cycles doit renvoyer 1 si il y a encore des choses à faire
+	cw_instruct_init(instruct);
+	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
 	{
-		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+		cw_exec_process(proc, instruct); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
 	}
 	return (1);
