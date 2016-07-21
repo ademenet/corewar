@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/21 15:47:22 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/21 17:06:04 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 		g_line++;
 		if (line[0] != COMMENT_CHAR && line[0] != '\0')
 		{
+			while (*line == ' ' || *line == '\t')
+				line++;
 			name = ft_strlen(NAME_CMD_STRING);
 			com = ft_strlen(COMMENT_CMD_STRING);
 			asm_copy_name_comment(line, head, name, com);
@@ -67,7 +69,7 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 				return (1);
 		}
 	}
-	return (0);
+	return (asm_error(11));
 }
 
 /*
@@ -117,8 +119,7 @@ int		asm_parsing(char *champion, t_header *head)
 	line = NULL;
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
-	if (asm_handler_name_comment(fd, line, head) == 0)
-		return (0);
+	asm_handler_name_comment(fd, line, head);
 	//printf("---Name    : -%s-\n", head->prog_name);
 	//printf("---Comment : -%s-\n", head->comment);
 	label = asm_parse_line(line, fd, 1);

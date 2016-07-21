@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:08:37 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 10:39:34 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/21 17:05:44 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		asm_error(int error)
 		printf("There's same label\n");
 	if (error == 10)
 		printf("No match between label\n");
+	if (error == 11)
+		printf("Impossible to find name or comment\n");
 	exit(0);
 	return (0);
 }
