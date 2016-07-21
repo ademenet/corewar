@@ -6,7 +6,7 @@
 #    By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/11 18:14:04 by tvisenti          #+#    #+#              #
-#    Updated: 2016/07/21 18:14:34 by tvisenti         ###   ########.fr        #
+#    Updated: 2016/07/21 19:00:00 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJLIB)
 	@make -C ../libft
+	@echo '#####                         (33%)'
+	@sleep 1
+	@echo '#############                 (66%)'
+	@sleep 1
+	@echo '#######################       (100%)'
 	@$(CC) $(FLAGS) -o $@ $^ ../libft/libft.a ../libft/ft_printf/libftprintf.a
-	@echo "\033[1;34mlem_in\t\t\033[1;33mCompilation\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mCompilation\t\033[0;32m-OK-\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -66,11 +71,11 @@ $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
 
 clean:
 	@rm -rf $(OBJ) $(OBJLIB)
-	@echo "\033[1;34mft_printf\t\033[1;33mCleaning obj\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning obj\t\033[0;32m-OK-\033[0m"
 
 fclean: clean
 	@rm -rf ./obj $(NAME)
-	@echo "\033[1;34mft_printf\t\033[1;33mCleaning lib\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning lib\t\033[0;32m-OK-\033[0m"
 	@cd ../libft && $(MAKE) fclean
 
 re: fclean all
