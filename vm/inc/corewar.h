@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/20 18:26:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/21 13:29:23 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct 					s_champion
 {
 	t_header					*header;
 	char						reg[REG_NUMBER][REG_SIZE];
-	long						pc;
+	char						pc[2]; // le PC est codé sur 2 octets
 	int							carry;
 	uint						inst_c;
 	int							num;
