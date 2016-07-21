@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/21 15:39:31 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/21 16:10:24 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			cw_exec_process(t_proc *proc, t_instruct *instruct)
 	while (tmp)
 	{
 		if (proc->champions->inst_c == 0)
-			instruct[proc->mem[proc->champions->pc] - 1]; // a tester !
+			instruct[proc->mem[proc->champions->pc] - 1](); // a tester ! et mettre proc en argument
 		else
 			proc->champions->inst_c--; // sinon on decremente le cycle de linstruction
 		tmp = tmp->next;
