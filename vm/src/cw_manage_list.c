@@ -21,6 +21,7 @@ t_champion			*cw_lst_new(header_t *header, int num)
 	new->header = header;
 	new->num = num;
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
 
@@ -35,7 +36,9 @@ void				cw_lst_push(t_champion **begin, t_champion *new)
 		*begin = new;
 	else
 	{
+		(*begin)->prev = new;
 		new->next = *begin;
+		new->prev = NULL;
 		*begin = new;
 	}
 }
@@ -55,9 +58,15 @@ void				cw_lst_add(t_champion **begin, t_champion *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
+		new->prev = tmp;
 	}
 	else
+	{
 		*begin = new;
+		new->prev = NULL;
+	}
+	new->next = NULL;
+
 }
 
 int					cw_lst_sze(t_champion *begin)
