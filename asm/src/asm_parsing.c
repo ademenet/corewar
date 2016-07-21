@@ -6,11 +6,34 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/21 17:06:04 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/21 17:59:05 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+/*
+** Bouge le pointeur juste avant le nom ou le commentaire
+*/
+
+char	*asm_header_pass(char *line, int name, int com, int one)
+{
+	int	i;
+
+	i = -1;
+	if (one)
+		while (++i < name)
+			line++;
+	else
+		while (++i < com)
+			line++;
+	while (*line != '\n' && *line != '"')
+		line++;
+	if (*line != '"')
+		return (NULL);
+	line++;
+	return (line);
+}
 
 /*
 ** Récupére le nom et le comment et le stocke dans la struct(header)
@@ -18,26 +41,17 @@
 
 int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 {
-	int	i;
-
-	i = -1;
 	if (ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
-		while (++i < name)
-			line++;
-		while (*line != '"')
-			line++;
-		line++;
+		if ((line = asm_header_pass(line, name, com, 1)) == NULL)
+			return (asm_error(1));
 		ft_strncpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')),
 		PROG_NAME_LENGTH);
 	}
 	else if (ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
-		while (++i < com)
-			line++;
-		while (*line != '"')
-			line++;
-		line++;
+		if ((line = asm_header_pass(line, name, com, 0)) == NULL)
+			return (asm_error(2));
 		ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
 		COMMENT_LENGTH);
 	}
@@ -120,24 +134,11 @@ int		asm_parsing(char *champion, t_header *head)
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
 	asm_handler_name_comment(fd, line, head);
-	//printf("---Name    : -%s-\n", head->prog_name);
-	//printf("---Comment : -%s-\n", head->comment);
+	printf("---Name    : -%s-\n", head->prog_name);
+	printf("---Comment : -%s-\n", head->comment);
 	label = asm_parse_line(line, fd, 1);
-	//printf("file : ---%s---\n", g_file);
 	asm_check_double_label(label);
 	asm_check_label_exist(label, g_file);
 	asm_reader(label, head, champion);
 	return (0);
 }
-
-/*
-** 	while (label)
-** 	{
-** 		printf("Label : -%s-\t", label->name);
-** 		printf("Position : |%d|\n", label->pos);
-** 		label = label->next;
-** 	}
-** 	printf("G_file : \n%sEND", g_file);
-** 	printf("Name : |%s|\n", head->prog_name);
-** 	printf("Comment : |%s|\n", head->comment);
-*/
