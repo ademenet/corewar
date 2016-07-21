@@ -85,8 +85,8 @@ int		asm_write_ind(int fd, int check)
 	int	i;
 
 	i = ft_atoi(g_file);
-	i = cw_invert_endian(i);
-	write(fd, &i, T_IND);
+	i = cw_invert_endian2(i);
+	g_file = g_file + write(fd, &i, T_IND);
 	g_temp = g_temp + T_IND;
 	if (check)
 		asm_move_separator();

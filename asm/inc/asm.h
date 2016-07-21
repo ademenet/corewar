@@ -31,7 +31,7 @@
 
 # define T_REG					1
 # define T_DIR					2
-# define T_IND					4
+# define T_IND					2
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
