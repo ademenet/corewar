@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/21 13:29:23 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/21 15:43:00 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
+typedef							void(*t_instruct)(void);
+
 typedef struct					s_header
 {
   unsigned int					magic;
@@ -64,9 +66,10 @@ typedef struct 					s_champion
 {
 	t_header					*header;
 	char						reg[REG_NUMBER][REG_SIZE];
-	char						pc[2]; // le PC est codé sur 2 octets
-	int							carry;
-	uint						inst_c;
+	unsigned short int			pc_origin;
+	unsigned short int			pc; // le PC est codé sur 2 octets
+	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
+	uint						inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
 	int							num;
 	unsigned int				cycle_cnt;
 	unsigned int				lives;
@@ -92,7 +95,7 @@ typedef struct 					s_proc
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
 	unsigned int				live[5];
-	unsigned int				lives_total;
+	unsigned int				lives_total; // nombre total de lives sur toute la partie
 	unsigned int				checks;
 }								t_proc;
 
@@ -107,5 +110,22 @@ typedef struct					s_glob
 }								t_glob;
 
 // definir une structure permettant d'acceder aux variables du processeur et des processus
+
+/*
+** PROCESSOR
+*/
+
+int			cw_processor(t_proc *proc);
+int			cw_exec_process(t_proc *proc, t_instruct *instruct);
+int			cw_cycles(t_proc *proc);
+int			cw_check_live_process(t_proc *proc);
+void		cw_proc_init(t_proc *proc);
+
+/*
+** INSTRUCTIONS
+*/
+
+void		cw_instruct_init(t_instruct *instruct);
+
 
 #endif
