@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/21 17:59:05 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/21 18:07:08 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*asm_header_pass(char *line, int name, int com, int one)
 	else
 		while (++i < com)
 			line++;
-	while (*line != '\n' && *line != '"')
+	while (*line != '\n' && *line != '"' && *line != '\0')
 		line++;
 	if (*line != '"')
 		return (NULL);
