@@ -6,51 +6,44 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 13:44:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/14 18:14:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/21 14:04:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
-#include <stdio.h> // supprimer
+/*
+** cw_instruct_init initialise le tableau de pointeurs sur fonction des
+** instructions.
+*/
 
-int			cw_instruct_read_mem(int cycle_ready, )
+void		cw_instruct_init(t_instruct *instruct)
 {
-	// ici on parcourt la memoire de notre processus
-	// on part de PC
-	// on reconnait l'intruction et on attend le bon moment pour l'executer
-	return (0);
+	instruct[0] = cw_inst_live();
+	instruct[1] = cw_inst_ld();
+	instruct[2] = cw_inst_st();
+	instruct[3] = cw_inst_add();
+	instruct[4] = cw_inst_sub();
+	instruct[5] = cw_inst_and();
+	instruct[6] = cw_inst_or();
+	instruct[7] = cw_inst_xor();
+	instruct[8] = cw_inst_zjmp();
+	instruct[9] = cw_inst_ldi();
+	instruct[10] = cw_inst_sti();
+	instruct[11] = cw_inst_fork();
+	instruct[12] = cw_inst_lld();
+	instruct[13] = cw_inst_lldi();
+	instruct[14] = cw_inst_lfork();
+	instruct[15] = cw_inst_aff();
+
 }
 
-int			main(void)
-{
-	char	mem[MEM_SIZE]; // notre memoire RAM/circulaire
-	int		i = 0;
+/*
+** Trouver et exécuter l'instruction demandée.
+*/
 
-	mem[0] = 0x0b;
-	mem[1] = 0x68;
-	mem[2] = 0x01;
-	mem[3] = 0x00;
-	mem[4] = 0x0f;
-	mem[5] = 0x00;
-	mem[6] = 0x01;
-	mem[7] = 0x06;
-	mem[8] = 0x64;
-	mem[9] = 0x01;
-	mem[10] = 0x00;
-	mem[11] = 0x00;
-	mem[12] = 0x00;
-	mem[13] = 0x00;
-	mem[14] = 0x01;
-	mem[15] = 0x01;
-	mem[16] = 0x00;
-	mem[17] = 0x00;
-	mem[18] = 0x00;
-	mem[19] = 0x01;
-	mem[20] = 0x09;
-	mem[21] = 0xff;
-	mem[22] = 0xfb;
-	while (mem[i] != '\0')
-	{
-	}
+int			cw_exec_instruction()
+{
+
+	return (0);
 }
