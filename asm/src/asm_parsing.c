@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/20 09:06:45 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/21 15:47:22 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 		while (*line != '"')
 			line++;
 		line++;
-		ft_strcpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')));
-		i = ft_strlen(head->prog_name) - 1;
+		ft_strncpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')),
+		PROG_NAME_LENGTH);
 	}
 	else if (ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
@@ -38,8 +38,8 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 		while (*line != '"')
 			line++;
 		line++;
-		ft_strcpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')));
-		i = ft_strlen(head->comment) - 1;
+		ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
+		COMMENT_LENGTH);
 	}
 	return (0);
 }
