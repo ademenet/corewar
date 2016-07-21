@@ -41,7 +41,7 @@ void	asm_free_join(char *line)
 {
 	while (*line == ' ' || *line == '\t')
 		line++;
-	if (*line == COMMENT_CHAR)
+	if (*line == COMMENT_CHAR || asm_check_label(line))
 		return ;
 	if (*line)
 	{

@@ -41,7 +41,7 @@ int		asm_header_creator(int fd, t_header *header)
 	i = 0;
 	while (header->comment[i])
 		write(fd, &header->comment[i++], 1);
-	while (i++ < COMMENT_LENGTH - 12)
+	while (i++ < COMMENT_LENGTH + 4)
 		write(fd, "\0", 1);
 	return (1);
 }

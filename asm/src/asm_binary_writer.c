@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-int		asm_move_g_file(int fct, int fd)
+int		asm_move_g_file(int fct)
 {
 	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		g_file = g_file + 4;
@@ -29,9 +29,6 @@ int		asm_move_g_file(int fct, int fd)
 
 int		asm_move_separator(void)
 {
-	//while (*g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t' ||
-	//*g_file == SEPARATOR_CHAR))
-	//	g_file++;
 	while (*g_file && *g_file != SEPARATOR_CHAR)
 		g_file++;
 	g_file++;
@@ -70,7 +67,7 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label)
 int		asm_call_good_function(int fct, int fd, t_label *label)
 {
 	
-	asm_move_g_file(fct, fd);
+	asm_move_g_file(fct);
 	write(fd, &fct, 1);
 	if (fct == 1)
 		return (asm_write_dir(fd, 4, label, 0));
@@ -99,24 +96,19 @@ int		asm_binary_creator(int fd, t_label *label)
 		g_file++;
 		while (*g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t'))
 			g_file++;
-
 		fct = asm_instruct_name(&g_file);
 	}
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos--;
-	//ft_printf("g_pps == %d\n", g_pos);
 	asm_call_good_function(fct, fd, label);
-	//write(fd, "D", 1);
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos++;
 	g_pos = g_pos + g_temp + 1;
 	g_temp = 0;
-	
 	while (*g_file && *g_file != '\n')
 		g_file++;
+	g_file++;
 	if (!*g_file)
 		return (1);
-	else
-		g_file++;
 	return (asm_binary_creator(fd, label));
 }

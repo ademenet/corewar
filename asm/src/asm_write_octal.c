@@ -32,7 +32,6 @@ int		asm_opcode(int fd, int arg, int i)
 	if ((g_file[i] == 'r' && (octout = 0x40)) || (g_file[i] == '%' && (octout = 0x80))
 		|| (octout = 0xC0))
 		octin = (octin | octout);
-	//ft_printf("ca donne ca au debut: %d\n", octin);
 	if (arg > 1)
 	{
 		i = asm_move_my_i(i);
@@ -40,7 +39,6 @@ int		asm_opcode(int fd, int arg, int i)
 		|| (octout = 0x30))
 		octin = (octin | octout);
 	}
-	//ft_printf("ca donne ca apres: %d\n", octin);
 	if (arg > 2)
 	{
 		i = asm_move_my_i(i);
@@ -49,7 +47,6 @@ int		asm_opcode(int fd, int arg, int i)
 		octin = (octin | octout);
 	}
 	write(fd, &octin, 1);
-	//ft_printf("ca donne ca a la fin: %d\n", octin);
 	return(1);
 }
 
@@ -60,15 +57,12 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 	i = 0;
 	if (*g_file != DIRECT_CHAR)
 		return (0);
-	//ft_printf("On rentre ici : %c\n", *g_file);
 	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{
-			//ft_printf("On rentre la : %s\n", label->name);
 			if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
 			{
 				i = label->pos - g_pos;
-				//ft_printf("OK avec pos = %d et g_pos = %d\n", label->pos, g_pos);
 				break ;
 			}
 			label = label->next;
@@ -91,7 +85,6 @@ int		asm_write_ind(int fd, int check)
 	int	i;
 
 	i = ft_atoi(g_file);
-	//ft_printf("Ca fait %d et on est sur %c\n", i, *g_file);
 	i = cw_invert_endian(i);
 	write(fd, &i, T_IND);
 	g_temp = g_temp + T_IND;
@@ -104,6 +97,7 @@ int		asm_write_reg(int fd, int check)
 {
 	int	i;
 
+	i = 0;
 	if (*g_file != 'r')
 		return (0);
 	i = ft_atoi(++g_file);

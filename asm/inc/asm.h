@@ -118,6 +118,7 @@ int						check_valid_line(char *line);
 ** Writer
 */
 
+int 					cw_invert_endian2(int x);
 int						cw_invert_endian(int x);
 int						asm_header_creator(int fd, t_header *header);
 char					*asm_morph_cor(char *champ);
@@ -128,7 +129,7 @@ int						asm_reader(t_label *label, t_header *header,
 ** Binary_writer
 */
 
-int						asm_move_g_file(int fct, int fd);
+int						asm_move_g_file(int fct);
 int						asm_move_separator(void);
 int						asm_call_good_function(int fct, int fd, t_label *label);
 int						asm_binary_creator(int fd, t_label *label);
@@ -145,7 +146,9 @@ int						asm_check_double_label(t_label *label);
 /*
 ** Write_Octal
 */
-int		asm_opcode(int fd, int arg, int i);
+
+
+int						asm_opcode(int fd, int arg, int i);
 int						asm_write_dir(int fd, int size, t_label *label,
 	int check);
 int						asm_write_ind(int fd, int check);

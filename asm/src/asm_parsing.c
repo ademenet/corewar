@@ -83,8 +83,6 @@ t_label	*asm_parse_line(char *line, int fd, int check)
 	new = NULL;
 	if (check == 1 && (ret = get_next_line(fd, &line)) && g_line++)
 		asm_free_join(line);
-	while (*line == ' ' || *line == '\t')
-		line++;
 	if (ret > 0 && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();
@@ -121,9 +119,10 @@ int		asm_parsing(char *champion, t_header *head)
 		return (-1);
 	if (asm_handler_name_comment(fd, line, head) == 0)
 		return (0);
-	printf("---Name    : -%s-\n", head->prog_name);
-	printf("---Comment : -%s-\n", head->comment);
+	//printf("---Name    : -%s-\n", head->prog_name);
+	//printf("---Comment : -%s-\n", head->comment);
 	label = asm_parse_line(line, fd, 1);
+	//printf("file : ---%s---\n", g_file);
 	asm_check_double_label(label);
 	asm_check_label_exist(label, g_file);
 	asm_reader(label, head, champion);
