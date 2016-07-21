@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 18:35:25 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/21 16:32:52 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int		asm_match_label(t_label *label, char *str)
 		str[len] != '\n' && str[len] != SEPARATOR_CHAR)
 			len++;
 		if (ft_strncmp(label->name, str, len) == 0)
-			return (1);
+		{
+			if (!label->name[len])
+				return (1);
+		}
 		label = label->next;
 	}
 	return (asm_error(10));
