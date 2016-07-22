@@ -6,7 +6,7 @@
 #    By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/11 18:14:04 by tvisenti          #+#    #+#              #
-#    Updated: 2016/07/21 19:00:00 by tvisenti         ###   ########.fr        #
+#    Updated: 2016/07/22 11:33:22 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,3 +79,7 @@ fclean: clean
 	@cd ../libft && $(MAKE) fclean
 
 re: fclean all
+
+norme:
+	@norminette $(SRC) $(LIB) $(INC)
+	@echo "\033[1;34mASM\t\t\033[1;33mNorminette\t\033[0;32m-OK-\033[0m"

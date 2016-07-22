@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/22 11:02:25 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:31:00 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int						asm_free_tab(char **tab, int ret);
 int						asm_instruct_name_sec(char **line);
 int						asm_instruct_name(char **line);
 int						asm_check_instruct(char *line);
+int						asm_move_my_i(int i);
 
 /*
 ** Check_arg
