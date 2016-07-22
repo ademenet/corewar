@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/21 19:00:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 13:55:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,28 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
-# define T_REG					1
-# define T_DIR					2
-# define T_IND					4
-# define T_LAB					8
+// # define T_REG					1
+// # define T_DIR					2
+// # define T_IND					4
+// # define T_LAB					8
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
+
+/*
+** Enum booléen (parce que c'est plus clair à lire) :
+*/
+
+enum							e_bool
+{
+	FALSE,
+	TRUE
+};
+
+/*
+** Struture du header (imposé par le sujet) :
+*/
 
 typedef struct					s_header
 {
@@ -57,7 +71,7 @@ typedef struct					s_header
 }								t_header;
 
 /*
-** Définition de la structure pour un processus :
+** Structure d'un processus :
 */
 
 typedef struct 					s_champion
@@ -97,43 +111,41 @@ typedef struct 					s_proc
 	unsigned int				checks;
 }								t_proc;
 
-typedef							int(*t_instruct)(t_proc*);
-typedef
+/*
+** Enum des types de paramètres :
+*/
 
-t_op    op_tab[17] =
+enum 							e_types
 {
-	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
-	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
-	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0},
-	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0},
-	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0},
-	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
-		"et (and  r1, r2, r3   r1&r2 -> r3", 1, 0},
-	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6,
-		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
-	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
-		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
-	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1},
-	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
-		"load index", 1, 1},
-	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
-		"store index", 1, 1},
-	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1},
-	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0},
-	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
-		"long load index", 1, 1},
-	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
-	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
-	{0, 0, {0}, 0, 0, 0, 0, 0}
+	T_DIR = 1,
+	T_IND = 2,
+	T_REG = 4,
+	T_LAB = 8
 };
+
+/*
+** Nom, nombre de paramètre, taille/type des paramètres, opcode, nombre de cycles, description, OCP
+*/
+
+typedef struct					s_op
+{
+	int							(*ptr)();
+	char						name[5];
+	unsigned short int			param_nb;
+	// type de parametres ?
+	// enum e_types				types;
+	unsigned char				opcode; // de 1 à 16
+	unsigned short int			cycles_nb;
+	char						desc[36];
+	unsigned char				ocp; // 0 ou 1
+}								t_op;
 
 /*
 ** PROCESSOR
 */
 
 int								cw_processor(t_proc *proc);
-int								cw_exec_process(t_proc *proc,
-								t_instruct *instruct);
+int								cw_exec_process(t_proc *proc);
 int								cw_cycles(t_proc *proc);
 int								cw_check_live_process(t_proc *proc);
 void							cw_proc_init(t_proc *proc);
@@ -142,7 +154,33 @@ void							cw_proc_init(t_proc *proc);
 ** INSTRUCTIONS
 */
 
-void							cw_instruct_init(t_instruct *instruct, t_proc *proc);
+int								cw_ins_add(t_proc *proc);
+int								cw_ins_aff(t_proc *proc);
+int								cw_instr_and(t_proc *proc);
 int								cw_ins_live(t_proc *proc);
+
+void							cw_instruct_init(t_proc *proc);
+
+const t_op							g_op[17] =
+{
+	{&cw_ins_live, "live", 1, 1, 10, "alive", 0},
+	{&cw_ins_ld, "ld", 2, 2, 5, "load", 1},
+	{&cw_ins_st, "st", 2, 3, 5, "store", 1},
+	{&cw_ins_add, "add", 3, 4, 10, "addition", 1},
+	{&cw_ins_sub, "sub", 3, 5, 10, "soustraction", 1},
+	{&cw_ins_and, "and", 3, 6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1},
+	{&cw_ins_or, "or", 3, 7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1},
+	{&cw_ins_xor, "xor", 3, 8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1},
+	{&cw_ins_zkmp, "zjmp", 1, 9, 20, "jump if zero", 0},
+	{&cw_ins_ldi, "ldi", 3, 10, 25, "load index", 1},
+	{&cw_ins_sti, "sti", 3, 11, 25, "store index", 1},
+	{&cw_ins_fork, "fork", 1, 12, 800, "fork", 0},
+	{&cw_ins_lld, "lld", 2, 13, 10, "long load", 1},
+	{&cw_ins_lldi, "lldi", 3, 14, 50, "long load index", 1},
+	{&cw_ins_lfork, "lfork", 1, 15, 1000, "long fork", 0},
+	{&cw_ins_aff, "aff", 1, 16, 2, "aff", 1},
+	{0, 0, 0, 0, 0, 0, 0}
+};
+
 
 #endif

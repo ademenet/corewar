@@ -6,12 +6,19 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:13:18 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/13 15:13:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 14:00:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../inc/corewar.h"
 
 /*
 ** Cette instruction prend 3 registres en paramètre, soustrait
 ** le contenu des 2 premiers et met le résultat dans le troisième.
 ** Cette opération modifie le carry.
 */
+
+int			cw_ins_sub(t_proc *proc)
+{
+	return (1);
+}

@@ -6,9 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/13 15:15:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 13:57:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../inc/corewar.h"
 
 /*
 ** Cette opération modifie le carry. ldi 3,%4,r1 lit IND_SIZE octets a
@@ -16,3 +18,8 @@
 ** cette somme. On lit REG_SIZE octet à l’adresse (PC + (S % IDX_MOD))
 ** que l’on copie dans r1. Les paramètres 1 et 2 sont des index.
 */
+
+int			cw_ins_ldi(t_proc *proc)
+{
+	return (1);
+}

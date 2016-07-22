@@ -6,9 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:17:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/13 15:18:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 13:54:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../inc/corewar.h"
 
 /*
 ** Cette instruction est suivie d’un octet de paramétrage pour décrire
@@ -17,3 +19,8 @@
 ** 10). (un modulo 256 est appliqué au code ascii, le caractère
 ** est affiché sur la sortie standard).
 */
+
+int			cw_ins_aff(t_proc *proc)
+{
+	return (1);
+}

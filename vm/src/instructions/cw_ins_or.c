@@ -6,17 +6,17 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/21 16:09:31 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 13:59:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/corewar.h"
+#include "../../inc/corewar.h"
 
 /*
 ** Même que and mais avec le ou ( | du c).
 */
 
-void		cw_instr_or(char one, char two, char three)
+int			cw_instr_or(t_proc *proc)
 {
-	three = one | two;
+	return (1);
 }

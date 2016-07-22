@@ -6,9 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/13 15:17:00 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 13:56:32 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../inc/corewar.h"
 
 /*
 ** Cette instruction n’est pas suivie d’octet pour décrire les paramètres.
@@ -17,3 +19,8 @@
 ** un nouveau programme. Le nouveau programme hérite des di érents états
 ** du père.
 */
+
+int			cw_ins_fork(t_proc *proc)
+{
+	return (1);
+}

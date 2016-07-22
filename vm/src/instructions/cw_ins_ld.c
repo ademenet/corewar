@@ -6,11 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/14 13:06:11 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 13:56:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/corewar.h"
+#include "../../inc/corewar.h"
 
 /*
 ** Cette instruction prend 2 paramètres, le deuxième est forcément un
@@ -20,5 +20,5 @@
 
 int			cw_ins_ld()
 {
-
+	return (1);
 }
