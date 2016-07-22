@@ -52,12 +52,19 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 		ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
 		if ((line = asm_header_pass(line, name, com, 0)) == NULL)
-			return (asm_error(2));
-		ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
-		COMMENT_LENGTH);
+			return (asm_error(11));
+		else if (line[0] == '"')
+			ft_strcpy(head->comment, "I don't need a comment to crush you");
+		else
+			ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
+			COMMENT_LENGTH);
 	}
 	else
 		return (asm_error(11));
+	line = line + ft_strclen(line, '"');
+	while (*line && *line != '\n' && line++)
+		if (*line && *line != ' ' && *line != '\t')
+			return (asm_error(1));
 	return (0);
 }
 
@@ -101,7 +108,7 @@ t_label	*asm_parse_line(char *line, int fd, int check)
 	ret = 1;
 	new = NULL;
 	if (check == 1 && (ret = get_next_line(fd, &line)) && g_line++)
-		asm_free_join(line);
+		asm_free_join(&line);
 	if (ret > 0 && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();
@@ -140,7 +147,7 @@ int		asm_parsing(char *champion, t_header *head)
 	label = asm_parse_line(line, fd, 1);
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, g_file) == 0)
-		return (0);
+		return (asm_error(12));
 	asm_reader(label, head, champion);
 	return (0);
 }

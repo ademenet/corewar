@@ -75,7 +75,7 @@ int						asm_error(int error);
 t_header				*asm_header_init(void);
 t_label					*asm_label_init(void);
 
-void					asm_free_join(char *line);
+void					asm_free_join(char **line);
 int						asm_free_tab(char **tab, int ret);
 
 /*
@@ -91,8 +91,8 @@ int						asm_move_my_i(int i);
 ** Check_arg
 */
 
-int						asm_check_arg(char *line, int op);
-int						asm_check_arg_sec(char *line, int op);
+int						asm_check_arg(char **line, int op);
+int						asm_check_arg_sec(char **line, int op);
 
 /*
 ** Parsing
@@ -153,7 +153,7 @@ int						asm_check_double_label(t_label *label);
 int						asm_opcode(int fd, int arg, int i);
 int						asm_write_dir(int fd, int size, t_label *label,
 	int check);
-int						asm_write_ind(int fd, int check);
+int						asm_write_ind(int fd, int check, t_label *label);
 int						asm_write_reg(int fd, int check);
 
 #endif
