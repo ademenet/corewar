@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:08:10 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 14:40:24 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
-// # define T_REG					1
-// # define T_DIR					2
-// # define T_IND					4
-// # define T_LAB					8
+# define T_REG					0b 0000 0001 // 1
+# define T_DIR					0b 0000 0010 // 2
+# define T_IND					0b 0000 0100 // 4
+# define T_LAB					0b 0000 1000 // 8
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
@@ -112,19 +112,15 @@ typedef struct 					s_proc
 }								t_proc;
 
 /*
-** Enum des types de paramètres :
-*/
-
-enum 							e_types
-{
-	T_DIR = 1,
-	T_IND = 2,
-	T_REG = 4,
-	T_LAB = 8
-};
-
-/*
-** Nom, nombre de paramètre, taille/type des paramètres, opcode, nombre de cycles, description, OCP
+** Structure de définition des instructions :
+** - pointeur sur la fonction qui se charge de l'intruction,
+** - nom,
+** - nombre de paramètre,
+** (- taille/type des paramètres,)
+** - opcode,
+** - nombre de cycles,
+** - description,
+** - OCP.
 */
 
 typedef struct					s_op
@@ -154,6 +150,8 @@ void							cw_proc_init(t_proc *proc);
 ** INSTRUCTIONS
 */
 
+void							cw_instruct_init(t_proc *proc);
+
 int								cw_ins_add(t_proc *proc);
 int								cw_ins_aff(t_proc *proc);
 int								cw_ins_and(t_proc *proc);
@@ -171,7 +169,10 @@ int								cw_ins_sub(t_proc *proc);
 int								cw_ins_xor(t_proc *proc);
 int								cw_ins_zjmp(t_proc *proc);
 
-void							cw_instruct_init(t_proc *proc);
+/*
+** Tableau de pointeur sur structure constant. Se référer à la structure pour
+** description des éléments.
+*/
 
 const t_op							g_op[17] =
 {
@@ -191,7 +192,7 @@ const t_op							g_op[17] =
 	{&cw_ins_lldi, "lldi", 3, 14, 50, "long load index", 1},
 	{&cw_ins_lfork, "lfork", 1, 15, 1000, "long fork", 0},
 	{&cw_ins_aff, "aff", 1, 16, 2, "aff", 1},
-	{0, 0, 0, 0, 0, 0, 0}
+	{0, {0}, 0, 0, 0, {0}, 0}
 };
 
 
