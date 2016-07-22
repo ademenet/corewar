@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 13:55:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/22 14:08:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,20 @@ void							cw_proc_init(t_proc *proc);
 
 int								cw_ins_add(t_proc *proc);
 int								cw_ins_aff(t_proc *proc);
-int								cw_instr_and(t_proc *proc);
+int								cw_ins_and(t_proc *proc);
+int								cw_ins_fork(t_proc *proc);
+int								cw_ins_ld(t_proc *proc);
+int								cw_ins_ldi(t_proc *proc);
+int								cw_ins_lfork(t_proc *proc);
 int								cw_ins_live(t_proc *proc);
+int								cw_ins_lld(t_proc *proc);
+int								cw_ins_lldi(t_proc *proc);
+int								cw_ins_or(t_proc *proc);
+int								cw_ins_st(t_proc *proc);
+int								cw_ins_sti(t_proc *proc);
+int								cw_ins_sub(t_proc *proc);
+int								cw_ins_xor(t_proc *proc);
+int								cw_ins_zjmp(t_proc *proc);
 
 void							cw_instruct_init(t_proc *proc);
 
@@ -171,7 +183,7 @@ const t_op							g_op[17] =
 	{&cw_ins_and, "and", 3, 6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1},
 	{&cw_ins_or, "or", 3, 7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1},
 	{&cw_ins_xor, "xor", 3, 8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1},
-	{&cw_ins_zkmp, "zjmp", 1, 9, 20, "jump if zero", 0},
+	{&cw_ins_zjmp, "zjmp", 1, 9, 20, "jump if zero", 0},
 	{&cw_ins_ldi, "ldi", 3, 10, 25, "load index", 1},
 	{&cw_ins_sti, "sti", 3, 11, 25, "store index", 1},
 	{&cw_ins_fork, "fork", 1, 12, 800, "fork", 0},
