@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 10:38:48 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/20 09:02:48 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:07:19 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		cw_invert_endian2(int x)
 	x = ((x >> 8) & 0xff) | ((x << 8) & 0xff00);
 	return (x);
 }
+
 int		asm_header_creator(int fd, t_header *header)
 {
 	int	i;

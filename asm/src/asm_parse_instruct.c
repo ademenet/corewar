@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/19 18:35:18 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:22:54 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,14 @@ int			asm_check_instruct(char *line)
 		if (!(ret = asm_instruct_name(&line)))
 			return (asm_error(5));
 	return (asm_free_tab(tab, 1));
+}
+
+int			asm_move_my_i(int i)
+{
+	while (g_file[i] != ',')
+		i++;
+	i++;
+	while (g_file[i] == '\t' || g_file[i] == ' ')
+		i++;
+	return (i);
 }

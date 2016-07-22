@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/21 18:02:25 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:02:25 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 int						g_line;
 int						g_pos;
-int 					g_temp;
+int						g_temp;
 char					*g_file;
 
 /*
@@ -120,7 +120,7 @@ int						check_valid_line(char *line);
 ** Writer
 */
 
-int 					cw_invert_endian2(int x);
+int						cw_invert_endian2(int x);
 int						cw_invert_endian(int x);
 int						asm_header_creator(int fd, t_header *header);
 char					*asm_morph_cor(char *champ);
@@ -148,7 +148,6 @@ int						asm_check_double_label(t_label *label);
 /*
 ** Write_Octal
 */
-
 
 int						asm_opcode(int fd, int arg, int i);
 int						asm_write_dir(int fd, int size, t_label *label,

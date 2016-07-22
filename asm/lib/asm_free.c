@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/18 17:25:44 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:02:53 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ void	asm_free_join(char *line)
 {
 	while (*line == ' ' || *line == '\t')
 		line++;
-	if (*line == COMMENT_CHAR || asm_check_label(line))
+	if (*line == COMMENT_CHAR || asm_check_label(line) == 1)
 		return ;
+	if (asm_check_label(line) == 2)
+	{
+		while (*line != LABEL_CHAR)
+			line++;
+		line++;
+	}
 	if (*line)
 	{
 		if (!g_file)

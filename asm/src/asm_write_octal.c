@@ -6,20 +6,32 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/20 11:50:43 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:22:23 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-int 	asm_move_my_i(int i)
+void	asm_opcode_assign(int *octout, int i, int check)
 {
-	while (g_file[i] != ',')
-			i++;
-		i++;
-	while (g_file[i] == '\t' || g_file[i] == ' ')
-		i++;
-	return(i);
+	if (check == 1 && g_file[i] == 'r')
+		*octout = 0x40;
+	else if (check == 1 && g_file[i] == '%')
+		*octout = 0x80;
+	else if (check == 1)
+		*octout = 0xC0;
+	if (check == 2 && g_file[i] == 'r')
+		*octout = 0x10;
+	else if (check == 2 && g_file[i] == '%')
+		*octout = 0x20;
+	else if (check == 2)
+		*octout = 0x30;
+	if (check == 3 && g_file[i] == 'r')
+		*octout = 0x4;
+	else if (check == 3 && g_file[i] == '%')
+		*octout = 0x8;
+	else if (check == 3)
+		*octout = 0xC;
 }
 
 int		asm_opcode(int fd, int arg, int i)
@@ -29,33 +41,29 @@ int		asm_opcode(int fd, int arg, int i)
 
 	octin = 0;
 	octout = 0;
-	if ((g_file[i] == 'r' && (octout = 0x40)) || (g_file[i] == '%' && (octout = 0x80))
-		|| (octout = 0xC0))
-		octin = (octin | octout);
+	asm_opcode_assign(&octout, i, 1);
+	octin = (octin | octout);
 	if (arg > 1)
 	{
 		i = asm_move_my_i(i);
-		if ((g_file[i] == 'r' && (octout = 0x10)) || (g_file[i] == '%' && (octout = 0x20))
-		|| (octout = 0x30))
+		asm_opcode_assign(&octout, i, 2);
 		octin = (octin | octout);
 	}
 	if (arg > 2)
 	{
 		i = asm_move_my_i(i);
-		if ((g_file[i] == 'r' && (octout = 0x4)) || (g_file[i] == '%' && (octout = 0x8))
-		|| (octout = 0xC))
+		asm_opcode_assign(&octout, i, 3);
 		octin = (octin | octout);
 	}
 	write(fd, &octin, 1);
-	return(1);
+	return (1);
 }
 
 int		asm_write_dir(int fd, int size, t_label *label, int check)
 {
 	int	i;
 
-	i = 0;
-	if (*g_file != DIRECT_CHAR)
+	if (!(i = 0) && *g_file != DIRECT_CHAR)
 		return (0);
 	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)

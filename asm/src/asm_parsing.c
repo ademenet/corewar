@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/21 18:07:08 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 10:49:08 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,23 @@ char	*asm_header_pass(char *line, int name, int com, int one)
 
 int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 {
-	if (ft_strncmp(NAME_CMD_STRING, line, name) == 0)
+	if (!head->prog_name[0] && ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
 		if ((line = asm_header_pass(line, name, com, 1)) == NULL)
 			return (asm_error(1));
 		ft_strncpy(head->prog_name, ft_strsub(line, 0, ft_strclen(line, '"')),
 		PROG_NAME_LENGTH);
 	}
-	else if (ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
+	else if (!head->comment[0] &&
+		ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
 		if ((line = asm_header_pass(line, name, com, 0)) == NULL)
 			return (asm_error(2));
 		ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
 		COMMENT_LENGTH);
 	}
+	else
+		return (asm_error(11));
 	return (0);
 }
 
@@ -74,7 +77,7 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 		g_line++;
 		if (line[0] != COMMENT_CHAR && line[0] != '\0')
 		{
-			while (*line == ' ' || *line == '\t')
+			while ((*line == ' ' || *line == '\t') && *line != '\0')
 				line++;
 			name = ft_strlen(NAME_CMD_STRING);
 			com = ft_strlen(COMMENT_CMD_STRING);
@@ -99,6 +102,7 @@ t_label	*asm_parse_line(char *line, int fd, int check)
 	new = NULL;
 	if (check == 1 && (ret = get_next_line(fd, &line)) && g_line++)
 		asm_free_join(line);
+	ft_printf("line0 : %s\n", line);
 	if (ret > 0 && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();
@@ -138,7 +142,8 @@ int		asm_parsing(char *champion, t_header *head)
 	printf("---Comment : -%s-\n", head->comment);
 	label = asm_parse_line(line, fd, 1);
 	asm_check_double_label(label);
-	asm_check_label_exist(label, g_file);
+	if (asm_check_label_exist(label, g_file) == 0)
+		return (0);
 	asm_reader(label, head, champion);
 	return (0);
 }

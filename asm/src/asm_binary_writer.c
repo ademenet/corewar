@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/20 12:23:15 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:06:54 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,17 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label)
 		(asm_write_reg(fd, 1) || asm_write_dir(fd, 2, label, 1)))))
 		return (asm_write_reg(fd, 0));
 	else if (fct == 11 && asm_opcode(fd, 3, 0) && ((asm_write_reg(fd, 1) &&
-		(asm_write_reg(fd, 1) ||
-		asm_write_dir(fd, 2, label, 1) || asm_write_ind(fd, 1)) &&
-		 (asm_write_reg(fd, 0) ||
+		(asm_write_reg(fd, 1) || asm_write_dir(fd, 2, label, 1) ||
+		asm_write_ind(fd, 1)) && (asm_write_reg(fd, 0) ||
 		asm_write_dir(fd, 2, label, 0)))))
-			return (1);
+		return (1);
 	else if (fct == 16 && write(fd, "@", 1))
 		return (asm_write_reg(fd, 0));
 	return (1);
 }
 
-
 int		asm_call_good_function(int fct, int fd, t_label *label)
 {
-	
 	asm_move_g_file(fct);
 	write(fd, &fct, 1);
 	if (fct == 1)
@@ -77,8 +74,8 @@ int		asm_call_good_function(int fct, int fd, t_label *label)
 	else if (fct == 3 && asm_opcode(fd, 2, 0) && asm_write_reg(fd, 1) &&
 		(asm_write_reg(fd, 0) || asm_write_ind(fd, 0)))
 		return (1);
-	else if ((fct == 4 || fct == 5) && write(fd, "T", 1) && asm_write_reg(fd, 1) &&
-		asm_write_reg(fd, 1) && asm_write_reg(fd, 0))
+	else if ((fct == 4 || fct == 5) && write(fd, "T", 1) &&
+	asm_write_reg(fd, 1) && asm_write_reg(fd, 1) && asm_write_reg(fd, 0))
 		return (1);
 	return (asm_call_good_function_sec(fct, fd, label));
 }
@@ -90,23 +87,21 @@ int		asm_binary_creator(int fd, t_label *label)
 	fct = 0;
 	if (!(fct = asm_instruct_name(&g_file)))
 	{
-		ft_printf("test----%s", g_file);
 		while (*g_file && *g_file != LABEL_CHAR)
 			g_file++;
 		g_file++;
-		while (*g_file && (*g_file == '\n' || *g_file == ' ' || *g_file == '\t'))
+		while (*g_file && (*g_file == '\n' || *g_file == ' ' ||
+		*g_file == '\t'))
 			g_file++;
 		fct = asm_instruct_name(&g_file);
 	}
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos--;
 	asm_call_good_function(fct, fd, label);
-	//write(fd, "D", 1);
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos++;
 	g_pos = g_pos + g_temp + 1;
-	g_temp = 0;
-	while (*g_file && *g_file != '\n')
+	while (!(g_temp = 0) && *g_file && *g_file != '\n')
 		g_file++;
 	g_file++;
 	if (!*g_file)

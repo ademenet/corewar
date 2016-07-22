@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/21 16:32:52 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 11:03:44 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int		asm_match_label(t_label *label, char *str)
 
 int		asm_check_label_exist(t_label *label, char *str)
 {
-	while (*str != DIRECT_CHAR && *str != '\0')
+	if (!str)
+		return (0);
+	while (*str && *str != DIRECT_CHAR && *str != '\0')
 	{
 		str++;
 		if (*str == '%')
@@ -63,7 +65,7 @@ int		asm_check_label_exist(t_label *label, char *str)
 ** Check si il y a un label et si celui-ci et le label_char sont bien formatés
 */
 
-int			asm_check_label(char *str)
+int		asm_check_label(char *str)
 {
 	int	i;
 
@@ -95,7 +97,7 @@ int			asm_check_label(char *str)
 ** Check si il y a un doublon dans les labels
 */
 
-int			asm_check_double_label(t_label *label)
+int		asm_check_double_label(t_label *label)
 {
 	t_label *start;
 
