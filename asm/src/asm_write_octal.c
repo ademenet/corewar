@@ -88,11 +88,23 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 	return (1);
 }
 
-int		asm_write_ind(int fd, int check)
+int		asm_write_ind(int fd, int check, t_label *label)
 {
 	int	i;
 
-	i = ft_atoi(g_file);
+	i = 0;
+	if (*g_file == LABEL_CHAR && g_file++)
+		while (label)
+		{
+			if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
+			{
+				i = label->pos - g_pos;
+				break ;
+			}
+			label = label->next;
+		}
+	else
+		i = ft_atoi(g_file);
 	i = cw_invert_endian2(i);
 	g_file = g_file + write(fd, &i, T_IND);
 	g_temp = g_temp + T_IND;

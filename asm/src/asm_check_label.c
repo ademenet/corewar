@@ -79,12 +79,12 @@ int		asm_check_label(char *str)
 		i++;
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		if (str[i] == '\n' || str[i] == '\0')
+		if (str[i] == '\n' || str[i] == '\0' || str[i] == COMMENT_CHAR)
 			return (1);
 		return (2);
 	}
 	else if (str[i] && str[i] != ' ' && str[i] != '\0' &&
-	str[i] != '\n' && str[i] != '\t')
+	str[i] != '\n' && str[i] != '\t' && str[i] != COMMENT_CHAR)
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return (asm_error(4));

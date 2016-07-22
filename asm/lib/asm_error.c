@@ -28,18 +28,18 @@ int		asm_error(int error)
 		ft_printf("Wrong format label_char -> line: %d\n", g_line);
 	if (error == 5)
 		ft_printf("Wrong name of instruct -> line: %d\n", g_line);
-	if (error == 6)
-		ft_printf("Wrong number of register -> line: %d\n", g_line);
 	if (error == 7)
 		ft_printf("Not an indirect -> line: %d\n", g_line);
 	if (error == 8)
-		ft_printf("Probleme d'arguments -> line: %d\n", g_line);
+		ft_printf("Arguments Problem, Bro -> line: %d\n", g_line);
 	if (error == 9)
 		ft_printf("There's same label\n");
 	if (error == 10)
 		ft_printf("No match between label\n");
 	if (error == 11)
 		ft_printf("Impossible to find name or comment\n");
+	if (error == 12)
+		ft_printf("No instructions in label -> line: %d\n", g_line);
 	exit(0);
 	return (0);
 }

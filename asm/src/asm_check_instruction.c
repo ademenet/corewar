@@ -70,7 +70,7 @@ int		asm_check_reg(char **line, int check)
 		(*line)++;
 		reg = ft_atoi(*line);
 		if (reg > REG_NUMBER || reg < 0)
-			return (asm_error(6));
+			return (asm_error(9));
 		(*line)++;
 		if (reg > 9)
 			(*line)++;
@@ -90,21 +90,27 @@ int		asm_check_reg(char **line, int check)
 
 int		asm_check_ind(char **line, int check)
 {
-	if (**line == '+' || **line == '-')
+	if (**line == LABEL_CHAR)
+	{
 		(*line)++;
-	if (ft_isdigit(**line))
+		while (**line && ft_strchr(LABEL_CHARS, **line))
+			(*line)++;
+	}
+	else if (((**line == '+' || **line == '-') && (*line)++) ||
+	ft_isdigit(**line))
 	{
 		while (ft_isdigit(**line))
 			(*line)++;
-		if (**line != '\0' && **line != '\n'
-			&& **line != SEPARATOR_CHAR && **line != ' ' && **line != '\t')
-			return (asm_error(7));
-		g_pos = g_pos + 2;
-		if (check == 1)
-			return (asm_check_virgule(line));
-		return (1);
 	}
-	return (0);
+	else
+		return (0);
+	if (**line != '\0' && **line != '\n'
+		&& **line != SEPARATOR_CHAR && **line != ' ' && **line != '\t')
+		return (asm_error(7));
+	g_pos = g_pos + 2;
+	if (check == 1)
+		return (asm_check_virgule(line));
+	return (1);
 }
 
 /*
@@ -113,10 +119,12 @@ int		asm_check_ind(char **line, int check)
 
 int		check_valid_line(char *line)
 {
-	int fct;
+	int	fct;
 
 	if (!(fct = asm_instruct_name(&line)))
 		return (asm_error(5));
+	if (fct == 17)
+		return (1);
 	g_pos++;
 	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		line = line + 4;
@@ -126,7 +134,12 @@ int		check_valid_line(char *line)
 		line = line + 5;
 	else
 		line = line + 3;
-	if (!asm_check_arg(line, fct))
+	if (!asm_check_arg(&line, fct))
 		return (asm_error(8));
+	while (*line && *line != '\n' && *line != COMMENT_CHAR && *line != ';')
+		if (*line && *line != ' ' && *line != '\t' && *line != '\n')
+			return (asm_error(12));
+		else
+			line++;
 	return (1);
 }

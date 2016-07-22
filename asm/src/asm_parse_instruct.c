@@ -35,12 +35,14 @@ int			asm_instruct_name_sec(char **line)
 		return (15);
 	if (ft_strncmp("aff", *line, 3) == 0 && ++g_pos)
 		return (16);
+	if (**line == COMMENT_CHAR)
+		return (17);
 	return (0);
 }
 
 int			asm_instruct_name(char **line)
 {
-	while (**line == ' ' || **line == '\t')
+	while (**line == ' ' || **line == '\t' || **line == '\n')
 		(*line)++;
 	if (ft_strncmp("live", *line, 4) == 0)
 		return (1);
