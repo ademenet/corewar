@@ -39,9 +39,11 @@ int		asm_free_tab(char **tab, int ret)
 
 void	asm_free_join(char *lin)
 {
-	int i;
+	int 	i;
+	char	*temp;
 
 	i = 0;
+	temp = NULL;
 	while (lin[i] == ' ' || lin[i] == '\t')
 		i++;
 	if (lin[i] == COMMENT_CHAR || asm_check_label(lin) == 1)
@@ -56,14 +58,29 @@ void	asm_free_join(char *lin)
 	{
 		if (!g_file)
 		{
-			g_file = ft_strsub(lin, i, ft_strlen(lin) - i);
-			g_file = ft_strjoin(g_file, "\n");
+
+			temp = ft_strsub(lin, i, ft_strlen(lin) - i);
+			g_file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
+			g_file = ft_strcpy(g_file, temp);
+			g_file[ft_strlen(lin)] = '\n';
+			g_file[ft_strlen(lin) + 1] = '\0';
+			free(temp);
+			// g_file = ft_strjoin(g_file, "\n");
+
 		}
 		else
 		{
-			g_file = realloc(g_file, ft_strlen(lin) + ft_strlen(g_file) + 1);
-			g_file = ft_strjoin(g_file, ft_strsub(lin, i, ft_strlen(lin) - i));
-			g_file = ft_strjoin(g_file, "\n");
+			temp = ft_strsub(lin, i, ft_strlen(lin) - i);
+			ft_printf("temp == --%s--\n", temp);
+			// g_file[ft_strlen(g_file)] = '\n';
+			g_file = realloc(g_file, (ft_strlen(g_file) + ft_strlen(temp) + 1));
+			//g_file[ft_strlen(g_file) - ft_strlen(temp)] = '\n';
+			//g_file[ft_strlen(g_file) - ft_strlen(temp) + 1] = '\0';
+			//g_file = ft_strcpy(g_file, temp);
+			g_file = ft_strcat(g_file, temp);
+			g_file[ft_strlen(g_file)] = '\n';
+			g_file[ft_strlen(g_file)+1] = '\0';
+			free(temp);
 		}
 	}
 }
