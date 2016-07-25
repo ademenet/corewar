@@ -75,7 +75,7 @@ int						asm_error(int error);
 t_header				*asm_header_init(void);
 t_label					*asm_label_init(void);
 
-void					asm_free_join(char **line);
+void					asm_free_join(char *line);
 int						asm_free_tab(char **tab, int ret);
 
 /*

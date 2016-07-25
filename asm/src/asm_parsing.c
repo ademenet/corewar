@@ -89,7 +89,7 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 			name = ft_strlen(NAME_CMD_STRING);
 			com = ft_strlen(COMMENT_CMD_STRING);
 			asm_copy_name_comment(line, head, name, com);
-			free (line);
+			free(line);
 			if (head->comment[0] && head->prog_name[0])
 				return (1);
 		}
@@ -104,13 +104,13 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 t_label	*asm_parse_line(char *line, int fd, int check)
 {
 	t_label	*new;
-	int		ret;
+	int		r;
 
-	ret = 1;
+	r = 1;
 	new = NULL;
-	if (check == 1 && (ret = get_next_line(fd, &line)) && g_line++)
-		asm_free_join(&line);
-	if (ret > 0 && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
+	if (check == 1 && (r = get_next_line(fd, &line)) && g_line++)
+		asm_free_join(line);
+	if (r > 0 && line && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();
 		new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
@@ -121,10 +121,10 @@ t_label	*asm_parse_line(char *line, int fd, int check)
 			new->next = asm_parse_line(line +
 				ft_strclen(line, LABEL_CHAR) + 1, fd, 0);
 	}
-	else if (ret && line[0] != COMMENT_CHAR && line[0] != '\0' &&
+	else if (r && line[0] != COMMENT_CHAR && line[0] != '\0' &&
 	asm_check_label(line) == 0 && check_valid_line(line))
 		return (asm_parse_line(line, fd, 1));
-	else if (ret > 0)
+	else if (r > 0)
 		return (asm_parse_line(line, fd, 1));
 	free(line);
 	return (new);

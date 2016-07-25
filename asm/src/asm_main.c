@@ -24,6 +24,5 @@ int		main(int argc, char **argv)
 		asm_parsing(argv[1], head);
 	else
 		ft_printf("Put one champion, please !");
-	while (1) ;
 	return (0);
 }

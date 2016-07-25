@@ -68,7 +68,8 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{
-			if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
+			if (!ft_strncmp(g_file, label->name, ft_strlen(label->name)) &&
+			!ft_strchr(LABEL_CHARS, g_file[ft_strlen(label->name)]))
 			{
 				i = label->pos - g_pos;
 				break ;
@@ -82,8 +83,7 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 	else
 		i = cw_invert_endian2(i);
 	write(fd, &i, size);
-	g_temp = g_temp + size;
-	if (check)
+	if ((g_temp = g_temp + size) && check)
 		asm_move_separator();
 	return (1);
 }
@@ -96,7 +96,7 @@ int		asm_write_ind(int fd, int check, t_label *label)
 	if (*g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{
-			if (!ft_strncmp(label->name, g_file, ft_strlen(label->name)))
+			if (!ft_strncmp(g_file, label->name, ft_strlen(label->name)))
 			{
 				i = label->pos - g_pos;
 				break ;

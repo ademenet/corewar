@@ -37,29 +37,32 @@ int		asm_free_tab(char **tab, int ret)
 ** Fonction qui realloc la globale g_file
 */
 
-void	asm_free_join(char **line)
+void	asm_free_join(char *lin)
 {
-	while (**line == ' ' || **line == '\t')
-		(*line)++;
-	if (**line == COMMENT_CHAR || asm_check_label(*line) == 1)
+	int i;
+
+	i = 0;
+	while (lin[i] == ' ' || lin[i] == '\t')
+		i++;
+	if (lin[i] == COMMENT_CHAR || asm_check_label(lin) == 1)
 		return ;
-	if (asm_check_label(*line) == 2)
+	if (asm_check_label(lin) == 2)
 	{
-		while (**line != LABEL_CHAR)
-			(*line)++;
-		(*line)++;
+		while (lin[i] && lin[i] != LABEL_CHAR)
+			i++;
+		i++;
 	}
-	if (*line)
+	if (lin[i])
 	{
 		if (!g_file)
 		{
-			g_file = ft_strdup(*line);
+			g_file = ft_strsub(lin, i, ft_strlen(lin) - i);
 			g_file = ft_strjoin(g_file, "\n");
 		}
 		else
 		{
-			g_file = realloc(g_file, ft_strlen(*line) + ft_strlen(g_file) + 1);
-			g_file = ft_strjoin(g_file, *line);
+			g_file = realloc(g_file, ft_strlen(lin) + ft_strlen(g_file) + 1);
+			g_file = ft_strjoin(g_file, ft_strsub(lin, i, ft_strlen(lin) - i));
 			g_file = ft_strjoin(g_file, "\n");
 		}
 	}
