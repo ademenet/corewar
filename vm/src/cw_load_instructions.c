@@ -26,7 +26,7 @@ int				cw_load_ins_mem(t_proc *proc)
 	{
 		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / nb_champ]),
 		tmp->ins, tmp->header->prog_size);
-		i = cnt * MEM_SIZE / nb_champ - 1;
+		tmp->pc_origin = cnt * MEM_SIZE / nb_champ;
 		free(tmp->ins);
 		tmp->ins = NULL;
 		tmp = tmp->next;
