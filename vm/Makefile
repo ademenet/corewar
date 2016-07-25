@@ -17,6 +17,7 @@ SRC_NAME = 	cw_main.c\
 			cw_param_handler.c\
 			cw_champion_creation.c\
 			cw_manage_list.c\
+			cw_load_instructions.c\
 
 OBJ = $(SRC_NAME:.c=.o)
 

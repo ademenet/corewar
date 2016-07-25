@@ -70,10 +70,12 @@ typedef struct 			s_champion
 {
 	header_t			*header;
 	char				reg[REG_NUMBER][REG_SIZE];
-	long				pc;
+	char				*ins;
+	unsigned short int	pc;
 	int					carry;
 	int					cycle_cnt;
 	int					num;
+	unsigned short int	pc_origin;
 	struct s_champion	*next;
 	struct s_champion	*prev;
 }					t_champion;
@@ -83,6 +85,7 @@ typedef struct 		s_proc
 	t_champion		*champions;
 	int				dump;
 	int				nb_proc;
+	char			mem[MEM_SIZE];
 }					t_proc;
 
 t_champion			*cw_lst_new(header_t *header, int num);
@@ -94,6 +97,7 @@ int					cw_error_msg(char *msg);
 int					cw_invert_endian(int x);
 int					cw_param(char **av, int ac, t_proc *proc);
 int					cw_create_champion(char *file, int c_nb, t_proc *proc, int n);
+int					cw_load_ins_mem(t_proc *proc);
 
 
 #endif

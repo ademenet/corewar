@@ -53,9 +53,9 @@ int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 	header_t	*header;
 
 	if ((header = malloc(sizeof(header_t))) == NULL)
-		return (-1);
+		return (cw_error_msg("failed to malloc the header"));
 	if (read(fd, header, sizeof(header_t)) == -1)
-		return (-2);
+		return (cw_error_msg("failed to read the header"));
 	header->prog_size = cw_invert_endian(header->prog_size);
 	header->magic = cw_invert_endian(header->magic);
 	if (n)
@@ -69,12 +69,19 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 {
 	int			fd;
 	int			chk;
+	t_champion	*c_in_load;
 
 	if ((fd = open(file, O_RDONLY, 0555)) == -1)
-		return (-1);
+		return (cw_error_msg("failed to open .cor"));
 	chk = cw_get_header(proc, fd, c_nb, n);
 	c_nb = n ? c_nb : cw_find_num(proc, c_nb);
 	proc->champions->num = proc->champions->num ? proc->champions->num : c_nb;
+	c_in_load = n ? cw_lst_last(proc->champions) : proc->champions;
+
+	if (chk && (c_in_load->ins = malloc(c_in_load->header->prog_size)) == NULL)
+		return (cw_error_msg("failed to malloc instruction failed"));
+
+	if (read(fd, c_in_load->ins, c_in_load->header->prog_size) == -1)
+		return (cw_error_msg("failed to load instructions"));
 	return (chk);
-	//ne pas oublier le close !
 }

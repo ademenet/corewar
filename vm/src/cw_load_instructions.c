@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_main.c                                          :+:      :+:    :+:   */
+/*   cw_load_instructions.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,25 @@
 
 #include <corewar.h>
 
-int			cw_error_msg(char *msg)
+int				cw_load_ins_mem(t_proc *proc)
 {
-	ft_printf("%s\n", msg);
-	return (0);
-}
-
-int				cw_invert_endian(int x)
-{
-	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000)
-		| ((x << 24) & 0xff000000);
-	return (x);
-}
-
-int				main(int ac, char **av)
-{
-	t_proc		proc;
+	int			nb_champ;
+	int			cnt;
 	t_champion	*tmp;
-
-	proc.champions = NULL;
-	proc.nb_proc = 0;
-	proc.dump = 0;
-	ft_bzero(proc.mem, MEM_SIZE);
-	if (cw_param(av, ac, &proc) <= 0)
-		return (ft_printf("Fail !\n"));
-	cw_load_ins_mem(&proc);
-	return (0);
+	int i;
+	cnt = 0;
+	tmp = proc->champions;
+	if((nb_champ = cw_lst_sze(proc->champions)) > MAX_PLAYERS || !nb_champ)
+		return (cw_error_msg("EROOR : wrong number of champ to load in mem"));
+	while (tmp)
+	{
+		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / nb_champ]),
+		tmp->ins, tmp->header->prog_size);
+		i = cnt * MEM_SIZE / nb_champ - 1;
+		free(tmp->ins);
+		tmp->ins = NULL;
+		tmp = tmp->next;
+		cnt++;
+	}
+	return (1);
 }
