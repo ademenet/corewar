@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 14:35:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 15:05:14 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct 					s_champion
 	unsigned short int			pc_origin;
 	unsigned short int			pc; // le PC est codé sur 2 octets
 	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
-	uint						inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
+	unsigned int				inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
 	int							num; // numero du processus
 	unsigned int				cycle_cnt;
 	unsigned int				lives;
@@ -154,16 +154,12 @@ int								cw_ins_sub(t_proc *proc);
 int								cw_ins_xor(t_proc *proc);
 int								cw_ins_zjmp(t_proc *proc);
 
+
 /*
 ** BONUS : VISUALISEUR
 */
 
 void							cw_mem_vizualizer(t_proc *proc);
-
-/*
-** Tableau de pointeur sur structure constant. Se référer à la structure pour
-** description des éléments.
-*/
 
 static const t_op				g_op[17] =
 {
