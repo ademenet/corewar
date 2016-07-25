@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/07/25 15:05:33 by ademenet         ###   ########.fr        #
+#    Updated: 2016/07/25 18:38:56 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,7 @@ LIB_PATH = ../libft
 INC_PATH_L = $(LIB_PATH)
 INC_PATH_P = $(LIB_PATH)/ft_printf/include/
 
-SRC_NAME =	cw_processor.c\
-			cw_test.c\
-			cw_ins_add.c\
+SRC_NAME =	cw_ins_add.c\
 			cw_ins_aff.c\
 			cw_ins_and.c\
 			cw_ins_fork.c\
@@ -43,6 +41,9 @@ SRC_NAME =	cw_processor.c\
 			cw_ins_utils.c\
 			cw_ins_xor.c\
 			cw_ins_zjmp.c\
+			cw_processor_inits.c\
+			cw_processor.c\
+			cw_test.c\
 
 INC_NAME = corewar.h
 

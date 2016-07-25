@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 17:27:15 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 18:13:25 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)
-			wprintw(win, "\n");
-		else
-			wprintw(win, " ");
+		i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
 		if (i == proc->champions->pc) // partiellement faux, car seulement pour un PC ! Marche pas :/
 		{
 			wattron(win, COLOR_PAIR(1));
@@ -47,13 +44,14 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 void		cw_vizualizer(t_proc *proc)
 {
 	WINDOW	*win;
+	// int		ch; // pour le controle plus tard ==> il faut d'abord faire en sorte de l'appeler en params
 
 	initscr();
+	cbreak();
 	win = newwin(80, 200, 0, 0);
 	refresh();
 	start_color();
 	init_pair(1, COLOR_BLACK, COLOR_GREEN);
-	noecho();
 	cw_vizualizer_memprint(proc, win);
 	wrefresh(win);
 	getch();

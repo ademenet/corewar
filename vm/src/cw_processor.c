@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 17:31:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 19:40:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,8 @@
 	// TODO verifier que les processus ont bien fait au moins un live
 // TODO verifier que CYCLE_TO_DIE != 0
 	// TODO renvoyer 0 sinon.
-
-/*
-** Initialise la structure du processeur.
-*/
-
-void		cw_proc_init(t_proc *proc)
-{
-	// ft_bzero(proc->mem, MEM_SIZE);
-	proc->c_to_die = CYCLE_TO_DIE;
-	proc->c = 0;
-	ft_bzero(proc->live, 5);
-	proc->lives_total = 0;
-	proc->checks = 0;
-}
+// TODO fonction pour calculer la taille de l'ensemble de l'instruction
+// pour pouvoir faire sauter le PC a la prochaine instruction.
 
 /*
 ** cw_check_live_process vérifie si un processus a bien fait un live en
@@ -77,16 +65,20 @@ int			cw_cycles(t_proc *proc)
 int			cw_exec_process(t_proc *proc)
 {
 	t_champion	*tmp;
-	int			index;
+	t_ocp		ocp;
+	int			size;
 
-	index = 0;
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (proc->champions->inst_c == 0)
+		size = 0;
+		if (tmp->inst_c == 0)
 		{
-			index = proc->mem[proc->champions->pc] - 1;
-			g_op[index].ptr(proc);
+			// ICI fonction qui recupere les params s'il y a ! et retourne la taille dune instruction
+			size = cw_ins_ocp(proc, tmp, &ocp);
+			g_op[proc->mem[tmp->pc] - 1].ptr(proc);
+			// ICI on fait jumper le PC !!!
+			tmp->pc += size;
 		}
 		else
 			proc->champions->inst_c--; // sinon on decremente le cycle de linstruction
@@ -103,9 +95,9 @@ int			cw_exec_process(t_proc *proc)
 int			cw_processor(t_proc *proc)
 {
 	cw_proc_init(proc);
+	cw_load_ins_c(proc);
 	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
 	{
-		printf("{%d}\n", proc->champions->inst_c);
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
 		cw_vizualizer(proc);

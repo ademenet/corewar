@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 17:10:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 19:28:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
 /*
-** Struture du header (imposé par le sujet) :
+** Structure du header (imposé par le sujet) :
 */
 
 typedef struct					s_header
@@ -103,6 +103,17 @@ typedef struct 					s_proc
 }								t_proc;
 
 /*
+** Structure de récupération des paramètres d'instruction :
+*/
+
+typedef struct				s_ocp
+{
+	char					first;
+	char					second;
+	char					third;
+}							t_ocp;
+
+/*
 ** Structure de définition des instructions :
 ** - pointeur sur la fonction qui se charge de l'intruction,
 ** - nom,
@@ -132,7 +143,13 @@ int								cw_processor(t_proc *proc);
 int								cw_exec_process(t_proc *proc);
 int								cw_cycles(t_proc *proc);
 int								cw_check_live_process(t_proc *proc);
+
+/*
+** PROCESSOR : FONCTIONS OUTILS
+*/
+
 void							cw_proc_init(t_proc *proc);
+void							cw_load_ins_c(t_proc *proc);
 
 /*
 ** INSTRUCTIONS
@@ -154,6 +171,13 @@ int								cw_ins_sti(t_proc *proc);
 int								cw_ins_sub(t_proc *proc);
 int								cw_ins_xor(t_proc *proc);
 int								cw_ins_zjmp(t_proc *proc);
+
+/*
+** INSTRUCTIONS : FONCTIONS OUTILS
+*/
+
+int								cw_ins_ocp(t_proc *proc, t_champion *champ,
+								t_ocp *ocp);
 
 /*
 ** BONUS : VISUALISEUR

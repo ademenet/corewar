@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 17:27:23 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 18:40:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int			cw_ins_sti(t_proc *proc)
 	printf("Je fais sti\n");
 	// Comment calculer la taille où jumper ?!
 	proc->champions->pc = 6;
-	proc->champions->inst_c = 10;
+	cw_load_ins_c(proc);
 	return (1);
 }
