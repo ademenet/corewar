@@ -1,0 +1,85 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
+#    Updated: 2016/07/25 10:38:14 by ademenet         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+.PHONY: all test clean fclean re norme
+
+CC = gcc
+
+FLAGS = -Wall -Wextra -Werror
+
+NAME = corewar
+
+SRC_PATH = ./src
+OBJ_PATH = ./obj
+INC_PATH = ./inc
+INC_PATH_L = $(LIB_PATH)
+INC_PATH_P = $(LIB_PATH)ft_printf/include/
+
+SRC_NAME =	cw_processor.c\
+			cw_test.c\
+SRC_INSTUCT_NAME = 	intructions/cw_ins_add.c\
+			intructions/cw_ins_aff.c\
+			intructions/cw_ins_and.c\
+			intructions/cw_ins_fork.c\
+			intructions/cw_ins_ld.c\
+			intructions/cw_ins_ldi.c\
+			intructions/cw_ins_lfork.c\
+			intructions/cw_ins_live.c\
+			intructions/cw_ins_lld.c\
+			intructions/cw_ins_lldi.c\
+			intructions/cw_ins_or.c\
+			intructions/cw_ins_st.c\
+			intructions/cw_ins_sti.c\
+			intructions/cw_ins_sub.c\
+			intructions/cw_ins_utils.c\
+			intructions/cw_ins_xor.c\
+			intructions/cw_ins_zjmp.c\
+
+INC_NAME = corewar.h
+
+OBJ_NAME = $(SRC_NAME:.c=.o)
+
+
+SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
+INC = $(addprefix $(INC_PATH)/, $(INC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@make -C libft
+	@echo "\033[42m \033[0m"
+	@$(CC) $(FLAGS) -o $@ $^ libft/libft.a libft/ft_printf/libftprintf.a -I $(INC_PATH) -I $(INC_PATH_P)
+	@echo "\033[1;34mCorewar\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
+
+test: $(OBJ)
+
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) -c -o $@ $<
+
+clean:
+	@make clean -C libft
+	@rm -rf ./obj correctme.sh
+	@echo "\033[1;34mCorewar\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
+
+fclean: clean
+	@make fclean -C libft
+	@rm -rf $(NAME)
+	@echo "\033[1;34mCorewar\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
+
+re: fclean all
+
+norme:
+	@norminette */*[hc]
+	@echo "\033[1;34mCorewar\t\033[1;33mNorme\t\033[0;32m[OK]\033[0m"
