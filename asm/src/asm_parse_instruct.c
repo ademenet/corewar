@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/22 11:22:54 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/25 11:18:19 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ int			asm_check_instruct(char *line)
 		tab = ft_strsplit(line, ' ');
 	if (tab[0])
 		if (!(ret = asm_instruct_name(&line)))
+		{
+			asm_free_tab(tab, 1);
 			return (asm_error(5));
+		}
 	return (asm_free_tab(tab, 1));
 }
 
