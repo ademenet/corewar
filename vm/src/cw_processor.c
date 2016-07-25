@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 15:02:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 17:31:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void		cw_proc_init(t_proc *proc)
 {
-	ft_bzero(proc->mem, MEM_SIZE);
+	// ft_bzero(proc->mem, MEM_SIZE);
 	proc->c_to_die = CYCLE_TO_DIE;
 	proc->c = 0;
 	ft_bzero(proc->live, 5);
@@ -32,7 +32,7 @@ void		cw_proc_init(t_proc *proc)
 }
 
 /*
-** cw_check_live_process checke si un processus a bien fait un live en
+** cw_check_live_process vérifie si un processus a bien fait un live en
 ** CYCLE_TO_DIE cycles.
 */
 
@@ -77,12 +77,17 @@ int			cw_cycles(t_proc *proc)
 int			cw_exec_process(t_proc *proc)
 {
 	t_champion	*tmp;
+	int			index;
 
+	index = 0;
 	tmp = proc->champions;
 	while (tmp)
 	{
 		if (proc->champions->inst_c == 0)
-			g_op[proc->mem[proc->champions->pc] - 1].ptr(proc); // a tester !
+		{
+			index = proc->mem[proc->champions->pc] - 1;
+			g_op[index].ptr(proc);
+		}
 		else
 			proc->champions->inst_c--; // sinon on decremente le cycle de linstruction
 		tmp = tmp->next;
@@ -100,9 +105,11 @@ int			cw_processor(t_proc *proc)
 	cw_proc_init(proc);
 	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
 	{
-		cw_mem_vizualizer(proc);
+		printf("{%d}\n", proc->champions->inst_c);
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
+		cw_vizualizer(proc);
+		getchar();
 	}
 	return (1);
 }

@@ -6,13 +6,14 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 15:05:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 17:10:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _COREWAR_H_
 # define _COREWAR_H_
 
+# include <ncurses.h>
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
@@ -154,12 +155,13 @@ int								cw_ins_sub(t_proc *proc);
 int								cw_ins_xor(t_proc *proc);
 int								cw_ins_zjmp(t_proc *proc);
 
-
 /*
 ** BONUS : VISUALISEUR
 */
 
-void							cw_mem_vizualizer(t_proc *proc);
+void							cw_vizualizer(t_proc *proc);
+void							cw_vizualizer_memprint(t_proc *proc,
+								WINDOW *win);
 
 static const t_op				g_op[17] =
 {

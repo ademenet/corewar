@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/21 18:02:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 17:27:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 
 int			cw_ins_live(t_proc *proc)
 {
+	printf("Je fais LIVE\n");
 	return (1);
 }
