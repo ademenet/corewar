@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_lldi.c                                      :+:      :+:    :+:   */
+/*   cw_ins_or.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/21 16:07:34 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 13:58:53 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/22 14:08:36 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "../inc/corewar.h"
 
 /*
-** Comme ldi sans le %IDX_MOD Cette opération modifie le carry.
+** Même que and mais avec le ou ( | du c).
 */
 
-int			cw_ins_lldi(t_proc *proc)
+int			cw_ins_or(t_proc *proc)
 {
 	return (1);
 }

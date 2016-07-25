@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:45:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 14:36:36 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 
 void		cw_proc_init(t_proc *proc)
 {
-	// ft_bzero(proc->mem, MEM_SIZE);
+	ft_bzero(proc->mem, MEM_SIZE);
 	proc->c_to_die = CYCLE_TO_DIE;
 	proc->c = 0;
-	// ft_bzero(proc->live, 5);
+	ft_bzero(proc->live, 5);
 	proc->lives_total = 0;
 	proc->checks = 0;
 }
@@ -100,7 +100,7 @@ int			cw_processor(t_proc *proc)
 	cw_proc_init(proc);
 	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
 	{
-		printf("%u\n", proc->c);
+		cw_mem_vizualizer(proc);		
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
 	}

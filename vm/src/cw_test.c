@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 11:20:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 14:35:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int			main(void)
 	proc.mem[4] = 0x00;
 	proc.mem[5] = 0x02;
 
-	cw_mem_vizualizer(&proc);
-	// cw_processor(&proc);
+	cw_processor(&proc);
 	return (0);
 }

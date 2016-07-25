@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_or.c                                        :+:      :+:    :+:   */
+/*   cw_ins_ldi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:08:36 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/22 13:57:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "../inc/corewar.h"
 
 /*
-** Même que and mais avec le ou ( | du c).
+** Cette opération modifie le carry. ldi 3,%4,r1 lit IND_SIZE octets a
+** l’adresse : (PC + (3 % IDX_MOD)) ajoute 4 à cette valeur. On nommera S
+** cette somme. On lit REG_SIZE octet à l’adresse (PC + (S % IDX_MOD))
+** que l’on copie dans r1. Les paramètres 1 et 2 sont des index.
 */
 
-int			cw_ins_or(t_proc *proc)
+int			cw_ins_ldi(t_proc *proc)
 {
 	return (1);
 }

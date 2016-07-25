@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_sub.c                                       :+:      :+:    :+:   */
+/*   cw_ins_aff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/13 15:13:18 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:00:57 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/13 15:17:16 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/25 14:02:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "../inc/corewar.h"
 
 /*
-** Cette instruction prend 3 registres en paramètre, soustrait
-** le contenu des 2 premiers et met le résultat dans le troisième.
-** Cette opération modifie le carry.
+** Cette instruction est suivie d’un octet de paramétrage pour décrire
+** les paramètres. Elle prend en paramètre un registre et a che le
+** caractère dont le code ascii est présent dans ce registre (base
+** 10). (un modulo 256 est appliqué au code ascii, le caractère
+** est affiché sur la sortie standard).
 */
 
-int			cw_ins_sub(t_proc *proc)
+int			cw_ins_aff(t_proc *proc)
 {
 	return (1);
 }

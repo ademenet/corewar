@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_st.c                                        :+:      :+:    :+:   */
+/*   cw_ins_and.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:00:07 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/22 14:08:25 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "../inc/corewar.h"
 
 /*
-** Cette instruction prend 2 paramètres. Elle store (REG_SIZE OCTET)la valeur
-** du premier argument (toujours un registre) dans le second.
+** p1 & p2 -> p3. Le paramètre 3 est toujours un registre. Cette opération
+** modifie le carry.
 */
 
-int			cw_ins_st(t_proc *proc)
+int			cw_ins_and(t_proc *proc)
 {
 	return (1);
 }

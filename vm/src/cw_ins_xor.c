@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_add.c                                       :+:      :+:    :+:   */
+/*   cw_ins_xor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/12 14:49:48 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 13:53:03 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/14 12:57:24 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/22 14:04:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*
-** Cette instruction prend 3 registres en paramètre, additionne le contenu des
-** 2 premiers et met le résultat dans le troisième. Cette opération modifie le
-** carry. add r2,r3,r5 additionne r2 et r3 et met le résultat dans r5.
+** Même que and mais avec le ou exclusif (^ du c).
 */
 
-int			cw_ins_add(char *r1, char *r2, char *r3)
+int			cw_ins_xor(t_proc *proc)
 {
-	if (r1 && r2)
-	{
-		(char)r3 = (char)r1 + (char)r2;
-		return (1);
-	}
-	return (0);
+	return (1);
 }

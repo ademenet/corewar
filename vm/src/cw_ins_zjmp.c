@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_fork.c                                      :+:      :+:    :+:   */
+/*   cw_ins_zjmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 13:56:32 by ademenet         ###   ########.fr       */
+/*   Created: 2016/07/13 15:14:38 by ademenet          #+#    #+#             */
+/*   Updated: 2016/07/22 14:05:14 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "../inc/corewar.h"
 
 /*
 ** Cette instruction n’est pas suivie d’octet pour décrire les paramètres.
-** Elle prend toujours un index et crée un nouveau programme qui s’exécute
-** à partir de l’adresse : (PC + (premier paramètre % IDX_MOD)). Fork %34 crée
-** un nouveau programme. Le nouveau programme hérite des di érents états
-** du père.
+** Elle prend toujours un index (IND_SIZE) et fait un saut à cet index si
+** le carry est à un. Si le carry est nul, zjmp ne fait rien mais
+** consomme le même temps.
 */
 
-int			cw_ins_fork(t_proc *proc)
+int			cw_ins_zjmp(t_proc *proc)
 {
 	return (1);
 }

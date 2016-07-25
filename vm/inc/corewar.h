@@ -6,12 +6,12 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 16:50:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/25 14:35:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#ifndef _COREWAR_H_
+# define _COREWAR_H_
 
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
@@ -155,11 +155,17 @@ int								cw_ins_xor(t_proc *proc);
 int								cw_ins_zjmp(t_proc *proc);
 
 /*
+** BONUS : VISUALISEUR
+*/
+
+void							cw_mem_vizualizer(t_proc *proc);
+
+/*
 ** Tableau de pointeur sur structure constant. Se référer à la structure pour
 ** description des éléments.
 */
 
-const t_op							g_op[17] =
+static const t_op				g_op[17] =
 {
 	{&cw_ins_live, "live", 1, 1, 10, "alive", 0},
 	{&cw_ins_ld, "ld", 2, 2, 5, "load", 1},
