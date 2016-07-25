@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/22 11:31:00 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/25 10:01:26 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ typedef struct			s_header
 
 int						asm_error(int error);
 
-t_header				*asm_header_init(void);
-t_label					*asm_label_init(void);
+t_header			*asm_header_init(void);
+t_label				*asm_label_init(void);
 
 void					asm_free_join(char **line);
 int						asm_free_tab(char **tab, int ret);
+int						asm_free_struct(t_label *head);
 
 /*
 ** Parse_instruct

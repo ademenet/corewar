@@ -6,11 +6,25 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/22 11:02:53 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 16:38:24 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+int		asm_free_struct(t_label *head)
+{
+	if (g_file)
+		free(g_file);
+	if (head)
+	{
+		if (head->prog_name)
+			free(head->prog_name);
+		if (head->comment)
+			free(comment);
+	}
+	return (1);
+}
 
 /*
 ** Free le tableau

@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 10:38:48 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/22 11:07:19 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 16:43:28 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,11 @@ int		asm_header_creator(int fd, t_header *header)
 
 char	*asm_morph_cor(char *champ)
 {
-	char	*file;
 	int		i;
 
 	i = 0;
-	file = malloc(ft_strlen(champ) + 3);
 	while (champ[i] != '.')
-	{
-		file[i] = champ[i];
 		i++;
-	}
 	champ[i++] = '.';
 	champ[i++] = 'c';
 	champ[i++] = 'o';

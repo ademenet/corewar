@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/22 11:34:49 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/22 16:36:48 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		asm_handler_name_comment(int fd, char *line, t_header *head)
 			name = ft_strlen(NAME_CMD_STRING);
 			com = ft_strlen(COMMENT_CMD_STRING);
 			asm_copy_name_comment(line, head, name, com);
+			free (line);
 			if (head->comment[0] && head->prog_name[0])
 				return (1);
 		}
