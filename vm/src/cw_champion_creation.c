@@ -48,13 +48,6 @@ int				cw_chk_champions(t_proc *proc)
 	return (1);
 }
 
-int				cw_invert_endian(int x)
-{
-	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000)
-		| ((x << 24) & 0xff000000);
-	return (x);
-}
-
 int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 {
 	header_t	*header;

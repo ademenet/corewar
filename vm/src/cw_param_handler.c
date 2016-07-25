@@ -12,15 +12,28 @@
 
 #include <corewar.h>
 
-int			cw_error_msg(char *msg)
-{
-	ft_printf("%s\n", msg);
-	return (0);
-}
+// void			*cw_lst_sort_by_num(t_champion **champions)
+// {
+// 	t_champion	*tmp;
+// 	t_champion	bigest;
+// 	int			max;
+// 	int			sze;
+// 	int i = 4;
 
-int			cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
+// 	tmp = *champions;
+// 	sorted_list = NULL;
+// 	sze = cw_lst_sze(tmp);
+// 	max = tmp->num;
+// 	ft_printf("init : size : %d, max : %d\n", sze, max);
+// 	while (cw_lst_sze(sorted_list) != sze && i-- )
+// 	{
+		
+// 	}
+// }
+
+int				cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 {
-	int		n;
+	int			n;
 
 	n = -1;
 	if (ac < 2)
@@ -55,30 +68,30 @@ int				cw_cnb_chk(int c_nb, t_proc *proc, char *str)
 	return (1);
 }
 
-int			cw_creation_step(int n, int param, t_proc *proc, char **av, int c_nb)
+int				cw_creation_step(int n, int p, t_proc *proc, char **av, int c_nb)
 {
 	if (!n)
 	{
-		if (cw_create_champion(av[param], c_nb, proc, 0) <= 0)
+		if (cw_create_champion(av[p], c_nb, proc, 0) <= 0)
 			return (cw_error_msg("Wrong champion file !"));
 	}
 	else
-		if (cw_create_champion(av[param], n, proc, 1) <= 0)
+		if (cw_create_champion(av[p], n, proc, 1) <= 0)
 			return (cw_error_msg("Wrong champion file !"));
 	if (cw_lst_sze(proc->champions) > 4)
 		return (cw_error_msg("Too much players (4 max)"));
 	return (1);
 }
 
-int			cw_param(char **av, int ac, t_proc *proc)
+int				cw_param(char **av, int ac, t_proc *proc)
 {
-	int		n;
-	int		param;
-	int		c_nb;
+	int			n;
+	int			param;
+	int			c_nb;
 
-	n = 0;
 	param = 0;
 	c_nb = 0;
+	n = 0;
 	if (!cw_param_fst_chk(ac, 1, av, proc))
 		return (0);
 	while (++param < ac)
@@ -96,5 +109,6 @@ int			cw_param(char **av, int ac, t_proc *proc)
 			return (0);
 		n = 0;
 	}
+	//cw_lst_sort_by_num(&proc->champions);
 	return (1);
 }

@@ -12,13 +12,26 @@
 
 #include <corewar.h>
 
+int			cw_error_msg(char *msg)
+{
+	ft_printf("%s\n", msg);
+	return (0);
+}
+
+int				cw_invert_endian(int x)
+{
+	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000)
+		| ((x << 24) & 0xff000000);
+	return (x);
+}
+
 int				main(int ac, char **av)
 {
 	t_proc		proc;
 	t_champion	*tmp;
 
 	proc.champions = NULL;
-	proc.nb_champ = 0;
+	proc.nb_proc = 0;
 	proc.dump = 0;
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
