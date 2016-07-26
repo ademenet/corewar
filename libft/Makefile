@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:07:17 by ademenet          #+#    #+#              #
-#    Updated: 2016/07/12 19:05:02 by tvisenti         ###   ########.fr        #
+#    Updated: 2016/07/26 14:19:59 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,12 +103,10 @@ all: $(NAME)
 
 clean:
 	@rm -rf $(OBJECT)
-	@make clean -C ft_printf
 	@echo "\033[1;34mLibft\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 
-fclean: clean
+fclean:
 	@rm -fr $(NAME)
-	@make fclean -C ft_printf
 	@echo "\033[1;34mLibft\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 
 re: fclean all

@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/20 11:33:31 by ademenet          #+#    #+#              #
-#    Updated: 2016/05/14 16:48:07 by ademenet         ###   ########.fr        #
+#    Updated: 2016/07/26 14:20:10 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ clean:
 	@rm -rf ./obj
 	@echo "\033[1;34mLibftprintf\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 
-fclean: clean
+fclean:
 	@rm -rf $(NAME)
 	@echo "\033[1;34mLibftprintf\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 

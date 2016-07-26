@@ -6,7 +6,7 @@
 #    By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/11 18:14:04 by tvisenti          #+#    #+#              #
-#    Updated: 2016/07/25 16:01:11 by gseropia         ###   ########.fr        #
+#    Updated: 2016/07/26 14:19:38 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ OBJLIB_PATH = ./obj
 
 SRC_NAME =	asm_main.c\
 			asm_parsing.c\
+			asm_copy_header.c\
 			asm_binary_writer.c\
 			asm_check_arg.c\
 			asm_check_instruction.c\
@@ -53,13 +54,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJLIB)
 	@make -C ../libft
-	@echo '#####                         (33%)'
-	@sleep 1
-	@echo '#############                 (66%)'
-	@sleep 1
-	@echo '#######################       (100%)'
 	@$(CC) $(FLAGS) -o $@ $^ ../libft/libft.a ../libft/ft_printf/libftprintf.a
-	@echo "\033[1;34mASM\t\t\033[1;33mCompilation\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -71,15 +67,18 @@ $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
 
 clean:
 	@rm -rf $(OBJ) $(OBJLIB)
-	@echo "\033[1;34mASM\t\t\033[1;33mCleaning obj\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
+	@cd ../libft && $(MAKE) clean
+	@cd ../libft/ft_printf && $(MAKE) clean
 
 fclean: clean
 	@rm -rf ./obj $(NAME)
-	@echo "\033[1;34mASM\t\t\033[1;33mCleaning lib\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 	@cd ../libft && $(MAKE) fclean
+	@cd ../libft/ft_printf && $(MAKE) fclean
 
 re: fclean all
 
 norme:
 	@norminette $(SRC) $(LIB) $(INC)
-	@echo "\033[1;34mASM\t\t\033[1;33mNorminette\t\033[0;32m-OK-\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
