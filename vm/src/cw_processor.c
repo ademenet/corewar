@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:14:24 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 17:44:41 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			cw_exec_process(t_proc *proc)
 		{
 			// ICI fonction qui recupere les params s'il y a !
 			cw_ins_ocp(proc, tmp, &ocp);
-			size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
+			size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, &ocp);
 			// ICI on fait jumper le PC !!!
 			tmp->pc = (tmp->pc + size) % MEM_SIZE;
 		}
