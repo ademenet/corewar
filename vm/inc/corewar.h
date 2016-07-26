@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:11:24 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 10:32:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
+// # include <libft.h>
+// # include <fpf_printf.h>
 /*
 ** Toutes les tailles sont en octets.
 */
@@ -27,7 +29,7 @@
 # define REG_NUMBER				16
 # define MAX_ARGS_NUMBER		4
 # define MAX_PLAYERS			4
-# define MEM_SIZE				(4*1024)
+# define MEM_SIZE				(4 * 1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
@@ -39,6 +41,12 @@
 # define CYCLE_DELTA			50
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
+
+/*
+**
+*/
+
+typedef char		t_arg_type;
 
 # define T_REG					1
 # define T_DIR					2
@@ -69,15 +77,16 @@ typedef struct 					s_champion
 {
 	t_header					*header;
 	char						reg[REG_NUMBER][REG_SIZE];
+	char						*ins;
 	unsigned short int			pc_origin;
 	unsigned short int			pc; // le PC est codé sur 2 octets
 	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
 	unsigned int				inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
 	int							num; // numero du processus
-	unsigned int				cycle_cnt;
 	unsigned int				lives;
 	char						is_champ;
 	struct s_champion			*next;
+	struct s_champion			*prev;
 }								t_champion;
 
 /*
@@ -89,8 +98,8 @@ typedef struct 					s_proc
 	t_champion					*champions;
 	// memoire du processeur
 	char						mem[MEM_SIZE];
-	int							dump;
-	int							nb_proc; // nombre de processus courants
+	unsigned int				dump;
+	unsigned int				nb_proc; // nombre de processus courants
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
 	// CYCLE_DELTA tous les blablablas
 	unsigned int				c_to_die;
@@ -134,6 +143,26 @@ typedef struct					s_op
 	char						desc[36];
 	unsigned char				ocp;
 }								t_op;
+
+/*
+** RECUPERATION ET INITIALISATION DES CHAMPIONS
+*/
+
+int								cw_error_msg(char *msg);
+int								cw_invert_endian(int x);
+int								cw_param(char **av, int ac, t_proc *proc);
+int								cw_create_champion(char *file, int c_nb, t_proc *proc, int n);
+int								cw_load_ins_mem(t_proc *proc);
+
+/*
+** GESTION DES LISTES DE CHAMPIONS
+*/
+
+t_champion						*cw_lst_new(t_header *header, int num);
+void							cw_lst_push(t_champion **begin, t_champion *new);
+void							cw_lst_add(t_champion **begin, t_champion *new);
+int								cw_lst_sze(t_champion *begin);
+t_champion						*cw_lst_last(t_champion *begin);
 
 /*
 ** PROCESSOR

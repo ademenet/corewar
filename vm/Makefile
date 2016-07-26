@@ -6,8 +6,9 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/07/25 18:38:56 by ademenet         ###   ########.fr        #
+#    Updated: 2016/07/26 10:40:38 by ademenet         ###   ########.fr        #
 #                                                                              #
+# **************************************************************************** #
 # **************************************************************************** #
 
 CC = gcc
@@ -18,8 +19,8 @@ NAME = corewar
 
 SRC_PATH = ./src
 OBJ_PATH = ./obj
-INC_PATH = ./inc
-LIB_PATH = ../libft
+INC_PATH = ./inc/
+LIB_PATH = ../libft/
 
 INC_PATH_L = $(LIB_PATH)
 INC_PATH_P = $(LIB_PATH)/ft_printf/include/
@@ -44,6 +45,11 @@ SRC_NAME =	cw_ins_add.c\
 			cw_processor_inits.c\
 			cw_processor.c\
 			cw_test.c\
+			cw_main.c\
+			cw_param_handler.c\
+			cw_champion_creation.c\
+			cw_manage_list.c\
+			cw_load_instructions.c\
 
 INC_NAME = corewar.h
 
@@ -59,7 +65,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ../libft
-	@$(CC) $(FLAGS) $(CURSE) -o $@ $^ -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
+	@$(CC) $(FLAGS) $(CURSE) -o $@ $^ -I$(INC_PATH) -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
 	@echo "\033[1;34mCorewar\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
