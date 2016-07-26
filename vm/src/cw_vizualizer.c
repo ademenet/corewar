@@ -6,14 +6,14 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 13:21:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 16:25:17 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*
-**
+** Permet de mettre en couleur le PC en cours.
 */
 
 int			cw_vizualizer_pcprint(t_proc *proc, int *i)
@@ -59,22 +59,22 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 ** À compiler avec "gcc -lncurses ..."
 */
 
-void		cw_vizualizer(t_proc *proc)
+void		cw_vizualizer(t_proc *proc, WINDOW *win)
 {
-	WINDOW	*win;
+	// WINDOW	*win;
 	// int		ch; // pour le controle plus tard ==> il faut d'abord faire en sorte de l'appeler en params
 
-	initscr();
-	cbreak();
-	win = newwin(80, 200, 0, 0);
-	refresh();
+	// initscr();
+	// cbreak();
+	// win = newwin(80, 200, 0, 0);
+	// refresh();
 	start_color();
 	init_pair(1, COLOR_BLACK, COLOR_GREEN);
 	cw_vizualizer_memprint(proc, win);
-	wrefresh(win);
-	getch();
-	delwin(win);
-	endwin();
+	// wrefresh(win);
+	// getch();
+	// delwin(win);
+	// endwin();
 }
 
 // int			main(void)

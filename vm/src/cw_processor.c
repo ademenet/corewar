@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 11:22:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 16:27:23 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,39 @@ int			cw_exec_process(t_proc *proc)
 
 int			cw_processor(t_proc *proc)
 {
+	WINDOW	*win;
+	WINDOW	*win_g;
+	WINDOW	*win_d;
+
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
-	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
+
+	// while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
+	// {
+	// 	cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+	// 	proc->c++;
+	// 	cw_vizualizer(proc);
+	// 	getchar();
+	// }
+
+	initscr();
+	cbreak();
+	noecho();
+	win = newwin(200, 350, 0, 0);
+	win_g = subwin(win, 80, 180, 0, 0);
+	win_d = subwin(win, 30, 180, 81, 0);
+	refresh();
+	while (cw_cycles(proc))
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+		cw_vizualizer(proc, win_g);
+		wprintw(win_d, "Nombres de cycles : %d", proc->c);
+		wrefresh(win);
+		refresh();
+		getch();
 		proc->c++;
-		cw_vizualizer(proc);
-		getchar();
 	}
+	delwin(win);
+	endwin();
 	return (1);
 }

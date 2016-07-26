@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 11:24:53 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 16:13:26 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,8 @@ int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 ** BONUS : VISUALISEUR
 */
 
-void							cw_vizualizer(t_proc *proc);
+// void							cw_vizualizer(t_proc *proc);
+void							cw_vizualizer(t_proc *proc, WINDOW *win);
 void							cw_vizualizer_memprint(t_proc *proc,
 								WINDOW *win);
 
