@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/26 11:49:54 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 14:28:25 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int						asm_error(int error);
 t_header				*asm_header_init(void);
 t_label					*asm_label_init(void);
 
-char					*asm_free_join(char *line, char *file);
 int						asm_free_tab(char **tab, int ret);
+char					*asm_free_join(char *line, char *file);
+char					*asm_realloc(char *line, char *file, char *temp,
+						int i);
 
 /*
 ** Parse_instruct
@@ -102,13 +104,20 @@ int						asm_check_arg_sec(char **line, int op);
 
 char					*asm_header_pass(char *line, int name, int com,
 						int one);
+t_label					*asm_parse_line(char *line, int fd, int check,
+						char *file);
+int						asm_parsing(char *champion, t_header *head);
+t_label					*asm_put_label(t_label *new, char *line, int fd,
+						char *file);
+
+/*
+** Copy header
+*/
+
 int						asm_copy_name_comment(char *line, t_header *head,
 						int name, int com);
 int						asm_handler_name_comment(int fd, char *line,
 						t_header *head);
-t_label					*asm_parse_line(char *line, int fd, int check,
-						char *file);
-int						asm_parsing(char *champion, t_header *head);
 
 /*
 ** Check_instruct

@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/26 11:56:25 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 14:32:18 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,41 @@ int		asm_free_tab(char **tab, int ret)
 ** Fonction qui realloc pour recuperer tout le fichier .s
 */
 
+char	*asm_realloc(char *line, char *file, char *temp, int i)
+{
+	int	len;
+
+	if (!(len = 0) && !file)
+	{
+		temp = ft_strsub(line, i, ft_strlen(line) - i);
+		file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
+		file = ft_strcpy(file, temp);
+		while (file[len])
+			len++;
+		file[len] = '\n';
+		file[len + 1] = '\0';
+		free(temp);
+	}
+	else
+	{
+		temp = ft_strsub(line, i, ft_strlen(line) - i);
+		file = realloc(file, (ft_strlen(file) + ft_strlen(temp) + 1));
+		file = ft_strcat(file, temp);
+		while (file[len])
+			len++;
+		file[len] = '\n';
+		file[len + 1] = '\0';
+		free(temp);
+	}
+	return (file);
+}
+
 char	*asm_free_join(char *line, char *file)
 {
-	int 	i;
-	int		len;
+	int		i;
 	char	*temp;
 
 	i = 0;
-	len = 0;
 	temp = NULL;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
@@ -57,30 +84,6 @@ char	*asm_free_join(char *line, char *file)
 		i++;
 	}
 	if (line[i])
-	{
-		if (!file)
-		{
-
-			temp = ft_strsub(line, i, ft_strlen(line) - i);
-			file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
-			file = ft_strcpy(file, temp);
-			while (file[len])
-				len++;
-			file[len] = '\n';
-			file[len + 1] = '\0';
-			free(temp);
-		}
-		else
-		{
-			temp = ft_strsub(line, i, ft_strlen(line) - i);
-			file = realloc(file, (ft_strlen(file) + ft_strlen(temp) + 1));
-			file = ft_strcat(file, temp);
-			while (file[len])
-				len++;
-			file[len] = '\n';
-			file[len + 1] = '\0';
-			free(temp);
-		}
-	}
+		file = asm_realloc(line, file, temp, i);
 	return (file);
 }
