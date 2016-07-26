@@ -22,6 +22,7 @@ t_champion			*cw_lst_new(t_header *header, int num)
 	new->num = num;
 	new->next = NULL;
 	new->prev = NULL;
+	new->is_champ = 0;
 	return (new);
 }
 
