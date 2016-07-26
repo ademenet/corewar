@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/26 10:35:55 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 10:59:26 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_label	*asm_parse_line(char *line, int fd, int check, char *file)
 	new = NULL;
 	if (check == 1 && (r = get_next_line(fd, &line)) && g_line++)
 		file = asm_free_join(line, file);
-	printf("**Sortie join : \n%s**\n", file);
+	// printf("**Sortie join : \n%s**\n", file);
 	if (r > 0 && line && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();
@@ -131,7 +131,6 @@ t_label	*asm_parse_line(char *line, int fd, int check, char *file)
 	{
 		g_file = ft_strdup(file);
 		free(file);
-		printf("g_file : \n%s\n", g_file);
 	}
 	free(line);
 	return (new);
