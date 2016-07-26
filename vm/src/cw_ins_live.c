@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 13:42:34 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 15:17:39 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** indique que ce joueur est en vie. Pas d’octet de codage des paramètres.
 */
 
-int			cw_ins_live(t_proc *proc, t_ocp *ocp)
+int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	printf("Je fais LIVE\n");
 	return (1);

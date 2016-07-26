@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 13:42:39 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 15:17:43 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** du premier argument (toujours un registre) dans le second.
 */
 
-int			cw_ins_st(t_proc *proc, t_ocp *ocp)
+int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	return (1);
 }
