@@ -6,11 +6,29 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 11:28:40 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 12:10:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+/*
+**
+*/
+
+int			cw_vizualizer_pcprint(t_proc *proc, int *i)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
+	{
+		if (*i == tmp->pc)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 /*
 ** Imprime la mémoire :
@@ -18,13 +36,13 @@
 
 void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i < MEM_SIZE)
 	{
 		i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
-		if (i == proc->champions->pc) // partiellement faux, car seulement pour un PC ! Marche pas :/
+		if (cw_vizualizer_pcprint(proc, &i)) // partiellement faux, car seulement pour un PC ! Marche pas :/
 		{
 			wattron(win, COLOR_PAIR(1));
 			wprintw(win, "%.2hhx", proc->mem[i]);
