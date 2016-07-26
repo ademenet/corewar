@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/25 11:48:20 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 10:33:57 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,53 +34,54 @@ int		asm_free_tab(char **tab, int ret)
 }
 
 /*
-** Fonction qui realloc la globale g_file
+** Fonction qui realloc pour recuperer tout le fichier .s
 */
 
-void	asm_free_join(char *lin)
+char	*asm_free_join(char *line, char *file)
 {
 	int 	i;
 	char	*temp;
 
 	i = 0;
 	temp = NULL;
-	while (lin[i] == ' ' || lin[i] == '\t')
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	if (lin[i] == COMMENT_CHAR || asm_check_label(lin) == 1)
-		return ;
-	if (asm_check_label(lin) == 2)
+	if (line[i] == COMMENT_CHAR || asm_check_label(line) == 1)
+		return (file);
+	if (asm_check_label(line) == 2)
 	{
-		while (lin[i] && lin[i] != LABEL_CHAR)
+		while (line[i] && line[i] != LABEL_CHAR)
 			i++;
 		i++;
 	}
-	if (lin[i])
+	if (line[i])
 	{
-		if (!g_file)
+		if (!file)
 		{
 
-			temp = ft_strsub(lin, i, ft_strlen(lin) - i);
-			g_file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
-			g_file = ft_strcpy(g_file, temp);
-			g_file[ft_strlen(lin)] = '\n';
-			g_file[ft_strlen(lin) + 1] = '\0';
+			temp = ft_strsub(line, i, ft_strlen(line) - i);
+			file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
+			file = ft_strcpy(file, temp);
+			file[ft_strlen(line)] = '\n';
+			file[ft_strlen(line) + 1] = '\0';
 			free(temp);
-			// g_file = ft_strjoin(g_file, "\n");
+			// file = ft_strjoin(file, "\n");
 
 		}
 		else
 		{
-			temp = ft_strsub(lin, i, ft_strlen(lin) - i);
-			ft_printf("temp == --%s--\n", temp);
-			// g_file[ft_strlen(g_file)] = '\n';
-			g_file = realloc(g_file, (ft_strlen(g_file) + ft_strlen(temp) + 1));
-			//g_file[ft_strlen(g_file) - ft_strlen(temp)] = '\n';
-			//g_file[ft_strlen(g_file) - ft_strlen(temp) + 1] = '\0';
-			//g_file = ft_strcpy(g_file, temp);
-			g_file = ft_strcat(g_file, temp);
-			g_file[ft_strlen(g_file)] = '\n';
-			g_file[ft_strlen(g_file)+1] = '\0';
+			temp = ft_strsub(line, i, ft_strlen(line) - i);
+			// ft_printf("--Temp == --%s--\n", temp);
+			// file[ft_strlen(file)] = '\n';
+			file = realloc(file, (ft_strlen(file) + ft_strlen(temp) + 1));
+			//file[ft_strlen(file) - ft_strlen(temp)] = '\n';
+			//file[ft_strlen(file) - ft_strlen(temp) + 1] = '\0';
+			//file = ft_strcpy(file, temp);
+			file = ft_strcat(file, temp);
+			file[ft_strlen(file)] = '\n';
+			file[ft_strlen(file) + 1] = '\0';
 			free(temp);
 		}
 	}
+	return (file);
 }

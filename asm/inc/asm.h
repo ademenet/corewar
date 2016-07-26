@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/25 10:22:08 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 10:26:09 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int						asm_error(int error);
 t_header				*asm_header_init(void);
 t_label					*asm_label_init(void);
 
-void					asm_free_join(char *line);
+char					*asm_free_join(char *line, char *file);
 int						asm_free_tab(char **tab, int ret);
 
 /*
@@ -104,7 +104,8 @@ int						asm_copy_name_comment(char *line, t_header *head,
 						int name, int com);
 int						asm_handler_name_comment(int fd, char *line,
 						t_header *head);
-t_label					*asm_parse_line(char *line, int fd, int check);
+t_label					*asm_parse_line(char *line, int fd, int check,
+						char *file);
 int						asm_parsing(char *champion, t_header *head);
 
 /*
