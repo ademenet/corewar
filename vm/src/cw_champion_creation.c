@@ -59,9 +59,15 @@ int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 	header->prog_size = cw_invert_endian(header->prog_size);
 	header->magic = cw_invert_endian(header->magic);
 	if (n)
+	{
 		cw_lst_add(&(proc->champions), cw_lst_new(header, c_nb));
+		cw_lst_last(proc->champions)->is_champ = 1;
+	}
 	else
+	{
 		cw_lst_push(&(proc->champions), cw_lst_new(header, 0));
+		proc->champions->is_champ = 1;
+	}
 	return (cw_chk_champions(proc));
 }
 
