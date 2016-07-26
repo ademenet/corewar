@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:33:57 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 11:56:25 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ int		asm_free_tab(char **tab, int ret)
 char	*asm_free_join(char *line, char *file)
 {
 	int 	i;
+	int		len;
 	char	*temp;
 
 	i = 0;
+	len = 0;
 	temp = NULL;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
@@ -62,24 +64,21 @@ char	*asm_free_join(char *line, char *file)
 			temp = ft_strsub(line, i, ft_strlen(line) - i);
 			file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
 			file = ft_strcpy(file, temp);
-			file[ft_strlen(line)] = '\n';
-			file[ft_strlen(line) + 1] = '\0';
+			while (file[len])
+				len++;
+			file[len] = '\n';
+			file[len + 1] = '\0';
 			free(temp);
-			// file = ft_strjoin(file, "\n");
-
 		}
 		else
 		{
 			temp = ft_strsub(line, i, ft_strlen(line) - i);
-			// ft_printf("--Temp == --%s--\n", temp);
-			// file[ft_strlen(file)] = '\n';
 			file = realloc(file, (ft_strlen(file) + ft_strlen(temp) + 1));
-			//file[ft_strlen(file) - ft_strlen(temp)] = '\n';
-			//file[ft_strlen(file) - ft_strlen(temp) + 1] = '\0';
-			//file = ft_strcpy(file, temp);
 			file = ft_strcat(file, temp);
-			file[ft_strlen(file)] = '\n';
-			file[ft_strlen(file) + 1] = '\0';
+			while (file[len])
+				len++;
+			file[len] = '\n';
+			file[len + 1] = '\0';
 			free(temp);
 		}
 	}

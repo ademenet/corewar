@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/26 10:59:26 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 11:53:12 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,12 @@ t_label	*asm_parse_line(char *line, int fd, int check, char *file)
 
 	r = 1;
 	new = NULL;
-	if (check == 1 && (r = get_next_line(fd, &line)) && g_line++)
+	if (g_tmp_line)
+		free(g_tmp_line);
+	g_tmp_line = NULL;
+	if (check == 1 && (r = get_next_line(fd, &line)) && g_line++ &&
+	(g_tmp_line = line))
 		file = asm_free_join(line, file);
-	// printf("**Sortie join : \n%s**\n", file);
 	if (r > 0 && line && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
 	{
 		new = asm_label_init();
@@ -132,7 +135,6 @@ t_label	*asm_parse_line(char *line, int fd, int check, char *file)
 		g_file = ft_strdup(file);
 		free(file);
 	}
-	free(line);
 	return (new);
 }
 
@@ -155,9 +157,16 @@ int		asm_parsing(char *champion, t_header *head)
 		return (-1);
 	asm_handler_name_comment(fd, line, head);
 	label = asm_parse_line(line, fd, 1, file);
+	printf("g_file : \n%s\n", g_file);
+	g_tmp_file = g_file;
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, g_file) == 0)
 		return (asm_error(12));
 	asm_reader(label, head, champion);
+	printf("g_file : \n%s\n", g_file);
+	printf("g_tmp_file : \n%s\n", g_tmp_file);
+	free(g_tmp_file);
+	printf("g_file : \n%s\n", g_file);
+	printf("g_tmp_file : \n%s\n", g_tmp_file);
 	return (0);
 }
