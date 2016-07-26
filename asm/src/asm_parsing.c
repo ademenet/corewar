@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/26 14:32:02 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 14:47:34 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,5 @@ int			asm_parsing(char *champion, t_header *head)
 	if (asm_check_label_exist(label, g_file) == 0)
 		return (asm_error(12));
 	asm_reader(label, head, champion);
-	free(g_tmp_file);
 	return (0);
 }

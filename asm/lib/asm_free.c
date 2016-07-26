@@ -6,11 +6,23 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/26 14:32:18 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 14:51:34 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+/*
+** Free les pointeurs sur GNL
+*/
+
+void	asm_free_global(void)
+{
+	if (g_tmp_line)
+		free(g_tmp_line);
+	if (g_tmp_file)
+		free(g_tmp_file);
+}
 
 /*
 ** Free le tableau
@@ -34,7 +46,7 @@ int		asm_free_tab(char **tab, int ret)
 }
 
 /*
-** Fonction qui realloc pour recuperer tout le fichier .s
+** Fonction qui realloc pour recuperer tout le fichier .s k
 */
 
 char	*asm_realloc(char *line, char *file, char *temp, int i)
