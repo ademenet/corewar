@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/26 14:51:34 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 15:06:15 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,30 @@ void	asm_free_global(void)
 		free(g_tmp_line);
 	if (g_tmp_file)
 		free(g_tmp_file);
+}
+
+/*
+** Free la liste label
+*/
+
+int		asm_free_label(t_label *label)
+{
+	t_label	*nxt;
+
+	nxt = label->next;
+	while (nxt)
+	{
+		free(label->name);
+		free(label);
+		label = nxt;
+		nxt = label->next;
+	}
+	if (label)
+	{
+		free(label->name);
+		free(label);
+	}
+	return (1);
 }
 
 /*

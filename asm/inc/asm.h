@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/26 14:48:33 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/26 15:05:57 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_header				*asm_header_init(void);
 t_label					*asm_label_init(void);
 
 void					asm_free_global(void);
+int						asm_free_label(t_label *label);
 int						asm_free_tab(char **tab, int ret);
 char					*asm_free_join(char *line, char *file);
 char					*asm_realloc(char *line, char *file, char *temp,
