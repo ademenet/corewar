@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 19:40:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 11:22:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int			cw_exec_process(t_proc *proc)
 		if (tmp->inst_c == 0)
 		{
 			// ICI fonction qui recupere les params s'il y a ! et retourne la taille dune instruction
-			size = cw_ins_ocp(proc, tmp, &ocp);
-			g_op[proc->mem[tmp->pc] - 1].ptr(proc);
+			cw_ins_ocp(proc, tmp, &ocp); // size n'est plus donne par cette fonction mais par le retour de la fonction dinstruction
+			size = g_op[proc->mem[tmp->pc] - 1].ptr(proc);
 			// ICI on fait jumper le PC !!!
-			tmp->pc += size;
+			tmp->pc = (tmp->pc + size) % MEM_SIZE;
 		}
 		else
 			proc->champions->inst_c--; // sinon on decremente le cycle de linstruction

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/25 18:27:46 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 18:48:36 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 11:03:49 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 
 void		cw_proc_init(t_proc *proc)
 {
-	// ft_bzero(proc->mem, MEM_SIZE);
 	proc->c_to_die = CYCLE_TO_DIE;
 	proc->c = 0;
-	ft_bzero(proc->live, 5);
+	ft_bzero(proc->live, MAX_PLAYERS + 1);
 	proc->lives_total = 0;
 	proc->checks = 0;
 }

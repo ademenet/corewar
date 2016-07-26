@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:52:01 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 11:24:53 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct 					s_champion
 	unsigned short int			pc; // le PC est codé sur 2 octets
 	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
 	unsigned int				inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
-	int							num; // numero du processus
+	unsigned int				num; // numero du processus
 	unsigned int				lives;
 	char						is_champ;
 	struct s_champion			*next;
@@ -107,7 +107,7 @@ typedef struct 					s_proc
 	// c : index des cycles. Init à 0.
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
-	unsigned int				live[5];
+	unsigned int				live[MAX_PLAYERS + 1];
 	unsigned int				lives_total; // nombre total de lives sur toute la partie
 	unsigned int				checks;
 }								t_proc;
