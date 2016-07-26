@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_ins_utils.c                                     :+:      :+:    :+:   */
+/*   cw_ins_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 13:42:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 14:34:19 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*
-**
-*/
-
-// TODO : trouver un moyen rapide et simple (pour toutes les fonctions
-// d'instructions) de recuperer les types de params.
-
-// PAS BON : mieux vaut faire retourner la taille de linstruction par
-// les fonctions dinstructions elles memes
-
-/*
-** Repère et décode l'OCP :
+** Repère et décode l'OCP : donne le mode à travers la structure t_ocp.
+** Donne le type de paramètre attendu :
+** - REG_CODE = 1 (0x01) ;
+** - DIR_CODE = 2 (0x02) ;
+** - IND_CODE = 3 (0x03).
 */
 
 int			cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 {
-	
-	// if (proc->mem[champ->pc] == 0x01)
-	// 	return (4);
-	// else if (proc->mem[champ->pc] == 0x09 ||
-	// 		proc->mem[champ->pc] == 0x0c ||
-	// 		proc->mem[champ->pc] == 0x0f)
-	// 	return (2);
-	// else if ()
+	unsigned char	ocp_v;
+
+	ocp->first = 0;
+	ocp->second = 0;
+	ocp->third = 0;
+	ocp_v = 0;
+	if (proc->mem[champ->pc] != 0x01 && proc->mem[champ->pc] != 0x09 &&
+		proc->mem[champ->pc] != 0x0c && proc->mem[champ->pc] != 0x0f)
+	{
+		ocp_v = proc->mem[champ->pc + 1];
+		ocp->first = ocp_v >> 6;
+		ocp->second = (ocp_v >> 4) & 0x03;
+		ocp->third = (ocp_v >>2) & 0x03;
+	}
 	return (1);
 }
