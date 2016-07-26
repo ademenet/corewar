@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 18:40:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:41 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-int			cw_ins_sti(t_proc *proc)
+int			cw_ins_sti(t_proc *proc, t_ocp *ocp)
 {
 	printf("Je fais sti\n");
 	// Comment calculer la taille où jumper ?!

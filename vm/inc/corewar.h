@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 11:24:53 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:40:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,22 +185,22 @@ void							cw_load_ins_c(t_proc *proc);
 ** INSTRUCTIONS
 */
 
-int								cw_ins_add(t_proc *proc);
-int								cw_ins_aff(t_proc *proc);
-int								cw_ins_and(t_proc *proc);
-int								cw_ins_fork(t_proc *proc);
-int								cw_ins_ld(t_proc *proc);
-int								cw_ins_ldi(t_proc *proc);
-int								cw_ins_lfork(t_proc *proc);
-int								cw_ins_live(t_proc *proc);
-int								cw_ins_lld(t_proc *proc);
-int								cw_ins_lldi(t_proc *proc);
-int								cw_ins_or(t_proc *proc);
-int								cw_ins_st(t_proc *proc);
-int								cw_ins_sti(t_proc *proc);
-int								cw_ins_sub(t_proc *proc);
-int								cw_ins_xor(t_proc *proc);
-int								cw_ins_zjmp(t_proc *proc);
+int								cw_ins_add(t_proc *proc, t_ocp *ocp);
+int								cw_ins_aff(t_proc *proc, t_ocp *ocp);
+int								cw_ins_and(t_proc *proc, t_ocp *ocp);
+int								cw_ins_fork(t_proc *proc, t_ocp *ocp);
+int								cw_ins_ld(t_proc *proc, t_ocp *ocp);
+int								cw_ins_ldi(t_proc *proc, t_ocp *ocp);
+int								cw_ins_lfork(t_proc *proc, t_ocp *ocp);
+int								cw_ins_live(t_proc *proc, t_ocp *ocp);
+int								cw_ins_lld(t_proc *proc, t_ocp *ocp);
+int								cw_ins_lldi(t_proc *proc, t_ocp *ocp);
+int								cw_ins_or(t_proc *proc, t_ocp *ocp);
+int								cw_ins_st(t_proc *proc, t_ocp *ocp);
+int								cw_ins_sti(t_proc *proc, t_ocp *ocp);
+int								cw_ins_sub(t_proc *proc, t_ocp *ocp);
+int								cw_ins_xor(t_proc *proc, t_ocp *ocp);
+int								cw_ins_zjmp(t_proc *proc, t_ocp *ocp);
 
 /*
 ** INSTRUCTIONS : FONCTIONS OUTILS

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 13:57:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:32 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** que l’on copie dans r1. Les paramètres 1 et 2 sont des index.
 */
 
-int			cw_ins_ldi(t_proc *proc)
+int			cw_ins_ldi(t_proc *proc, t_ocp *ocp)
 {
 	return (1);
 }

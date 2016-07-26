@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:35:07 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 int			cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 {
+	
 	// if (proc->mem[champ->pc] == 0x01)
 	// 	return (4);
 	// else if (proc->mem[champ->pc] == 0x09 ||

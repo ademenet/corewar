@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:17:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/25 14:02:12 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:24 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** est affiché sur la sortie standard).
 */
 
-int			cw_ins_aff(t_proc *proc)
+int			cw_ins_aff(t_proc *proc, t_ocp *ocp)
 {
 	return (1);
 }

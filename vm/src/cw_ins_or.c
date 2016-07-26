@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:34:44 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Même que and mais avec le ou ( | du c).
 */
 
-int			cw_ins_or(t_proc *proc)
+int			cw_ins_or(t_proc *proc, t_ocp *ocp)
 {
 	return (1);
 }

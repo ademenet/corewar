@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:13:18 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:00:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Cette opération modifie le carry.
 */
 
-int			cw_ins_sub(t_proc *proc)
+int			cw_ins_sub(t_proc *proc, t_ocp *ocp)
 {
 	return (1);
 }

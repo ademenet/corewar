@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 14:05:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** consomme le même temps.
 */
 
-int			cw_ins_zjmp(t_proc *proc)
+int			cw_ins_zjmp(t_proc *proc, t_ocp *ocp)
 {
 	return (1);
 }

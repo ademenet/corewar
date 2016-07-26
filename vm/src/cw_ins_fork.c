@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/22 13:56:32 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 13:42:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** du père.
 */
 
-int			cw_ins_fork(t_proc *proc)
+int			cw_ins_fork(t_proc *proc, t_ocp *ocp)
 {
 	return (1);
 }
