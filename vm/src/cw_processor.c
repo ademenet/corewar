@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 16:27:23 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/26 17:59:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int			cw_processor(t_proc *proc)
 	cbreak();
 	noecho();
 	win = newwin(200, 350, 0, 0);
-	win_g = subwin(win, 80, 180, 0, 0);
-	win_d = subwin(win, 30, 180, 81, 0);
+	win_g = subwin(win, 200, 200, 0, 0);
+	win_d = subwin(win, 200, 100, 200, 0);
 	refresh();
 	while (cw_cycles(proc))
 	{
