@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 13:43:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 14:00:39 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ int			cw_cycles(t_proc *proc)
 }
 
 /*
+** Effectue l'instruction puis fait sauter le PC et réinialise le cycles
+** d'instruction avec la nouvelle valeur.
+*/
+
+void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp,
+	int *size)
+{
+	cw_ins_ocp(proc, tmp, ocp);
+	*size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
+	tmp->pc = (tmp->pc + *size) % MEM_SIZE;
+	tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+}
+
+/*
 ** cw_exec_process itère sur chaque processus pour savoir s'il y a
 ** quelque chose à faire ou pas.
 */
@@ -74,13 +88,8 @@ int			cw_exec_process(t_proc *proc)
 		size = 0;
 		if (tmp->inst_c == 0)
 		{
-			cw_ins_ocp(proc, tmp, &ocp);
 			if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-			{
-				size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, &ocp);
-				tmp->pc = (tmp->pc + size) % MEM_SIZE;
-				tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-			}
+				cw_exec_process_instruct(proc, tmp, &ocp, &size);
 			else
 				tmp->pc++;
 		}

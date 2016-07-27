@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:17:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 14:01:17 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ t_champion						*cw_lst_last(t_champion *begin);
 
 int								cw_processor(t_proc *proc);
 int								cw_exec_process(t_proc *proc);
+void							cw_exec_process_instruct(t_proc *proc,
+								t_champion *tmp, t_ocp *ocp, int *size);
 int								cw_cycles(t_proc *proc);
 int								cw_check_live_process(t_proc *proc);
 
