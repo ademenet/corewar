@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:14:24 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 13:18:40 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			cw_exec_process(t_proc *proc)
 			size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, &ocp);
 			// ICI on fait jumper le PC !!!
 			tmp->pc = (tmp->pc + size) % MEM_SIZE;
+			tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
 		}
 		else
 			tmp->inst_c--; // sinon on decremente le cycle de linstruction
