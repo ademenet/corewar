@@ -6,9 +6,8 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/07/26 13:46:04 by ademenet         ###   ########.fr        #
+#    Updated: 2016/07/27 17:10:34 by ademenet         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
 # **************************************************************************** #
 
 CC = gcc
@@ -53,7 +52,7 @@ SRC_NAME =	cw_ins_add.c\
 
 INC_NAME = corewar.h
 
-CURSE = -lncurses
+CURSE = -lpanel -lncurses
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

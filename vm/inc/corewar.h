@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 14:01:17 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:11:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _COREWAR_H_
 
 # include <ncurses.h>
+# include <panel.h>
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
@@ -232,9 +233,12 @@ int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 ** BONUS : VISUALISEUR
 */
 
-void							cw_vizualizer(t_proc *proc);
+// void							cw_vizualizer(t_proc *proc);
+int								cw_vizualizer_processor(t_proc *proc);
+void							cw_vizualizer(t_proc *proc, WINDOW *win);
 void							cw_vizualizer_memprint(t_proc *proc,
 								WINDOW *win);
+void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
 
 static const t_op				g_op[17] =
 {

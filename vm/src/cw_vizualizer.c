@@ -6,14 +6,14 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:10:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:11:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*
-**
+** Permet de mettre en couleur le PC en cours.
 */
 
 int			cw_vizualizer_pcprint(t_proc *proc, int *i)
@@ -39,10 +39,12 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 	int			i;
 
 	i = 0;
+	wclear(win);
 	while (i < MEM_SIZE)
 	{
-		i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
-		if (cw_vizualizer_pcprint(proc, &i)) // partiellement faux, car seulement pour un PC ! Marche pas :/
+		if (i != 0)
+			i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
+		if (cw_vizualizer_pcprint(proc, &i))
 		{
 			wattron(win, COLOR_PAIR(1));
 			wprintw(win, "%.2hhx", proc->mem[i]);
@@ -50,29 +52,81 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 		}
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
-		refresh();
+		wrefresh(win);
 		i++;
 	}
+}
+
+void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
+{
+	t_champion	*tmp;
+	int			y;
+
+	tmp = proc->champions;
+	y = 2;
+	mvwprintw(win, 1, 1, "Nombres de cycles : %d", proc->c);
+	while (tmp)
+	{
+		mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
+			tmp->header->prog_name);
+		tmp = tmp->next;
+		y++;
+	}
+	mvwprintw(win, 1, 91, "Cycle to die : %d", proc->c_to_die);
 }
 
 /*
 ** À compiler avec "gcc -lncurses ..."
 */
 
-void		cw_vizualizer(t_proc *proc)
+void		cw_vizualizer(t_proc *proc, WINDOW *win)
 {
-	WINDOW	*win;
+	// WINDOW	*win;
 	// int		ch; // pour le controle plus tard ==> il faut d'abord faire en sorte de l'appeler en params
 
-	initscr();
-	cbreak();
-	win = newwin(80, 200, 0, 0);
-	refresh();
+	// initscr();
+	// cbreak();
+	// win = newwin(80, 200, 0, 0);
+	// refresh();
 	start_color();
 	init_pair(1, COLOR_BLACK, COLOR_GREEN);
 	cw_vizualizer_memprint(proc, win);
-	wrefresh(win);
-	getch();
-	delwin(win);
+	// wrefresh(win);
+	// getch();
+	// delwin(win);
+	// endwin();
+}
+
+int			cw_vizualizer_processor(t_proc *proc)
+{
+	WINDOW	*win[3];
+
+	cw_proc_init(proc);
+	cw_load_ins_c(proc);
+	initscr();
+	cbreak();
+	noecho();
+	win[0] = newwin(76, 194, 0, 0);
+	win[1] = subwin(win[0], 65, 192, 1, 1);
+	win[2] = subwin(win[0], 10, 192, 66, 1);
+	box(win[0], ACS_VLINE, ACS_HLINE);
+	refresh();
+	while (cw_cycles(proc))
+	{
+		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
+		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
+		wrefresh(win[1]);
+		wrefresh(win[2]);
+		wrefresh(win[0]);
+		refresh();
+		// getch();
+		getchar();
+		proc->c++;
+	}
+	delwin(win[0]);
+	delwin(win[1]);
+	delwin(win[2]);
 	endwin();
+	return (1);
 }

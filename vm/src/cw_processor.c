@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 14:08:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:12:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,9 @@ int			cw_processor(t_proc *proc)
 {
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
-	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
+	while (cw_cycles(proc))
 	{
-		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-		ft_printf("cycle : %d\n",proc->c);
-		cw_vizualizer(proc);
-		getchar();
+		cw_exec_process(proc);
 		proc->c++;
 	}
 	return (1);
