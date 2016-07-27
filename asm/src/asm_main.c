@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:06:32 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 10:24:57 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int		main(int argc, char **argv)
 	else
 		ft_printf("Put one champion, please !");
 	asm_free_global();
-	while (1);
 	return (0);
 }
