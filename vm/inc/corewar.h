@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 17:11:34 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:07:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,17 @@ void							cw_vizualizer(t_proc *proc, WINDOW *win);
 void							cw_vizualizer_memprint(t_proc *proc,
 								WINDOW *win);
 void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
+
+/*
+** Structure de définition des instructions :
+** - pointeur sur la fonction qui se charge de l'intruction,
+** - nom,
+** - nombre de paramètre,
+** - opcode (de 1 à 16),
+** - nombre de cycles,
+** - description,
+** - OCP (0 ou 1).
+*/
 
 static const t_op				g_op[17] =
 {

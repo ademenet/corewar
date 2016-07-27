@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 18:58:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:46:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 	{
 		mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
 			tmp->header->prog_name);
+		mvwprintw(win, y, 20, "inst_c = %.2hhx", tmp->inst_c); // pour debug
+		mvwprintw(win, y, 35, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
 		tmp = tmp->next;
 		y++;
 	}
@@ -133,7 +135,6 @@ int			cw_vizualizer_processor(t_proc *proc)
 	refresh();
 	while (cw_cycles(proc))
 	{
-		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
 		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
 		wrefresh(win[1]);
@@ -142,6 +143,7 @@ int			cw_vizualizer_processor(t_proc *proc)
 		refresh();
 		// getch();
 		getchar();
+		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
 	}
 	delwin(win[0]);
