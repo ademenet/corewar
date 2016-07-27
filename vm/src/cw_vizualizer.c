@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 17:11:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:59:58 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 	while (tmp)
 	{
 		if (*i == tmp->pc)
-			return (1);
+			return (tmp->num);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -37,18 +37,20 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 {
 	int			i;
+	int			num;
 
 	i = 0;
+	num = 0;
 	wclear(win);
 	while (i < MEM_SIZE)
 	{
 		if (i != 0)
 			i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
-		if (cw_vizualizer_pcprint(proc, &i))
+		if ((num = cw_vizualizer_pcprint(proc, &i)))
 		{
-			wattron(win, COLOR_PAIR(1));
+			wattron(win, COLOR_PAIR(num));
 			wprintw(win, "%.2hhx", proc->mem[i]);
-			wattroff(win, COLOR_PAIR(1));
+			wattroff(win, COLOR_PAIR(num));
 		}
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
@@ -88,8 +90,25 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 	// cbreak();
 	// win = newwin(80, 200, 0, 0);
 	// refresh();
+	t_champion	*tmp;
+	int			color;
+
+	tmp = proc->champions;
+	color = 1;
 	start_color();
-	init_pair(1, COLOR_BLACK, COLOR_GREEN);
+	while (tmp)
+	{
+		if (color == 1)
+			init_pair(tmp->num, COLOR_BLACK, COLOR_GREEN);
+		if (color == 2)
+			init_pair(tmp->num, COLOR_WHITE, COLOR_BLUE);
+		if (color == 3)
+			init_pair(tmp->num, COLOR_WHITE, COLOR_RED);
+		if (color == 4)
+			init_pair(tmp->num, COLOR_BLACK, COLOR_CYAN);
+		color++;
+		tmp = tmp->next;
+	}
 	cw_vizualizer_memprint(proc, win);
 	// wrefresh(win);
 	// getch();
