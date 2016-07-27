@@ -16,23 +16,30 @@
 ** Check si le label existe bien dans la struct(header)
 */
 
-int		asm_match_label(t_label *label, char *str)
+int		asm_match_label(t_label *label, char *str, int i)
 {
 	int len;
 
 	len = 0;
+	//ft_printf("entree match2 : \n%s\n", &str[i]);
+	while (ft_strchr(LABEL_CHARS, str[i]))
+	{
+		i++;
+		len++;
+	}
+	//ft_printf("entree match3 : \n%s\n", &str[i - len]);
 	while (label)
 	{
-		while (str[len] && str[len] != ' ' && str[len] != '\t' &&
-		str[len] != '\n' && str[len] != SEPARATOR_CHAR)
-			len++;
-		if (ft_strncmp(label->name, str, len) == 0)
+		ft_printf("label : \n%s\n", label->name);
+		if (ft_strncmp(label->name, &str[i - len], len) == 0)
 		{
 			if (!label->name[len])
 				return (1);
 		}
 		label = label->next;
 	}
+
+	//ft_printf("------------on en est la : %s", str);
 	return (asm_error(10));
 }
 
@@ -42,18 +49,22 @@ int		asm_match_label(t_label *label, char *str)
 
 int		asm_check_label_exist(t_label *label, char *str)
 {
+	int len;
+
+	len = 0;
 	if (!str)
 		return (0);
-	while (*str && *str != DIRECT_CHAR && *str != '\0')
+	while (str[len] && str[len] != DIRECT_CHAR)
 	{
-		str++;
-		if (*str == '%')
+		len++;
+		if (str[len] == '%')
 		{
-			str++;
-			if (*str == LABEL_CHAR)
+			len++;
+			if (str[len] == LABEL_CHAR)
 			{
-				str++;
-				asm_match_label(label, str);
+				len++;
+				//ft_printf("entree match label : \n%s\n", &str[len]);
+				asm_match_label(label, str, len);
 			}
 		}
 	}
@@ -84,8 +95,9 @@ int		asm_check_label(char *str)
 		return (2);
 	}
 	else if (str[i] && str[i] != ' ' && str[i] != '\0' &&
-	str[i] != '\n' && str[i] != '\t' && str[i] != COMMENT_CHAR)
+	str[i] != '\n' && str[i] != '\t' && str[i] != COMMENT_CHAR && str[i] != ',')
 	{
+		//ft_printf("str : --%s-- et i = %d\n", str, i);
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return (asm_error(4));
 		return (asm_error(3));

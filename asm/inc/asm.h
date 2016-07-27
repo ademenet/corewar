@@ -88,9 +88,8 @@ char					*asm_realloc(char *line, char *file, char *temp,
 ** Parse_instruct
 */
 
-int						asm_instruct_name_sec(char **line);
-int						asm_instruct_name(char **line);
-int						asm_check_instruct(char *line);
+int						asm_instruct_name_sec(char *line);
+int						asm_instruct_name(char *line);
 int						asm_move_my_i(int i);
 
 /*
@@ -106,11 +105,9 @@ int						asm_check_arg_sec(char **line, int op);
 
 char					*asm_header_pass(char *line, int name, int com,
 						int one);
-t_label					*asm_parse_line(char *line, int fd, int check,
-						char *file);
+t_label					*asm_parse_line(char *line, int fd, char **file);
 int						asm_parsing(char *champion, t_header *head);
-t_label					*asm_put_label(t_label *new, char *line, int fd,
-						char *file);
+t_label					*asm_put_label(t_label *label, char *line);
 
 /*
 ** Copy header
@@ -155,7 +152,7 @@ int						asm_binary_creator(int fd, t_label *label);
 ** Check_label
 */
 
-int						asm_match_label(t_label *label, char *str);
+int						asm_match_label(t_label *label, char *str, int i);
 int						asm_check_label_exist(t_label *label, char *str);
 int						asm_check_label(char *str);
 int						asm_check_double_label(t_label *label);

@@ -34,6 +34,7 @@ int		asm_check_virgule(char **line)
 
 int		asm_check_dir(char **line, int op, int check)
 {
+	//ft_printf("on est ici : \n%c\n", **line);
 	if (**line == DIRECT_CHAR)
 	{
 		if (op > 8 && op != 13)
@@ -41,6 +42,7 @@ int		asm_check_dir(char **line, int op, int check)
 		else
 			g_pos = g_pos + 4;
 		(*line)++;
+		ft_printf("");
 		if (**line == LABEL_CHAR)
 			(*line)++;
 		else if (**line == '+' || **line == '-')
@@ -51,6 +53,7 @@ int		asm_check_dir(char **line, int op, int check)
 			(*line)++;
 		if (check == 1)
 			return (asm_check_virgule(line));
+		ft_printf("%.10s", *line);
 		return (1);
 	}
 	return (0);
@@ -121,10 +124,7 @@ int		check_valid_line(char *line)
 {
 	int	fct;
 
-	if (!(fct = asm_instruct_name(&line)))
-		return (asm_error(5));
-	if (fct == 17)
-		return (1);
+	fct = asm_instruct_name(line);
 	g_pos++;
 	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		line = line + 4;

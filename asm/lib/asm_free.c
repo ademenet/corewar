@@ -31,7 +31,6 @@ void	asm_free_global(void)
 int		asm_free_label(t_label *label)
 {
 	t_label	*nxt;
-
 	nxt = label->next;
 	while (nxt)
 	{
@@ -76,7 +75,9 @@ int		asm_free_tab(char **tab, int ret)
 char	*asm_realloc(char *line, char *file, char *temp, int i)
 {
 	int	len;
+	char *temp2;
 
+	temp2 = NULL;
 	if (!(len = 0) && !file)
 	{
 		temp = ft_strsub(line, i, ft_strlen(line) - i);
@@ -86,18 +87,31 @@ char	*asm_realloc(char *line, char *file, char *temp, int i)
 			len++;
 		file[len] = '\n';
 		file[len + 1] = '\0';
-		free(temp);
+		// ft_printf("gfile = %s\n", file);
 	}
 	else
 	{
+		// ft_printf("LINE : %s\n", line);
 		temp = ft_strsub(line, i, ft_strlen(line) - i);
-		file = realloc(file, (ft_strlen(file) + ft_strlen(temp) + 1));
-		file = ft_strcat(file, temp);
-		while (file[len])
+		// ft_printf("Juste temp : %s\n", temp);
+		temp2 = malloc(sizeof(char) * (ft_strlen(file) + ft_strlen(temp) + 1));
+		// ft_printf("file avant le cpy : %s\n", file);
+		temp2 = ft_strcpy(temp2, file);
+		// ft_printf("temp2 : %s\n", temp2);
+		// ft_printf(" francis la linetemp : %s\n", temp);
+		temp2 = ft_strcat(temp2, temp);
+		// ft_printf(" francis la line2 : %s\n", temp2);
+		free(file);
+		while (temp2[len])
 			len++;
-		file[len] = '\n';
-		file[len + 1] = '\0';
-		free(temp);
+		temp2[len] = '\n';
+		temp2[len + 1] = '\0';
+		file = ft_strdup(temp2);
+		//if (temp2)
+		//{
+		//	free(temp2);
+		//	temp2 = NULL;
+		//}
 	}
 	return (file);
 }
@@ -109,17 +123,21 @@ char	*asm_free_join(char *line, char *file)
 
 	i = 0;
 	temp = NULL;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (line[i] == COMMENT_CHAR || asm_check_label(line) == 1)
-		return (file);
-	if (asm_check_label(line) == 2)
-	{
-		while (line[i] && line[i] != LABEL_CHAR)
-			i++;
-		i++;
-	}
+	//ft_printf("FILE DEBUT : %s\n", file);
+	//while (line[i] == ' ' || line[i] == '\t')
+	//	i++;
+	//{
+	//	while (line[i] && line[i] != LABEL_CHAR)
+	//		i++;
+	//	i++;
+	//}
 	if (line[i])
 		file = asm_realloc(line, file, temp, i);
+	// if (temp)
+	// {
+	// 	ft_printf("AVANT LE FREE\n");
+	// 	free(temp);
+	// 	ft_printf("I WANT YPU BREAK FREE\n");
+	// }
 	return (file);
 }

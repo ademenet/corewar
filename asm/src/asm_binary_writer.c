@@ -98,6 +98,7 @@ int		asm_binary_creator(int fd, t_label *label)
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos--;
 	asm_call_good_function(fct, fd, label);
+	//write(fd, "Z", 1);
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos++;
 	g_pos = g_pos + g_temp + 1;

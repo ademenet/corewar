@@ -65,6 +65,7 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 
 	if (!(i = 0) && *g_file != DIRECT_CHAR)
 		return (0);
+		ft_printf("%.10s\n", g_file);
 	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{
