@@ -36,15 +36,9 @@ int				cw_chk_champions(t_proc *proc)
 
 	champ = cw_lst_last(proc->champions);
 	if (champ->header->magic != COREWAR_EXEC_MAGIC)
-	{
-		ft_printf("%s : ", champ->header->prog_name);
-		return (cw_error_msg("has a wrong magic number"));
-	}
+		return (cw_error_msg("Wrong magic number"));
 	if (champ->header->prog_size > CHAMP_MAX_SIZE)
-	{
-		ft_printf("%s : ", champ->header->prog_name);
-		return (cw_error_msg("is too fat"));
-	}
+		return (cw_error_msg("a champion is too fat"));
 	return (1);
 }
 
