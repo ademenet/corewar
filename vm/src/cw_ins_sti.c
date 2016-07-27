@@ -18,17 +18,6 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-unsigned int		cw_ins_param_sze(char param, int dir)
-{
-	if (param == 1)
-		return (1);
-	if (param == 2)
-		return (dir);
-	if (param == 3)
-		return (2);
-	return (cw_error_msg("Wrong DIR_CODE ref passed to cw_ins_param_sze"));
-}
-
 int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	param[3];
