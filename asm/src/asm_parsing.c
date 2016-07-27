@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/27 18:52:17 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:02:26 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int			asm_parsing(char *champion, t_header *head)
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
 	asm_handler_name_comment(fd, line, head);
+	ft_printf("TEST\n");
 	label = asm_parse_line(line, fd, &file);
-	ft_printf("FILE : %s\n", file);
+	ft_printf("-FILE : %s-\n", file);
 	while (label)
 	{
 		ft_printf("LE LABEL : %s\n", label->name);

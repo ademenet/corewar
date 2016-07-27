@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/19 18:25:48 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:17:06 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		asm_check_virgule(char **line)
 
 int		asm_check_dir(char **line, int op, int check)
 {
-	//ft_printf("on est ici : \n%c\n", **line);
 	if (**line == DIRECT_CHAR)
 	{
 		if (op > 8 && op != 13)

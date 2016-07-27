@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/22 11:03:44 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:17:05 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ int		asm_match_label(t_label *label, char *str, int i)
 	int len;
 
 	len = 0;
-	//ft_printf("entree match2 : \n%s\n", &str[i]);
 	while (ft_strchr(LABEL_CHARS, str[i]))
 	{
 		i++;
 		len++;
 	}
-	//ft_printf("entree match3 : \n%s\n", &str[i - len]);
 	while (label)
 	{
 		ft_printf("label : \n%s\n", label->name);
@@ -38,8 +36,6 @@ int		asm_match_label(t_label *label, char *str, int i)
 		}
 		label = label->next;
 	}
-
-	//ft_printf("------------on en est la : %s", str);
 	return (asm_error(10));
 }
 
@@ -63,7 +59,6 @@ int		asm_check_label_exist(t_label *label, char *str)
 			if (str[len] == LABEL_CHAR)
 			{
 				len++;
-				//ft_printf("entree match label : \n%s\n", &str[len]);
 				asm_match_label(label, str, len);
 			}
 		}
@@ -97,7 +92,6 @@ int		asm_check_label(char *str)
 	else if (str[i] && str[i] != ' ' && str[i] != '\0' &&
 	str[i] != '\n' && str[i] != '\t' && str[i] != COMMENT_CHAR && str[i] != ',')
 	{
-		//ft_printf("str : --%s-- et i = %d\n", str, i);
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return (asm_error(4));
 		return (asm_error(3));

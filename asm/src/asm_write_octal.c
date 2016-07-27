@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/22 11:22:23 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:15:18 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int		asm_write_dir(int fd, int size, t_label *label, int check)
 
 	if (!(i = 0) && *g_file != DIRECT_CHAR)
 		return (0);
-		ft_printf("%.10s\n", g_file);
 	if (++g_file && *g_file == LABEL_CHAR && g_file++)
 		while (label)
 		{

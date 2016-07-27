@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/27 10:28:40 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:30:24 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,17 @@
 ** Récupére le nom et le comment et le stocke dans la struct(header)
 */
 
-int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
+t_header	*asm_copy_header(char *line, t_header *head)
+{
+	if (line[0] == '"')
+		ft_strcpy(head->comment, "I don't need a comment to crush you");
+	else
+		ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
+		COMMENT_LENGTH);
+	return (head);
+}
+
+int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 {
 	char	*tmp;
 
@@ -33,11 +43,8 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 	{
 		if ((line = asm_header_pass(line, name, com, 0)) == NULL)
 			return (asm_error(11));
-		else if (line[0] == '"')
-			ft_strcpy(head->comment, "I don't need a comment to crush you");
 		else
-			ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
-			COMMENT_LENGTH);
+			head = asm_copy_header(line, head);
 	}
 	else
 		return (asm_error(11));
@@ -52,7 +59,7 @@ int		asm_copy_name_comment(char *line, t_header *head, int name, int com)
 ** Récupére le nom et le comment et le stocke dans la struct(header)
 */
 
-int		asm_handler_name_comment(int fd, char *line, t_header *head)
+int			asm_handler_name_comment(int fd, char *line, t_header *head)
 {
 	int	name;
 	int	com;

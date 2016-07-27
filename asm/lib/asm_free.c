@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:06:15 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:16:06 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	asm_free_global(void)
 int		asm_free_label(t_label *label)
 {
 	t_label	*nxt;
+
 	nxt = label->next;
 	while (nxt)
 	{
@@ -72,72 +73,51 @@ int		asm_free_tab(char **tab, int ret)
 ** Fonction qui realloc pour recuperer tout le fichier .s k
 */
 
-char	*asm_realloc(char *line, char *file, char *temp, int i)
+char	*asm_realloc(char *line, char *file, char *sub, int i)
 {
-	int	len;
-	char *temp2;
+	int		len;
+	char	*tmp;
 
-	temp2 = NULL;
-	if (!(len = 0) && !file)
-	{
-		temp = ft_strsub(line, i, ft_strlen(line) - i);
-		file = malloc(sizeof(char) * (ft_strlen(temp) + 1));
-		file = ft_strcpy(file, temp);
-		while (file[len])
-			len++;
-		file[len] = '\n';
-		file[len + 1] = '\0';
-		// ft_printf("gfile = %s\n", file);
-	}
-	else
-	{
-		// ft_printf("LINE : %s\n", line);
-		temp = ft_strsub(line, i, ft_strlen(line) - i);
-		// ft_printf("Juste temp : %s\n", temp);
-		temp2 = malloc(sizeof(char) * (ft_strlen(file) + ft_strlen(temp) + 1));
-		// ft_printf("file avant le cpy : %s\n", file);
-		temp2 = ft_strcpy(temp2, file);
-		// ft_printf("temp2 : %s\n", temp2);
-		// ft_printf(" francis la linetemp : %s\n", temp);
-		temp2 = ft_strcat(temp2, temp);
-		// ft_printf(" francis la line2 : %s\n", temp2);
-		free(file);
-		while (temp2[len])
-			len++;
-		temp2[len] = '\n';
-		temp2[len + 1] = '\0';
-		file = ft_strdup(temp2);
-		//if (temp2)
-		//{
-		//	free(temp2);
-		//	temp2 = NULL;
-		//}
-	}
+	len = 0;
+	tmp = NULL;
+	sub = ft_strsub(line, i, ft_strlen(line) - i);
+	tmp = malloc(sizeof(char) * (ft_strlen(file) + ft_strlen(sub) + 1));
+	tmp = ft_strcpy(tmp, file);
+	tmp = ft_strcat(tmp, sub);
+	free(file);
+	while (tmp[len])
+		len++;
+	tmp[len] = '\n';
+	tmp[len + 1] = '\0';
+	file = ft_strdup(tmp);
+	free(tmp);
+	free(sub);
 	return (file);
 }
 
 char	*asm_free_join(char *line, char *file)
 {
 	int		i;
-	char	*temp;
+	int		len;
+	char	*sub;
 
 	i = 0;
-	temp = NULL;
-	//ft_printf("FILE DEBUT : %s\n", file);
-	//while (line[i] == ' ' || line[i] == '\t')
-	//	i++;
-	//{
-	//	while (line[i] && line[i] != LABEL_CHAR)
-	//		i++;
-	//	i++;
-	//}
+	sub = NULL;
 	if (line[i])
-		file = asm_realloc(line, file, temp, i);
-	// if (temp)
-	// {
-	// 	ft_printf("AVANT LE FREE\n");
-	// 	free(temp);
-	// 	ft_printf("I WANT YPU BREAK FREE\n");
-	// }
+	{
+		if (!(len = 0) && !file)
+		{
+			sub = ft_strsub(line, i, ft_strlen(line) - i);
+			file = malloc(sizeof(char) * (ft_strlen(sub) + 1));
+			file = ft_strcpy(file, sub);
+			while (file[len])
+				len++;
+			file[len] = '\n';
+			file[len + 1] = '\0';
+			free(sub);
+		}
+		else
+			file = asm_realloc(line, file, sub, i);
+	}
 	return (file);
 }
