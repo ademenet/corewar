@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 19:16:43 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/18 17:24:33 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 18:53:05 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ t_header	*asm_header_init(void)
 	return (new);
 }
 
-t_label		*asm_label_init(void)
+t_label		*asm_label_init(t_label *label, char *line)
 {
 	t_label		*new;
 
 	if (!(new = malloc(sizeof(t_label))))
 		return (NULL);
-	new->name = NULL;
-	new->next = NULL;
-	new->pos = 0;
+	new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
+	new->pos = g_pos;
+	new->next = label;
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/26 14:59:50 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 18:52:17 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,14 @@ char		*asm_header_pass(char *line, int name, int com, int one)
 	return (line);
 }
 
-t_label		*asm_put_label(t_label *label, char *line)
-{
-	t_label *new;
-	
-	new = asm_label_init();
-	new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
-	new->pos = g_pos;
-	new->next = label;
-	return (new);
-}
 /*
 ** Récursive qui récupere le nom du label, position dans une liste chainée
 */
+
 t_label		*asm_parse_line(char *line, int fd, char **file)
 {
-	int		i;
 	t_label	*label;
+	int		i;
 
 	label = NULL;
 	i = 0;
@@ -61,7 +52,7 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 			i++;
 		if (line[i] && line[i] != COMMENT_CHAR && asm_check_label(line) >= 1)
 		{
-			label = asm_put_label(label, line);
+			label = asm_label_init(label, line);
 			while (line[i] != LABEL_CHAR)
 				i++;
 			i++;
@@ -75,6 +66,42 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 	}
 	return (label);
 }
+
+/*
+** Début du parsing
+*/
+
+int			asm_parsing(char *champion, t_header *head)
+{
+	int			fd;
+	int			pos;
+	char		*line;
+	char		*file;
+	t_label		*label;
+
+	pos = 0;
+	label = NULL;
+	line = NULL;
+	file = NULL;
+	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
+		return (-1);
+	asm_handler_name_comment(fd, line, head);
+	label = asm_parse_line(line, fd, &file);
+	ft_printf("FILE : %s\n", file);
+	while (label)
+	{
+		ft_printf("LE LABEL : %s\n", label->name);
+		label = label->next;
+	}
+	asm_check_double_label(label);
+	if (asm_check_label_exist(label, g_file) == 0)
+		return (asm_error(12));
+	asm_reader(label, head, champion);
+	if (label)
+		asm_free_label(label);
+	return (0);
+}
+
 // t_label		*asm_parse_line(char *line, int fd, int check, char *file)
 // {
 // 	t_label	*new;
@@ -126,38 +153,3 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 // 	 }
 // 	return (new);
 // }
-
-/*
-** Début du parsing
-*/
-
-int			asm_parsing(char *champion, t_header *head)
-{
-	int			fd;
-	int			pos;
-	char		*line;
-	char		*file;
-	t_label		*label;
-
-	pos = 0;
-	label = NULL;
-	line = NULL;
-	file = NULL;
-	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
-		return (-1);
-	asm_handler_name_comment(fd, line, head);
-	label = asm_parse_line(line, fd, &file);
-	ft_printf("FILE : %s\n", file);
-	while (label)
-	{
-		ft_printf("LE LABEL : %s\n", label->name);
-		label = label->next;
-	}
-	asm_check_double_label(label);
-	if (asm_check_label_exist(label, g_file) == 0)
-		return (asm_error(12));
-	asm_reader(label, head, champion);
-	if (label)
-		asm_free_label(label);
-	return (0);
-}

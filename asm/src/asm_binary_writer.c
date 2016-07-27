@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/22 11:06:54 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/27 18:46:06 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		asm_binary_creator(int fd, t_label *label)
 	int fct;
 
 	fct = 0;
-	if (!(fct = asm_instruct_name(&g_file)))
+	if (!(fct = asm_instruct_name(g_file)))
 	{
 		while (*g_file && *g_file != LABEL_CHAR)
 			g_file++;
@@ -93,7 +93,7 @@ int		asm_binary_creator(int fd, t_label *label)
 		while (*g_file && (*g_file == '\n' || *g_file == ' ' ||
 		*g_file == '\t'))
 			g_file++;
-		fct = asm_instruct_name(&g_file);
+		fct = asm_instruct_name(g_file);
 	}
 	if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 		g_pos--;
