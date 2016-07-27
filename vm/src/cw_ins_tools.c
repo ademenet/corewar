@@ -20,7 +20,7 @@
 ** - IND_CODE = 3 (0x03).
 */
 
-int			cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
+int					cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 {
 	unsigned char	ocp_v;
 
@@ -37,4 +37,19 @@ int			cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 		ocp->third = (ocp_v >>2) & 0x03;
 	}
 	return (1);
+}
+
+/*
+** Renvoi la taille en octet de l'octet
+*/
+
+unsigned int		cw_ins_param_sze(char param, int dir)
+{
+	if (param == 1)
+		return (1);
+	if (param == 2)
+		return (dir);
+	if (param == 3)
+		return (2);
+	return (cw_error_msg("Wrong DIR_CODE ref passed to cw_ins_param_sze"));
 }

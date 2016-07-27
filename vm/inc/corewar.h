@@ -180,6 +180,7 @@ int								cw_check_live_process(t_proc *proc);
 
 void							cw_proc_init(t_proc *proc);
 void							cw_load_ins_c(t_proc *proc);
+unsigned int					cw_ins_param_sze(char param, int dir);
 
 /*
 ** INSTRUCTIONS
