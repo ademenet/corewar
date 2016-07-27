@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:43:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:57:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ int			cw_cycles(t_proc *proc)
 void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 	int *size)
 {
-	fprintf(stderr, "SALUT !");
+	// TODO FAUX ! Si mon PC parcourt les cases 1 a 1 il est a 0... Donc
+	// lorsqu'il tombe sur une instruction cette derniere a un inst_c de 0
+	// et elle sexecute tout de suite... Pas bon !
 	cw_ins_ocp(proc, tmp, ocp);
 	*size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
 	tmp->pc = (tmp->pc + *size) % MEM_SIZE;
 	tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-	fprintf(stderr, "\ttmp->inst_c initial == %d\t", tmp->inst_c); // debug
 }
 
 /*
@@ -90,21 +91,17 @@ int			cw_exec_process(t_proc *proc)
 		size = 0;
 		if (tmp->inst_c == 0)
 		{
-			fprintf(stderr, "\tproc->mem[tmp->pc] == %.2hhx\t", proc->mem[tmp->pc]);
 			if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 			{
-				fprintf(stderr, " OUI !!! ");
 				cw_exec_process_instruct(proc, tmp, &ocp, &size);
 			}
 			else
 			{
-				fprintf(stderr, " NOOON !!! ");
 				tmp->pc++;
 			}
 		}
 		else
 		{
-			fprintf(stderr, "\ttmp->inst_c == %d\t", tmp->inst_c); // debug
 			tmp->inst_c--;
 		}
 		tmp = tmp->next;
