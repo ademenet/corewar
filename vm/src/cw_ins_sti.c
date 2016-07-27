@@ -37,7 +37,7 @@ int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		proc->mem[tmp->pc + 1 + 1] > REG_NUMBER)
 		return (1 + 1 + param[0] + param[1] + param[2]);
 	while (++i < REG_SIZE)
-		proc->mem[(tmp->pc + res + i % MEM_SIZE) % IDX_MOD]
+		proc->mem[(tmp->pc + (res + i % IDX_MOD)) % MEM_SIZE]
 		= tmp->reg[proc->mem[tmp->pc + 1 + 1] - 1][i];
 	return (1 + 1 + param[0] + param[1] + param[2]);
 }
