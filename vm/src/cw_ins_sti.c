@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 13:42:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 18:54:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	int				i;
 
 	i = -1;
-	ft_printf("je rentre dans sti\n");
+	// ft_printf("je rentre dans sti\n");
 	param[0] = cw_ins_param_sze(ocp->first, 2);
 	param[1] = cw_ins_param_sze(ocp->second, 2);
 	param[2] = cw_ins_param_sze(ocp->third, 2);

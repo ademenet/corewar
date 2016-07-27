@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 17:59:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 18:58:58 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 
 	i = 0;
 	num = 0;
-	wclear(win);
+	// wclear(win);
+	wmove(win, 0, 0);
 	while (i < MEM_SIZE)
 	{
 		if (i != 0)
@@ -54,8 +55,8 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 		}
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
-		wrefresh(win);
 		i++;
+		// wrefresh(win);
 	}
 }
 
