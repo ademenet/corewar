@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 16:13:26 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 12:05:44 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _COREWAR_H_
 
 # include <ncurses.h>
+# include <panel.h>
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
@@ -57,6 +58,13 @@ typedef char		t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
+
+/*
+** BONUS : VIZUALIZER
+*/
+
+# define HVIZ					64
+# define WVIZ					192
 
 /*
 ** Structure du header (imposé par le sujet) :

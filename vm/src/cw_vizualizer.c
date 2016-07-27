@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 16:25:17 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 12:12:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 	while (i < MEM_SIZE)
 	{
 		i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
-		if (cw_vizualizer_pcprint(proc, &i)) // partiellement faux, car seulement pour un PC ! Marche pas :/
+		if (cw_vizualizer_pcprint(proc, &i))
 		{
 			wattron(win, COLOR_PAIR(1));
 			wprintw(win, "%.2hhx", proc->mem[i]);

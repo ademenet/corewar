@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 17:59:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 12:10:23 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int			cw_processor(t_proc *proc)
 	cbreak();
 	noecho();
 	win = newwin(200, 350, 0, 0);
-	win_g = subwin(win, 200, 200, 0, 0);
-	win_d = subwin(win, 200, 100, 200, 0);
+	win_g = subwin(win, HVIZ, WVIZ, 1, 1);
+	win_d = subwin(win, HVIZ, 100, HVIZ + 1, 0);
 	refresh();
 	while (cw_cycles(proc))
 	{
@@ -122,6 +122,8 @@ int			cw_processor(t_proc *proc)
 		cw_vizualizer(proc, win_g);
 		wprintw(win_d, "Nombres de cycles : %d", proc->c);
 		wrefresh(win);
+		wrefresh(win_g);
+		// wrefresh(win_d);
 		refresh();
 		getch();
 		proc->c++;
