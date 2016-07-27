@@ -25,6 +25,7 @@ int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	int				i;
 
 	i = -1;
+	ft_printf("je rentre dans sti\n");
 	param[0] = cw_ins_param_sze(ocp->first, 2);
 	param[1] = cw_ins_param_sze(ocp->second, 2);
 	param[2] = cw_ins_param_sze(ocp->third, 2);
@@ -33,10 +34,10 @@ int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	res += proc->mem[tmp->pc + 1 + 1 + param[0] + param[1]] << 8 |
 	proc->mem[tmp->pc + 1 + 1 + param[0] + param[1] + 1];
 	if (proc->mem[tmp->pc + 1 + 1] < 1 ||
-		proc->mem[tmp->pc + 1 + 1]] > REG_NUMBER)
+		proc->mem[tmp->pc + 1 + 1] > REG_NUMBER)
 		return (1 + 1 + param[0] + param[1] + param[2]);
 	while (++i < REG_SIZE)
-		proc->mem[(res + i % MEM_SIZE) % IDX_MOD]
+		proc->mem[(tmp->pc + res + i % MEM_SIZE) % IDX_MOD]
 		= tmp->reg[proc->mem[tmp->pc + 1 + 1] - 1][i];
 	return (1 + 1 + param[0] + param[1] + param[2]);
 }
