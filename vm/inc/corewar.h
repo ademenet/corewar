@@ -98,7 +98,7 @@ typedef struct 					s_proc
 {
 	t_champion					*champions;
 	// memoire du processeur
-	char						mem[MEM_SIZE];
+	unsigned char				mem[MEM_SIZE];
 	unsigned int				dump;
 	unsigned int				nb_proc; // nombre de processus courants
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
@@ -116,12 +116,12 @@ typedef struct 					s_proc
 ** Structure de récupération des paramètres d'instruction :
 */
 
-typedef struct				s_ocp
+typedef struct					s_ocp
 {
-	char					first;
-	char					second;
-	char					third;
-}							t_ocp;
+	char						first;
+	char						second;
+	char						third;
+}								t_ocp;
 
 /*
 ** Structure de définition des instructions :
