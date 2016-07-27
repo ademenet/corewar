@@ -43,6 +43,9 @@ int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->mem[tmp->pc + 1 + 1 + param[0] + 1];
 	res += proc->mem[tmp->pc + 1 + 1 + param[0] + param[1]] << 8 |
 	proc->mem[tmp->pc + 1 + 1 + param[0] + param[1] + 1];
+	if (proc->mem[tmp->pc + 1 + 1] < 1 ||
+		proc->mem[tmp->pc + 1 + 1]] > REG_NUMBER)
+		return (1 + 1 + param[0] + param[1] + param[2]);
 	while (++i < REG_SIZE)
 		proc->mem[(res + i % MEM_SIZE) % IDX_MOD]
 		= tmp->reg[proc->mem[tmp->pc + 1 + 1] - 1][i];
