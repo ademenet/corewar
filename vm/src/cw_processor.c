@@ -103,10 +103,10 @@ int			cw_processor(t_proc *proc)
 	while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-		proc->c++;
 		ft_printf("cycle : %d\n",proc->c);
 		cw_vizualizer(proc);
 		getchar();
+		proc->c++;
 	}
 	return (1);
 }
