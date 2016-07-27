@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 12:10:23 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:05:15 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,43 +92,36 @@ int			cw_exec_process(t_proc *proc)
 ** Elle exécute les cycles, lit la mémoire tout en traitant les instructions.
 */
 
-int			cw_processor(t_proc *proc)
+int			cw_vizualizer_processor(t_proc *proc)
 {
-	WINDOW	*win;
-	WINDOW	*win_g;
-	WINDOW	*win_d;
+	WINDOW	*win[3];
 
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
-
-	// while (cw_cycles(proc)) //	 cw_cycles doit renvoyer 1 si il y a encore des choses à faire
-	// {
-	// 	cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-	// 	proc->c++;
-	// 	cw_vizualizer(proc);
-	// 	getchar();
-	// }
-
 	initscr();
 	cbreak();
 	noecho();
-	win = newwin(200, 350, 0, 0);
-	win_g = subwin(win, HVIZ, WVIZ, 1, 1);
-	win_d = subwin(win, HVIZ, 100, HVIZ + 1, 0);
+	win[0] = newwin(76, 194, 0, 0);
+	win[1] = subwin(win[0], 65, 192, 1, 1);
+	win[2] = subwin(win[0], 10, 192, 66, 1);
+	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
 	while (cw_cycles(proc))
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-		cw_vizualizer(proc, win_g);
-		wprintw(win_d, "Nombres de cycles : %d", proc->c);
-		wrefresh(win);
-		wrefresh(win_g);
-		// wrefresh(win_d);
+		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
+		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
+		wrefresh(win[1]);
+		wrefresh(win[2]);
+		wrefresh(win[0]);
 		refresh();
-		getch();
+		// getch();
+		getchar();
 		proc->c++;
 	}
-	delwin(win);
+	delwin(win[0]);
+	delwin(win[1]);
+	delwin(win[2]);
 	endwin();
 	return (1);
 }

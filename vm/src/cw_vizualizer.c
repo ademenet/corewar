@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 12:12:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:03:26 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 	int			i;
 
 	i = 0;
+	wclear(win);
 	while (i < MEM_SIZE)
 	{
-		i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
+		if (i != 0)
+			i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
 		if (cw_vizualizer_pcprint(proc, &i))
 		{
 			wattron(win, COLOR_PAIR(1));
@@ -50,9 +52,27 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 		}
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
-		refresh();
+		wrefresh(win);
 		i++;
 	}
+}
+
+void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
+{
+	t_champion	*tmp;
+	int			y;
+
+	tmp = proc->champions;
+	y = 2;
+	mvwprintw(win, 1, 1, "Nombres de cycles : %d", proc->c);
+	while (tmp)
+	{
+		mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
+			tmp->header->prog_name);
+		tmp = tmp->next;
+		y++;
+	}
+	mvwprintw(win, 1, 91, "Cycle to die : %d", proc->c_to_die);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 12:05:44 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/27 17:01:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,6 @@ typedef char		t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
-
-/*
-** BONUS : VIZUALIZER
-*/
-
-# define HVIZ					64
-# define WVIZ					192
 
 /*
 ** Structure du header (imposé par le sujet) :
@@ -222,9 +215,11 @@ int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 */
 
 // void							cw_vizualizer(t_proc *proc);
+int								cw_vizualizer_processor(t_proc *proc);
 void							cw_vizualizer(t_proc *proc, WINDOW *win);
 void							cw_vizualizer_memprint(t_proc *proc,
 								WINDOW *win);
+void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
 
 static const t_op				g_op[17] =
 {
