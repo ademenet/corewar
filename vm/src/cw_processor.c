@@ -76,7 +76,7 @@ int			cw_exec_process(t_proc *proc)
 		{
 			// ICI fonction qui recupere les params s'il y a !
 			cw_ins_ocp(proc, tmp, &ocp);
-			size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
+			size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, &ocp);
 			// ICI on fait jumper le PC !!!
 			tmp->pc = (tmp->pc + size) % MEM_SIZE;
 		}
@@ -100,7 +100,8 @@ int			cw_processor(t_proc *proc)
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
-		// cw_vizualizer(proc);
+		ft_printf("cycle : %d\n",proc->c);
+		cw_vizualizer(proc);
 		getchar();
 	}
 	return (1);
