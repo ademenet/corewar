@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 10:10:03 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 10:36:02 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label, char **file)
 		asm_write_ind(fd, label, file)) &&
 		(asm_write_reg(fd, file) || asm_write_dir(fd, 2, label, file)))))
 		return (asm_write_reg(fd, file));
-	else if (fct == 11 && asm_opcode(fd, 3, 0, *file) && ((asm_write_reg(fd, file) &&
-		(asm_write_reg(fd, file) || asm_write_dir(fd, 2, label, file) ||
-		asm_write_ind(fd, label, file)) && (asm_write_reg(fd, file) ||
-		asm_write_dir(fd, 2, label, file)))))
+	else if (fct == 11 && asm_opcode(fd, 3, 0, *file) &&
+		((asm_write_reg(fd, file) && (asm_write_reg(fd, file) ||
+		asm_write_dir(fd, 2, label, file) || asm_write_ind(fd, label, file)) &&
+		(asm_write_reg(fd, file) || asm_write_dir(fd, 2, label, file)))))
 		return (1);
 	else if (fct == 16 && write(fd, "@", 1))
 		return (asm_write_reg(fd, file));
