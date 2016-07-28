@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/27 19:32:06 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 11:12:12 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,28 @@
 ** Récupére le nom et le comment et le stocke dans la struct(header)
 */
 
-t_header	*asm_copy_header(char *line, t_header *head)
+t_header	*asm_copy_header(char *line, t_header *head, int check)
 {
-	if (line[0] == '"')
-		ft_strcpy(head->comment, "I don't need a comment to crush you");
-	else
-		ft_strncpy(head->comment, ft_strsub(line, 0, ft_strclen(line, '"')),
-		COMMENT_LENGTH);
+	char *tmp;
+
+	tmp = NULL;
+	if (check == 0)
+	{
+		tmp = ft_strsub(line, 0, ft_strclen(line, '"'));
+		ft_strncpy(head->prog_name, tmp, PROG_NAME_LENGTH);
+	}
+	if (check == 1)
+	{
+		if (line[0] == '"')
+			ft_strcpy(head->comment, "I don't need a comment to crush you");
+		else
+		{
+			tmp = ft_strsub(line, 0, ft_strclen(line, '"'));
+			ft_strncpy(head->comment, tmp, COMMENT_LENGTH);
+		}
+	}
+	if (tmp != NULL)
+		free(tmp);
 	return (head);
 }
 
@@ -35,8 +50,8 @@ int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 	{
 		if ((line = asm_header_pass(line, name, com, 1)) == NULL)
 			return (asm_error(1));
-		tmp = ft_strsub(line, 0, ft_strclen(line, '"'));
-		ft_strncpy(head->prog_name, tmp, PROG_NAME_LENGTH);
+		else
+			asm_copy_header(line, head, 0);
 	}
 	else if (!head->comment[0] &&
 		ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
@@ -44,7 +59,7 @@ int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 		if ((line = asm_header_pass(line, name, com, 0)) == NULL)
 			return (asm_error(11));
 		else
-			head = asm_copy_header(line, head);
+			head = asm_copy_header(line, head, 1);
 	}
 	else
 		return (asm_error(11));
