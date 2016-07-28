@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 19:16:43 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/27 18:53:05 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 10:41:45 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ t_label		*asm_label_init(t_label *label, char *line)
 	new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
 	new->pos = g_pos;
 	new->next = label;
+	ft_printf("g_pos de %s : %d\n", new->name, new->pos);
 	return (new);
 }

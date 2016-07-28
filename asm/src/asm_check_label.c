@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 08:24:11 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 10:44:24 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		asm_match_label(t_label *label, char *str, int i)
 	i = check;
 	while (label)
 	{
+	
 		if (ft_strncmp(label->name, &str[check], len) == 0)
 		{
 			if (!label->name[len])
