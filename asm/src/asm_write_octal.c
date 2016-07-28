@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 13:03:07 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 13:07:12 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int		asm_write_dir(int fd, int size, t_label *label, char **file)
 		{
 			if (!ft_strncmp(*file, label->name, len))
 			{
-				//printf("str_len = %c\n", *file[ft_strlen(label->name) - 1]);
 				{
 					i = label->pos - g_pos;
 					break ;
@@ -88,7 +87,6 @@ int		asm_write_dir(int fd, int size, t_label *label, char **file)
 	}
 	else
 		i = ft_atoi(*file);
-	ft_printf("i = %d\n", i);
 	if (size == 4)
 		i = cw_invert_endian(i);
 	else

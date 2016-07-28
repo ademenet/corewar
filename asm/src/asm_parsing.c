@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 11:03:45 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 13:07:28 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 			*file = asm_free_join(&line[i], *file);
 		free(line);
 		line = NULL;
-		ft_printf("g_pos apres srockage : %d\n", g_pos);
 	}
 	return (label);
 }

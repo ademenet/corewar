@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 11:07:56 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 13:07:50 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int		asm_binary_creator(int fd, t_label *label, char *file)
 
 		asm_call_good_function(fct, fd, label, &file);
 		g_pos = g_pos + g_temp;
-		ft_printf("g_pos apres instruction : %d\n", g_pos);
 		g_temp = 0;
 	}
 	return (1);
