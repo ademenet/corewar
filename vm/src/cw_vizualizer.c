@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:46:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 15:37:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 
 	i = 0;
 	num = 0;
-	// wclear(win);
 	wmove(win, 0, 0);
 	while (i < MEM_SIZE)
 	{
@@ -56,7 +55,6 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
 		i++;
-		// wrefresh(win);
 	}
 }
 
@@ -86,13 +84,6 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 
 void		cw_vizualizer(t_proc *proc, WINDOW *win)
 {
-	// WINDOW	*win;
-	// int		ch; // pour le controle plus tard ==> il faut d'abord faire en sorte de l'appeler en params
-
-	// initscr();
-	// cbreak();
-	// win = newwin(80, 200, 0, 0);
-	// refresh();
 	t_champion	*tmp;
 	int			color;
 
@@ -113,16 +104,23 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 		tmp = tmp->next;
 	}
 	cw_vizualizer_memprint(proc, win);
-	// wrefresh(win);
-	// getch();
-	// delwin(win);
-	// endwin();
+}
+
+char		cw_vizualizer_control(char *play, int *ch)
+{
+	if (*play == 1 & *ch == KEY_BACKSPACE)
+		return (0);
+	else
+		return (1);
 }
 
 int			cw_vizualizer_processor(t_proc *proc)
 {
 	WINDOW	*win[3];
+	char	play;
+	int		ch;
 
+	play = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 	initscr();
@@ -131,9 +129,10 @@ int			cw_vizualizer_processor(t_proc *proc)
 	win[0] = newwin(76, 194, 0, 0);
 	win[1] = subwin(win[0], 65, 192, 1, 1);
 	win[2] = subwin(win[0], 10, 192, 66, 1);
+	keypad(win[0], TRUE);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
-	while (cw_cycles(proc))
+	while (cw_cycles(proc) && (play = cw_vizualizer_control(&play, &ch)))
 	{
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
 		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
@@ -141,8 +140,8 @@ int			cw_vizualizer_processor(t_proc *proc)
 		wrefresh(win[2]);
 		wrefresh(win[0]);
 		refresh();
-		// getch();
-		getchar();
+		ch = getch();
+		// getchar();
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		proc->c++;
 	}
