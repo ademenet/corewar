@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_check_label.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/27 19:17:05 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 08:24:11 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@
 int		asm_match_label(t_label *label, char *str, int i)
 {
 	int len;
+	int check;
 
+	check = i;
 	len = 0;
 	while (ft_strchr(LABEL_CHARS, str[i]))
 	{
 		i++;
 		len++;
 	}
+	i = check;
 	while (label)
 	{
-		ft_printf("label : \n%s\n", label->name);
-		if (ft_strncmp(label->name, &str[i - len], len) == 0)
+		if (ft_strncmp(label->name, &str[check], len) == 0)
 		{
 			if (!label->name[len])
 				return (1);

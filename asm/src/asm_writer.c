@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_writer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 10:38:48 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/22 16:43:28 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 08:23:41 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		asm_reader(t_label *label, t_header *header, char *champ)
 		O_APPEND, 0777)) > -1)
 	{
 		asm_header_creator(fd, header);
+		ft_printf("yolo\n");
 		g_pos = 0;
 		asm_binary_creator(fd, label);
 	}
