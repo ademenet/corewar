@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:26:43 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:39:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int			cw_cycles(t_proc *proc)
 
 int		cw_cycles_checks(t_proc *proc)
 {
-	if (proc->c == proc->dump)
+	if (proc->dump != 0 && proc->c == proc->dump)
+	{
 		cw_dump_display(proc);
-	return (0);
+		return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:27:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:54:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,16 @@ void		cw_exec_process(t_proc *proc)
 
 int			cw_processor(t_proc *proc)
 {
+	int		c_check;
+
+	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
-	while (cw_cycles(proc))
+	while (cw_cycles(proc) && c_check)
 	{
 		cw_exec_process(proc);
+		c_check = cw_cycles_checks(proc);
 		proc->c++;
-		cw_cycles_checks(proc);
 	}
 	return (1);
 }
