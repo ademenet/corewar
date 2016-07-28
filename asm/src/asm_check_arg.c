@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 17:28:55 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/18 17:31:57 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 16:59:45 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		asm_check_arg_sec(char **line, int op)
 	(asm_check_dir(line, op, 1) || asm_check_reg(line, 1)) &&
 	asm_check_reg(line, 0))
 		return (1);
-	return (0);
+	return (asm_error(8));
 }
 
 /*

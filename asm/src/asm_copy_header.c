@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 16:07:12 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 16:52:50 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,13 @@ int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 
 int			asm_handler_name_comment(int fd, char *line, t_header *head)
 {
+	int	i;
 	int	name;
 	int	com;
-	int	i;
 
-	name = 0;
-	com = 0;
 	i = 0;
+	name = ft_strlen(NAME_CMD_STRING);
+	com = ft_strlen(COMMENT_CMD_STRING);
 	while (get_next_line(fd, &line) > 0)
 	{
 		g_line++;
@@ -120,13 +120,12 @@ int			asm_handler_name_comment(int fd, char *line, t_header *head)
 		{
 			while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
 				i++;
-			name = ft_strlen(NAME_CMD_STRING);
-			com = ft_strlen(COMMENT_CMD_STRING);
 			asm_copy_name_comment(&line[i], head, name, com);
 			if (head->comment[0] && head->prog_name[0])
 				return (1);
 		}
 		free(line);
+		line = NULL;
 	}
 	return (asm_error(11));
 }

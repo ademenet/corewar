@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_check_instruction.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 11:03:10 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 17:04:25 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		asm_check_reg(char **line, int check)
 	{
 		(*line)++;
 		reg = ft_atoi(*line);
-		if (reg > REG_NUMBER || reg < 0)
+		if (reg > REG_NUMBER || reg =< 0)
 			return (asm_error(9));
 		(*line)++;
 		if (reg > 9)
@@ -134,8 +134,7 @@ int		check_valid_line(char *line)
 		line = line + 3;
 	if (fct != 1 && fct != 9 && fct != 12 & fct != 15)
 		g_pos++;
-	if (!asm_check_arg(&line, fct))
-		return (asm_error(8));
+	asm_check_arg(&line, fct);
 	while (*line && *line != '\n' && *line != COMMENT_CHAR && *line != ';')
 		if (*line && *line != ' ' && *line != '\t' && *line != '\n')
 			return (asm_error(12));
