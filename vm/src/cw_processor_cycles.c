@@ -6,11 +6,36 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:39:02 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 19:12:17 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+/*
+** cw_check_live_process vérifie si un processus a bien fait un live en
+** CYCLE_TO_DIE cycles.
+*/
+
+int			cw_check_live_process(t_proc *proc)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
+	{
+		if (tmp->lives == 0)
+			// kill le process en le retirant de la liste
+		tmp = tmp->next;
+	}
+	proc->checks++; // incremente le checks car on a effectue un nouveau check
+	return (1);
+}
+
+/*
+** Affiche la mémoire selon la norme imposée dans le sujet : 32 octets par
+** ligne.
+*/
 
 void		cw_dump_display(t_proc *proc)
 {
@@ -55,5 +80,12 @@ int		cw_cycles_checks(t_proc *proc)
 		cw_dump_display(proc);
 		return (0);
 	}
+	if (proc->c % CYCLE_TO_DIE == 0 && proc->c != 0)
+	{
+		if (proc->lives_total >= NBR_LIVE)
+			proc->c_to_die -= CYCLE_DELTA;
+	}
+	if (proc->c % MAX_CHECKS == 0 && proc->c != 0)
+		proc->c_to_die -= CYCLE_DELTA;
 	return (1);
 }

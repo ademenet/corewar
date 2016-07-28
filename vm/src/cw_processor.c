@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:54:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 19:07:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,6 @@
 	// TODO verifier que les processus ont bien fait au moins un live
 // TODO verifier que CYCLE_TO_DIE != 0
 	// TODO renvoyer 0 sinon.
-
-/*
-** cw_check_live_process vérifie si un processus a bien fait un live en
-** CYCLE_TO_DIE cycles.
-*/
-
-int			cw_check_live_process(t_proc *proc)
-{
-	t_champion	*tmp;
-
-	tmp = proc->champions;
-	while (tmp)
-	{
-		if (tmp->lives == 0)
-			// kill le process en le retirant de la liste
-		tmp = tmp->next;
-	}
-	proc->checks++; // incremente le checks car on a effectue un nouveau check
-	return (1);
-}
 
 /*
 ** Effectue l'instruction puis fait sauter le PC et réinitialise le cycles

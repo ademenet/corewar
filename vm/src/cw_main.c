@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:32:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 19:13:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				main(int ac, char **av)
 		return (ft_printf("Fail !\n"));
 	cw_load_ins_mem(&proc);
 	// Pour le moment : commenter ou decommenter la version du processeur (visuel ou non)
-	// cw_vizualizer_processor(&proc);
-	cw_processor(&proc);
+	cw_vizualizer_processor(&proc);
+	// cw_processor(&proc);
 	return (0);
 }

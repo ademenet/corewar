@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 14:49:48 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:17:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 19:13:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@
 
 int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	return (0);
+	return (5);
 }
