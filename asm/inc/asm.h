@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 11:04:06 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 11:36:50 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int						asm_check_arg_sec(char **line, int op);
 ** Parsing
 */
 
-char					*asm_header_pass(char *line, int name, int com,
-						int one);
+int						asm_header_pass(char *line, int name, int com,
+						int check);
 t_label					*asm_parse_line(char *line, int fd, char **file);
 int						asm_parsing(char *champion, t_header *head);
 

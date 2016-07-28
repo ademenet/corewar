@@ -6,34 +6,11 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 09:52:52 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 14:32:51 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
-
-/*
-** Bouge le pointeur juste avant le nom ou le commentaire
-*/
-
-char		*asm_header_pass(char *line, int name, int com, int one)
-{
-	int	i;
-
-	i = -1;
-	if (one)
-		while (++i < name)
-			line++;
-	else
-		while (++i < com)
-			line++;
-	while (*line != '\n' && *line != '"' && *line != '\0')
-		line++;
-	if (*line != '"')
-		return (NULL);
-	line++;
-	return (line);
-}
 
 /*
 ** Récursive qui récupere le nom du label, position dans une liste chainée
@@ -87,12 +64,12 @@ int			asm_parsing(char *champion, t_header *head)
 		return (-1);
 	asm_handler_name_comment(fd, line, head);
 	label = asm_parse_line(line, fd, &file);
+	ft_printf("LALALLAL\n");
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, file) == 0)
 		return (asm_error(12));
-	// ft_printf("file créé : %s\n", file);
-
 	asm_reader(label, head, champion, file);
+	free(file);
 	if (label)
 		asm_free_label(label);
 	return (0);

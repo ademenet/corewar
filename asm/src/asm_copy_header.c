@@ -6,11 +6,43 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 11:12:12 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 14:35:19 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+/*
+** Bouge le pointeur juste avant le nom ou le commentaire
+*/
+
+int			asm_header_pass(char *line, int name, int com, int check)
+{
+	int	i;
+
+	if (check)
+		i = name;
+	else
+		i = com;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (line[i] != '"')
+		return (0);
+	i++;
+	return (i);
+}
+
+int			asm_header_pass_end(char *line, int i)
+{
+	while (line[i] && line[i] != '"')
+		i++;
+	if (line[i] == '"')
+		i++;
+	while (line[i] && line[i] != '\n' && i++)
+		if (line[i] && line[i] != ' ' && line[i] != '\t')
+			return (asm_error(1));
+	return (0);
+}
 
 /*
 ** Récupére le nom et le comment et le stocke dans la struct(header)
@@ -43,31 +75,29 @@ t_header	*asm_copy_header(char *line, t_header *head, int check)
 
 int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 {
+	int		i;
 	char	*tmp;
 
+	i = 0;
 	tmp = NULL;
 	if (!head->prog_name[0] && ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
-		if ((line = asm_header_pass(line, name, com, 1)) == NULL)
+		if ((i = asm_header_pass(line, name, com, 1)) == 0)
 			return (asm_error(1));
 		else
-			asm_copy_header(line, head, 0);
+			asm_copy_header(&line[i], head, 0);
 	}
 	else if (!head->comment[0] &&
 		ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
-		if ((line = asm_header_pass(line, name, com, 0)) == NULL)
+		if ((i = asm_header_pass(line, name, com, 0)) == 0)
 			return (asm_error(11));
 		else
-			head = asm_copy_header(line, head, 1);
+			head = asm_copy_header(&line[i], head, 1);
 	}
 	else
 		return (asm_error(11));
-	line = line + ft_strclen(line, '"');
-	while (*line && *line != '\n' && line++)
-		if (*line && *line != ' ' && *line != '\t')
-			return (asm_error(1));
-	return (0);
+	return (asm_header_pass_end(line, i));
 }
 
 /*
