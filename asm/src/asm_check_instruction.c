@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/27 19:17:06 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 09:59:41 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		asm_check_dir(char **line, int op, int check)
 			(*line)++;
 		if (check == 1)
 			return (asm_check_virgule(line));
-		ft_printf("%.10s", *line);
 		return (1);
 	}
 	return (0);

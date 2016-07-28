@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_binary_writer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 09:31:41 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 10:10:03 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ int		asm_binary_creator(int fd, t_label *label, char *file)
 	while (*file)
 	{
 		fct = asm_instruct_name(file);
-		
+
 		if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 			g_pos--;
 		asm_call_good_function(fct, fd, label, &file);
+
 		if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 			g_pos++;
 		g_pos = g_pos + g_temp + 1;

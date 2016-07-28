@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 09:30:31 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 09:52:52 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			asm_parsing(char *champion, t_header *head)
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, file) == 0)
 		return (asm_error(12));
-	ft_printf("file créé : %s\n", file);
+	// ft_printf("file créé : %s\n", file);
 
 	asm_reader(label, head, champion, file);
 	if (label)

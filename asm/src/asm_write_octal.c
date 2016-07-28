@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_write_octal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 09:23:10 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 10:26:39 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		asm_opcode(int fd, int arg, int i, char *file)
 
 	octin = 0;
 	octout = 0;
-	
+
 	asm_opcode_assign(&octout, i, 1, file);
 	octin = (octin | octout);
 	if (arg > 1)
@@ -57,7 +57,7 @@ int		asm_opcode(int fd, int arg, int i, char *file)
 		octin = (octin | octout);
 	}
 	write(fd, &octin, 1);
-	
+
 	return (1);
 }
 
@@ -68,16 +68,17 @@ int		asm_write_dir(int fd, int size, t_label *label, char **file)
 	if (!(i = 0) && **file != DIRECT_CHAR)
 		return (0);
 	if (++(*file) && **file == LABEL_CHAR && (*file)++)
+	{
 		while (label)
 		{
-			if (!ft_strncmp(*file, label->name, ft_strlen(label->name)) &&
-			!ft_strchr(LABEL_CHARS, *file[ft_strlen(label->name)]))
+			if (!ft_strncmp(*file, label->name, ft_strlen(label->name)))
 			{
 				i = label->pos - g_pos;
 				break ;
 			}
 			label = label->next;
 		}
+	}
 	else
 		i = ft_atoi(*file);
 	if (size == 4)
@@ -96,6 +97,7 @@ int		asm_write_ind(int fd, t_label *label, char **file)
 
 	i = 0;
 	if (**file == LABEL_CHAR && (*file)++)
+	{
 		while (label)
 		{
 			if (!ft_strncmp(*file, label->name, ft_strlen(label->name)))
@@ -105,6 +107,7 @@ int		asm_write_ind(int fd, t_label *label, char **file)
 			}
 			label = label->next;
 		}
+	}
 	else
 		i = ft_atoi(*file);
 	i = cw_invert_endian2(i);
