@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:40:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:29:30 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 	if (ft_strcmp(av[param], "-dump") == 0)
 	{
 		if ((n = ft_atoi(av[++param])) <= 0)
-			return (cw_error_msg("'dumb' must be a positive value"));
+			return (cw_error_msg("'dump' must be a positive value"));
 		proc->dump = n;
 	}
 	return (1);

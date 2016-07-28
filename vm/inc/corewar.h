@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 13:29:45 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:26:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,10 @@ int								cw_processor(t_proc *proc);
 void							cw_exec_process(t_proc *proc);
 void							cw_exec_process_instruct(t_proc *proc,
 								t_champion *tmp, t_ocp *ocp);
-int								cw_cycles(t_proc *proc);
 int								cw_check_live_process(t_proc *proc);
+int								cw_cycles(t_proc *proc);
+int								cw_cycles_checks(t_proc *proc);
+void							cw_dump_display(t_proc *proc);
 
 /*
 ** PROCESSOR : FONCTIONS OUTILS

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 13:41:12 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:27:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ int			cw_check_live_process(t_proc *proc)
 		tmp = tmp->next;
 	}
 	proc->checks++; // incremente le checks car on a effectue un nouveau check
-	return (1);
-}
-
-/*
-** cw_cycles vérifie si un nouveau cycle doit être exécuté.
-** Si les conditions suivantes sont remplies alors les cycles s'arrêtent :
-** - CYCLE_TO_DIE atteint 0 ;
-** - depuis CYCLE_TO_DIE cycles un seul processus a été rapporté en vie.
-*/
-
-int			cw_cycles(t_proc *proc)
-{
-	// if (proc->checks % MAX_CHECKS == 0)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	// if (proc->c % CYCLE_TO_DIE == 0) // condition a verifier si on a decrementer ctd entre temps
-	// 	cw_check_live_process(proc);
-	// if (proc->lives_total >= NBR_LIVE)
-	// 	proc->c_to_die -= CYCLE_DELTA;
 	return (1);
 }
 
@@ -128,6 +110,7 @@ int			cw_processor(t_proc *proc)
 	{
 		cw_exec_process(proc);
 		proc->c++;
+		cw_cycles_checks(proc);
 	}
 	return (1);
 }
