@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 15:37:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 16:47:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 		mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
 			tmp->header->prog_name);
 		mvwprintw(win, y, 20, "inst_c = %.2hhx", tmp->inst_c); // pour debug
-		mvwprintw(win, y, 35, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
+		mvwprintw(win, y, 40, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
+		mvwprintw(win, y, 60, "ins = %p", tmp->ins); // pour debug
 		tmp = tmp->next;
 		y++;
 	}
@@ -106,9 +107,9 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 	cw_vizualizer_memprint(proc, win);
 }
 
-char		cw_vizualizer_control(char *play, int *ch)
+int			cw_vizualizer_control(char *play, int *ch)
 {
-	if (*play == 1 & *ch == KEY_BACKSPACE)
+	if (*play == 1 & *ch == 32)
 		return (0);
 	else
 		return (1);
@@ -129,21 +130,28 @@ int			cw_vizualizer_processor(t_proc *proc)
 	win[0] = newwin(76, 194, 0, 0);
 	win[1] = subwin(win[0], 65, 192, 1, 1);
 	win[2] = subwin(win[0], 10, 192, 66, 1);
-	keypad(win[0], TRUE);
+	keypad(stdscr, TRUE);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
-	while (cw_cycles(proc) && (play = cw_vizualizer_control(&play, &ch)))
+	while (1)
 	{
-		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
-		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
-		wrefresh(win[1]);
-		wrefresh(win[2]);
-		wrefresh(win[0]);
-		refresh();
 		ch = getch();
-		// getchar();
-		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-		proc->c++;
+		if (ch == 32)
+		{
+		while (cw_cycles(proc))
+		{
+			cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
+			cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
+			wrefresh(win[1]);
+			wrefresh(win[2]);
+			wrefresh(win[0]);
+			// refresh();
+			// mvprintw(0, 0, "[%d]", ch);
+			// getchar();
+			cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+			proc->c++;
+		}
+		}
 	}
 	delwin(win[0]);
 	delwin(win[1]);
