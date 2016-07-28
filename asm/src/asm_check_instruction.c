@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 17:04:25 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 17:07:46 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		asm_check_reg(char **line, int check)
 	{
 		(*line)++;
 		reg = ft_atoi(*line);
-		if (reg > REG_NUMBER || reg =< 0)
+		if (reg > REG_NUMBER || reg <= 0)
 			return (asm_error(9));
 		(*line)++;
 		if (reg > 9)
