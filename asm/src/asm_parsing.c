@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 08:24:24 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 09:10:50 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,10 @@ int			asm_parsing(char *champion, t_header *head)
 		return (-1);
 	asm_handler_name_comment(fd, line, head);
 	label = asm_parse_line(line, fd, &file);
-	ft_printf("-FILE : \n%s-\n", file);
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, file) == 0)
 		return (asm_error(12));
-	asm_reader(label, head, champion);
+	asm_reader(label, head, champion, file);
 	if (label)
 		asm_free_label(label);
 	return (0);

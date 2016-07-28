@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_parse_instruct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/25 11:18:19 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 09:18:57 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int			asm_instruct_name(char *line)
 	return (asm_instruct_name_sec(line));
 }
 
-int			asm_move_my_i(int i)
+int			asm_move_my_i(int i, char *file)
 {
-	while (g_file[i] != ',')
+	while (file[i] != ',')
 		i++;
 	i++;
-	while (g_file[i] == '\t' || g_file[i] == ' ')
+	while (file[i] == '\t' || file[i] == ' ')
 		i++;
 	return (i);
 }
