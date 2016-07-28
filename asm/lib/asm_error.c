@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:08:37 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 10:57:04 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:17:07 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 int		asm_error(int error)
 {
-	asm_free_global();
 	if (error == 1)
 		ft_printf("Wrong format name -> line: %d\n", g_line);
 	if (error == 2)

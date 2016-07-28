@@ -6,23 +6,11 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/28 14:57:04 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:18:52 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
-
-/*
-** Free les pointeurs sur GNL
-*/
-
-void	asm_free_global(void)
-{
-	if (g_tmp_line)
-		free(g_tmp_line);
-	if (g_tmp_file)
-		free(g_tmp_file);
-}
 
 /*
 ** Free la liste label
@@ -39,11 +27,6 @@ int		asm_free_label(t_label *label)
 		free(label);
 		label = nxt;
 		nxt = label->next;
-	}
-	if (label)
-	{
-		free(label->name);
-		free(label);
 	}
 	return (1);
 }
