@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 09:21:31 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 09:31:41 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,5 @@ int		asm_binary_creator(int fd, t_label *label, char *file)
 			g_pos++;
 		g_pos = g_pos + g_temp + 1;
 	}
-	if (!*file)
-		return (1);
-	return (asm_binary_creator(fd, label, file));
+	return (1);
 }
