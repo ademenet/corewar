@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:57:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 13:41:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 	// TODO verifier que les processus ont bien fait au moins un live
 // TODO verifier que CYCLE_TO_DIE != 0
 	// TODO renvoyer 0 sinon.
-// TODO fonction pour calculer la taille de l'ensemble de l'instruction
-// pour pouvoir faire sauter le PC a la prochaine instruction.
 
 /*
 ** cw_check_live_process vérifie si un processus a bien fait un live en
@@ -58,55 +56,63 @@ int			cw_cycles(t_proc *proc)
 }
 
 /*
-** Effectue l'instruction puis fait sauter le PC et réinialise le cycles
+** Effectue l'instruction puis fait sauter le PC et réinitialise le cycles
 ** d'instruction avec la nouvelle valeur.
+** Si une instruction n'était pas em cours (tmp->ins == NULL) alors on signale
+** cette instruction et on charge le temps de l'instruction.
 */
 
-void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp,
-	int *size)
+void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	// TODO FAUX ! Si mon PC parcourt les cases 1 a 1 il est a 0... Donc
-	// lorsqu'il tombe sur une instruction cette derniere a un inst_c de 0
-	// et elle sexecute tout de suite... Pas bon !
-	cw_ins_ocp(proc, tmp, ocp);
-	*size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
-	tmp->pc = (tmp->pc + *size) % MEM_SIZE;
-	tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+	int		size;
+
+	size = 0;
+	if (tmp->ins == NULL)
+	{
+		tmp->ins = &proc->mem[tmp->pc];
+		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+	}
+	else
+	{
+		cw_ins_ocp(proc, tmp, ocp);
+		size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
+		tmp->pc = (tmp->pc + size) % MEM_SIZE;
+		if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
+		{
+			tmp->ins = &proc->mem[tmp->pc];
+			tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+		}
+		else
+			tmp->ins = NULL;
+	}
 }
 
 /*
 ** cw_exec_process itère sur chaque processus pour savoir s'il y a
-** quelque chose à faire ou pas.
+** quelque chose à faire ou pas. Si le temps d'une instruction est écoulé, alors
+** elle va appeler la fonction qui exécute. Si non, elle incrémente le PC
+** jusqu'à tomber sur une instruction.
 */
 
-int			cw_exec_process(t_proc *proc)
+void		cw_exec_process(t_proc *proc)
 {
 	t_champion	*tmp;
 	t_ocp		ocp;
-	int			size;
 
 	tmp = proc->champions;
 	while (tmp)
 	{
-		size = 0;
 		if (tmp->inst_c == 0)
 		{
 			if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-			{
-				cw_exec_process_instruct(proc, tmp, &ocp, &size);
-			}
+				cw_exec_process_instruct(proc, tmp, &ocp);
 			else
-			{
 				tmp->pc++;
-			}
 		}
 		else
-		{
 			tmp->inst_c--;
-		}
 		tmp = tmp->next;
 	}
-	return (1);
 }
 
 /*

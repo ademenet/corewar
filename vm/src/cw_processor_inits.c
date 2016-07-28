@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/25 18:27:46 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 14:07:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/07/28 13:12:01 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		cw_proc_init(t_proc *proc)
 	while (tmp)
 	{
 		tmp->pc = tmp->pc_origin;
+		tmp->ins = &proc->mem[tmp->pc];
 		tmp = tmp->next;
 	}
 }
