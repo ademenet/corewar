@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_check_instruction.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 09:59:41 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 11:03:10 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		asm_check_dir(char **line, int op, int check)
 		else
 			g_pos = g_pos + 4;
 		(*line)++;
-		ft_printf("");
 		if (**line == LABEL_CHAR)
 			(*line)++;
 		else if (**line == '+' || **line == '-')
@@ -123,7 +122,8 @@ int		check_valid_line(char *line)
 	int	fct;
 
 	fct = asm_instruct_name(line);
-	g_pos++;
+	if (fct)
+		g_pos++;
 	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
 		line = line + 4;
 	else if (fct == 2 || fct == 3 || fct == 7)
@@ -132,6 +132,8 @@ int		check_valid_line(char *line)
 		line = line + 5;
 	else
 		line = line + 3;
+	if (fct != 1 && fct != 9 && fct != 12 & fct != 15)
+		g_pos++;
 	if (!asm_check_arg(&line, fct))
 		return (asm_error(8));
 	while (*line && *line != '\n' && *line != COMMENT_CHAR && *line != ';')

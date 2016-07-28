@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 10:36:02 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 14:38:22 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label, char **file)
 		asm_write_dir(fd, 2, label, file) || asm_write_ind(fd, label, file)) &&
 		(asm_write_reg(fd, file) || asm_write_dir(fd, 2, label, file)))))
 		return (1);
-	else if (fct == 16 && write(fd, "@", 1))
+	else if (fct == 16 && write(fd, "@", 1) && ++g_temp)
 		return (asm_write_reg(fd, file));
 	return (1);
 }
@@ -76,11 +76,12 @@ int		asm_call_good_function(int fct, int fd, t_label *label, char **file)
 	else if ((fct == 2 || fct == 13) && asm_opcode(fd, 2, 0, *file) &&
 		((asm_write_dir(fd, 4, label, file) || asm_write_ind(fd, label, file))))
 		return (asm_write_reg(fd, file));
-	else if (fct == 3 && asm_opcode(fd, 2, 0, *file) && asm_write_reg(fd, file) &&
-		(asm_write_reg(fd, file) || asm_write_ind(fd, label, file)))
+	else if (fct == 3 && asm_opcode(fd, 2, 0, *file) && asm_write_reg(fd, file)
+		&& (asm_write_reg(fd, file) || asm_write_ind(fd, label, file)))
 		return (1);
-	else if ((fct == 4 || fct == 5) && write(fd, "T", 1) &&
-	asm_write_reg(fd, file) && asm_write_reg(fd, file) && asm_write_reg(fd, file))
+	else if ((fct == 4 || fct == 5) && write(fd, "T", 1) && ++g_temp &&
+		asm_write_reg(fd, file) && asm_write_reg(fd, file) &&
+		asm_write_reg(fd, file))
 		return (1);
 	return (asm_call_good_function_sec(fct, fd, label, file));
 }
@@ -93,14 +94,13 @@ int		asm_binary_creator(int fd, t_label *label, char *file)
 	while (*file)
 	{
 		fct = asm_instruct_name(file);
+		if (fct)
+			g_temp++;
+		//if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
 
-		if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
-			g_pos--;
 		asm_call_good_function(fct, fd, label, &file);
-
-		if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
-			g_pos++;
-		g_pos = g_pos + g_temp + 1;
+		g_pos = g_pos + g_temp;
+		g_temp = 0;
 	}
 	return (1);
 }

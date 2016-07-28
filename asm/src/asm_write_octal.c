@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_write_octal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 10:26:39 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 13:24:09 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		asm_opcode(int fd, int arg, int i, char *file)
 
 	octin = 0;
 	octout = 0;
-
 	asm_opcode_assign(&octout, i, 1, file);
 	octin = (octin | octout);
 	if (arg > 1)
@@ -56,29 +55,24 @@ int		asm_opcode(int fd, int arg, int i, char *file)
 		asm_opcode_assign(&octout, i, 3, file);
 		octin = (octin | octout);
 	}
+	g_temp++;
 	write(fd, &octin, 1);
 
 	return (1);
 }
 
+
+
 int		asm_write_dir(int fd, int size, t_label *label, char **file)
 {
 	int	i;
+	int len;
 
+	len = 0;
 	if (!(i = 0) && **file != DIRECT_CHAR)
 		return (0);
 	if (++(*file) && **file == LABEL_CHAR && (*file)++)
-	{
-		while (label)
-		{
-			if (!ft_strncmp(*file, label->name, ft_strlen(label->name)))
-			{
-				i = label->pos - g_pos;
-				break ;
-			}
-			label = label->next;
-		}
-	}
+		i = calculate_i(*file, label);
 	else
 		i = ft_atoi(*file);
 	if (size == 4)
@@ -86,32 +80,24 @@ int		asm_write_dir(int fd, int size, t_label *label, char **file)
 	else
 		i = cw_invert_endian2(i);
 	write(fd, &i, size);
-	if ((g_temp = g_temp + size))
-		asm_move_separator(file);
+	g_temp = g_temp + size;
+	asm_move_separator(file);
 	return (1);
 }
 
 int		asm_write_ind(int fd, t_label *label, char **file)
 {
 	int	i;
+	int len;
 
+	len = 0;
 	i = 0;
 	if (**file == LABEL_CHAR && (*file)++)
-	{
-		while (label)
-		{
-			if (!ft_strncmp(*file, label->name, ft_strlen(label->name)))
-			{
-				i = label->pos - g_pos;
-				break ;
-			}
-			label = label->next;
-		}
-	}
+		i = calculate_i(*file, label);
 	else
 		i = ft_atoi(*file);
 	i = cw_invert_endian2(i);
-	*file = *file + write(fd, &i, T_IND);
+	write(fd, &i, T_IND);
 	g_temp = g_temp + T_IND;
 	asm_move_separator(file);
 	return (1);
@@ -121,11 +107,12 @@ int		asm_write_reg(int fd, char **file)
 {
 	int	i;
 
+
 	i = 0;
 	if (**file != 'r')
 		return (0);
 	i = ft_atoi(++(*file));
-	*file = *file + write(fd, &i, T_REG);
+	write(fd, &i, T_REG);
 	g_temp = g_temp + T_REG;
 	asm_move_separator(file);
 	return (1);
