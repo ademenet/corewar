@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 14:39:12 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 14:56:17 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 		free(line);
 		line = NULL;
 	}
+	free(line);
 	return (label);
 }
 
@@ -64,7 +65,6 @@ int			asm_parsing(char *champion, t_header *head)
 		return (-1);
 	asm_handler_name_comment(fd, line, head);
 	label = asm_parse_line(line, fd, &file);
-	ft_printf("LALALLAL\n");
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, file) == 0)
 		return (asm_error(12));
@@ -74,55 +74,3 @@ int			asm_parsing(char *champion, t_header *head)
 		asm_free_label(label);
 	return (0);
 }
-
-// t_label		*asm_parse_line(char *line, int fd, int check, char *file)
-// {
-// 	t_label	*new;
-// 	int		r;
-//
-// 	r = 1;
-// 	new = NULL;
-// 	// if (g_tmp_line)
-// 		// free(g_tmp_line);
-// 	g_tmp_line = NULL;
-// 	//ft_printf("file avant gnl= %s\n", file);
-// 	if (line && check == 1)
-// 	{
-// 		// printf("avant le free : %s\n", line);
-// 		free(line);
-// 		line = NULL;
-// 	}
-// 	if (check == 1 && (r = get_next_line(fd, &line)) && ++g_line)
-// 	{
-// 		// g_tmp_line = line;
-// 		//ft_printf("****line avant join= %s\n", line);
-// 		//ft_printf("file avant join= %s\n", file);
-// 		file = asm_free_join(line, file);
-// 		//ft_printf("file apres join= %s\n", file);
-// 	}
-// 	// printf("line : %s\n", line);
-// 	if (r > 0 && line && line[0] != COMMENT_CHAR && asm_check_label(line) >= 1)
-// 	{
-// 		//ft_printf("---label foire= \n%s\n", line);
-// 		new = asm_put_label(new, line, fd, file);
-//
-// 	}
-// 	else if (r > 0 && line[0] != COMMENT_CHAR && line[0] != '\0' &&
-// 	asm_check_label(line) == 0 && check_valid_line(line))
-// 	{
-// 		//ft_printf("--- FILE foire= %s\n", file);
-// 		return (asm_parse_line(line, fd, 1, file));
-// 	}
-// 	else if (r > 0)
-// 	{
-// 		//ft_printf("IMPOSSIBLE\n");
-// 		return (asm_parse_line(line, fd, 1, file));
-// 	}
-// 	 else if (r == 0)
-// 	 {
-// 		//ft_printf("FILE : %s\n", file);
-// 	 	g_file = ft_strdup(file);
-// 	 	free(file);
-// 	 }
-// 	return (new);
-// }

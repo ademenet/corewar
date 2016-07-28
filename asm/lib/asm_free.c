@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:16:06 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 14:57:04 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,20 @@ char	*asm_realloc(char *line, char *file, char *sub, int i)
 
 	len = 0;
 	tmp = NULL;
+	sub = NULL;
 	sub = ft_strsub(line, i, ft_strlen(line) - i);
 	tmp = malloc(sizeof(char) * (ft_strlen(file) + ft_strlen(sub) + 1));
 	tmp = ft_strcpy(tmp, file);
 	tmp = ft_strcat(tmp, sub);
 	free(file);
+	free(sub);
+	file = NULL;
 	while (tmp[len])
 		len++;
 	tmp[len] = '\n';
 	tmp[len + 1] = '\0';
 	file = ft_strdup(tmp);
 	free(tmp);
-	free(sub);
 	return (file);
 }
 

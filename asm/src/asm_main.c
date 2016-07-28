@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 10:56:53 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 14:57:16 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	asm_free_global();
-	while (1);
+	// while (1);
 	return (0);
 }
