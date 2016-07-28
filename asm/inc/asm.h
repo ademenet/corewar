@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 09:19:10 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 11:04:06 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int						asm_parsing(char *champion, t_header *head);
 ** Copy header
 */
 
-t_header				*asm_copy_header(char *line, t_header *head);
+t_header				*asm_copy_header(char *line, t_header *head, int check);
 int						asm_copy_name_comment(char *line, t_header *head,
 						int name, int com);
 int						asm_handler_name_comment(int fd, char *line,
