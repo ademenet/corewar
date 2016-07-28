@@ -33,7 +33,7 @@
 *.su
 test
 test.*
-./asm/asm
+asm/asm
 test*
 *.cor
 *.s
