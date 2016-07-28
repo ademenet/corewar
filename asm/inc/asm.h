@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 11:04:06 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 13:23:34 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ char					*asm_realloc(char *line, char *file, char *sub,
 int						asm_instruct_name_sec(char *line);
 int						asm_instruct_name(char *line);
 int						asm_move_my_i(int i, char *file);
+int 					calculate_i(char *file, t_label *label);
 
 /*
 ** Check_arg

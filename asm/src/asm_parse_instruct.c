@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 10:45:49 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 13:23:21 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,21 @@ int			asm_move_my_i(int i, char *file)
 	while (file[i] == '\t' || file[i] == ' ')
 		i++;
 	return (i);
+}
+
+
+int calculate_i(char *file, t_label *label)
+{
+	int len;
+	
+	len = 0;
+	while(ft_strchr(LABEL_CHARS, file[len]))
+			len++;
+	while (label)
+	{
+		if (!ft_strncmp(file, label->name, len))
+			return (label->pos - g_pos);
+		label = label->next;
+	}
+	return(asm_error(12));
 }

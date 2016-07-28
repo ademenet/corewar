@@ -6,7 +6,7 @@
 /*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 13:07:12 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/07/28 13:24:09 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,18 @@ int		asm_opcode(int fd, int arg, int i, char *file)
 	return (1);
 }
 
+
+
 int		asm_write_dir(int fd, int size, t_label *label, char **file)
 {
-	unsigned int	i;
+	int	i;
 	int len;
 
 	len = 0;
 	if (!(i = 0) && **file != DIRECT_CHAR)
 		return (0);
 	if (++(*file) && **file == LABEL_CHAR && (*file)++)
-	{
-		while(ft_strchr(LABEL_CHARS,(*file)[len]))
-			len++;
-		while (label)
-		{
-			if (!ft_strncmp(*file, label->name, len))
-			{
-				{
-					i = label->pos - g_pos;
-					break ;
-				}
-			}
-			label = label->next;
-		}
-	}
+		i = calculate_i(*file, label);
 	else
 		i = ft_atoi(*file);
 	if (size == 4)
@@ -93,31 +81,23 @@ int		asm_write_dir(int fd, int size, t_label *label, char **file)
 		i = cw_invert_endian2(i);
 	write(fd, &i, size);
 	g_temp = g_temp + size;
-		asm_move_separator(file);
+	asm_move_separator(file);
 	return (1);
 }
 
 int		asm_write_ind(int fd, t_label *label, char **file)
 {
-	unsigned int	i;
+	int	i;
+	int len;
 
+	len = 0;
 	i = 0;
 	if (**file == LABEL_CHAR && (*file)++)
-	{
-		while (label)
-		{
-			if (!ft_strncmp(*file, label->name, ft_strlen(label->name)))
-			{
-				i = label->pos - g_pos;
-				break ;
-			}
-			label = label->next;
-		}
-	}
+		i = calculate_i(*file, label);
 	else
 		i = ft_atoi(*file);
 	i = cw_invert_endian2(i);
-	*file = *file + write(fd, &i, T_IND);
+	write(fd, &i, T_IND);
 	g_temp = g_temp + T_IND;
 	asm_move_separator(file);
 	return (1);
@@ -132,7 +112,7 @@ int		asm_write_reg(int fd, char **file)
 	if (**file != 'r')
 		return (0);
 	i = ft_atoi(++(*file));
-	*file = *file + write(fd, &i, T_REG);
+	write(fd, &i, T_REG);
 	g_temp = g_temp + T_REG;
 	asm_move_separator(file);
 	return (1);
