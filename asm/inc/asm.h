@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 14:38:58 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 16:23:25 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@
 int						g_line;
 int						g_pos;
 int						g_temp;
-char					*g_file;
-char					*g_tmp_file;
-char					*g_tmp_line;
 
 /*
 ** Labels

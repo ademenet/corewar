@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 14:57:16 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/28 16:24:09 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ int		main(int argc, char **argv)
 
 	index = 1;
 	g_line = 0;
-	g_file = NULL;
-	g_tmp_file = NULL;
-	g_tmp_line = NULL;
+	g_pos = 0;
+	g_temp = 0;
 	if (argc == 2)
 	{
 		head = asm_header_init();
