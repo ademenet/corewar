@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_binary_writer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 14:38:22 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/29 08:32:24 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int		asm_move_separator(char **file)
 	while (**file && **file != SEPARATOR_CHAR && **file != '\n')
 		(*file)++;
 	if (**file == '\n')
-	{
-		(*file)++;
 		return(1);
-	}
 	(*file)++;
 	while (**file && (**file == ' ' || **file == '\t'))
 		(*file)++;
@@ -96,9 +93,11 @@ int		asm_binary_creator(int fd, t_label *label, char *file)
 		fct = asm_instruct_name(file);
 		if (fct)
 			g_temp++;
-		//if (fct != 1 && fct != 9 && fct != 12 && fct != 15)
-
 		asm_call_good_function(fct, fd, label, &file);
+		while (*file && *file != '\n')
+			file++;
+		file++;
+		ft_printf("file apres appel \n%s\n", file);
 		g_pos = g_pos + g_temp;
 		g_temp = 0;
 	}
