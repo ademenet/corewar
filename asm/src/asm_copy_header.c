@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_copy_header.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 16:52:50 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/29 11:33:45 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			asm_handler_name_comment(int fd, char *line, t_header *head)
 	while (get_next_line(fd, &line) > 0)
 	{
 		g_line++;
-		if (line[0] != COMMENT_CHAR && line[0] != '\0')
+		if (line[0] != COMMENT_CHAR && line[0] != ';' && line[0] != '\0')
 		{
 			while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
 				i++;

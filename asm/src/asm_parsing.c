@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 18:15:31 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/07/29 11:55:17 by DeSeropelly      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 	i = 0;
 	while (!(i = 0) && get_next_line(fd, &line) > 0)
 	{
+		g_line++;
 		while (line[i] == '\t' || line[i] == ' ')
 			i++;
-		if (line[i] && line[i] != COMMENT_CHAR && asm_check_label(line) >= 1)
+		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' && asm_check_label(line) >= 1)
 		{
 			label = asm_label_init(label, line);
 			while (line[i] != LABEL_CHAR)
@@ -36,7 +37,7 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 		}
 		while (line[i] == '\t' || line[i] == ' ')
 			i++;
-		if (line[i] && line[i] != COMMENT_CHAR && check_valid_line(&line[i]))
+		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' && check_valid_line(&line[i]))
 			*file = asm_free_join(&line[i], *file);
 		free(line);
 		line = NULL;
