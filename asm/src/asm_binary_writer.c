@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_binary_writer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/29 08:32:24 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 09:52:24 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int		asm_binary_creator(int fd, t_label *label, char *file)
 		while (*file && *file != '\n')
 			file++;
 		file++;
-		ft_printf("file apres appel \n%s\n", file);
 		g_pos = g_pos + g_temp;
 		g_temp = 0;
 	}

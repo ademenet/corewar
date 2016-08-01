@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_copy_header.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/29 11:33:45 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 10:18:23 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,15 @@ int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 ** Récupére le nom et le comment et le stocke dans la struct(header)
 */
 
-int			asm_handler_name_comment(int fd, char *line, t_header *head)
+int			asm_handler_name_comment(int fd, t_header *head)
 {
 	int	i;
 	int	name;
 	int	com;
+	char	*line;
 
 	i = 0;
+	line = 0;
 	name = ft_strlen(NAME_CMD_STRING);
 	com = ft_strlen(COMMENT_CMD_STRING);
 	while (get_next_line(fd, &line) > 0)

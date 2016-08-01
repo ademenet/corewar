@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/29 11:55:17 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 10:33:47 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@
 ** Récursive qui récupere le nom du label, position dans une liste chainée
 */
 
-t_label		*asm_parse_line(char *line, int fd, char **file)
+t_label		*asm_parse_line(int fd, char **file)
 {
+	char	*line;
 	t_label	*label;
 	int		i;
 
-	label = NULL;
 	i = 0;
-	while (!(i = 0) && get_next_line(fd, &line) > 0)
+	label = NULL;
+	line = NULL;
+	while (get_next_line(fd, &line) > 0)
 	{
+		i = 0;
 		g_line++;
 		while (line[i] == '\t' || line[i] == ' ')
 			i++;
@@ -42,7 +45,8 @@ t_label		*asm_parse_line(char *line, int fd, char **file)
 		free(line);
 		line = NULL;
 	}
-	free(line);
+	if (line && line[0])
+		free(line);
 	return (label);
 }
 
@@ -54,19 +58,16 @@ int			asm_parsing(char *champion, t_header *head)
 {
 	int			fd;
 	int			pos;
-	char		*line;
 	char		*file;
 	t_label		*label;
 
 	pos = 0;
 	label = NULL;
-	line = NULL;
 	file = NULL;
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
-	asm_handler_name_comment(fd, line, head);
-	line = NULL;
-	label = asm_parse_line(line, fd, &file);
+	asm_handler_name_comment(fd, head);
+	label = asm_parse_line(fd, &file);
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, file) == 0)
 		return (asm_error(12));

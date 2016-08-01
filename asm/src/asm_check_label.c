@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_check_label.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/29 11:47:31 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 10:07:23 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		asm_match_label(t_label *label, char *str, int i)
 	i = check;
 	while (label)
 	{
-	
+
 		if (ft_strncmp(label->name, &str[check], len) == 0)
 		{
 			if (!label->name[len])
@@ -97,7 +97,6 @@ int		asm_check_label(char *str)
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return (asm_error(4));
-		ft_printf("on ene st la : %s", str);
 		return (asm_error(3));
 	}
 	return (0);

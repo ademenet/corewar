@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 18:16:29 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 10:19:09 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int						asm_check_arg_sec(char **line, int op);
 
 int						asm_header_pass(char *line, int name, int com,
 						int check);
-t_label					*asm_parse_line(char *line, int fd, char **file);
+t_label					*asm_parse_line(int fd, char **file);
 int						asm_parsing(char *champion, t_header *head);
 
 /*
@@ -112,8 +112,7 @@ int						asm_parsing(char *champion, t_header *head);
 t_header				*asm_copy_header(char *line, t_header *head, int check);
 int						asm_copy_name_comment(char *line, t_header *head,
 						int name, int com);
-int						asm_handler_name_comment(int fd, char *line,
-						t_header *head);
+int						asm_handler_name_comment(int fd, t_header *head);
 
 /*
 ** Check_instruct
