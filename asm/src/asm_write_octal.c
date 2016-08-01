@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_write_octal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:47:55 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 13:24:09 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 15:31:28 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	asm_opcode_assign(int *octout, int i, int check, char *file)
 
 int		asm_opcode(int fd, int arg, int i, char *file)
 {
-	int octout;
-	int octin;
+	int	octout;
+	int	octin;
 
 	octin = 0;
 	octout = 0;
@@ -57,22 +57,19 @@ int		asm_opcode(int fd, int arg, int i, char *file)
 	}
 	g_temp++;
 	write(fd, &octin, 1);
-
 	return (1);
 }
-
-
 
 int		asm_write_dir(int fd, int size, t_label *label, char **file)
 {
 	int	i;
-	int len;
+	int	len;
 
 	len = 0;
 	if (!(i = 0) && **file != DIRECT_CHAR)
 		return (0);
 	if (++(*file) && **file == LABEL_CHAR && (*file)++)
-		i = calculate_i(*file, label);
+		i = asm_calculate_i(*file, label);
 	else
 		i = ft_atoi(*file);
 	if (size == 4)
@@ -88,12 +85,12 @@ int		asm_write_dir(int fd, int size, t_label *label, char **file)
 int		asm_write_ind(int fd, t_label *label, char **file)
 {
 	int	i;
-	int len;
+	int	len;
 
 	len = 0;
 	i = 0;
 	if (**file == LABEL_CHAR && (*file)++)
-		i = calculate_i(*file, label);
+		i = asm_calculate_i(*file, label);
 	else
 		i = ft_atoi(*file);
 	i = cw_invert_endian2(i);
@@ -106,7 +103,6 @@ int		asm_write_ind(int fd, t_label *label, char **file)
 int		asm_write_reg(int fd, char **file)
 {
 	int	i;
-
 
 	i = 0;
 	if (**file != 'r')

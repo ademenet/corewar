@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 14:26:25 by gseropia          #+#    #+#             */
-/*   Updated: 2016/08/01 09:52:24 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 15:24:05 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		asm_move_separator(char **file)
 	while (**file && **file != SEPARATOR_CHAR && **file != '\n')
 		(*file)++;
 	if (**file == '\n')
-		return(1);
+		return (1);
 	(*file)++;
 	while (**file && (**file == ' ' || **file == '\t'))
 		(*file)++;
@@ -66,7 +66,7 @@ int		asm_call_good_function_sec(int fct, int fd, t_label *label, char **file)
 
 int		asm_call_good_function(int fct, int fd, t_label *label, char **file)
 {
-	*file  = asm_move_file(fct, *file);
+	*file = asm_move_file(fct, *file);
 	write(fd, &fct, 1);
 	if (fct == 1)
 		return (asm_write_dir(fd, 4, label, file));

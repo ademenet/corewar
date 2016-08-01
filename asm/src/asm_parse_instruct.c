@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_parse_instruct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 13:05:23 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 15:45:15 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 15:30:48 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,13 @@ int			asm_move_my_i(int i, char *file)
 	return (i);
 }
 
-
-int calculate_i(char *file, t_label *label)
+int			asm_calculate_i(char *file, t_label *label)
 {
-	size_t len;
-	
+	size_t	len;
+
 	len = 0;
-	while(ft_strchr(LABEL_CHARS, file[len]))
-			len++;
+	while (ft_strchr(LABEL_CHARS, file[len]))
+		len++;
 	while (label)
 	{
 		if (len >= ft_strlen(label->name))
@@ -88,5 +87,5 @@ int calculate_i(char *file, t_label *label)
 			return (label->pos - g_pos);
 		label = label->next;
 	}
-	return(asm_error(12));
+	return (asm_error(12));
 }
