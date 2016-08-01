@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: DeSeropelly <DeSeropelly@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 19:16:43 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 13:09:14 by DeSeropelly      ###   ########.fr       */
+/*   Updated: 2016/08/01 16:56:34 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ t_label		*asm_label_init(t_label *label, char *line)
 
 	if (!(new = malloc(sizeof(t_label))))
 		return (NULL);
+	new->name = NULL;
+	new->next = NULL;
+	new->pos = 0;
 	new->name = ft_strsub(line, 0, ft_strclen(line, LABEL_CHAR));
 	new->pos = g_pos;
 	new->next = label;
+	printf("NAME LABEL : %s\n", new->name);
 	return (new);
 }
