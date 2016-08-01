@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 15:30:38 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 17:40:33 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int						asm_binary_creator(int fd, t_label *label, char *file);
 ** Check_label
 */
 
-int						asm_match_label(t_label *label, char *str, int i);
+int						asm_match_label(t_label *label, char *str);
 int						asm_check_label_exist(t_label *label, char *str);
 int						asm_check_label(char *str);
 int						asm_check_double_label(t_label *label);

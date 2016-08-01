@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 17:09:45 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 18:21:51 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,23 @@
 ** Check si le label existe bien dans la struct(header)
 */
 
-int		asm_match_label(t_label *label, char *str, int i)
+int		asm_match_label(t_label *label, char *str)
 {
-	int len;
-	int check;
+	int	i;
 
-	check = i;
-	len = 0;
+	i = 0;
 	while (ft_strchr(LABEL_CHARS, str[i]))
-	{
 		i++;
-		len++;
-	}
-	i = check;
-	printf("str : -%s-\n", &str[check]);
-	printf("label : \n");
 	while (label)
 	{
-		printf("%s\n", label->name);
-		if (ft_strncmp(label->name, &str[check], len) == 0)
+		if (ft_strncmp(label->name, str, i) == 0)
 		{
-			if (!label->name[len])
+			if (!label->name[i])
 				return (1);
 		}
 		label = label->next;
 	}
+	printf("LABEL QUI MATCH PAS : -%.10s-\n", str);
 	return (asm_error(10));
 }
 
@@ -58,17 +50,16 @@ int		asm_check_label_exist(t_label *label, char *str)
 	while (str[len] && str[len] != DIRECT_CHAR)
 	{
 		len++;
-		if (str[len] == '%')
+		if (str[len] == DIRECT_CHAR)
 		{
 			len++;
 			if (str[len] == LABEL_CHAR)
 			{
 				len++;
-				asm_match_label(label, str, len);
+				asm_match_label(label, &str[len]);
 			}
 		}
 	}
-	label = NULL;
 	return (1);
 }
 
@@ -118,7 +109,7 @@ int		asm_check_double_label(t_label *label)
 	label = label->next;
 	while (label)
 	{
-		if (!ft_strcmp(start->name, label->name) && start != label)
+		if (ft_strcmp(start->name, label->name) == 0)
 			return (asm_error(9));
 		label = label->next;
 	}

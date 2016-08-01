@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 15:27:38 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 18:19:40 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ t_label		*asm_parse_line(int fd, char **file)
 		*file = asm_put_line_in_file(line, i, *file);
 	}
 	if (line && line[0])
+	{
 		free(line);
+		line = NULL;
+	}
 	return (label);
 }
 
