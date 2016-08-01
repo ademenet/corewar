@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/25 18:27:46 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 14:21:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 11:42:31 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ void		cw_proc_init(t_proc *proc)
 		tmp->pc = tmp->pc_origin;
 		tmp->ins = &proc->mem[tmp->pc];
 		tmp = tmp->next;
-
-		// Pour les besoins d'un test, je charge les registres 1 et 2
-		tmp->reg[proc->mem[2]][0] = 10;
-		tmp->reg[proc->mem[1]][0] = 1;
 	}
 }
 

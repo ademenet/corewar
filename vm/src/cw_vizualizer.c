@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:46:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 11:43:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 int			cw_vizualizer_processor(t_proc *proc)
 {
 	WINDOW	*win[3];
+
 
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);

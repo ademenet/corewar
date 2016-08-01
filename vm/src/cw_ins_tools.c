@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 14:34:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 10:51:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,19 @@ unsigned int		cw_ins_param_sze(char param, int dir)
 	if (param == 3)
 		return (2);
 	return (cw_error_msg("Wrong DIR_CODE ref passed to cw_ins_param_sze"));
+}
+
+/*
+** Récupère le contenu d'un registre et retourne ce dernier dans un int.
+*/
+
+unsigned int		cw_get_data_reg(t_champion *champ, unsigned int reg)
+{
+	unsigned int	ret;
+
+	ret = champ->reg[reg][0] << 24;
+	ret = champ->reg[reg][1] << 16;
+	ret = champ->reg[reg][2] << 8;
+	ret = champ->reg[reg][3];
+	return (ret);
 }
