@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 10:18:23 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 15:10:16 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_header	*asm_copy_header(char *line, t_header *head, int check)
 	if (check == 0)
 	{
 		tmp = ft_strsub(line, 0, ft_strclen(line, '"'));
-		ft_strncpy(head->prog_name, tmp, PROG_NAME_LENGTH);
+		ft_strncat(head->prog_name, tmp, PROG_NAME_LENGTH);
 	}
 	if (check == 1)
 	{
@@ -65,7 +65,7 @@ t_header	*asm_copy_header(char *line, t_header *head, int check)
 		else
 		{
 			tmp = ft_strsub(line, 0, ft_strclen(line, '"'));
-			ft_strncpy(head->comment, tmp, COMMENT_LENGTH);
+			ft_strncat(head->comment, tmp, COMMENT_LENGTH);
 		}
 	}
 	if (tmp != NULL)
@@ -106,15 +106,11 @@ int			asm_copy_name_comment(char *line, t_header *head, int name, int com)
 
 int			asm_handler_name_comment(int fd, t_header *head)
 {
-	int	i;
-	int	name;
-	int	com;
+	int		i;
 	char	*line;
 
 	i = 0;
 	line = 0;
-	name = ft_strlen(NAME_CMD_STRING);
-	com = ft_strlen(COMMENT_CMD_STRING);
 	while (get_next_line(fd, &line) > 0)
 	{
 		g_line++;
@@ -122,8 +118,9 @@ int			asm_handler_name_comment(int fd, t_header *head)
 		{
 			while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
 				i++;
-			asm_copy_name_comment(&line[i], head, name, com);
-			if (head->comment[0] && head->prog_name[0])
+			asm_copy_name_comment(&line[i], head, ft_strlen(NAME_CMD_STRING),
+			ft_strlen(COMMENT_CMD_STRING));
+			if (asm_ret_header(head, line) == 1)
 				return (1);
 		}
 		free(line);
