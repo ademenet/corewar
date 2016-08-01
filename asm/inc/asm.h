@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 10:19:09 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 15:30:38 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,16 @@ typedef struct			s_header
 */
 
 int						asm_error(int error);
+int						asm_error_sec(int error);
 
 t_header				*asm_header_init(void);
 t_label					*asm_label_init(t_label *label, char *line);
 
+int						asm_ret_header(t_header *head, char *line);
 int						asm_free_label(t_label *label);
 int						asm_free_tab(char **tab, int ret);
 char					*asm_free_join(char *line, char *file);
-char					*asm_realloc(char *line, char *file, char *sub,
-						int i);
+char					*asm_realloc(char *line, char *file, int i);
 
 /*
 ** Parse_instruct
@@ -87,7 +88,7 @@ char					*asm_realloc(char *line, char *file, char *sub,
 int						asm_instruct_name_sec(char *line);
 int						asm_instruct_name(char *line);
 int						asm_move_my_i(int i, char *file);
-int 					calculate_i(char *file, t_label *label);
+int						asm_calculate_i(char *file, t_label *label);
 
 /*
 ** Check_arg
@@ -100,8 +101,7 @@ int						asm_check_arg_sec(char **line, int op);
 ** Parsing
 */
 
-int						asm_header_pass(char *line, int name, int com,
-						int check);
+char					*asm_put_line_in_file(char *line, int i, char *file);
 t_label					*asm_parse_line(int fd, char **file);
 int						asm_parsing(char *champion, t_header *head);
 
@@ -109,6 +109,9 @@ int						asm_parsing(char *champion, t_header *head);
 ** Copy header
 */
 
+int						asm_header_pass(char *line, int name, int com,
+						int check);
+int						asm_header_pass_end(char *line, int i);
 t_header				*asm_copy_header(char *line, t_header *head, int check);
 int						asm_copy_name_comment(char *line, t_header *head,
 						int name, int com);
@@ -141,7 +144,8 @@ int						asm_reader(t_label *label, t_header *header,
 
 int						asm_move_g_file(int fct);
 int						asm_move_separator(char **file);
-int						asm_call_good_function(int fct, int fd, t_label *label, char **file);
+int						asm_call_good_function(int fct, int fd, t_label *label,
+						char **file);
 int						asm_binary_creator(int fd, t_label *label, char *file);
 
 /*
@@ -158,7 +162,8 @@ int						asm_check_double_label(t_label *label);
 */
 
 int						asm_opcode(int fd, int arg, int i, char *file);
-int						asm_write_dir(int fd, int size, t_label *label, char **file);
+int						asm_write_dir(int fd, int size, t_label *label,
+						char **file);
 int						asm_write_ind(int fd, t_label *label, char **file);
 int						asm_write_reg(int fd, char **file);
 
