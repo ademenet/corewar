@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 11:43:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 18:38:53 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,17 @@ int			cw_vizualizer_processor(t_proc *proc)
 	win[2] = subwin(win[0], 10, 192, 66, 1);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
+
+	proc->champions->reg[0][0] = 0x00;
+	proc->champions->reg[0][1] = 0x00;
+	proc->champions->reg[0][2] = 0x00;
+	proc->champions->reg[0][3] = 0x01;
+
+	proc->champions->reg[1][0] = 0xff;
+	proc->champions->reg[1][1] = 0xff;
+	proc->champions->reg[1][2] = 0x00;
+	proc->champions->reg[1][3] = 0x00;
+
 	while (cw_cycles(proc))
 	{
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem

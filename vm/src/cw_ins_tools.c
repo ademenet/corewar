@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 18:59:32 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 19:08:07 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,18 @@ void		cw_show_mem(char *start, int n)
     int		i;
 
 	i = 0;
+
+	// Pour affichage dans le visualiseur
+	move(0, 0);
+
 	while (i < n)
 	{
-		ft_printf("%.2x", start[i]);
+		// ft_printf("%.2x", start[i]);
+
+		// Pour affichage dans le visualiseur
+		printw("%.2x", start[i]);
+
 		i++;
 	}
-    ft_printf("\n");
+    // ft_printf("\n");
 }
