@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:08:37 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/07/28 18:17:07 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 15:25:26 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 /*
 ** Error
 */
+
+int		asm_error_sec(int error)
+{
+	if (error == 11)
+		ft_printf("Impossible to find name or comment\n");
+	if (error == 12)
+		ft_printf("No instructions in label -> line: %d\n", g_line);
+	if (error == 13)
+		ft_printf("Error multiple lines on name or comment\n");
+	exit(0);
+	return (0);
+}
 
 int		asm_error(int error)
 {
@@ -36,10 +48,5 @@ int		asm_error(int error)
 		ft_printf("There's same label\n");
 	if (error == 10)
 		ft_printf("No match between label\n");
-	if (error == 11)
-		ft_printf("Impossible to find name or comment\n");
-	if (error == 12)
-		ft_printf("No instructions in label -> line: %d\n", g_line);
-	exit(0);
-	return (0);
+	return (asm_error_sec(error));
 }
