@@ -6,11 +6,23 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 10:33:47 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 15:27:38 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+char		*asm_put_line_in_file(char *line, int i, char *file)
+{
+	while (line[i] == '\t' || line[i] == ' ')
+		i++;
+	if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
+	check_valid_line(&line[i]))
+		file = asm_free_join(&line[i], file);
+	free(line);
+	line = NULL;
+	return (file);
+}
 
 /*
 ** Récursive qui récupere le nom du label, position dans une liste chainée
@@ -18,32 +30,26 @@
 
 t_label		*asm_parse_line(int fd, char **file)
 {
-	char	*line;
 	t_label	*label;
+	char	*line;
 	int		i;
 
-	i = 0;
 	label = NULL;
 	line = NULL;
-	while (get_next_line(fd, &line) > 0)
+	while (!(i = 0) && get_next_line(fd, &line) > 0)
 	{
-		i = 0;
 		g_line++;
 		while (line[i] == '\t' || line[i] == ' ')
 			i++;
-		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' && asm_check_label(line) >= 1)
+		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
+		asm_check_label(line) >= 1)
 		{
 			label = asm_label_init(label, line);
 			while (line[i] != LABEL_CHAR)
 				i++;
 			i++;
 		}
-		while (line[i] == '\t' || line[i] == ' ')
-			i++;
-		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' && check_valid_line(&line[i]))
-			*file = asm_free_join(&line[i], *file);
-		free(line);
-		line = NULL;
+		*file = asm_put_line_in_file(line, i, *file);
 	}
 	if (line && line[0])
 		free(line);
