@@ -6,17 +6,36 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:28:07 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/01 15:29:20 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
 /*
+** Return 1 si le header est complet, si non complet 0 ou alors error
+*/
+
+int			asm_ret_header(t_header *head, char *line)
+{
+	if (head->comment[0] && head->prog_name[0])
+	{
+		if (ft_strrchr(line, '"') != ft_strchr(line, '"'))
+		{
+			free(line);
+			line = NULL;
+			return (1);
+		}
+		return (asm_error(13));
+	}
+	return (0);
+}
+
+/*
 ** Free la liste label
 */
 
-int		asm_free_label(t_label *label)
+int			asm_free_label(t_label *label)
 {
 	t_label	*nxt;
 
@@ -37,7 +56,7 @@ int		asm_free_label(t_label *label)
 ** Free le tableau
 */
 
-int		asm_free_tab(char **tab, int ret)
+int			asm_free_tab(char **tab, int ret)
 {
 	int	i;
 
@@ -55,13 +74,14 @@ int		asm_free_tab(char **tab, int ret)
 }
 
 /*
-** Fonction qui realloc pour recuperer tout le fichier .s k
+** Fonction qui realloc pour recuperer tout le fichier .s
 */
 
-char	*asm_realloc(char *line, char *file, char *sub, int i)
+char		*asm_realloc(char *line, char *file, int i)
 {
 	int		len;
 	char	*tmp;
+	char	*sub;
 
 	len = 0;
 	tmp = NULL;
@@ -72,7 +92,6 @@ char	*asm_realloc(char *line, char *file, char *sub, int i)
 	tmp = ft_strcat(tmp, sub);
 	free(file);
 	free(sub);
-	file = NULL;
 	while (tmp[len])
 		len++;
 	tmp[len] = '\n';
@@ -82,7 +101,7 @@ char	*asm_realloc(char *line, char *file, char *sub, int i)
 	return (file);
 }
 
-char	*asm_free_join(char *line, char *file)
+char		*asm_free_join(char *line, char *file)
 {
 	int		i;
 	int		len;
@@ -104,7 +123,7 @@ char	*asm_free_join(char *line, char *file)
 			free(sub);
 		}
 		else
-			file = asm_realloc(line, file, sub, i);
+			file = asm_realloc(line, file, i);
 	}
 	return (file);
 }
