@@ -49,6 +49,7 @@ SRC_NAME =	cw_ins_add.c\
 			cw_champion_creation.c\
 			cw_manage_list.c\
 			cw_load_instructions.c\
+			cw_ins_get_data.c\
 
 INC_NAME = corewar.h
 

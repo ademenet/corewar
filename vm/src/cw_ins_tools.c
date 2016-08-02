@@ -51,27 +51,7 @@ unsigned int		cw_ins_param_sze(char param, int dir)
 		return (dir);
 	if (param == 3)
 		return (2);
-	return (cw_error_msg("Wrong DIR_CODE ref passed to cw_ins_param_sze"));
-}
-
-/*
-** Récupère le contenu d'un registre et retourne ce dernier dans un int.
-*/
-
-// ATTN ! unsigned int pour reg fout la merde. Il doit passer en petit endian...
-// Du coup pas bon pour moi
-
-unsigned int		cw_get_data_reg(t_champion *champ, unsigned char reg)
-{
-	unsigned int	ret;
-
-	// mvprintw(0, 40, "%hhx %hhx %hhx %hhx\n", champ->reg[reg][0], champ->reg[reg][1], champ->reg[reg][2], champ->reg[reg][3]);
-	ret = ((champ->reg[reg][0] << 24) & 0xff000000) |
-		((champ->reg[reg][1] << 16) & 0xff0000) |
-		((champ->reg[reg][2] << 8) & 0xff00) |
-		(champ->reg[reg][3] & 0xff);
-	// mvprintw(0, 100, "ret == %x", ret);
-	return (ret);
+	return (cw_error_msg("Wrong param passed to cw_ins_param_sze"));
 }
 
 /*

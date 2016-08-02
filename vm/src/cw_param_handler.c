@@ -47,7 +47,7 @@ int				cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 	return (1);
 }
 
-int				cw_cnb_chk(int c_nb, t_proc *proc, char *str)
+long			cw_cnb_chk(long c_nb, t_proc *proc, char *str)
 {
 	t_champion	*tmp;
 	int			cur;
@@ -85,7 +85,7 @@ int				cw_creation_step(int n, int p, t_proc *proc, char **av, int c_nb)
 
 int				cw_param(char **av, int ac, t_proc *proc)
 {
-	int			n;
+	long		n;
 	int			param;
 	int			c_nb;
 

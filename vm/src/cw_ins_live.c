@@ -19,9 +19,22 @@
 
 int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	tmp->lives++;
+	unsigned int	check;
+	t_champion		*temp;
+
+	temp = proc->champions;
+	check = cw_get_data_dir(proc, tmp, tmp->pc + 1, 4);
+	tmp->lives = 1;
 	proc->lives_total++;
-	proc->live[tmp->id - 1]++;
-	ft_printf("%s fait un LIVE\n", tmp->header->prog_name);
+	while (temp)
+	{
+		if (temp->num == check)
+		{
+			proc->live[tmp->id - 1]++;
+			mvprintw(0, 210,"%s fait un LIVE\n", tmp->header->prog_name);
+			return(5);
+		}
+		temp = temp->next;
+	}
 	return (5);
 }
