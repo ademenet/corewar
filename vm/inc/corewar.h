@@ -87,6 +87,7 @@ typedef struct 					s_champion
 	unsigned int				num; // numero du processus
 	unsigned int				lives;
 	char						is_champ;
+	char						id;
 	struct s_champion			*next;
 	struct s_champion			*prev;
 }								t_champion;
