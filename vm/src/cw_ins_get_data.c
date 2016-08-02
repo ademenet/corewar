@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 13:42:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/02 19:20:31 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ unsigned int		cw_get_data_reg(t_champion *champ, unsigned char reg)
 	(champ->reg[reg][1] << 16 & 0x00ff0000) |
 	(champ->reg[reg][2] << 8 & 0x0000ff00) |
 	(champ->reg[reg][3] & 0x000000ff);
-	return (ret);
+	return (ret % MEM_SIZE);
 }
 
 unsigned int		cw_get_data_dir(t_proc *proc, t_champion *champ,
@@ -37,7 +37,7 @@ unsigned int		cw_get_data_dir(t_proc *proc, t_champion *champ,
 	else
 		ret = proc->mem[sze] << 24 | proc->mem[sze + 1] << 16 |
 		proc->mem[sze + 2] << 8 | proc->mem[sze + 3];
-	return (ret);
+	return (ret % MEM_SIZE);
 }
 
 unsigned int		cw_get_data_ind(t_proc *proc, t_champion *champ,
@@ -51,5 +51,5 @@ unsigned int		cw_get_data_ind(t_proc *proc, t_champion *champ,
 		| proc->mem[champ->pc + ind + 1] << 16
 		| proc->mem[champ->pc + ind + 2] << 8
 		| proc->mem[champ->pc + ind + 3];
-	return (ret);
+	return (ret % MEM_SIZE);
 }
