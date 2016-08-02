@@ -22,6 +22,7 @@ void				*cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 {
 	unsigned int	i;
 
+	i = -1;
 	while (++i < REG_SIZE)
 		proc->mem[(tmp->pc + p[1] + p[2] + i) % MEM_SIZE] =
 		tmp->reg[p[0] - 1][i];
