@@ -35,3 +35,6 @@
 corewar
 *.cor
 *.s
+
+# Hided files
+.*

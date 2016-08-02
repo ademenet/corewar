@@ -65,10 +65,10 @@ typedef char		t_arg_type;
 
 typedef struct					s_header
 {
-  unsigned int					magic;
-  char							prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int					prog_size;
-  char							comment[COMMENT_LENGTH + 1];
+	unsigned int				magic;
+	char						prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int				prog_size;
+	char						comment[COMMENT_LENGTH + 1];
 }								t_header;
 
 /*
@@ -87,6 +87,7 @@ typedef struct 					s_champion
 	unsigned int				num; // numero du processus
 	unsigned int				lives;
 	char						is_champ;
+	char						id;
 	struct s_champion			*next;
 	struct s_champion			*prev;
 }								t_champion;
@@ -153,7 +154,8 @@ typedef struct					s_op
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
-int								cw_create_champion(char *file, int c_nb, t_proc *proc, int n);
+int								cw_create_champion(char *file, int c_nb, t_proc 
+								*proc, int n);
 int								cw_load_ins_mem(t_proc *proc);
 
 /*
@@ -161,7 +163,8 @@ int								cw_load_ins_mem(t_proc *proc);
 */
 
 t_champion						*cw_lst_new(t_header *header, int num);
-void							cw_lst_push(t_champion **begin, t_champion *new);
+void							cw_lst_push(t_champion **begin,
+								t_champion *new);
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
@@ -231,6 +234,16 @@ int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 unsigned int					cw_get_data_reg(t_champion *champ,
 								unsigned char reg);
 
+/*
+** INSTRUCTIONS : FONCTIONS GET DATA
+*/
+
+unsigned int					cw_get_data_reg(t_champion *champ,
+								unsigned char reg);
+unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
+								unsigned int sze, int dir);
+unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
+								unsigned int sze);
 /*
 ** BONUS : VISUALISEUR
 */

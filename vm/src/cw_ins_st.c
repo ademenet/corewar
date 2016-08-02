@@ -19,5 +19,6 @@
 
 int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
+	
 	return (1);
 }
