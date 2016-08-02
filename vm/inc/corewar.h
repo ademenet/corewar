@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 13:29:45 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 19:06:30 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,13 +230,15 @@ int								cw_ins_zjmp(t_proc *proc, t_champion *tmp,
 
 int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 								t_ocp *ocp);
+unsigned int					cw_get_data_reg(t_champion *champ,
+								unsigned char reg);
 
 /*
 ** INSTRUCTIONS : FONCTIONS GET DATA
 */
 
 unsigned int					cw_get_data_reg(t_champion *champ,
-								unsigned int reg);
+								unsigned char reg);
 unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
 								unsigned int sze, int dir);
 unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
@@ -251,6 +253,9 @@ void							cw_vizualizer(t_proc *proc, WINDOW *win);
 void							cw_vizualizer_memprint(t_proc *proc,
 								WINDOW *win);
 void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
+
+void							cw_show_mem(char *start, int n);
+
 
 /*
 ** Structure de définition des instructions :

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:46:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/02 11:11:29 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int			cw_vizualizer_processor(t_proc *proc)
 {
 	WINDOW	*win[3];
 
+
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 	initscr();
@@ -133,6 +134,7 @@ int			cw_vizualizer_processor(t_proc *proc)
 	win[2] = subwin(win[0], 10, 192, 66, 1);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
+
 	while (cw_cycles(proc))
 	{
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem

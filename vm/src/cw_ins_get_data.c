@@ -12,7 +12,11 @@
 
 #include "../inc/corewar.h"
 
-unsigned int		cw_get_data_reg(t_champion *champ, unsigned int reg)
+/*
+** Récupère le contenu d'un registre et retourne ce dernier dans un int.
+*/
+
+unsigned int		cw_get_data_reg(t_champion *champ, unsigned char reg)
 {
 	unsigned int	ret;
 
