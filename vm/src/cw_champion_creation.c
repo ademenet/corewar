@@ -82,7 +82,6 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 	c_in_load->reg[0][1] = c_in_load->num >> 16;
 	c_in_load->reg[0][2] = c_in_load->num >> 8;
 	c_in_load->reg[0][3] = c_in_load->num;
-	ft_printf("je rentre %x\n", c_in_load->reg[0]);
 	if (chk && (c_in_load->ins = malloc(c_in_load->header->prog_size)) == NULL)
 		return (cw_error_msg("failed to malloc instruction failed"));
 	if (read(fd, c_in_load->ins, c_in_load->header->prog_size) == -1)
