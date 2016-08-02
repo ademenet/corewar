@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 14:34:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/02 10:34:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,51 @@ unsigned int		cw_ins_param_sze(char param, int dir)
 	if (param == 3)
 		return (2);
 	return (cw_error_msg("Wrong DIR_CODE ref passed to cw_ins_param_sze"));
+}
+
+/*
+** Récupère le contenu d'un registre et retourne ce dernier dans un int.
+*/
+
+// ATTN ! unsigned int pour reg fout la merde. Il doit passer en petit endian...
+// Du coup pas bon pour moi
+
+unsigned int		cw_get_data_reg(t_champion *champ, unsigned char reg)
+{
+	unsigned int	ret;
+
+	// mvprintw(0, 40, "%hhx %hhx %hhx %hhx\n", champ->reg[reg][0], champ->reg[reg][1], champ->reg[reg][2], champ->reg[reg][3]);
+	ret = ((champ->reg[reg][0] << 24) & 0xff000000) |
+		((champ->reg[reg][1] << 16) & 0xff0000) |
+		((champ->reg[reg][2] << 8) & 0xff00) |
+		(champ->reg[reg][3] & 0xff);
+	// mvprintw(0, 100, "ret == %x", ret);
+	return (ret);
+}
+
+/*
+** Fonction permettant de visualiser une variable telle qu'elle est stockée en
+** mémoire. À appeler comme ça :
+** show_mem_rep((char *)&i, sizeof(i));
+** avec i un int ou autre d'ailleurs.
+*/
+
+void		cw_show_mem(char *start, int n)
+{
+    int		i;
+
+	i = 0;
+	// Pour affichage dans le visualiseur
+	move(0, 0);
+
+	while (i < n)
+	{
+		// ft_printf("%.2x", start[i]);
+
+		// Pour affichage dans le visualiseur
+		printw("%.2hhx ", start[i]);
+
+		i++;
+	}
+    // ft_printf("\n");
 }
