@@ -18,14 +18,12 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+void				*cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 {
-	unsigned int	param[3];
-	short int		res;
-	int				i;
+	unsigned int	i;
 
 	i = -1;
-	// ft_printf("je rentre dans sti\n");
+
 	param[0] = cw_ins_param_sze(ocp->first, 2);
 	param[1] = cw_ins_param_sze(ocp->second, 2);
 	param[2] = cw_ins_param_sze(ocp->third, 2);
@@ -37,7 +35,33 @@ int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		proc->mem[tmp->pc + 1 + 1] > REG_NUMBER)
 		return (1 + 1 + param[0] + param[1] + param[2]);
 	while (++i < REG_SIZE)
-		proc->mem[(tmp->pc + (res + i % IDX_MOD)) % MEM_SIZE]
-		= tmp->reg[proc->mem[tmp->pc + 1 + 1] - 1][i];
-	return (1 + 1 + param[0] + param[1] + param[2]);
+		proc->mem[(tmp->pc + p[1] + p[2] + i) % MEM_SIZE] =
+		tmp->reg[p[0] - 1][i];
+}
+
+int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+{
+	unsigned int	p_sze[3];
+	unsigned int	p[3];
+
+	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
+	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
+	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
+	p[0] = proc->mem[tmp->pc + 2];
+	if (ocp->second == REG_CODE)
+		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
+	else if (ocp->second == DIR_CODE)
+		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2) %IDX_MOD;
+	else if (ocp->second == IND_CODE)
+		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]) % IDX_MOD;
+	if (ocp->third == REG_CODE)
+		p[2] = cw_get_data_reg(
+		tmp, proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1);
+	else if (ocp->third == DIR_CODE)
+		p[2] = cw_get_data_dir(
+		proc, tmp, tmp->pc + 2 + p_sze[0] + p_sze[1], 2) % IDX_MOD;
+	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
+		return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
+	cw_exec_sti(proc, tmp, p);
+	return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
 }

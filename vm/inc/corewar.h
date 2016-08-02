@@ -153,7 +153,8 @@ typedef struct					s_op
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
-int								cw_create_champion(char *file, int c_nb, t_proc *proc, int n);
+int								cw_create_champion(char *file, int c_nb, t_proc 
+								*proc, int n);
 int								cw_load_ins_mem(t_proc *proc);
 
 /*
@@ -161,7 +162,8 @@ int								cw_load_ins_mem(t_proc *proc);
 */
 
 t_champion						*cw_lst_new(t_header *header, int num);
-void							cw_lst_push(t_champion **begin, t_champion *new);
+void							cw_lst_push(t_champion **begin,
+								t_champion *new);
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
@@ -229,6 +231,16 @@ int								cw_ins_zjmp(t_proc *proc, t_champion *tmp,
 int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 								t_ocp *ocp);
 
+/*
+** INSTRUCTIONS : FONCTIONS GET DATA
+*/
+
+unsigned int					cw_get_data_reg(t_champion *champ,
+								unsigned int reg);
+unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
+								unsigned int sze, int dir);
+unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
+								unsigned int sze);
 /*
 ** BONUS : VISUALISEUR
 */
