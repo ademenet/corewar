@@ -22,18 +22,6 @@ void				*cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 {
 	unsigned int	i;
 
-	i = -1;
-
-	param[0] = cw_ins_param_sze(ocp->first, 2);
-	param[1] = cw_ins_param_sze(ocp->second, 2);
-	param[2] = cw_ins_param_sze(ocp->third, 2);
-	res = proc->mem[tmp->pc + 1 + 1 + param[0]] << 8 |
-	proc->mem[tmp->pc + 1 + 1 + param[0] + 1];
-	res += proc->mem[tmp->pc + 1 + 1 + param[0] + param[1]] << 8 |
-	proc->mem[tmp->pc + 1 + 1 + param[0] + param[1] + 1];
-	if (proc->mem[tmp->pc + 1 + 1] < 1 ||
-		proc->mem[tmp->pc + 1 + 1] > REG_NUMBER)
-		return (1 + 1 + param[0] + param[1] + param[2]);
 	while (++i < REG_SIZE)
 		proc->mem[(tmp->pc + p[1] + p[2] + i) % MEM_SIZE] =
 		tmp->reg[p[0] - 1][i];
