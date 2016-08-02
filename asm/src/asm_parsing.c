@@ -51,11 +51,7 @@ t_label		*asm_parse_line(int fd, char **file)
 		}
 		*file = asm_put_line_in_file(line, i, *file);
 	}
-	if (line && line[0])
-	{
-		free(line);
-		line = NULL;
-	}
+	free(line);
 	return (label);
 }
 

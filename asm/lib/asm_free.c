@@ -48,6 +48,7 @@ int			asm_free_label(t_label *label)
 		label = nxt;
 		nxt = label->next;
 	}
+	free(label->name);
 	free(label);
 	return (1);
 }
