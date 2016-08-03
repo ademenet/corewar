@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 15:12:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:41:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,9 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 
 void		cw_vizualizer(t_proc *proc, WINDOW *win)
 {
-	// WINDOW	*win;
-	// int		ch; // pour le controle plus tard ==> il faut d'abord faire en sorte de l'appeler en params
-
-	// initscr();
-	// cbreak();
-	// win = newwin(80, 200, 0, 0);
-	// refresh();
 	t_champion	*tmp;
-	// int			color;
 
 	tmp = proc->champions;
-	// color = 1;
 	start_color();
 	while (tmp)
 	{
@@ -112,15 +103,9 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 			init_pair(tmp->id, COLOR_WHITE, COLOR_RED);
 		if (tmp->id == 4)
 			init_pair(tmp->id, COLOR_BLACK, COLOR_CYAN);
-		mvprintw(0, 200, "id = %d", tmp->id);
-		// color++;
 		tmp = tmp->next;
 	}
 	cw_vizualizer_memprint(proc, win);
-	// wrefresh(win);
-	// getch();
-	// delwin(win);
-	// endwin();
 }
 
 int			cw_vizualizer_processor(t_proc *proc)
