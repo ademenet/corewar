@@ -12,19 +12,6 @@
 
 #include "../inc/corewar.h"
 
-int			cw_error_msg(char *msg)
-{
-	ft_printf("%s\n", msg);
-	return (0);
-}
-
-int				cw_invert_endian(int x)
-{
-	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000)
-		| ((x << 24) & 0xff000000);
-	return (x);
-}
-
 int				main(int ac, char **av)
 {
 	t_proc		proc;
@@ -36,8 +23,9 @@ int				main(int ac, char **av)
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
 	cw_load_ins_mem(&proc);
-	// Pour le moment : commenter ou decommenter la version du processeur (visuel ou non)
-	cw_vizualizer_processor(&proc);
-	// cw_processor(&proc);
+	if (g_bon['v'])
+		cw_vizualizer_processor(&proc);
+	else
+		cw_processor(&proc);
 	return (0);
 }
