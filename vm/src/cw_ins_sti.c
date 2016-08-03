@@ -18,7 +18,7 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-void				*cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
+void				cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 {
 	unsigned int	i;
 

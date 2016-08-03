@@ -12,24 +12,60 @@
 
 #include "../inc/corewar.h"
 
-// void			*cw_lst_sort_by_num(t_champion **champions)
-// {
-// 	t_champion	*tmp;
-// 	t_champion	bigest;
-// 	int			max;
-// 	int			sze;
-// 	int i = 4;
+t_champion		*cw_lst_swap(t_champion **champions, t_champion **next)
+{
+	t_champion	tmp;
+	int			i;
+	i= -1;
+	tmp.header = (*next)->header;
+	while(++i < REG_SIZE)
+		tmp.reg[0][i] = (*next)->reg[0][i];
+	tmp.ins = (*next)->ins;
+	tmp.pc = (*next)->pc;
+	tmp.num = (*next)->num;
+	(*next)->header = (*champions)->header;
+	i = -1;
+	while(++i < REG_SIZE)
+		(*next)->reg[0][i] = (*champions)->reg[0][i];
+	(*next)->ins = (*champions)->ins;
+	(*next)->pc = (*champions)->pc;
+	(*next)->num = (*champions)->num;
+	(*champions)->header = tmp.header;
+	i = -1;
+	while(++i < REG_SIZE)
+		(*champions)->reg[0][i] = tmp.reg[0][i];
+	(*champions)->ins = tmp.ins;
+	(*champions)->pc = tmp.pc;
+	(*champions)->num = tmp.num;
+	return (*next);
 
-// 	tmp = *champions;
-// 	sorted_list = NULL;
-// 	sze = cw_lst_sze(tmp);
-// 	max = tmp->num;
-// 	ft_printf("init : size : %d, max : %d\n", sze, max);
-// 	while (cw_lst_sze(sorted_list) != sze && i-- )
-// 	{
+}
 
-// 	}
-// }
+void	cw_lst_dsort_by_num(t_champion **champions)
+{
+	t_champion	*tmp;
+	int			id;
+
+	id = 1;
+	tmp = *champions;
+	while (tmp->next)
+	{
+		if (tmp->num < tmp->next->num)
+		{
+			cw_lst_swap(&tmp, &tmp->next);
+			tmp = *champions;
+		}
+		else
+			tmp = tmp->next;
+	}
+	tmp = *champions;
+	while(tmp)
+	{
+		tmp->id = id;
+		id++;
+		tmp = tmp->next;
+	}
+}
 
 int		cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 {
@@ -41,7 +77,7 @@ int		cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 	if (ft_strcmp(av[param], "-dump") == 0)
 	{
 		if ((n = ft_atoi(av[++param])) <= 0)
-			return (cw_error_msg("'dumb' must be a positive value"));
+			return (cw_error_msg("'dump' must be a positive value"));
 		proc->dump = n;
 	}
 	return (1);
@@ -87,7 +123,7 @@ int		cw_param(char **av, int ac, t_proc *proc)
 {
 	long			n;
 	int				param;
-	int				c_nb;
+	unsigned int	c_nb;
 
 	param = 0;
 	c_nb = 0;
@@ -110,6 +146,6 @@ int		cw_param(char **av, int ac, t_proc *proc)
 			return (0);
 		n = 0;
 	}
-	//cw_lst_sort_by_num(&proc->champions);
+	cw_lst_dsort_by_num(&(proc->champions));
 	return (1);
 }
