@@ -101,7 +101,6 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 	start_color();
 	while (tmp)
 	{
-		mvprintw(0, 0, "tmp->id == %d", tmp->id);
 		if (color == 1)
 			init_pair((int)tmp->id, COLOR_BLACK, COLOR_GREEN);
 		if (color == 2)
