@@ -99,5 +99,7 @@ long int			ft_strtol(char *line);
 int					ft_abs(int x);
 float				ft_power(int nb, int exp);
 void				ft_lstappend(t_list *list, t_list *new);
+void				arr_set(char arr[256], char set, int len);
+int					ft_cinstr(char c, char *str);
 
 #endif
