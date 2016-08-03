@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 14:11:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:10:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,15 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 	mvwprintw(win, 1, 1, "Nombres de cycles : %d", proc->c);
 	while (tmp)
 	{
-		mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
-			tmp->header->prog_name);
-		mvwprintw(win, y, 20, "inst_c = %.2hhx", tmp->inst_c); // pour debug
-		mvwprintw(win, y, 35, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
+		if (tmp->is_champ == 1)
+		{
+			mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
+				tmp->header->prog_name);
+			mvwprintw(win, y, 20, "inst_c = %.2hhx", tmp->inst_c); // pour debug
+			mvwprintw(win, y, 35, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
+			y++;
+		}
 		tmp = tmp->next;
-		y++;
 	}
 	mvwprintw(win, 1, 91, "Cycle to die : %d", proc->c_to_die);
 }
