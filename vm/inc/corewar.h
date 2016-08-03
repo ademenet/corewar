@@ -269,6 +269,11 @@ void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
 
 void							cw_show_mem(char *start, int n);
 
+/*
+**	BONUS : GESTION DES OPTIONs
+*/
+
+void							cw_bon_handler(char **av, int ac, int param);
 
 /*
 ** Structure de définition des instructions :
