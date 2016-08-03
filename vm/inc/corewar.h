@@ -15,6 +15,7 @@
 
 # include <ncurses.h>
 # include <panel.h>
+# include "colors.h"
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
@@ -148,6 +149,14 @@ typedef struct					s_op
 }								t_op;
 
 /*
+** Tableau global des bonus initialisé à 0 - lorsqu'une option est implementée,
+la case du tableau a l'index correspondant passe à 1.
+ex avec -v : g_bon['v'] sera egale a 1.
+*/
+
+char							g_bon[256];
+
+/*
 ** RECUPERATION ET INITIALISATION DES CHAMPIONS
 */
 
@@ -168,6 +177,7 @@ void							cw_lst_push(t_champion **begin,
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
+void							cw_lst_dsort_by_num(t_champion **champions);
 
 /*
 ** PROCESSOR
