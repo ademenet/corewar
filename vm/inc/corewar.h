@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 15:07:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:45:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ int								cw_ins_aff(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_and(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
+void							cw_ins_fork_duplicate_reg(t_champion *new,
+								t_champion *old);
 int								cw_ins_fork(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_ld(t_proc *proc, t_champion *tmp,
