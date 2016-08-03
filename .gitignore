@@ -35,6 +35,7 @@
 corewar
 *.cor
 *.s
+asm
 
 # Hided files
 .*
