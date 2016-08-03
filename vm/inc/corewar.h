@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 19:06:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:07:58 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct					s_op
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
-int								cw_create_champion(char *file, int c_nb, t_proc 
+int								cw_create_champion(char *file, int c_nb, t_proc
 								*proc, int n);
 int								cw_load_ins_mem(t_proc *proc);
 
