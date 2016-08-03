@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 17:01:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 17:20:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 			mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
 				tmp->header->prog_name);
 			mvwprintw(win, y, 20, "inst_c = %u", tmp->inst_c); // pour debug
-			mvwprintw(win, y, 35, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
+			mvwprintw(win, y, 35, "pc = %u et valeur %.2hhx", tmp->pc, proc->mem[tmp->pc]); // pour debug
 			y++;
 		}
 		tmp = tmp->next;
@@ -94,7 +94,6 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 	start_color();
 	while (tmp)
 	{
-		mvprintw(0, 200, "%d", tmp->id);
 		if (tmp->id == 1)
 			init_pair(tmp->id, COLOR_BLACK, COLOR_GREEN);
 		if (tmp->id == 2)
