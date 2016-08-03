@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 11:36:04 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/03 13:24:52 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** modifie le carry.
 */
 
-static void	cw_exec_and(t_champion *tmp, unsigned int total, unsigned int p[3])
+void	cw_exec_and(t_champion *tmp, unsigned int total, unsigned int p[3])
 {
 	tmp->reg[p[2] - 1][0] = total >> 24;
 	tmp->reg[p[2] - 1][1] = total >> 16;

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:24 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 11:35:44 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/03 13:25:10 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Même que and mais avec le ou exclusif (^ du c).
 */
 
-static void	cw_exec_xor(t_champion *tmp, unsigned int total, unsigned int p[3])
+void	cw_exec_xor(t_champion *tmp, unsigned int total, unsigned int p[3])
 {
 	tmp->reg[p[2] - 1][0] = total >> 24;
 	tmp->reg[p[2] - 1][1] = total >> 16;
