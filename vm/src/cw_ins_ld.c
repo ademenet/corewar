@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 14:00:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 14:04:13 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (ocp->first == DIR_CODE)
 		p = cw_get_data_dir(proc, tmp, (tmp->pc + 2) % MEM_SIZE, 4);
 	else if (ocp->first == IND_CODE)
-		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
+		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE) % IDX_MOD;
 	else
 		p = 0;
 	reg = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE];
