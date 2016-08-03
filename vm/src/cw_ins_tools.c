@@ -51,7 +51,7 @@ unsigned int		cw_ins_param_sze(char param, int dir)
 		return (dir);
 	if (param == 3)
 		return (2);
-	return (cw_error_msg("Wrong param passed to cw_ins_param_sze"));
+	return (0);
 }
 
 /*
