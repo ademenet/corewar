@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/02 11:11:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 10:45:30 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,15 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 	start_color();
 	while (tmp)
 	{
+		mvprintw(0, 0, "tmp->id == %d", tmp->id);
 		if (color == 1)
-			init_pair(tmp->num, COLOR_BLACK, COLOR_GREEN);
+			init_pair((int)tmp->id, COLOR_BLACK, COLOR_GREEN);
 		if (color == 2)
-			init_pair(tmp->num, COLOR_WHITE, COLOR_BLUE);
+			init_pair(tmp->id, COLOR_WHITE, COLOR_BLUE);
 		if (color == 3)
-			init_pair(tmp->num, COLOR_WHITE, COLOR_RED);
+			init_pair(tmp->id, COLOR_WHITE, COLOR_RED);
 		if (color == 4)
-			init_pair(tmp->num, COLOR_BLACK, COLOR_CYAN);
+			init_pair(tmp->id, COLOR_BLACK, COLOR_CYAN);
 		color++;
 		tmp = tmp->next;
 	}
