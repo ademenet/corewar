@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 13:25:17 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/03 17:23:50 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	cw_exec_or(t_champion *tmp, unsigned int total, unsigned int p[3])
 	tmp->reg[p[2] - 1][1] = total >> 16;
 	tmp->reg[p[2] - 1][2] = total >> 8;
 	tmp->reg[p[2] - 1][3] = total;
+	if (total == (unsigned int)tmp->reg[p[2] - 1])
+		tmp->carry = tmp->carry == 0 ? 1 : 0;
 }
 
 int			cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
@@ -30,7 +32,6 @@ int			cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	unsigned int	p[3];
 	unsigned int	total;
 
-	total = 0;
 	p_sze[0] = cw_ins_param_sze(ocp->first, 4);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 4);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 4);
