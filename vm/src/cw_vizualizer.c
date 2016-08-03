@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 15:41:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 17:01:49 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 	while (tmp)
 	{
 		if (*i == tmp->pc)
-			return (tmp->num);
+			return (tmp->id);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -37,21 +37,20 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 {
 	int			i;
-	int			num;
+	int			id;
 
 	i = 0;
-	num = 0;
-	// wclear(win);
+	id = 0;
 	wmove(win, 0, 0);
 	while (i < MEM_SIZE)
 	{
 		if (i != 0)
 			i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
-		if ((num = cw_vizualizer_pcprint(proc, &i)))
+		if ((id = cw_vizualizer_pcprint(proc, &i)))
 		{
-			wattron(win, COLOR_PAIR(num));
+			wattron(win, COLOR_PAIR(id));
 			wprintw(win, "%.2hhx", proc->mem[i]);
-			wattroff(win, COLOR_PAIR(num));
+			wattroff(win, COLOR_PAIR(id));
 		}
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
@@ -74,7 +73,7 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 		{
 			mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
 				tmp->header->prog_name);
-			mvwprintw(win, y, 20, "inst_c = %.2hhx", tmp->inst_c); // pour debug
+			mvwprintw(win, y, 20, "inst_c = %u", tmp->inst_c); // pour debug
 			mvwprintw(win, y, 35, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
 			y++;
 		}
@@ -95,6 +94,7 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 	start_color();
 	while (tmp)
 	{
+		mvprintw(0, 200, "%d", tmp->id);
 		if (tmp->id == 1)
 			init_pair(tmp->id, COLOR_BLACK, COLOR_GREEN);
 		if (tmp->id == 2)
