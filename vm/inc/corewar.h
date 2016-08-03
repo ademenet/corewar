@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 19:06:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 15:45:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ char							g_bon[256];
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
-int								cw_create_champion(char *file, int c_nb, t_proc 
+int								cw_create_champion(char *file, int c_nb, t_proc
 								*proc, int n);
 int								cw_load_ins_mem(t_proc *proc);
 
@@ -208,6 +208,8 @@ int								cw_ins_aff(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_and(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
+void							cw_ins_fork_duplicate_reg(t_champion *new,
+								t_champion *old);
 int								cw_ins_fork(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_ld(t_proc *proc, t_champion *tmp,

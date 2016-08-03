@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/02 10:34:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 14:00:07 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int					cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 
 unsigned int		cw_ins_param_sze(char param, int dir)
 {
-	if (param == 1)
+	if (param == REG_CODE)
 		return (1);
-	if (param == 2)
+	if (param == DIR_CODE)
 		return (dir);
-	if (param == 3)
+	if (param == IND_CODE)
 		return (2);
 	return (0);
 }
