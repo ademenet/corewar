@@ -95,23 +95,6 @@ int		cw_param_loop(int param, int ac, char **av, t_proc *proc)
 	return (param);
 }
 
-void	cw_bon_handler(char **av, int ac, int param)
-{
-	arr_set(g_bon, 0, 256);
-	while (param < ac)
-	{
-		if (av[param][0] == '-' && ft_cinstr(param[av][1], "v"))
-			g_bon[av[param][1]] = 1;
-		else
-		{
-			cw_error_msg("Wrong option format");
-			ft_printf("%sOptions available :\n", GRE);
-			ft_printf("-v : nCurse visualiser%s\n", EOC);
-			exit(1);
-		}
-		param++;
-	}
-}
 int		cw_param(char **av, int ac, t_proc *proc)
 {
 	long			n;

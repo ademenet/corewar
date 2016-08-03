@@ -52,6 +52,7 @@ SRC_NAME =	cw_ins_add.c\
 			cw_load_instructions.c\
 			cw_ins_get_data.c\
 			cw_tools.c\
+			cw_bonus_handler.c\
 
 INC_NAME = corewar.h
 
