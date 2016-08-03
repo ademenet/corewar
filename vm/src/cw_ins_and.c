@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 13:24:52 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/03 17:24:09 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	cw_exec_and(t_champion *tmp, unsigned int total, unsigned int p[3])
 	tmp->reg[p[2] - 1][1] = total >> 16;
 	tmp->reg[p[2] - 1][2] = total >> 8;
 	tmp->reg[p[2] - 1][3] = total;
+	if (total == (unsigned int)tmp->reg[p[2] - 1])
+		tmp->carry = tmp->carry == 0 ? 1 : 0;
 }
 
 int			cw_ins_and(t_proc *proc, t_champion *tmp, t_ocp *ocp)
@@ -51,12 +53,13 @@ int			cw_ins_and(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
 	total = p[1] & p[0];
 	cw_exec_and(tmp, total, p);
+	mvprintw(10, 210, "carry av : %d", tmp->carry);
+	mvprintw(11, 210, "p2 : %u", p[2]);
+	mvprintw(12, 210, "total : %u", total);
+	mvprintw(13, 210, "reg : %u", tmp->reg[p[2] - 1][0]);
+	mvprintw(14, 210, "reg : %u", tmp->reg[p[2] - 1][1]);
+	mvprintw(15, 210, "reg : %u", tmp->reg[p[2] - 1][2]);
+	mvprintw(16, 210, "reg : %u", tmp->reg[p[2] - 1][3]);
+	mvprintw(20, 210, "carry ap : %d", tmp->carry);
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }
-
-// mvprintw(6, 210, "p0 : %d, p1 : %d et total :%d\n",p[0], p[1], total);
-// mvprintw(30, 210, "p0 : %d, p1 : %d et total :%d\n",p[0], p[1], total);
-// ft_printf("reg avant stock : %s\n", tmp->reg[p[2] - 1]);
-// mvprintw(5, 210,"reg :%c, %c, %c, %c avant stockage\n", tmp->reg[p[2] - 1][0],tmp->reg[p[2] - 1][1],tmp->reg[p[2] - 1][2],tmp->reg[p[2] - 1][3]);
-// ft_printf("reg apres stock : %s\n", tmp->reg[p[2] - 1]);
-// mvprintw(20, 210,"reg :%s apres stockage\n", tmp->reg[p[2] - 1]);
