@@ -105,7 +105,7 @@ void	cw_bon_handler(char **av, int ac, int param)
 		else
 		{
 			cw_error_msg("Wrong option format");
-			ft_printf("%sOptions avaiable :\n", GRE);
+			ft_printf("%sOptions available :\n", GRE);
 			ft_printf("-v : nCurse visualiser%s\n", EOC);
 			exit(1);
 		}
