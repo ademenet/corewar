@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_main.c                                          :+:      :+:    :+:   */
+/*   cw_bonus_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,24 @@
 
 #include "../inc/corewar.h"
 
-int				main(int ac, char **av)
+/*	Pour ajouter la gestion d'une option, ajouter la lettre choisie dans la
+	string de ft_cinstr
+	/!\ ne pas ajouter la lettre 'n'
+*/
+void	cw_bon_handler(char **av, int ac, int param)
 {
-	t_proc		proc;
-
-	proc.champions = NULL;
-	proc.nb_proc = 0;
-	proc.dump = 0;
-	ft_bzero(proc.mem, MEM_SIZE);
-	if (cw_param(av, ac, &proc) <= 0)
-		return (ft_printf("Fail !\n"));
-	cw_load_ins_mem(&proc);
-	if (g_bon['v'])
-		cw_vizualizer_processor(&proc);
-	else
-		cw_processor(&proc);
-	return (0);
+	arr_set(g_bon, 0, 256);
+	while (param < ac)
+	{
+		if (av[param][0] == '-' && ft_cinstr(param[av][1], "v"))
+			g_bon[av[param][1]] = 1;
+		else
+		{
+			cw_error_msg("Wrong option format");
+			ft_printf("%sOptions available :\n", GRE);
+			ft_printf("-v : nCurse visualiser%s\n", EOC);
+			exit(1);
+		}
+		param++;
+	}
 }

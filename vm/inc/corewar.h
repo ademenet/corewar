@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 19:06:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 16:48:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <ncurses.h>
 # include <panel.h>
+# include "colors.h"
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
@@ -148,13 +149,21 @@ typedef struct					s_op
 }								t_op;
 
 /*
+** Tableau global des bonus initialisé à 0 - lorsqu'une option est implementée,
+la case du tableau a l'index correspondant passe à 1.
+ex avec -v : g_bon['v'] sera egale a 1.
+*/
+
+char							g_bon[256];
+
+/*
 ** RECUPERATION ET INITIALISATION DES CHAMPIONS
 */
 
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
-int								cw_create_champion(char *file, int c_nb, t_proc 
+int								cw_create_champion(char *file, int c_nb, t_proc
 								*proc, int n);
 int								cw_load_ins_mem(t_proc *proc);
 
@@ -168,6 +177,7 @@ void							cw_lst_push(t_champion **begin,
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
+void							cw_lst_dsort_by_num(t_champion **champions);
 
 /*
 ** PROCESSOR
@@ -198,6 +208,8 @@ int								cw_ins_aff(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_and(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
+void							cw_ins_fork_duplicate_reg(t_champion *new,
+								t_champion *old);
 int								cw_ins_fork(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_ld(t_proc *proc, t_champion *tmp,
@@ -257,6 +269,11 @@ void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
 
 void							cw_show_mem(char *start, int n);
 
+/*
+**	BONUS : GESTION DES OPTIONs
+*/
+
+void							cw_bon_handler(char **av, int ac, int param);
 
 /*
 ** Structure de définition des instructions :
