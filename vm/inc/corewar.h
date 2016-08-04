@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 18:26:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/04 15:30:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct 					s_proc
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
 	unsigned int				live[MAX_PLAYERS + 1];
-	unsigned int				lives_total; // nombre total de lives sur toute la partie
+	unsigned int				lives_total; // nombre total de lives sur une periode CTOD
 	unsigned int				checks;
 }								t_proc;
 

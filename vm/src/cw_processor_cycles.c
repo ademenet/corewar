@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 10:37:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/04 17:38:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void		cw_dump_display(t_proc *proc)
 
 int			cw_cycles(t_proc *proc)
 {
+	if (proc->c_to_die <= 0)
+		return(0);
 	// if (proc->checks % MAX_CHECKS == 0)
 	// 	proc->c_to_die -= CYCLE_DELTA;
 	// if (proc->c % CYCLE_TO_DIE == 0) // condition a verifier si on a decrementer ctd entre temps
@@ -67,6 +69,34 @@ int			cw_cycles(t_proc *proc)
 	// if (proc->lives_total >= NBR_LIVE)
 	// 	proc->c_to_die -= CYCLE_DELTA;
 	return (1);
+}
+
+void		cw_kill_process(t_proc *proc, t_champion *tmp)
+{
+	tmp->next->prev = tmp->prev;
+	tmp->prev->next = tmp->next;
+	if (tmp == proc->champions)
+		proc->champions = tmp->next;
+	// TODO free le maillon correctement ou mettre a -1 si champ
+}
+
+void		cw_cycles_checks_lives(t_proc *proc)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
+	{
+		if (tmp->lives == 0)
+		{
+			cw_kill_process(proc, tmp); // retire le processus definitivement de la liste
+			// if () // si bonus son active produit un son pour le kill !
+			// produit un son
+		}
+		else
+			tmp->lives = 0;
+		tmp = tmp->next;
+	}
 }
 
 /*
@@ -81,10 +111,14 @@ int		cw_cycles_checks(t_proc *proc)
 		cw_dump_display(proc);
 		return (0);
 	}
-	if (proc->c % CYCLE_TO_DIE == 0 && proc->c != 0)
+	if (proc->c % proc->c_to_die == 0 && proc->c != 0) // tous les CYCLE_TO_DIE
 	{
-		if (proc->lives_total >= NBR_LIVE)
+		if (proc->lives_total >= NBR_LIVE) // si nombre de lives totaux > NBR LIVE on decremente
+		{
 			proc->c_to_die -= CYCLE_DELTA;
+			proc->lives_total = 0;
+		}
+		cw_cycles_checks_lives(proc);
 	}
 	if (proc->c % MAX_CHECKS == 0 && proc->c != 0)
 		proc->c_to_die -= CYCLE_DELTA;
