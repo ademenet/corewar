@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/07/28 18:27:31 by ademenet         ###   ########.fr        #
+#    Updated: 2016/08/04 15:34:11 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ $(NAME): $(OBJ)
 	@make -C ../libft
 	@$(CC) $(FLAGS) $(CURSE) -o $@ $^ -I$(INC_PATH) -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
 	@echo "\033[1;34mCorewar\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
+	@say -v 'Trinoids' "Welcome to... Corewar"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
