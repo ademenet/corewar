@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 16:47:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/04 13:10:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,14 @@ int			cw_vizualizer_control(char *play, int *ch)
 {
 	if (*play == 1 & *ch == 32)
 		return (0);
-	else
+	else if (*play == 0 & *ch == 32)
 		return (1);
+	return (0);
+}
+
+int			cw_vizualizer_speed(int *ch)
+{
+	
 }
 
 int			cw_vizualizer_processor(t_proc *proc)
@@ -121,36 +127,38 @@ int			cw_vizualizer_processor(t_proc *proc)
 	char	play;
 	int		ch;
 
-	play = 1;
+	play = 0;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+
 	initscr();
-	cbreak();
 	noecho();
 	win[0] = newwin(76, 194, 0, 0);
 	win[1] = subwin(win[0], 65, 192, 1, 1);
 	win[2] = subwin(win[0], 10, 192, 66, 1);
-	keypad(stdscr, TRUE);
+	// keypad(stdscr, TRUE);
 	box(win[0], ACS_VLINE, ACS_HLINE);
+	cbreak();
+	nodelay(win[0], TRUE);
 	refresh();
 	while (1)
 	{
 		ch = getch();
-		if (ch == 32)
+		if (cw_vizualizer_control(&play, &ch))
 		{
-		while (cw_cycles(proc))
-		{
-			cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
-			cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
-			wrefresh(win[1]);
-			wrefresh(win[2]);
-			wrefresh(win[0]);
-			// refresh();
-			// mvprintw(0, 0, "[%d]", ch);
-			// getchar();
-			cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-			proc->c++;
-		}
+			while (cw_cycles(proc))
+			{
+				mvprintw(0, 200, "[%d]", ch);
+				ch = getch();
+				cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+				cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
+				cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
+				wrefresh(win[1]);
+				wrefresh(win[2]);
+				wrefresh(win[0]);
+				proc->c++;
+				usleep(300000000);
+			}
 		}
 	}
 	delwin(win[0]);
