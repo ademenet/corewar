@@ -77,7 +77,6 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 	c_nb = n ? c_nb : cw_find_num(proc, c_nb);
 	proc->champions->num = proc->champions->num ? proc->champions->num : c_nb;
 	c_in_load = n ? cw_lst_last(proc->champions) : proc->champions;
-
 	c_in_load->reg[0][0] = c_in_load->num >> 24;
 	c_in_load->reg[0][1] = c_in_load->num >> 16;
 	c_in_load->reg[0][2] = c_in_load->num >> 8;
@@ -86,5 +85,6 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 		return (cw_error_msg("failed to malloc instruction failed"));
 	if (read(fd, c_in_load->ins, c_in_load->header->prog_size) == -1)
 		return (cw_error_msg("failed to load instructions"));
+	proc->nb_proc = cw_lst_sze(proc->champions);
 	return (chk);
 }
