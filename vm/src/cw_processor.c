@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 19:07:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/05 16:14:47 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,18 @@ void		cw_exec_process(t_proc *proc)
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (tmp->inst_c == 0)
+		if (tmp->is_champ != -1)
 		{
-			if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-				cw_exec_process_instruct(proc, tmp, &ocp);
+			if (tmp->inst_c == 0)
+			{
+				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
+					cw_exec_process_instruct(proc, tmp, &ocp);
+				else
+					tmp->pc++;
+			}
 			else
-				tmp->pc++;
+				tmp->inst_c--;
 		}
-		else
-			tmp->inst_c--;
 		tmp = tmp->next;
 	}
 }

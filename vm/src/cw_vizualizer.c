@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 19:46:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/05 16:14:51 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,9 @@ void		cw_vizualizer(t_proc *proc, WINDOW *win)
 int			cw_vizualizer_processor(t_proc *proc)
 {
 	WINDOW	*win[3];
+	int		c_check;
 
+	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 	initscr();
@@ -133,7 +135,7 @@ int			cw_vizualizer_processor(t_proc *proc)
 	win[2] = subwin(win[0], 10, 192, 66, 1);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
-	while (cw_cycles(proc))
+	while (cw_cycles(proc) && c_check)
 	{
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
 		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
@@ -141,9 +143,10 @@ int			cw_vizualizer_processor(t_proc *proc)
 		wrefresh(win[2]);
 		wrefresh(win[0]);
 		refresh();
-		// getch();
-		getchar();
+		getch();
+		// getchar();
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+		c_check = cw_cycles_checks(proc);
 		proc->c++;
 	}
 	delwin(win[0]);
