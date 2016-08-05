@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/05 16:31:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/05 16:54:41 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ int			cw_cycles(t_proc *proc)
 	return (1);
 }
 
+/*
+** Vérifie qui est le gagnant et l'affiche.
+*/
+
+void		cw_cycles_end(t_proc *proc)
+{
+
+}
+
+/*
+** Efface un processus de la mémoire, dans le cas où ce dernier est le processus
+** original alors on passe son flag is_champ à -1 pour signaler qu'il est mort.
+*/
+
 void		cw_kill_process(t_proc *proc, t_champion *tmp)
 {
 	if (tmp->is_champ == 1) // si cest un champion on conserve ses infos...
@@ -87,6 +101,11 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 	}
 	proc->nb_proc--;
 }
+
+/*
+** Vérifie que tous les processus ont fait au moins un live durant la période
+** donnée.
+*/
 
 void		cw_cycles_checks_lives(t_proc *proc)
 {
@@ -135,6 +154,7 @@ int		cw_cycles_checks(t_proc *proc)
 		cw_cycles_checks_lives(proc);
 		proc->lives_total = 0;
 	}
-
+	if (proc->nb_proc == 0 || proc->c_to_die <= 0)
+		cw_cycles_end(proc); // fonction qui soccupe de voir qui a gagne
 	return (1);
 }
