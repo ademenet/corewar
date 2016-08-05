@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/05 16:14:51 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/05 16:32:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (*i == tmp->pc)
+		if (*i == tmp->pc && tmp->is_champ != -1)
 			return (tmp->num);
 		tmp = tmp->next;
 	}

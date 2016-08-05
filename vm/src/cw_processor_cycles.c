@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/05 16:22:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/05 16:31:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 			proc->champions = tmp->next;
 		free(tmp);
 	}
+	proc->nb_proc--;
 }
 
 void		cw_cycles_checks_lives(t_proc *proc)
