@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 16:50:24 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/06 17:09:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void		cw_exec_process(t_proc *proc)
 				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 					cw_exec_process_instruct(proc, tmp, &ocp);
 				else
-					tmp->pc++;
+					tmp->pc = (tmp->pc + 1) % MEM_SIZE;
 			}
 			else
-				tmp->pc = (tmp->pc + 1) % MEM_SIZE;
+				tmp->inst_c--;
 		}
 		tmp = tmp->next;
 	}
