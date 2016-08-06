@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 14:09:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 17:35:25 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
-
 	p[0] = proc->mem[tmp->pc + 2];
 	if (ocp->second == REG_CODE)
 		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);

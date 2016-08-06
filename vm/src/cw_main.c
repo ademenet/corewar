@@ -19,6 +19,7 @@ int				main(int ac, char **av)
 	proc.champions = NULL;
 	proc.nb_proc = 0;
 	proc.dump = 0;
+	proc.nb_proc = 0;
 	ft_bzero(proc.mem, MEM_SIZE);
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
