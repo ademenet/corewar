@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/05 16:54:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/06 17:40:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int			cw_cycles(t_proc *proc)
 
 void		cw_cycles_end(t_proc *proc)
 {
-
+	ft_printf("C'est fini !"); // mettre message de fin
+	exit(0);
 }
 
 /*

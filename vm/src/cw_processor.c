@@ -6,16 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 17:09:34 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/06 17:38:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
-
-// TODO cw_check_live_process()
-	// TODO verifier que les processus ont bien fait au moins un live
-// TODO verifier que CYCLE_TO_DIE != 0
-	// TODO renvoyer 0 sinon.
 
 /*
 ** Effectue l'instruction puis fait sauter le PC et réinitialise le cycles
