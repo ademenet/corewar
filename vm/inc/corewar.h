@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 16:48:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/06 16:48:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct 					s_proc
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
 	unsigned int				live[MAX_PLAYERS + 1];
-	unsigned int				lives_total; // nombre total de lives sur toute la partie
+	unsigned int				lives_total; // nombre total de lives sur une periode CTOD
 	unsigned int				checks;
 }								t_proc;
 
@@ -187,8 +187,10 @@ int								cw_processor(t_proc *proc);
 void							cw_exec_process(t_proc *proc);
 void							cw_exec_process_instruct(t_proc *proc,
 								t_champion *tmp, t_ocp *ocp);
-int								cw_cycles(t_proc *proc);
 int								cw_check_live_process(t_proc *proc);
+int								cw_cycles(t_proc *proc);
+int								cw_cycles_checks(t_proc *proc);
+void							cw_dump_display(t_proc *proc);
 
 /*
 ** PROCESSOR : FONCTIONS OUTILS
