@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 14:56:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/08 15:12:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 										char ocp, unsigned int p_sze)
 {
 	if (ocp == REG_CODE)
+	{
 		return (cw_get_data_reg(tmp,
 				proc->mem[(tmp->pc + 2 + p_sze) % MEM_SIZE] - 1) % IDX_MOD);
+	}
 	else if (ocp == DIR_CODE)
-		return (cw_get_data_dir(proc, tmp, (tmp->pc + 2 + p_sze) % IDX_MOD, 2));
+	{
+		return (cw_get_data_dir(proc, tmp,
+				((tmp->pc + 2 + p_sze) % IDX_MOD) % MEM_SIZE, 2));
+	}
 	return (0);
 }
 
@@ -38,9 +43,13 @@ int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 		return (cw_get_data_reg(tmp,
 				proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) % IDX_MOD);
 	else if (ocp == DIR_CODE)
-		return (cw_get_data_dir(proc, tmp, (tmp->pc + 2) % IDX_MOD, 2));
+		return (cw_get_data_dir(proc, tmp,
+				(((tmp->pc + 2) % MEM_SIZE) % IDX_MOD), 2));
 	else if (ocp == IND_CODE)
-		return (cw_get_data_ind(proc, tmp, (tmp->pc + 2) % IDX_MOD));
+	{
+		return (cw_get_data_ind(proc, tmp,
+			((tmp->pc + 2) % MEM_SIZE) % IDX_MOD));
+	}
 	return (0);
 }
 
