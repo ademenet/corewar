@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 16:48:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/08 15:17:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,10 @@ int								cw_ins_ld(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_ldi(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
+int								cw_ins_ldi_firstparamhandler(t_proc *proc,
+								t_champion *tmp, char ocp);
+int								cw_ins_ldi_secondparamhandler(t_proc *proc,
+								t_champion *tmp, char ocp, unsigned int p_sze);
 int								cw_ins_lfork(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_live(t_proc *proc, t_champion *tmp,
