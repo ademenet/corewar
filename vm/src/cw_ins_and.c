@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 17:11:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/08 17:46:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	cw_exec_and(t_champion *tmp, unsigned int total, unsigned int p[3])
 	mvprintw(23, 210, "(unsigned int)tmp->reg[p[2] - 1] : %u", (unsigned int)tmp->reg[p[2] - 1]);
 	// mvprintw(23, 210, "tmp->reg[p[2] - 1] : %.2llx", tmp->reg[p[2] - 1]);
 
-	if (total == 0) // si le resultat = le contenu du reg ???
-		tmp->carry = tmp->carry == 0 ? 1 : 0;
+	if (total == 0)
+		tmp->carry = 1;
+	else
+		tmp->carry = 0;
 }
 
 int			cw_ins_and(t_proc *proc, t_champion *tmp, t_ocp *ocp)

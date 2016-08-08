@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:24 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 17:23:40 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/08 17:46:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	cw_exec_xor(t_champion *tmp, unsigned int total, unsigned int p[3])
 	tmp->reg[p[2] - 1][1] = total >> 16;
 	tmp->reg[p[2] - 1][2] = total >> 8;
 	tmp->reg[p[2] - 1][3] = total;
-	if (total == (unsigned int)tmp->reg[p[2] - 1])
-		tmp->carry = tmp->carry == 0 ? 1 : 0;
+	if (total == 0)
+		tmp->carry = 1;
+	else
+		tmp->carry = 0;
 }
 
 int			cw_ins_xor(t_proc *proc, t_champion *tmp, t_ocp *ocp)
