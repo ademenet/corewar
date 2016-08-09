@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 18:05:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 12:09:46 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	cw_lst_push(&proc->champions, cw_lst_new(tmp->header, tmp->num));
 	proc->champions->ins = NULL;
 	proc->champions->pc_origin = tmp->pc_origin;
-	proc->champions->pc = (tmp->pc + (p % IDX_MOD)) % MEM_SIZE; // Probleme de comportement a cause IDX_MOD
+	proc->champions->pc = ((tmp->pc + p) % IDX_MOD) % MEM_SIZE; // Probleme de comportement a cause IDX_MOD
 	proc->champions->carry = tmp->carry;
 	proc->champions->inst_c = 0;
 	proc->champions->lives = 0;
