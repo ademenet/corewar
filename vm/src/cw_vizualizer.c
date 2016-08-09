@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/09 16:44:39 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/06 16:54:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,24 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 {
 	t_champion	*tmp;
-	int			x;
+	int			y;
 
-	mvwprintw(win, 196, 1, "Nombres de cycles : %d", proc->c);
-	mvwprintw(win, 196, 2, "Cycle to die : %d", proc->c_to_die);
 	tmp = proc->champions;
-	x = 4;
+	y = 2;
+	mvwprintw(win, 1, 1, "Nombres de cycles : %d", proc->c);
 	while (tmp)
 	{
 		if (tmp->is_champ == 1)
 		{
-			mvwprintw(win, 196, 1, "Player %d : %s", tmp->num,
+			mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
 				tmp->header->prog_name);
-			x += 2;
+			mvwprintw(win, y, 20, "inst_c = %u", tmp->inst_c); // pour debug
+			mvwprintw(win, y, 35, "pc = %u et valeur %.2hhx", tmp->pc, proc->mem[tmp->pc]); // pour debug
+			y++;
 		}
 		tmp = tmp->next;
 	}
+	mvwprintw(win, 1, 91, "Cycle to die : %d", proc->c_to_die);
 }
 
 /*
@@ -116,12 +118,11 @@ int			cw_vizualizer_processor(t_proc *proc)
 	initscr();
 	cbreak();
 	noecho();
-	win[0] = newwin(66, 294, 0, 0);
-	win[1] = subwin(win[0], 65, 194, 1, 1);
-	win[2] = subwin(win[0], 65, 99, 195, 1);
+	win[0] = newwin(76, 194, 0, 0);
+	win[1] = subwin(win[0], 65, 192, 1, 1);
+	win[2] = subwin(win[0], 10, 192, 66, 1);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	refresh();
-	mvwprintw(win[2], 196, 1, "COUCOU");
 	while (cw_cycles(proc) && c_check)
 	{
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
