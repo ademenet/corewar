@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 15:17:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 13:48:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct 					s_proc
 	unsigned int				live[MAX_PLAYERS + 1];
 	unsigned int				lives_total; // nombre total de lives sur une periode CTOD
 	unsigned int				checks;
+	unsigned char				last_live_id;
 }								t_proc;
 
 /*
