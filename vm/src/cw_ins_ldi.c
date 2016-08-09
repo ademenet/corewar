@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 15:12:54 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 13:33:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[p[2] - 1][1] = ret >> 16;
 	tmp->reg[p[2] - 1][2] = ret >> 8;
 	tmp->reg[p[2] - 1][3] = ret;
-	tmp->carry = tmp->carry == 0 ? 1 : 0;
+	if (ret == 0)
+		tmp->carry = 1;
+	else
+		tmp->carry = 0;
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }
