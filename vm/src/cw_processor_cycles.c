@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 17:47:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 13:58:01 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,17 @@ int			cw_cycles(t_proc *proc)
 
 void		cw_cycles_end(t_proc *proc)
 {
-	ft_printf("C'est fini !"); // mettre message de fin
+	t_champion	*winner;
+
+	winner = proc->champions;
+	while (winner)
+	{
+		if (proc->last_live_id == winner->id)
+			break;
+		winner = winner->next;
+	}
+	ft_printf("Le joueur %d(%s) a gagné\n", winner->num,
+		winner->header->prog_name);
 	exit(0);
 }
 
