@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 13:29:45 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 14:21:43 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <ncurses.h>
 # include <panel.h>
+# include "colors.h"
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
 
@@ -65,10 +66,10 @@ typedef char		t_arg_type;
 
 typedef struct					s_header
 {
-  unsigned int					magic;
-  char							prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int					prog_size;
-  char							comment[COMMENT_LENGTH + 1];
+	unsigned int				magic;
+	char						prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int				prog_size;
+	char						comment[COMMENT_LENGTH + 1];
 }								t_header;
 
 /*
@@ -87,6 +88,7 @@ typedef struct 					s_champion
 	unsigned int				num; // numero du processus
 	unsigned int				lives;
 	char						is_champ;
+	char						id;
 	struct s_champion			*next;
 	struct s_champion			*prev;
 }								t_champion;
@@ -104,13 +106,14 @@ typedef struct 					s_proc
 	unsigned int				nb_proc; // nombre de processus courants
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
 	// CYCLE_DELTA tous les blablablas
-	unsigned int				c_to_die;
+	int				c_to_die;
 	// c : index des cycles. Init à 0.
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
 	unsigned int				live[MAX_PLAYERS + 1];
-	unsigned int				lives_total; // nombre total de lives sur toute la partie
+	unsigned int				lives_total; // nombre total de lives sur une periode CTOD
 	unsigned int				checks;
+	unsigned char				last_live_id;
 }								t_proc;
 
 /*
@@ -147,13 +150,22 @@ typedef struct					s_op
 }								t_op;
 
 /*
+** Tableau global des bonus initialisé à 0 - lorsqu'une option est implementée,
+la case du tableau a l'index correspondant passe à 1.
+ex avec -v : g_bon['v'] sera egale a 1.
+*/
+
+char							g_bon[256];
+
+/*
 ** RECUPERATION ET INITIALISATION DES CHAMPIONS
 */
 
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
-int								cw_create_champion(char *file, int c_nb, t_proc *proc, int n);
+int								cw_create_champion(char *file, int c_nb, t_proc
+								*proc, int n);
 int								cw_load_ins_mem(t_proc *proc);
 
 /*
@@ -161,10 +173,12 @@ int								cw_load_ins_mem(t_proc *proc);
 */
 
 t_champion						*cw_lst_new(t_header *header, int num);
-void							cw_lst_push(t_champion **begin, t_champion *new);
+void							cw_lst_push(t_champion **begin,
+								t_champion *new);
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
+void							cw_lst_dsort_by_num(t_champion **champions);
 
 /*
 ** PROCESSOR
@@ -174,8 +188,10 @@ int								cw_processor(t_proc *proc);
 void							cw_exec_process(t_proc *proc);
 void							cw_exec_process_instruct(t_proc *proc,
 								t_champion *tmp, t_ocp *ocp);
-int								cw_cycles(t_proc *proc);
 int								cw_check_live_process(t_proc *proc);
+int								cw_cycles(t_proc *proc);
+int								cw_cycles_checks(t_proc *proc);
+void							cw_dump_display(t_proc *proc);
 
 /*
 ** PROCESSOR : FONCTIONS OUTILS
@@ -195,12 +211,18 @@ int								cw_ins_aff(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_and(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
+void							cw_ins_fork_duplicate_reg(t_champion *new,
+								t_champion *old);
 int								cw_ins_fork(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_ld(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_ldi(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
+int								cw_ins_ldi_firstparamhandler(t_proc *proc,
+								t_champion *tmp, char ocp);
+int								cw_ins_ldi_secondparamhandler(t_proc *proc,
+								t_champion *tmp, char ocp, unsigned int p_sze);
 int								cw_ins_lfork(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_live(t_proc *proc, t_champion *tmp,
@@ -228,7 +250,19 @@ int								cw_ins_zjmp(t_proc *proc, t_champion *tmp,
 
 int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 								t_ocp *ocp);
+unsigned int					cw_get_data_reg(t_champion *champ,
+								unsigned char reg);
 
+/*
+** INSTRUCTIONS : FONCTIONS GET DATA
+*/
+
+unsigned int					cw_get_data_reg(t_champion *champ,
+								unsigned char reg);
+unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
+								unsigned int sze, int dir);
+unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
+								unsigned int sze);
 /*
 ** BONUS : VISUALISEUR
 */
@@ -239,6 +273,14 @@ void							cw_vizualizer(t_proc *proc, WINDOW *win);
 void							cw_vizualizer_memprint(t_proc *proc,
 								WINDOW *win);
 void							cw_vizualizer_infos(t_proc *proc, WINDOW *win);
+
+void							cw_show_mem(char *start, int n);
+
+/*
+**	BONUS : GESTION DES OPTIONs
+*/
+
+void							cw_bon_handler(char **av, int ac, int param);
 
 /*
 ** Structure de définition des instructions :

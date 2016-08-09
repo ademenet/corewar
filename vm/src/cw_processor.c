@@ -6,54 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/28 13:41:12 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/06 17:38:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
-
-// TODO cw_check_live_process()
-	// TODO verifier que les processus ont bien fait au moins un live
-// TODO verifier que CYCLE_TO_DIE != 0
-	// TODO renvoyer 0 sinon.
-
-/*
-** cw_check_live_process vérifie si un processus a bien fait un live en
-** CYCLE_TO_DIE cycles.
-*/
-
-int			cw_check_live_process(t_proc *proc)
-{
-	t_champion	*tmp;
-
-	tmp = proc->champions;
-	while (tmp)
-	{
-		if (tmp->lives == 0)
-			// kill le process en le retirant de la liste
-		tmp = tmp->next;
-	}
-	proc->checks++; // incremente le checks car on a effectue un nouveau check
-	return (1);
-}
-
-/*
-** cw_cycles vérifie si un nouveau cycle doit être exécuté.
-** Si les conditions suivantes sont remplies alors les cycles s'arrêtent :
-** - CYCLE_TO_DIE atteint 0 ;
-** - depuis CYCLE_TO_DIE cycles un seul processus a été rapporté en vie.
-*/
-
-int			cw_cycles(t_proc *proc)
-{
-	// if (proc->checks % MAX_CHECKS == 0)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	// if (proc->c % CYCLE_TO_DIE == 0) // condition a verifier si on a decrementer ctd entre temps
-	// 	cw_check_live_process(proc);
-	// if (proc->lives_total >= NBR_LIVE)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	return (1);
-}
 
 /*
 ** Effectue l'instruction puis fait sauter le PC et réinitialise le cycles
@@ -102,15 +59,18 @@ void		cw_exec_process(t_proc *proc)
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (tmp->inst_c == 0)
+		if (tmp->is_champ != -1)
 		{
-			if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-				cw_exec_process_instruct(proc, tmp, &ocp);
+			if (tmp->inst_c == 0)
+			{
+				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
+					cw_exec_process_instruct(proc, tmp, &ocp);
+				else
+					tmp->pc = (tmp->pc + 1) % MEM_SIZE;
+			}
 			else
-				tmp->pc++;
+				tmp->inst_c--;
 		}
-		else
-			tmp->inst_c--;
 		tmp = tmp->next;
 	}
 }
@@ -122,11 +82,15 @@ void		cw_exec_process(t_proc *proc)
 
 int			cw_processor(t_proc *proc)
 {
+	int		c_check;
+
+	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
-	while (cw_cycles(proc))
+	while (cw_cycles(proc) && c_check)
 	{
 		cw_exec_process(proc);
+		c_check = cw_cycles_checks(proc);
 		proc->c++;
 	}
 	return (1);

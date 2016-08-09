@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 14:34:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/03 14:00:07 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,38 @@ int					cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 
 unsigned int		cw_ins_param_sze(char param, int dir)
 {
-	if (param == 1)
+	if (param == REG_CODE)
 		return (1);
-	if (param == 2)
+	if (param == DIR_CODE)
 		return (dir);
-	if (param == 3)
+	if (param == IND_CODE)
 		return (2);
-	return (cw_error_msg("Wrong DIR_CODE ref passed to cw_ins_param_sze"));
+	return (0);
+}
+
+/*
+** Fonction permettant de visualiser une variable telle qu'elle est stockée en
+** mémoire. À appeler comme ça :
+** show_mem_rep((char *)&i, sizeof(i));
+** avec i un int ou autre d'ailleurs.
+*/
+
+void		cw_show_mem(char *start, int n)
+{
+    int		i;
+
+	i = 0;
+	// Pour affichage dans le visualiseur
+	move(0, 0);
+
+	while (i < n)
+	{
+		// ft_printf("%.2x", start[i]);
+
+		// Pour affichage dans le visualiseur
+		printw("%.2hhx ", start[i]);
+
+		i++;
+	}
+    // ft_printf("\n");
 }

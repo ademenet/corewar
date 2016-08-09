@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/04 13:10:02 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 17:00:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (*i == tmp->pc)
+		if (*i == tmp->pc && tmp->is_champ != -1)
 			return (tmp->num);
 		tmp = tmp->next;
 	}
@@ -37,20 +37,20 @@ int			cw_vizualizer_pcprint(t_proc *proc, int *i)
 void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 {
 	int			i;
-	int			num;
+	int			id;
 
 	i = 0;
-	num = 0;
+	id = 0;
 	wmove(win, 0, 0);
 	while (i < MEM_SIZE)
 	{
 		if (i != 0)
 			i % 64 == 0 ? wprintw(win, "\n") : wprintw(win, " ");
-		if ((num = cw_vizualizer_pcprint(proc, &i)))
+		if ((id = cw_vizualizer_pcprint(proc, &i)))
 		{
-			wattron(win, COLOR_PAIR(num));
+			wattron(win, COLOR_PAIR(id));
 			wprintw(win, "%.2hhx", proc->mem[i]);
-			wattroff(win, COLOR_PAIR(num));
+			wattroff(win, COLOR_PAIR(id));
 		}
 		else
 			wprintw(win, "%.2hhx", proc->mem[i]);
@@ -61,22 +61,22 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 {
 	t_champion	*tmp;
-	int			y;
+	int			x;
 
+	mvwprintw(win, 196, 1, "Nombres de cycles : %d", proc->c);
+	mvwprintw(win, 196, 2, "Cycle to die : %d", proc->c_to_die);
 	tmp = proc->champions;
-	y = 2;
-	mvwprintw(win, 1, 1, "Nombres de cycles : %d", proc->c);
+	x = 4;
 	while (tmp)
 	{
-		mvwprintw(win, y, 1, "Player %d : %s", tmp->num,
-			tmp->header->prog_name);
-		mvwprintw(win, y, 20, "inst_c = %.2hhx", tmp->inst_c); // pour debug
-		mvwprintw(win, y, 40, "valeur au pc = %.2hhx", proc->mem[tmp->pc]); // pour debug
-		mvwprintw(win, y, 60, "ins = %p", tmp->ins); // pour debug
+		if (tmp->is_champ == 1)
+		{
+			mvwprintw(win, 196, 1, "Player %d : %s", tmp->num,
+				tmp->header->prog_name);
+			x += 2;
+		}
 		tmp = tmp->next;
-		y++;
 	}
-	mvwprintw(win, 1, 91, "Cycle to die : %d", proc->c_to_die);
 }
 
 /*
@@ -86,22 +86,19 @@ void		cw_vizualizer_infos(t_proc *proc, WINDOW *win)
 void		cw_vizualizer(t_proc *proc, WINDOW *win)
 {
 	t_champion	*tmp;
-	int			color;
 
 	tmp = proc->champions;
-	color = 1;
 	start_color();
 	while (tmp)
 	{
-		if (color == 1)
-			init_pair(tmp->num, COLOR_BLACK, COLOR_GREEN);
-		if (color == 2)
-			init_pair(tmp->num, COLOR_WHITE, COLOR_BLUE);
-		if (color == 3)
-			init_pair(tmp->num, COLOR_WHITE, COLOR_RED);
-		if (color == 4)
-			init_pair(tmp->num, COLOR_BLACK, COLOR_CYAN);
-		color++;
+		if (tmp->id == 1)
+			init_pair(tmp->id, COLOR_BLACK, COLOR_GREEN);
+		if (tmp->id == 2)
+			init_pair(tmp->id, COLOR_WHITE, COLOR_BLUE);
+		if (tmp->id == 3)
+			init_pair(tmp->id, COLOR_WHITE, COLOR_RED);
+		if (tmp->id == 4)
+			init_pair(tmp->id, COLOR_BLACK, COLOR_CYAN);
 		tmp = tmp->next;
 	}
 	cw_vizualizer_memprint(proc, win);
@@ -118,48 +115,60 @@ int			cw_vizualizer_control(char *play, int *ch)
 
 int			cw_vizualizer_speed(int *ch)
 {
-	
+	return (1);
 }
 
 int			cw_vizualizer_processor(t_proc *proc)
 {
 	WINDOW	*win[3];
-	char	play;
-	int		ch;
+	int		c_check;
 
-	play = 0;
+	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 
 	initscr();
 	noecho();
-	win[0] = newwin(76, 194, 0, 0);
-	win[1] = subwin(win[0], 65, 192, 1, 1);
-	win[2] = subwin(win[0], 10, 192, 66, 1);
-	// keypad(stdscr, TRUE);
+	win[0] = newwin(66, 294, 0, 0);
+	win[1] = subwin(win[0], 65, 194, 1, 1);
+	win[2] = subwin(win[0], 65, 99, 195, 1);
 	box(win[0], ACS_VLINE, ACS_HLINE);
 	cbreak();
 	nodelay(win[0], TRUE);
 	refresh();
-	while (1)
+	// while (1)
+	// {
+	// 	ch = getch();
+	// 	if (cw_vizualizer_control(&play, &ch))
+	// 	{
+	// 		while (cw_cycles(proc))
+	// 		{
+	// 			mvprintw(0, 200, "[%d]", ch);
+	// 			ch = getch();
+	// 			cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+	// 			cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
+	// 			cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
+	// 			wrefresh(win[1]);
+	// 			wrefresh(win[2]);
+	// 			wrefresh(win[0]);
+	// 			proc->c++;
+	// 			usleep(300000000);
+	// 		}
+	// 	}
+	mvwprintw(win[2], 196, 1, "COUCOU");
+	while (cw_cycles(proc) && c_check)
 	{
-		ch = getch();
-		if (cw_vizualizer_control(&play, &ch))
-		{
-			while (cw_cycles(proc))
-			{
-				mvprintw(0, 200, "[%d]", ch);
-				ch = getch();
-				cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-				cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
-				cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
-				wrefresh(win[1]);
-				wrefresh(win[2]);
-				wrefresh(win[0]);
-				proc->c++;
-				usleep(300000000);
-			}
-		}
+		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
+		cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
+		wrefresh(win[1]);
+		wrefresh(win[2]);
+		wrefresh(win[0]);
+		refresh();
+		getch();
+		// getchar();
+		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
+		c_check = cw_cycles_checks(proc);
+		proc->c++;
 	}
 	delwin(win[0]);
 	delwin(win[1]);

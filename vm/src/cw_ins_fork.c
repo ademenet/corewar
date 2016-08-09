@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:17:36 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 12:13:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,35 @@
 ** du père.
 */
 
+void		cw_ins_fork_duplicate_reg(t_champion *new, t_champion *old)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < REG_NUMBER)
+	{
+		j = 0;
+		while (j < REG_SIZE)
+		{
+			new->reg[i][j] = old->reg[i][j];
+			j++;
+		}
+		i++;
+	}
+}
+
 int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	return (1);
+	unsigned int	p;
+
+	p = cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
+	cw_lst_push(&proc->champions, cw_lst_new(tmp->header, tmp->num));
+	proc->champions->ins = NULL;
+	proc->champions->pc_origin = tmp->pc_origin;
+	proc->champions->pc = ((tmp->pc + p) % IDX_MOD) % MEM_SIZE;
+	proc->champions->inst_c = 0;
+	proc->champions->lives = 0;
+	proc->champions->id = tmp->id;
+	return (3);
 }
