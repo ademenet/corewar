@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 14:49:48 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 16:49:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 12:18:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[proc->mem[tmp->pc + 4] - 1][1] = param[2] >> 16;
 	tmp->reg[proc->mem[tmp->pc + 4] - 1][2] = param[2] >> 8;
 	tmp->reg[proc->mem[tmp->pc + 4] - 1][3] = param[2];
-	tmp->carry = tmp->carry == 0 ? 1 : 0;
+	if (param[2] == 0)
+		tmp->carry = 1;
+	else
+		tmp->carry = 0;
 	return (5);
 }
