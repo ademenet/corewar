@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 17:35:25 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/09 13:37:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 	while (++i < REG_SIZE)
 		proc->mem[(tmp->pc + p[1] + p[2] + i) % MEM_SIZE] =
 		tmp->reg[p[0] - 1][i];
+	if (p[0] == 0)
+		tmp->carry = 1;
+	else
+		tmp->carry = 0;
 }
 
 int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
