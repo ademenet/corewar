@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/09 13:48:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 14:21:43 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct 					s_proc
 	unsigned int				nb_proc; // nombre de processus courants
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
 	// CYCLE_DELTA tous les blablablas
-	unsigned int				c_to_die;
+	int				c_to_die;
 	// c : index des cycles. Init à 0.
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
