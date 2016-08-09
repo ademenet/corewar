@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/09 13:51:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 13:52:45 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->lives_total++;
 	while (temp)
 	{
-		if (temp->num == check && temp->is_champ == 1)
+		if (temp->num == check && (temp->is_champ == 1 || temp->is_champ == -1))
 		{
 			proc->live[tmp->id - 1]++;
 			ft_printf("un processus dit que le joueur %d(%s) est en vie",
