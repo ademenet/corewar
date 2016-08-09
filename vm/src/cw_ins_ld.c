@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 14:04:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 12:17:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 ** registre (pas le PC). Elle load la valeur du premier paramètre dans
 ** le registre. Cette opération modifie le carry.
 */
+
+static void	cw_ins_ld_carry(t_champion *tmp, unsigned int p)
+{
+	if (p == 0)
+		tmp->carry = 1;
+	else
+		tmp->carry = 0;
+}
 
 int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
@@ -40,6 +48,6 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[reg - 1][1] = p >> 16;
 	tmp->reg[reg - 1][2] = p >> 8;
 	tmp->reg[reg - 1][3] = p;
-	tmp->carry = tmp->carry == 0 ? 1 : 0;
+	cw_ins_ld_carry(tmp, p);
 	return (2 + p_sze[0] + p_sze[1]);
 }
