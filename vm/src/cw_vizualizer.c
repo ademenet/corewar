@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/09 17:00:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/09 17:50:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 {
 	int			i;
 	int			id;
+	int			x;
 
 	i = 0;
 	id = 0;
-	wmove(win, 0, 0);
+	x = 2;
+	// wmove(win, 2, 2);
 	while (i < MEM_SIZE)
 	{
 		if (i != 0)
@@ -49,12 +51,13 @@ void		cw_vizualizer_memprint(t_proc *proc, WINDOW *win)
 		if ((id = cw_vizualizer_pcprint(proc, &i)))
 		{
 			wattron(win, COLOR_PAIR(id));
-			wprintw(win, "%.2hhx", proc->mem[i]);
+			mvwprintw(win, 2, x, "%.2hhx", proc->mem[i]);
 			wattroff(win, COLOR_PAIR(id));
 		}
 		else
-			wprintw(win, "%.2hhx", proc->mem[i]);
+			mvwprintw(win, 2, x, "%.2hhx", proc->mem[i]);
 		i++;
+		x++;
 	}
 }
 
@@ -129,12 +132,25 @@ int			cw_vizualizer_processor(t_proc *proc)
 
 	initscr();
 	noecho();
-	win[0] = newwin(66, 294, 0, 0);
-	win[1] = subwin(win[0], 65, 194, 1, 1);
-	win[2] = subwin(win[0], 65, 99, 195, 1);
-	box(win[0], ACS_VLINE, ACS_HLINE);
+
+	// init_pair(21, COLOR_WHITE, COLOR_BLUE);
+	// init_pair(22, COLOR_WHITE, COLOR_WHITE);
+
+	win[0] = newwin(70, 300, 0, 0);
+	win[1] = subwin(win[0], 68, 196, 0, 0);
+	win[2] = subwin(win[0], 66, 98, 200, 1);
+
+	// box(win[0], ACS_VLINE, ACS_HLINE);
+	box(win[1], ACS_VLINE, ACS_HLINE);
+	box(win[2], ACS_VLINE, ACS_HLINE);
+
 	cbreak();
 	nodelay(win[0], TRUE);
+
+	// wbkgd(win[2], COLOR_PAIR(21));
+	// wbkgd(win[1], COLOR_PAIR(22));
+
+	mvwprintw(win[0], 100, 10, "COUCOU");
 	refresh();
 	// while (1)
 	// {
@@ -155,7 +171,6 @@ int			cw_vizualizer_processor(t_proc *proc)
 	// 			usleep(300000000);
 	// 		}
 	// 	}
-	mvwprintw(win[2], 196, 1, "COUCOU");
 	while (cw_cycles(proc) && c_check)
 	{
 		cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
