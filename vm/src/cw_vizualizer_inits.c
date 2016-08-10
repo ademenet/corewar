@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:39:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 16:29:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,26 @@ void		cw_vizualizer_init_pc(t_proc *proc)
 }
 
 /*
+** Récupère l'intervalle où se trouve le champion pour afficher la mémoire avec
+** la couleur appropriée.
+*/
+
+int			cw_vizualizer_colinit(t_proc *proc, int i)
+{
+	t_champion	*tmp;
+
+	tmp = proc->champions;
+	while (tmp)
+	{
+		if (i >= tmp->pc_origin && i <
+			(tmp->pc_origin + tmp->header->prog_size))
+			return ((tmp->id + 10));
+		tmp = tmp->next;
+	}
+	return (5);
+}
+
+/*
 ** Imprime la mémoire octet par octet avec des coordonnées précises selon les
 ** octets.
 */
@@ -50,7 +70,9 @@ void		cw_vizualizer_init_memprint(t_proc *proc)
 	{
 		while (x <= 191)
 		{
+			wattron(proc->win[0], COLOR_PAIR(cw_vizualizer_colinit(proc, i)));
 			mvwprintw(proc->win[0], y, x, "%.2hhx", proc->mem[i]);
+			wattroff(proc->win[0], COLOR_PAIR(cw_vizualizer_colinit(proc, i)));
 			x += 3;
 			i++;
 		}
@@ -65,24 +87,18 @@ void		cw_vizualizer_init_memprint(t_proc *proc)
 ** rénitialisation (blanc sur noir).
 */
 
-void		cw_vizualizer_init_colors(t_proc *proc)
+void		cw_vizualizer_init_colors(void)
 {
-	t_champion	*tmp;
-
-	tmp = proc->champions;
-	while (tmp)
-	{
-		if (tmp->id == 1)
-			init_pair(tmp->id, COLOR_BLACK, COLOR_GREEN);
-		if (tmp->id == 2)
-			init_pair(tmp->id, COLOR_WHITE, COLOR_BLUE);
-		if (tmp->id == 3)
-			init_pair(tmp->id, COLOR_WHITE, COLOR_RED);
-		if (tmp->id == 4)
-			init_pair(tmp->id, COLOR_BLACK, COLOR_CYAN);
-		tmp = tmp->next;
-	}
+	init_pair(1, COLOR_BLACK, COLOR_GREEN);
+	init_pair(2, COLOR_WHITE, COLOR_BLUE);
+	init_pair(3, COLOR_WHITE, COLOR_RED);
+	init_pair(4, COLOR_BLACK, COLOR_CYAN);
 	init_pair(5, COLOR_WHITE, COLOR_BLACK);
+	init_pair(11, COLOR_GREEN, COLOR_BLACK);
+	init_pair(12, COLOR_BLUE, COLOR_BLACK);
+	init_pair(13, COLOR_RED, COLOR_BLACK);
+	init_pair(14, COLOR_CYAN, COLOR_BLACK);
+
 }
 
 /*
@@ -102,5 +118,5 @@ void		cw_vizualizer_init(t_proc *proc)
 	box(proc->win[0], ACS_VLINE, ACS_HLINE);
 	box(proc->win[1], ACS_VLINE, ACS_HLINE);
 	refresh();
-	cw_vizualizer_init_colors(proc);
+	cw_vizualizer_init_colors();
 }
