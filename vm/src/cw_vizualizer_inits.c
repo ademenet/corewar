@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:29:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:35:15 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void		cw_vizualizer_init_memprint(t_proc *proc)
 }
 
 /*
-** Initialise les couleurs pour chaque champions, selon leur id.
+** Initialise les couleurs pour chaque champions, selon leur id. Le 5 est une
+** rénitialisation (blanc sur noir).
 */
 
 void		cw_vizualizer_init_colors(t_proc *proc)
