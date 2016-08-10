@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 17:38:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:17:40 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	{
 		cw_ins_ocp(proc, tmp, ocp);
 		size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
+		if (g_bon['v'])
+			cw_vizualizer_pcprint(proc, tmp, 5);
 		tmp->pc = (tmp->pc + size) % MEM_SIZE;
+		if (g_bon['v'])
+			cw_vizualizer_pcprint(proc, tmp, tmp->id);
 		if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 		{
 			tmp->ins = &proc->mem[tmp->pc];
