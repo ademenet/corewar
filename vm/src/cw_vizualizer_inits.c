@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:28:03 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:29:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 /*
 ** Initialisations du visualiseur.
+*/
+
+/*
+** Affiche le PC de départ en couleur.
 */
 
 void		cw_vizualizer_init_pc(t_proc *proc)
@@ -29,7 +33,8 @@ void		cw_vizualizer_init_pc(t_proc *proc)
 }
 
 /*
-** Imprime la mémoire :
+** Imprime la mémoire octet par octet avec des coordonnées précises selon les
+** octets.
 */
 
 void		cw_vizualizer_init_memprint(t_proc *proc)

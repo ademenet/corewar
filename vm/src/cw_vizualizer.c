@@ -6,14 +6,17 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:26:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:33:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*
-** Permet de mettre en couleur le PC en cours.
+** Permet de mettre en couleur le PC en cours. Prend un paramètre col, pour
+** couleur, qui permet de sélectionner quel COLOR_PAIR choisir. Ce qui permet
+** une plus grande souplesse pour "allumer" ou "éteindre" un PC. Le COLOR_PAIR
+** 5 permet de réinitialiser la couleur.
 */
 
 void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
@@ -21,18 +24,20 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 	int		*coord;
 
 	coord = (int*)malloc(sizeof(int) * 2);
-	// coord = cw_vizualizer_getcoord(tmp->pc, coord);
 	coord[0] = tmp->pc / 64 + 1;
 	if (tmp->pc % 64 == 0)
 		coord[1] = tmp->pc % 64 + 1;
 	else
 		coord[1] = tmp->pc % 64 * 3 + 1;
-
 	wattron(proc->win[0], COLOR_PAIR(col));
 	mvwprintw(proc->win[0], coord[0], coord[1], "%.2hhx", proc->mem[tmp->pc]);
 	wattroff(proc->win[0], COLOR_PAIR(col));
 	free(coord);
 }
+
+/*
+** Affiche les informations qui se trouvent à côté du visualiseur de mémoire.
+*/
 
 void		cw_vizualizer_infos(t_proc *proc)
 {
@@ -55,6 +60,9 @@ void		cw_vizualizer_infos(t_proc *proc)
 	}
 }
 
+/*
+** TODO fonction en cours de travail pour gérer le start/pause.
+*/
 
 int			cw_vizualizer_control(char *play, int *ch)
 {
@@ -65,11 +73,19 @@ int			cw_vizualizer_control(char *play, int *ch)
 	return (0);
 }
 
+/*
+** TODO fonction qui permet de gérer la vitesse en gérant le paramétre de la
+** fonction usleep().
+*/
+
 int			cw_vizualizer_speed(int *ch)
 {
 	return (1);
 }
 
+/*
+** Le processeur du Corewar équipé du visualiseur.
+*/
 
 int			cw_vizualizer_processor(t_proc *proc)
 {
