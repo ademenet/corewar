@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:33:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 17:17:27 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 		coord[1] = tmp->pc % 64 + 1;
 	else
 		coord[1] = tmp->pc % 64 * 3 + 1;
-	wattron(proc->win[0], COLOR_PAIR(col));
+	wattron(proc->win[0], COLOR_PAIR(col + 10) | A_BOLD);
 	mvwprintw(proc->win[0], coord[0], coord[1], "%.2hhx", proc->mem[tmp->pc]);
-	wattroff(proc->win[0], COLOR_PAIR(col));
+	wattroff(proc->win[0], COLOR_PAIR(col + 10) | A_BOLD);
 	free(coord);
 }
 
