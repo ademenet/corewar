@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:16:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:26:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			cw_vizualizer_processor(t_proc *proc)
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 	cw_vizualizer_init(proc);
-	cw_vizualizer_memprint(proc);
+	cw_vizualizer_init_memprint(proc);
 	// while (1)
 	// {
 	// 	ch = getch();
