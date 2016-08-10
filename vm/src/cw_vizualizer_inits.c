@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 15:35:15 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/10 15:39:25 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ void		cw_vizualizer_init_pc(t_proc *proc)
 void		cw_vizualizer_init_memprint(t_proc *proc)
 {
 	int			i;
-	int			id;
 	int			x;
 	int			y;
 
 	i = 0;
-	id = 0;
 	x = 1;
 	y = 1;
 	while (y < 65)
