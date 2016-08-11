@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 15:48:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 17:27:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void		cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 			cw_vizualizer_print(proc, tmp,
 				(tmp->pc + p[1] + p[2] + i) % MEM_SIZE, tmp->reg[p[0] - 1][i]);
 	}
-	if (p[0] == 0)
-		tmp->carry = 1;
-	else
-		tmp->carry = 0;
+	// if (p[0] == 0)
+	// 	tmp->carry = 1;
+	// else
+	// 	tmp->carry = 0;
 }
 
 int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
