@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 17:17:27 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 13:52:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 		coord[1] = tmp->pc % 64 + 1;
 	else
 		coord[1] = tmp->pc % 64 * 3 + 1;
-	wattron(proc->win[0], COLOR_PAIR(col + 10) | A_BOLD);
+	wattron(proc->win[0], COLOR_PAIR(col));
 	mvwprintw(proc->win[0], coord[0], coord[1], "%.2hhx", proc->mem[tmp->pc]);
-	wattroff(proc->win[0], COLOR_PAIR(col + 10) | A_BOLD);
+	wattroff(proc->win[0], COLOR_PAIR(col));
 	free(coord);
 }
 
@@ -42,22 +42,29 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 void		cw_vizualizer_infos(t_proc *proc)
 {
 	t_champion	*tmp;
-	int			x;
+	int			y;
 
-	mvwprintw(proc->win[1], 1, 1, "Nombres de cycles : %d", proc->c);
-	mvwprintw(proc->win[1], 1, 2, "Cycle to die : %d", proc->c_to_die);
+	mvwprintw(proc->win[1], 1, 2, "Cycle\t: %8d", proc->c);
 	tmp = proc->champions;
-	x = 4;
+	y = 4;
 	while (tmp)
 	{
-		if (tmp->is_champ == 1)
+		if (tmp->is_champ != 0)
 		{
-			mvwprintw(proc->win[1], 1, x, "Player %d : %s", tmp->num,
+			wattron(proc->win[1], COLOR_PAIR(tmp->id + 10) | A_BOLD);
+			mvwprintw(proc->win[1], y, 2, "Player %d : %s", tmp->num,
 				tmp->header->prog_name);
-			x += 2;
+			wattroff(proc->win[1], COLOR_PAIR(tmp->id + 10) | A_BOLD);
+			mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u", tmp->lives);
+			y += 2;
 		}
 		tmp = tmp->next;
 	}
+	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_TO_DIE\t: %8d",
+		proc->c_to_die);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_DELTA\t: %8d", CYCLE_DELTA);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "NBR_LIVE\t: %8d", NBR_LIVE);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "MAX_CHECKS\t: %8d", MAX_CHECKS);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/10 17:50:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 13:21:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void		cw_vizualizer_init(t_proc *proc)
 {
 	initscr();
 	proc->win[0] = newwin(66, 194, 0, 0);
-	proc->win[1] = newwin(66, 50, 200, 0);
+	proc->win[1] = newwin(66, 70, 0, 194);
 	start_color();
 	noecho();
 	cbreak();
