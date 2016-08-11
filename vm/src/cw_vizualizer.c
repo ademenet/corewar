@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 14:13:15 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 14:16:20 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 	wattroff(proc->win[0], COLOR_PAIR(col));
 	free(coord);
 }
+
+/*
+** Affiche les informations se trouvant sur le côté de la VM.
+*/
 
 void		cw_vizualizer_infos_side(t_proc *proc, int y)
 {
