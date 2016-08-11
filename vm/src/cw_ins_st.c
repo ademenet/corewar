@@ -41,5 +41,5 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		tmp->carry = 1;
 	else
 		tmp->carry = 0;
-	return (1);
+	return (2 + p_sze[0] + p_sze[1]);
 }
