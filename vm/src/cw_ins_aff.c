@@ -22,5 +22,9 @@
 
 int			cw_ins_aff(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	return (1);
+	unsigned int	p;
+
+	p = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) % 256;
+	ft_printf("%c", p);
+	return (3);
 }
