@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/08/04 15:34:11 by ademenet         ###   ########.fr        #
+#    Updated: 2016/08/11 15:51:16 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_NAME =	cw_ins_add.c\
 			cw_processor_inits.c\
 			cw_processor.c\
 			cw_vizualizer.c\
+			cw_vizualizer_inits.c\
 			cw_main.c\
 			cw_param_handler.c\
 			cw_champion_creation.c\
