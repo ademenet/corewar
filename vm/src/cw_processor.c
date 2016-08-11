@@ -6,11 +6,29 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 17:38:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 13:19:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+/*
+** Incrémente le PC de la size renvoyé par la fonction de l'instruction. Cette
+** dernière calcule la size du saut de PC à partir de la taille attendue des
+** paramètres donnés par l'OCP. S'il n'y en a pas, alors on a une taille
+** définie.
+** Si le visualiseur est activé, l'ancien PC en couleur est réinitialisé (mis
+** en blanc et noir) et le nouveau hérite de la couleur en surbrillance.
+*/
+
+void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
+{
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
+	tmp->pc = (tmp->pc + size) % MEM_SIZE;
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, tmp->id);
+}
 
 /*
 ** Effectue l'instruction puis fait sauter le PC et réinitialise le cycles
@@ -33,7 +51,7 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	{
 		cw_ins_ocp(proc, tmp, ocp);
 		size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
-		tmp->pc = (tmp->pc + size) % MEM_SIZE;
+		cw_exec_process_pcincrement(proc, tmp, size);
 		if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 		{
 			tmp->ins = &proc->mem[tmp->pc];
@@ -66,7 +84,7 @@ void		cw_exec_process(t_proc *proc)
 				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 					cw_exec_process_instruct(proc, tmp, &ocp);
 				else
-					tmp->pc = (tmp->pc + 1) % MEM_SIZE;
+					cw_exec_process_pcincrement(proc, tmp, 1);
 			}
 			else
 				tmp->inst_c--;
