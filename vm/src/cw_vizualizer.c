@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 13:52:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 14:13:15 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 	free(coord);
 }
 
+void		cw_vizualizer_infos_side(t_proc *proc, int y)
+{
+	mvwprintw(proc->win[1], (y = y + 1), 2, "lives total\t: %8d",
+		proc->lives_total);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_TO_DIE\t: %8d",
+		proc->c_to_die);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_DELTA\t: %8d", CYCLE_DELTA);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "NBR_LIVE\t: %8d", NBR_LIVE);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "MAX_CHECKS\t: %8d", MAX_CHECKS);
+}
+
 /*
 ** Affiche les informations qui se trouvent à côté du visualiseur de mémoire.
 */
@@ -55,16 +66,13 @@ void		cw_vizualizer_infos(t_proc *proc)
 			mvwprintw(proc->win[1], y, 2, "Player %d : %s", tmp->num,
 				tmp->header->prog_name);
 			wattroff(proc->win[1], COLOR_PAIR(tmp->id + 10) | A_BOLD);
-			mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u", tmp->lives);
+			mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u",
+				proc->live[tmp->id - 1]);
 			y += 2;
 		}
 		tmp = tmp->next;
 	}
-	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_TO_DIE\t: %8d",
-		proc->c_to_die);
-	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_DELTA\t: %8d", CYCLE_DELTA);
-	mvwprintw(proc->win[1], (y = y + 1), 2, "NBR_LIVE\t: %8d", NBR_LIVE);
-	mvwprintw(proc->win[1], (y = y + 1), 2, "MAX_CHECKS\t: %8d", MAX_CHECKS);
+	cw_vizualizer_infos_side(proc, y);
 }
 
 /*

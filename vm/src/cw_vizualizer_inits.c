@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 13:21:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 13:55:47 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void		cw_vizualizer_init_colors(void)
 	init_pair(12, COLOR_BLUE, COLOR_BLACK);
 	init_pair(13, COLOR_RED, COLOR_BLACK);
 	init_pair(14, COLOR_CYAN, COLOR_BLACK);
-
 }
 
 /*
