@@ -6,11 +6,33 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 14:16:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 15:43:58 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+/*
+** Permet d'imprimer un octet dans la représentation de la mémoire du
+** visualiseur.
+*/
+
+void		cw_vizualizer_print(t_proc *proc, t_champion *tmp, int where,
+			unsigned char what)
+{
+	int		*coord;
+
+	coord = (int*)malloc(sizeof(int) * 2);
+	coord[0] = where / 64 + 1;
+	if (where % 64 == 0)
+		coord[1] = where % 64 + 1;
+	else
+		coord[1] = where % 64 * 3 + 1;
+	wattron(proc->win[0], COLOR_PAIR(tmp->id + 10));
+	mvwprintw(proc->win[0], coord[0], coord[1], "%.2hhx", what);
+	wattroff(proc->win[0], COLOR_PAIR(tmp->id + 10));
+	free(coord);
+}
 
 /*
 ** Permet de mettre en couleur le PC en cours. Prend un paramètre col, pour

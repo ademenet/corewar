@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 15:06:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 15:47:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,26 @@
 ** du premier argument (toujours un registre) dans le second.
 */
 
+void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p)
+{
+	unsigned int	i;
+
+	i = -1;
+	while (++i < REG_SIZE)
+	{
+		proc->mem[(tmp->pc + p + i) % MEM_SIZE] =
+		tmp->reg[proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1][i];
+		if (g_bon['v'])
+			cw_vizualizer_print(proc, tmp, (tmp->pc + p + i) % MEM_SIZE,
+				tmp->reg[proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1][i]);
+	}
+}
+
 int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
 	unsigned int	p[2];
-	unsigned int	i;
 
-	i = -1;
 	p_sze[0] = 1;
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	p[0] = proc->mem[(tmp->pc + 2) % MEM_SIZE];
@@ -34,9 +47,10 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	else if (ocp->second == IND_CODE)
 		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2) %
 		IDX_MOD;
-	while (++i < REG_SIZE)
-		proc->mem[(tmp->pc + p[1] + i) % MEM_SIZE] =
-		tmp->reg[proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1][i];
+	// while (++i < REG_SIZE)
+	// 	proc->mem[(tmp->pc + p[1] + i) % MEM_SIZE] =
+	// 	tmp->reg[proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1][i];
+	cw_ins_st_display(proc, tmp, p[1]);
 	if (cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) == 0)
 		tmp->carry = 1;
 	else
