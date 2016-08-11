@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/09 16:48:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 14:54:53 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 ** Suivie de 4 octets qui représente le numéro du joueur. Cette instruction
 ** indique que ce joueur est en vie. Pas d’octet de codage des paramètres.
 */
+
+static void	cw_ins_live_display(t_proc *proc, t_champion *tmp)
+{
+	if (g_bon['v'])
+	{
+		werase(proc->win[1]);
+		mvwprintw(proc->win[1], 60, 2,
+			"Un processus dit que le joueur %d(%s) est en vie\n",
+			tmp->num, tmp->header->prog_name);
+	}
+	else
+		ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+			tmp->num, tmp->header->prog_name);
+}
 
 int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
@@ -31,11 +45,7 @@ int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		if (temp->num == check && (temp->is_champ == 1 || temp->is_champ == -1))
 		{
 			proc->live[tmp->id - 1]++;
-			if (g_bon['v'])
-				mvprintw(195, 15, "un processus dit que le joueur %d(%s) est vie\n", tmp->num, tmp->header->prog_name);
-			else
-				ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
-					tmp->num, tmp->header->prog_name);
+			cw_ins_live_display(proc, tmp);
 			proc->last_live_id = tmp->id;
 			return(5);
 		}

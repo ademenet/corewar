@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 13:55:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 14:58:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void		cw_vizualizer_init(t_proc *proc)
 	nodelay(proc->win[0], TRUE);
 	nodelay(proc->win[1], TRUE);
 	box(proc->win[0], ACS_VLINE, ACS_HLINE);
-	box(proc->win[1], ACS_VLINE, ACS_HLINE);
 	refresh();
 	cw_vizualizer_init_colors();
 }
