@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 18:47:10 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 12:00:05 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			cw_check_live_process(t_proc *proc)
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (tmp->lives == 0)
+		// if (tmp->lives == 0)
 			// kill le process en le retirant de la liste
 		tmp = tmp->next;
 	}
