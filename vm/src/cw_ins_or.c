@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 17:46:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 11:45:45 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 
 void	cw_exec_or(t_champion *tmp, unsigned int total, unsigned int p[3])
 {
-	tmp->reg[p[2] - 1][0] = total >> 24;
-	tmp->reg[p[2] - 1][1] = total >> 16;
-	tmp->reg[p[2] - 1][2] = total >> 8;
-	tmp->reg[p[2] - 1][3] = total;
+	if (p[2] > 0 && p[2] <= REG_SIZE)
+	{
+		tmp->reg[p[2] - 1][0] = total >> 24;
+		tmp->reg[p[2] - 1][1] = total >> 16;
+		tmp->reg[p[2] - 1][2] = total >> 8;
+		tmp->reg[p[2] - 1][3] = total;
+	}
 	if (total == 0)
 		tmp->carry = 1;
 	else

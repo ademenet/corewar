@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 15:53:10 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/11 18:47:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void		cw_cycles_end(t_proc *proc)
 			break;
 		winner = winner->next;
 	}
+	printf("FIN !\n");
 	ft_printf("Le joueur %d(%s) a gagné\n", winner->num,
 		winner->header->prog_name);
 	exit(0);

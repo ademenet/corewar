@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 17:46:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 11:47:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@
 
 void	cw_exec_and(t_champion *tmp, unsigned int total, unsigned int p[3])
 {
-	tmp->reg[p[2] - 1][0] = total >> 24;
-	tmp->reg[p[2] - 1][1] = total >> 16;
-	tmp->reg[p[2] - 1][2] = total >> 8;
-	tmp->reg[p[2] - 1][3] = total;
-
-	mvprintw(22, 210, "total : %u", total);
-	mvprintw(23, 210, "(unsigned int)tmp->reg[p[2] - 1] : %u", (unsigned int)tmp->reg[p[2] - 1]);
-	// mvprintw(23, 210, "tmp->reg[p[2] - 1] : %.2llx", tmp->reg[p[2] - 1]);
-
+	if (p[2] > 0 && p[2] <= REG_SIZE)
+	{
+		tmp->reg[p[2] - 1][0] = total >> 24;
+		tmp->reg[p[2] - 1][1] = total >> 16;
+		tmp->reg[p[2] - 1][2] = total >> 8;
+		tmp->reg[p[2] - 1][3] = total;
+	}
 	if (total == 0)
 		tmp->carry = 1;
 	else
@@ -65,16 +63,6 @@ int			cw_ins_and(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
 	// total = p1 and p0
 	total = p[1] & p[0];
-	mvprintw(8, 210, "carry av : %d", tmp->carry);
 	cw_exec_and(tmp, total, p);
-	mvprintw(9, 210, "p0 : %u", p[0]);
-	mvprintw(10, 210, "p1 : %u", p[1]);
-	mvprintw(11, 210, "p2 : %u", p[2]);
-	mvprintw(12, 210, "total : %u", total);
-	mvprintw(13, 210, "reg : %u", tmp->reg[p[2] - 1][0]);
-	mvprintw(14, 210, "reg : %u", tmp->reg[p[2] - 1][1]);
-	mvprintw(15, 210, "reg : %u", tmp->reg[p[2] - 1][2]);
-	mvprintw(16, 210, "reg : %u", tmp->reg[p[2] - 1][3]);
-	mvprintw(20, 210, "carry ap : %d", tmp->carry);
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }
