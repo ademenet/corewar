@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 17:16:35 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 15:44:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[reg - 1][2] = p >> 8;
 	tmp->reg[reg - 1][3] = p;
 	cw_ins_ld_carry(tmp, p);
-	mvwprintw(proc->win[0], 0, 0, "carry = %d", tmp->carry);
 	return (2 + p_sze[0] + p_sze[1]);
 }

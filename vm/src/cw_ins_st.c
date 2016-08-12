@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 17:22:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 15:45:29 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,5 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2) %
 		IDX_MOD;
 	cw_ins_st_display(proc, tmp, p[1]);
-	// if (cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) == 0)
-	// 	tmp->carry = 1;
-	// else
-	// 	tmp->carry = 0;
 	return (2 + p_sze[0] + p_sze[1]);
 }
