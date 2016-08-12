@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/08 17:12:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 15:49:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	unsigned int	p;
+	short	p;
 
-	p = cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
+	p = (short)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
 	if (tmp->carry == 1 && p > 3)
-		return (p);
+		return ((unsigned short)p);
 	return (3);
 }
