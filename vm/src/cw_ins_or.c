@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 11:45:45 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 16:17:05 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	cw_exec_or(t_champion *tmp, unsigned int total, unsigned int p[3])
 {
-	if (p[2] > 0 && p[2] <= REG_SIZE)
+	if (p[2] > 0 && p[2] <= REG_NUMBER)
 	{
 		tmp->reg[p[2] - 1][0] = total >> 24;
 		tmp->reg[p[2] - 1][1] = total >> 16;
@@ -40,13 +40,16 @@ int			cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p_sze[0] = cw_ins_param_sze(ocp->first, 4);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 4);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 4);
-	if (ocp->first == REG_CODE)
+	if (ocp->first == REG_CODE && proc->mem[(tmp->pc + 2) % MEM_SIZE] > 0 &&
+		proc->mem[(tmp->pc + 2) % MEM_SIZE] <= REG_NUMBER)
 		p[0] = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1);
 	else if (ocp->first == DIR_CODE)
 		p[0] = cw_get_data_dir(proc, tmp, tmp->pc + 2, 4);
 	else if (ocp->first == IND_CODE)
 		p[0] = cw_get_data_ind(proc, tmp, tmp->pc + 2);
-	if (ocp->second == REG_CODE)
+	if (ocp->second == REG_CODE &&
+		proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] > 0 &&
+		proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] <= REG_NUMBER)
 		p[1] = cw_get_data_reg(tmp,
 			proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1);
 	else if (ocp->second == DIR_CODE)

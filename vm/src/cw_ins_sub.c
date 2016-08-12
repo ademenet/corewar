@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:13:18 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/09 12:20:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 16:19:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,21 @@
 int			cw_ins_sub(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	param[3];
+	unsigned char	reg1;
+	unsigned char	reg2;
 
-	param[0] = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1);
-	param[1] = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 3) % MEM_SIZE] - 1);
-	param[2] = param[0] - param[1];
-	tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][0] = param[2] >> 24;
-	tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][1] = param[2] >> 16;
-	tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][2] = param[2] >> 8;
-	tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][3] = param[2];
+	reg1 = proc->mem[(tmp->pc + 2) % MEM_SIZE];
+	reg2 = proc->mem[(tmp->pc + 3) % MEM_SIZE];
+	if (reg1 > 0 && reg1 <= REG_NUMBER && reg2 > 0 && reg2 <= REG_NUMBER)
+	{
+		param[0] = cw_get_data_reg(tmp, reg1 - 1);
+		param[1] = cw_get_data_reg(tmp, reg2 - 1);
+		param[2] = param[0] - param[1];
+		tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][0] = param[2] >> 24;
+		tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][1] = param[2] >> 16;
+		tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][2] = param[2] >> 8;
+		tmp->reg[proc->mem[(tmp->pc + 4) % MEM_SIZE] - 1][3] = param[2];
+	}
 	if (param[2] == 0)
 		tmp->carry = 1;
 	else

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 14:49:48 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:00:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/12 16:05:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	param[3];
 
-	if (proc->mem[tmp->pc + 2] > 0 && proc->mem[tmp->pc + 2] <= REG_SIZE
-		&& proc->mem[tmp->pc + 3] > 0 && proc->mem[tmp->pc + 3] <= REG_SIZE)
+	if (proc->mem[tmp->pc + 2] > 0 && proc->mem[tmp->pc + 2] <= REG_NUMBER
+		&& proc->mem[tmp->pc + 3] > 0 && proc->mem[tmp->pc + 3] <= REG_NUMBER)
 	{
 		param[0] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2] - 1);
 		param[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 3] - 1);
