@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/13 18:19:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/13 18:27:03 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	short	p;
 
-	p = (short)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
+	p = (short)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2)
+		% IDX_MOD;
 	if (tmp->carry == 1)
 		return (p);
 	return (3);
