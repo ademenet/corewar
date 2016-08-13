@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 15:45:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/13 17:10:32 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	while (++i < REG_SIZE)
 	{
 		if (ocp->second == IND_CODE)
+		{
+			// le ind_reg = -1 a un moment
+			// fprintf(stderr, "cycle : %d | ind_reg : %d\n", proc->c, ind_reg);
 			proc->mem[(tmp->pc + p[1] + i) % MEM_SIZE] = tmp->reg[ind_reg][i];
+		}
 		else if (ocp->second == REG_CODE)
+		{
 			tmp->reg[p[1]][i] = tmp->reg[ind_reg][i];
+		}
 	}
 	ocp->second == IND_CODE ? cw_ins_st_display(proc, tmp, p[1], ind_reg) : 0;
 	return (2 + p_sze[0] + p_sze[1]);
