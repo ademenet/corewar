@@ -72,7 +72,7 @@ $(NAME): $(OBJ)
 	@make -C ../libft
 	@$(CC) $(FLAGS) $(CURSE) -o $@ $^ -I$(INC_PATH) -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
 	@echo "\033[1;34mCorewar\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
-	# @say -v 'Trinoids' "Welcome to... Corewar"
+	@say -v 'Trinoids' "Welcome to... Corewar"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
