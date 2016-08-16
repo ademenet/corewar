@@ -35,13 +35,15 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
 	short int		p[2];
-	unsigned int	ind_reg;
-	unsigned int	i;
+	int				ind_reg;
+	int				i;
 
 	i = -1;
 	p_sze[0] = 1;
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	ind_reg = proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1;
+	if (ind_reg < 0 || proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1 < 0)
+		return (2 + p_sze[0] + p_sze[1]);
 	p[0] = cw_get_data_reg(tmp, ind_reg);
 	if (ocp->second == REG_CODE)
 		p[1] = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1;
