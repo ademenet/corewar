@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 12:00:05 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/14 16:00:59 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,25 @@ int			cw_cycles(t_proc *proc)
 ** Vérifie qui est le gagnant et l'affiche.
 */
 
-void		cw_cycles_end(t_proc *proc)
+int			cw_cycles_end(t_proc *proc)
 {
 	t_champion	*winner;
+	t_champion	*tmp;
 
-	winner = proc->champions;
-	while (winner)
+	tmp = proc->champions;
+	winner = tmp;
+	while (tmp)
 	{
-		if (proc->last_live_id == winner->id)
+		if (proc->last_live_id == tmp->id)
+		{
+			winner = tmp;
 			break;
-		winner = winner->next;
+		}
+	 	tmp = tmp->next;
 	}
-	printf("FIN !\n");
 	ft_printf("Le joueur %d(%s) a gagné\n", winner->num,
 		winner->header->prog_name);
-	exit(0);
+	return (0);
 }
 
 /*
@@ -173,6 +177,6 @@ int		cw_cycles_checks(t_proc *proc)
 		proc->lives_total = 0;
 	}
 	if (proc->nb_proc == 0 || proc->c_to_die <= 0)
-		cw_cycles_end(proc); // fonction qui soccupe de voir qui a gagne
+		return (cw_cycles_end(proc)); // fonction qui soccupe de voir qui a gagne
 	return (1);
 }

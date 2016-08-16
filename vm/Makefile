@@ -6,13 +6,14 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/08/12 14:06:53 by ademenet         ###   ########.fr        #
+#    Updated: 2016/08/13 16:38:21 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
+DFLAGS = -g -ggdb
 
 NAME = corewar
 
@@ -70,7 +71,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ../libft
-	@$(CC) $(FLAGS) $(CURSE) -o $@ $^ -I$(INC_PATH) -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
+	$(CC) $(FLAGS) $(DFLAGS) $(CURSE) -o $@ $^ -I$(INC_PATH) -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
 	@echo "\033[1;34mCorewar\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 	@say -v 'Trinoids' "Welcome to... Corewar"
 

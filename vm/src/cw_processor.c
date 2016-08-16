@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 13:19:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/13 18:18:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
 {
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
-	tmp->pc = (tmp->pc + size) % MEM_SIZE;
+	tmp->pc = (tmp->pc + (unsigned short)size) % MEM_SIZE;
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, tmp->id);
 }
