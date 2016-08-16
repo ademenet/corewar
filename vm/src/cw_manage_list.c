@@ -15,14 +15,25 @@
 t_champion			*cw_lst_new(t_header *header, int num)
 {
 	t_champion		*new;
+	int				reg_sze;
+	int				reg_nb;
 
 	if((new = malloc(sizeof(t_champion))) == NULL)
 		return (NULL);
+	reg_sze = -1;
+	reg_nb = -1;
 	new->header = header;
 	new->num = num;
 	new->next = NULL;
 	new->prev = NULL;
 	new->is_champ = 0;
+	while (++reg_nb < REG_NUMBER)
+	{
+		while (++reg_sze < REG_SIZE)
+			new->reg[reg_nb][reg_sze] = 0;
+		reg_sze = -1;
+	}
+
 	return (new);
 }
 
