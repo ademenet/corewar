@@ -33,10 +33,12 @@ unsigned int		cw_get_data_dir(t_proc *proc, t_champion *champ,
 	unsigned int	ret;
 
 	if (dir == 2)
-		ret = proc->mem[sze] << 8 | proc->mem[sze + 1];
+		ret = proc->mem[sze % MEM_SIZE] << 8 | proc->mem[(sze + 1) % MEM_SIZE];
 	else
-		ret = proc->mem[sze] << 24 | proc->mem[sze + 1] << 16 |
-		proc->mem[sze + 2] << 8 | proc->mem[sze + 3];
+		ret = proc->mem[sze % MEM_SIZE] << 24 |
+		proc->mem[(sze + 1) % MEM_SIZE] << 16 |
+		proc->mem[(sze + 2) % MEM_SIZE] << 8 |
+		proc->mem[(sze + 3) % MEM_SIZE];
 	return (ret);
 }
 
@@ -46,10 +48,11 @@ unsigned int		cw_get_data_ind(t_proc *proc, t_champion *champ,
 	unsigned int	ret;
 	unsigned int	ind;
 
-	ind = (proc->mem[sze] << 8 | proc->mem[sze + 1]) % IDX_MOD;
-	ret = proc->mem[champ->pc + ind] << 24
-		| proc->mem[champ->pc + ind + 1] << 16
-		| proc->mem[champ->pc + ind + 2] << 8
-		| proc->mem[champ->pc + ind + 3];
+	ind = (proc->mem[sze % MEM_SIZE] << 8 | proc->mem[(sze + 1) % MEM_SIZE])
+		% IDX_MOD;
+	ret = proc->mem[(champ->pc + ind) % MEM_SIZE] << 24
+		| proc->mem[(champ->pc + ind + 1) % MEM_SIZE] << 16
+		| proc->mem[(champ->pc + ind + 2) % MEM_SIZE] << 8
+		| proc->mem[(champ->pc + ind + 3) % MEM_SIZE];
 	return (ret);
 }
