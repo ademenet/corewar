@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:31 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 14:05:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/19 10:23:28 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int			cw_ins_lld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (ocp->first == DIR_CODE)
 		p = cw_get_data_dir(proc, tmp, (tmp->pc + 2) % MEM_SIZE, 4);
 	else if (ocp->first == IND_CODE)
-		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
-	else
-		p = 0;
+		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2));
 	reg = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE];
 	if (ocp->first == REG_CODE || reg < 1 || reg > REG_NUMBER ||
 		ocp->second != REG_CODE)
@@ -38,6 +36,6 @@ int			cw_ins_lld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[reg - 1][1] = p >> 16;
 	tmp->reg[reg - 1][2] = p >> 8;
 	tmp->reg[reg - 1][3] = p;
-	tmp->carry = tmp->carry == 0 ? 1 : 0;
+	tmp->carry = p == 0 ? 1 : 0;
 	return (2 + p_sze[0] + p_sze[1]);
 }
