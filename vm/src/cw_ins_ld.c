@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 14:21:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 18:10:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,25 @@
 int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
-	unsigned int    p;
-	unsigned char	reg;
+	unsigned int    p[2];
+	// unsigned char	reg;
 
 	p_sze[0] = cw_ins_param_sze(ocp->first, 4);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 4);
 	if (ocp->first == DIR_CODE)
-		p = cw_get_data_dir(proc, tmp, (tmp->pc + 2) % MEM_SIZE, 4);
+		p[0] = cw_get_data_dir(proc, tmp, (tmp->pc + 2) % MEM_SIZE, 4);
 	else if (ocp->first == IND_CODE)
-		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
-	reg = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE];
-	if (ocp->first == REG_CODE || reg < 1 || reg > REG_NUMBER ||
+		p[0] = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
+	p[1] = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE];
+	if (ocp->first == REG_CODE || p[1] < 1 || p[1] > REG_NUMBER ||
 		ocp->second != REG_CODE)
 		return (2 + p_sze[0] + p_sze[1]);
-	tmp->reg[reg - 1][0] = p >> 24;
-	tmp->reg[reg - 1][1] = p >> 16;
-	tmp->reg[reg - 1][2] = p >> 8;
-	tmp->reg[reg - 1][3] = p;
-	tmp->carry = p == 0 ? 1 : 0;
+	tmp->reg[p[1] - 1][0] = p[0] >> 24;
+	tmp->reg[p[1] - 1][1] = p[0] >> 16;
+	tmp->reg[p[1] - 1][2] = p[0] >> 8;
+	tmp->reg[p[1] - 1][3] = p[0];
+	tmp->carry = p[0] == 0 ? 1 : 0;
+	if (g_bon['d'] == 1)
+		cw_bonus_debug_twoparams(proc, tmp, ocp, p);
 	return (2 + p_sze[0] + p_sze[1]);
 }
