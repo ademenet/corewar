@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:41:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:39:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_champion			*cw_lst_new(t_header *header, int num)
 			new->reg[reg_nb][reg_sze] = 0;
 		reg_sze = -1;
 	}
-
 	return (new);
 }
 

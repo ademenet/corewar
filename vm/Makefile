@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/08/13 16:38:21 by ademenet         ###   ########.fr        #
+#    Updated: 2016/08/20 16:22:55 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC_NAME =	cw_ins_add.c\
 			cw_ins_get_data.c\
 			cw_tools.c\
 			cw_bonus_handler.c\
+			cw_bonus_debug.c
 
 INC_NAME = corewar.h
 

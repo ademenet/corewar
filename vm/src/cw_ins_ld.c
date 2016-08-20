@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:10:10 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 18:14:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[p[1] - 1][3] = p[0];
 	tmp->carry = p[0] == 0 ? 1 : 0;
 	if (g_bon['d'] == 1)
-		cw_bonus_debug_twoparams(proc, tmp, ocp, p);
+		cw_bonus_db_twoparams(proc, tmp, ocp, p);
 	return (2 + p_sze[0] + p_sze[1]);
 }

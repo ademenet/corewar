@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:41:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:48:15 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	cw_lst_dsort_by_num(t_champion **champions)
 	while(tmp)
 	{
 		tmp->id = id;
+		tmp->idp = id;
 		id++;
 		tmp = tmp->next;
 	}

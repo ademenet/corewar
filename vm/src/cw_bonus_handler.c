@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 18:01:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:55:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	cw_bon_handler(char **av, int ac, int param)
 	arr_set(g_bon, 0, 256);
 	while (param < ac)
 	{
-		if (av[param][0] == '-' && ft_cinstr(param[av][1], "v"))
-			g_bon[av[param][1]] = 1;
+		if (av[param][0] == '-' && ft_cinstr(param[av][1], "vd"))
+			g_bon[(unsigned char)av[param][1]] = 1;
 		else
 		{
 			cw_error_msg("Wrong option format");

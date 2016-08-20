@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:20 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:13:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:43:45 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->inst_c = 0;
 	proc->champions->lives = 0;
 	proc->champions->id = tmp->id;
+	proc->nb_proc++;
+	proc->champions->idp = proc->nb_proc;
 	return (3);
 }

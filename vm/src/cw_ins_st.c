@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 15:45:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 18:39:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p,
 			cw_vizualizer_print(proc, tmp, (tmp->pc + p + i) % MEM_SIZE,
 				tmp->reg[ind_reg][i]);
 	}
+
+	if (g_bon['d'])
+		ft_printf("P%5d | %s r%d %d\n", tmp->idp,
+		g_op[proc->mem[tmp->pc] - 1].name, ind_reg, p);
+
 }
 
 int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
