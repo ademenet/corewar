@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/13 16:45:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 14:57:26 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,22 +305,22 @@ void							cw_bon_handler(char **av, int ac, int param);
 
 static const t_op				g_op[17] =
 {
-	{&cw_ins_live, "live", 1, 1, 10, "alive", 0},
-	{&cw_ins_ld, "ld", 2, 2, 5, "load", 1},
-	{&cw_ins_st, "st", 2, 3, 5, "store", 1},
-	{&cw_ins_add, "add", 3, 4, 10, "addition", 1},
-	{&cw_ins_sub, "sub", 3, 5, 10, "soustraction", 1},
-	{&cw_ins_and, "and", 3, 6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1},
-	{&cw_ins_or, "or", 3, 7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1},
-	{&cw_ins_xor, "xor", 3, 8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1},
-	{&cw_ins_zjmp, "zjmp", 1, 9, 20, "jump if zero", 0},
-	{&cw_ins_ldi, "ldi", 3, 10, 25, "load index", 1},
-	{&cw_ins_sti, "sti", 3, 11, 25, "store index", 1},
-	{&cw_ins_fork, "fork", 1, 12, 800, "fork", 0},
-	{&cw_ins_lld, "lld", 2, 13, 10, "long load", 1},
-	{&cw_ins_lldi, "lldi", 3, 14, 50, "long load index", 1},
-	{&cw_ins_lfork, "lfork", 1, 15, 1000, "long fork", 0},
-	{&cw_ins_aff, "aff", 1, 16, 2, "aff", 1},
+	{&cw_ins_live, "live", 1, 1, 9, "alive", 0},
+	{&cw_ins_ld, "ld", 2, 2, 4, "load", 1},
+	{&cw_ins_st, "st", 2, 3, 4, "store", 1},
+	{&cw_ins_add, "add", 3, 4, 9, "addition", 1},
+	{&cw_ins_sub, "sub", 3, 5, 9, "soustraction", 1},
+	{&cw_ins_and, "and", 3, 6, 5, "et (and  r1, r2, r3   r1&r2 -> r3", 1},
+	{&cw_ins_or, "or", 3, 7, 5, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1},
+	{&cw_ins_xor, "xor", 3, 8, 5, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1},
+	{&cw_ins_zjmp, "zjmp", 1, 9, 19, "jump if zero", 0},
+	{&cw_ins_ldi, "ldi", 3, 10, 24, "load index", 1},
+	{&cw_ins_sti, "sti", 3, 11, 24, "store index", 1},
+	{&cw_ins_fork, "fork", 1, 12, 799, "fork", 0},
+	{&cw_ins_lld, "lld", 2, 13, 9, "long load", 1},
+	{&cw_ins_lldi, "lldi", 3, 14, 49, "long load index", 1},
+	{&cw_ins_lfork, "lfork", 1, 14, 1000, "long fork", 0},
+	{&cw_ins_aff, "aff", 1, 16, 1, "aff", 1},
 	{0, {0}, 0, 0, 0, {0}, 0}
 };
 

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/13 18:18:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 14:48:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		cw_exec_process(t_proc *proc)
 	{
 		if (tmp->is_champ != -1)
 		{
-			if (tmp->inst_c == 1)
+			if (tmp->inst_c == 0)
 			{
 				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 					cw_exec_process_instruct(proc, tmp, &ocp);
