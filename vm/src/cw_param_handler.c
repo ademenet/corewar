@@ -12,23 +12,6 @@
 
 #include "../inc/corewar.h"
 
-
-int		cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
-{
-	unsigned int	n;
-
-	n = -1;
-	if (ac < 2)
-		return (cw_error_msg("Too few parameters"));
-	if (ft_strcmp(av[param], "-dump") == 0)
-	{
-		if ((n = ft_atoi(av[++param])) <= 0)
-			return (cw_error_msg("'dump' must be a positive value"));
-		proc->dump = n;
-	}
-	return (1);
-}
-
 long	cw_cnb_chk(long c_nb, t_proc *proc, char *str)
 {
 	t_champion		*tmp;
@@ -92,7 +75,23 @@ int		cw_param_loop(int param, int ac, char **av, t_proc *proc)
 			return (0);
 		n = 0;
 	}
-	return (param);
+	return (proc->champions == NULL ? cw_error_msg("Wrong format") : param);
+}
+
+int		cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
+{
+	unsigned int	n;
+
+	n = -1;
+	if (ac < 2)
+		return (cw_error_msg("Too few parameters"));
+	if (ft_strcmp(av[param], "-dump") == 0)
+	{
+		if (av[++param] == NULL || (n = ft_atoi(av[param])) <= 0)
+			return (cw_error_msg("'dump' must be a positive value"));
+		proc->dump = n;
+	}
+	return (1);
 }
 
 int		cw_param(char **av, int ac, t_proc *proc)

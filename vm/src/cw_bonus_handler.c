@@ -6,15 +6,15 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:55:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 18:52:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*	Pour ajouter la gestion d'une option, ajouter la lettre choisie dans la
-	string de ft_cinstr
-	/!\ ne pas ajouter la lettre 'n'
+**	string de ft_cinstr
+**	/!\ ne pas ajouter la lettre 'n'
 */
 void	cw_bon_handler(char **av, int ac, int param)
 {
