@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:07:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 16:59:23 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct 					s_champion
 	unsigned int				lives;
 	char						is_champ;
 	char						id;
+	unsigned char				idp;
 	struct s_champion			*next;
 	struct s_champion			*prev;
 }								t_champion;
@@ -108,7 +109,7 @@ typedef struct 					s_proc
 	unsigned int				nb_proc; // nombre de processus courants
 	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
 	// CYCLE_DELTA tous les blablablas
-	int				c_to_die;
+	int							c_to_die;
 	// c : index des cycles. Init à 0.
 	unsigned int				c;
 	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
@@ -158,7 +159,7 @@ la case du tableau a l'index correspondant passe à 1.
 ex avec -v : g_bon['v'] sera egale a 1.
 */
 
-char							g_bon[256];
+char							g_bon[128];
 
 /*
 ** RECUPERATION ET INITIALISATION DES CHAMPIONS
@@ -292,6 +293,13 @@ void							cw_show_mem(char *start, int n);
 void							cw_bon_handler(char **av, int ac, int param);
 
 /*
+** BONUS : DEBUGGER
+*/
+
+void							cw_bonus_debug_first(char id, const char *name);
+
+
+/*
 ** Structure de définition des instructions :
 ** - pointeur sur la fonction qui se charge de l'intruction,
 ** - nom,
@@ -318,7 +326,7 @@ static const t_op				g_op[17] =
 	{&cw_ins_fork, "fork", 1, 12, 799, "fork", 0},
 	{&cw_ins_lld, "lld", 2, 13, 9, "long load", 1},
 	{&cw_ins_lldi, "lldi", 3, 14, 49, "long load index", 1},
-	{&cw_ins_lfork, "lfork", 1, 14, 1000, "long fork", 0},
+	{&cw_ins_lfork, "lfork", 1, 15, 999, "long fork", 0},
 	{&cw_ins_aff, "aff", 1, 16, 1, "aff", 1},
 	{0, {0}, 0, 0, 0, {0}, 0}
 };
