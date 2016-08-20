@@ -40,5 +40,5 @@ asm
 # Hided files
 .*
 asmz
-.diff
-.db
+*.diff
+*.db
