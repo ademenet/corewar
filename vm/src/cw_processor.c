@@ -79,7 +79,7 @@ void		cw_exec_process(t_proc *proc)
 	{
 		if (tmp->is_champ != -1)
 		{
-			if (tmp->inst_c == 0)
+			if (tmp->inst_c == 1)
 			{
 				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 					cw_exec_process_instruct(proc, tmp, &ocp);

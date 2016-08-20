@@ -131,12 +131,15 @@ int			cw_vizualizer_speed(int *ch)
 int			cw_vizualizer_processor(t_proc *proc)
 {
 	int		c_check;
+	int i = 0;
+	int ch;
 
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 	cw_vizualizer_init(proc);
 	cw_vizualizer_init_memprint(proc);
+	keypad(stdscr, TRUE);
 	// while (1)
 	// {
 	// 	ch = getch();
@@ -160,10 +163,20 @@ int			cw_vizualizer_processor(t_proc *proc)
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		cw_vizualizer_infos(proc); // fonction pour afficher les infos en dessous
-		wrefresh(proc->win[1]);
-		wrefresh(proc->win[0]);
-		refresh();
-		getch();
+		if (i == 0)
+		{
+			wrefresh(proc->win[1]);
+			wrefresh(proc->win[0]);
+			refresh();
+			ch = getch();
+			if (ch == 32)
+				i = 10;
+			else if (ch == 127)
+				i = 100;
+			else
+				i = 1;
+		}
+		i--;
 		c_check = cw_cycles_checks(proc);
 		proc->c++;
 	}

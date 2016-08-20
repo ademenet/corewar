@@ -21,7 +21,7 @@ void		cw_proc_init(t_proc *proc)
 	t_champion	*tmp;
 
 	proc->c_to_die = CYCLE_TO_DIE;
-	proc->c = 0;
+	proc->c = 1;
 	ft_bzero(proc->live, MAX_PLAYERS + 1);
 	proc->lives_total = 0;
 	proc->checks = 0;

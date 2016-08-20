@@ -40,15 +40,17 @@ void		cw_ins_fork_duplicate_reg(t_champion *new, t_champion *old)
 
 int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	short	p;
+	short int	p;
 
-	p = (short)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
-	cw_lst_push(&proc->champions, cw_lst_new(tmp->header, tmp->num));
+	p = (short int)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2) ;
+	cw_lst_push(&proc->champions, cw_lst_new(tmp->header, cw_lst_sze(proc->champions) + 1));
+	cw_ins_fork_duplicate_reg(proc->champions, tmp);
 	proc->champions->ins = NULL;
 	proc->champions->pc_origin = tmp->pc_origin;
 	proc->champions->pc = (tmp->pc + (unsigned short)(p % IDX_MOD)) % MEM_SIZE;
+	proc->champions->carry = tmp->carry;
 	proc->champions->inst_c = 0;
 	proc->champions->lives = 0;
-	proc->champions->id = tmp->id;
+	proc->champions->id = tmp->id; 
 	return (3);
 }

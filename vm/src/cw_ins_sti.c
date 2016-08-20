@@ -31,10 +31,6 @@ void		cw_exec_sti(t_proc *proc, t_champion *tmp, unsigned int p[3])
 			cw_vizualizer_print(proc, tmp,
 				(tmp->pc + p[1] + p[2] + i) % MEM_SIZE, tmp->reg[p[0] - 1][i]);
 	}
-	// if (p[0] == 0)
-	// 	tmp->carry = 1;
-	// else
-	// 	tmp->carry = 0;
 }
 
 int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)

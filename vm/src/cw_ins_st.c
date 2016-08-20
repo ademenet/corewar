@@ -48,7 +48,7 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (ocp->second == REG_CODE)
 		p[1] = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1;
 	else if (ocp->second == IND_CODE)
-		p[1] = (short)cw_get_data_dir(proc, tmp, tmp->pc + 3, 2) % IDX_MOD;
+		p[1] = ((int short)cw_get_data_dir(proc, tmp, tmp->pc + 3, 2)) % IDX_MOD;
 	while (++i < REG_SIZE)
 	{
 		if (ocp->second == IND_CODE)
@@ -56,6 +56,6 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		else if (ocp->second == REG_CODE)
 			tmp->reg[p[1]][i] = tmp->reg[ind_reg][i];
 	}
-	ocp->second == IND_CODE ? cw_ins_st_display(proc, tmp, p[1], ind_reg) : 0;
+	cw_ins_st_display(proc, tmp, p[1], ind_reg);
 	return (2 + p_sze[0] + p_sze[1]);
 }

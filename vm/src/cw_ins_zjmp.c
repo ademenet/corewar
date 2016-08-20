@@ -21,9 +21,9 @@
 
 int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	short	p;
+	short int	p;
 
-	p = (short)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2)
+	p = (short int)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2)
 		% IDX_MOD;
 	if (tmp->carry == 1)
 		return (p);

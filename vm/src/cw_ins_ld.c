@@ -37,9 +37,7 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (ocp->first == DIR_CODE)
 		p = cw_get_data_dir(proc, tmp, (tmp->pc + 2) % MEM_SIZE, 4);
 	else if (ocp->first == IND_CODE)
-		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2));
-	//else
-	//p = 0; // ha... estce quil faut le mettre a 0 sachant quil va modifier le carry ???
+		p = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
 	reg = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE];
 	if (ocp->first == REG_CODE || reg < 1 || reg > REG_NUMBER ||
 		ocp->second != REG_CODE)
