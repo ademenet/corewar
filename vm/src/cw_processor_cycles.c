@@ -6,31 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 14:44:26 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:07:17 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
-
-/*
-** cw_check_live_process vérifie si un processus a bien fait un live en
-** CYCLE_TO_DIE cycles.
-*/
-
-int			cw_check_live_process(t_proc *proc)
-{
-	t_champion	*tmp;
-
-	tmp = proc->champions;
-	while (tmp)
-	{
-		// if (tmp->lives == 0)
-			// kill le process en le retirant de la liste
-		tmp = tmp->next;
-	}
-	proc->checks++; // incremente le checks car on a effectue un nouveau check
-	return (1);
-}
 
 /*
 ** Affiche la mémoire selon la norme imposée dans le sujet : 32 octets par
@@ -49,26 +29,6 @@ void		cw_dump_display(t_proc *proc)
 		ft_printf("%.2hhx", proc->mem[i]);
 		i++;
 	}
-}
-
-/*
-** cw_cycles vérifie si un nouveau cycle doit être exécuté.
-** Si les conditions suivantes sont remplies alors les cycles s'arrêtent :
-** - CYCLE_TO_DIE atteint 0 ;
-** - depuis CYCLE_TO_DIE cycles un seul processus a été rapporté en vie.
-*/
-
-int			cw_cycles(t_proc *proc)
-{
-	if (proc->c_to_die <= 0)
-		return(0);
-	// if (proc->checks % MAX_CHECKS == 0)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	// if (proc->c % CYCLE_TO_DIE == 0) // condition a verifier si on a decrementer ctd entre temps
-	// 	cw_check_live_process(proc);
-	// if (proc->lives_total >= NBR_LIVE)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	return (1);
 }
 
 /*

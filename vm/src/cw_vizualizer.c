@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 15:54:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:06:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int			cw_vizualizer_processor(t_proc *proc)
 	// 			usleep(300000000);
 	// 		}
 	// 	}
-	while (cw_cycles(proc) && c_check)
+	while (c_check)
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
 		cw_vizualizer_infos(proc); // fonction pour afficher les infos en dessous
