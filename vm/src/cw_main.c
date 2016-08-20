@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/06 16:49:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 14:40:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int				main(int ac, char **av)
 	proc.champions = NULL;
 	proc.nb_proc = 0;
 	proc.dump = 0;
-	proc.nb_proc = 0;
 	ft_bzero(proc.mem, MEM_SIZE);
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
