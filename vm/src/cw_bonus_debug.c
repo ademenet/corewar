@@ -6,14 +6,19 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/20 16:01:21 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:44:17 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/21 15:09:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
+void		cw_bonus_debug_begin(t_proc *proc)
+{
+	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
+}
+
 void		cw_bonus_db_twoparams(t_proc *proc, t_champion *tmp, t_ocp *ocp,
-			unsigned int p[2])
+			int p[2])
 {
 	ft_printf("P%5d | %s ", tmp->idp, g_op[proc->mem[tmp->pc] - 1].name);
 	if (ocp->first == REG_CODE)

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 17:12:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 11:01:31 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ void		cw_exec_process(t_proc *proc)
 			if (tmp->inst_c == 0)
 			{
 				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
+				{
+					// ft_printf("cycle num %d et P%d inst == %.2hhx et inst_c == %d\n", proc->c, tmp->idp, proc->mem[tmp->pc], tmp->inst_c);
 					cw_exec_process_instruct(proc, tmp, &ocp);
+				}
 				else
 					cw_exec_process_pcincrement(proc, tmp, 1);
 			}
@@ -105,6 +108,8 @@ int			cw_processor(t_proc *proc)
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+	if (g_bon['d'])
+		cw_bonus_debug_begin(proc);
 	while (c_check)
 	{
 		cw_exec_process(proc);

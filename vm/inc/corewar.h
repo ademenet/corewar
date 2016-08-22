@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:50:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/21 15:08:59 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,9 @@ void							cw_bon_handler(char **av, int ac, int param);
 */
 
 void							cw_bonus_db_twoparams(t_proc *proc,
-								t_champion *tmp, t_ocp *ocp, unsigned int p[2]);
+								t_champion *tmp, t_ocp *ocp, int p[2]);
+void							cw_bonus_debug_begin(t_proc *proc);
+
 
 /*
 ** Structure de définition des instructions :
