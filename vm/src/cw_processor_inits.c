@@ -29,7 +29,7 @@ void		cw_proc_init(t_proc *proc)
 	while (tmp)
 	{
 		tmp->pc = tmp->pc_origin;
-		tmp->ins = &proc->mem[tmp->pc];
+		tmp->ins = (unsigned char *)1;
 		tmp = tmp->next;
 	}
 }

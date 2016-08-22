@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 11:00:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:54:49 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->id = tmp->id;
 	proc->nb_proc++;
 	proc->champions->idp = proc->nb_proc;
-	proc->champions->ins = &proc->mem[tmp->pc % MEM_SIZE];
+	proc->champions->ins = (unsigned char *)1;
+	proc->champions->is_champ = 0;
 	if (g_bon['d'] == 1)
 		cw_ins_fork_db(proc, tmp, ocp, p);
 	return (3);
