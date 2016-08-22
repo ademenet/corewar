@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:07:17 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:37:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,7 @@ int			cw_cycles_end(t_proc *proc)
 void		cw_kill_process(t_proc *proc, t_champion *tmp)
 {
 	if (tmp->is_champ == 1) // si cest un champion on conserve ses infos...
-	{
 		tmp->is_champ = -1; // alors on met le is_champ a -1 et fera en sorte de le sauter dans les process
-		if (g_bon['v'])
-			cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
-	}
 	else
 	{
 		if (tmp->next !=NULL) // si pas dernier maillon
@@ -77,10 +73,10 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 			tmp->prev->next = tmp->next;
 		if (tmp == proc->champions)
 			proc->champions = tmp->next;
-		if (g_bon['v'])
-			cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 		free(tmp);
 	}
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	proc->nb_proc--;
 }
 
