@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 16:31:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:41:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 
 void		cw_vizualizer_infos_side(t_proc *proc, int y)
 {
-	mvwprintw(proc->win[1], (y = y + 1), 2, "lives period\t:%8d",
+	mvwprintw(proc->win[1], (y = y + 1), 2, "lives period\t: %8d",
 		proc->lives_total);
+	mvwprintw(proc->win[1], (y = y + 1), 2, "nb process\t: %8d",
+		proc->nb_proc);
 	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_TO_DIE\t: %8d",
 		proc->c_to_die);
 	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_DELTA\t: %8d", CYCLE_DELTA);
