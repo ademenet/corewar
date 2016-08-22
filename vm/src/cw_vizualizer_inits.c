@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/11 16:53:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 12:10:07 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		cw_vizualizer_init_memprint(t_proc *proc)
 
 void		cw_vizualizer_init_colors(void)
 {
-	init_color(COLOR_WHITE, 240, 240, 240);
+	init_color(COLOR_WHITE, 400, 400, 400);
 	init_pair(1, COLOR_BLACK, COLOR_GREEN);
 	init_pair(2, COLOR_BLACK, COLOR_BLUE);
 	init_pair(3, COLOR_BLACK, COLOR_RED);
