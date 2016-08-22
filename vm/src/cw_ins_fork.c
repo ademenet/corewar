@@ -53,7 +53,6 @@ int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	cw_lst_push(&proc->champions,
 		cw_lst_new(tmp->header, proc->champions->num));
 	cw_ins_fork_duplicate_reg(proc->champions, tmp);
-	proc->champions->ins = NULL;
 	proc->champions->pc_origin = tmp->pc_origin;
 	proc->champions->pc = (tmp->pc + (unsigned short)(p % IDX_MOD)) % MEM_SIZE;
 	proc->champions->carry = tmp->carry;

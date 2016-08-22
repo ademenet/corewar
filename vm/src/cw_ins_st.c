@@ -35,6 +35,15 @@ void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p,
 
 }
 
+int			cw_ins_st_pro(t_proc *proc, t_champion *tmp, t_ocp *ocp,
+			unsigned int p_sze[2])
+{
+	if ((proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1 < 0 &&
+		ocp->second == REG_CODE) || ocp->first == 0 || ocp->second == 0)
+		return (1);
+	return (0);
+}
+
 int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
@@ -46,13 +55,13 @@ int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p_sze[0] = 1;
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	ind_reg = proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1;
-	if ((int)ind_reg < 0 || (proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1 < 0 && ocp->second == REG_CODE))
+	if ((int)ind_reg < 0 || cw_ins_st_pro(proc, tmp, ocp, p_sze))
 		return (2 + p_sze[0] + p_sze[1]);
 	p[0] = cw_get_data_reg(tmp, ind_reg);
 	if (ocp->second == REG_CODE)
 		p[1] = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1;
 	else if (ocp->second == IND_CODE)
-		p[1] = ((int short)cw_get_data_dir(proc, tmp, tmp->pc + 3, 2)) % IDX_MOD;
+		p[1] = ((short)cw_get_data_dir(proc, tmp, tmp->pc + 3, 2)) % IDX_MOD;
 	while (++i < REG_SIZE)
 	{
 		if (ocp->second == IND_CODE)

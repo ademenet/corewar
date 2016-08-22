@@ -32,7 +32,7 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		p[0] = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
 	p[1] = proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE];
 	if (ocp->first == REG_CODE || p[1] < 1 || p[1] > REG_NUMBER ||
-		ocp->second != REG_CODE)
+		ocp->second != REG_CODE || ocp->first == 0)
 		return (2 + p_sze[0] + p_sze[1]);
 	tmp->reg[p[1] - 1][0] = p[0] >> 24;
 	tmp->reg[p[1] - 1][1] = p[0] >> 16;
@@ -40,6 +40,6 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	tmp->reg[p[1] - 1][3] = p[0];
 	tmp->carry = p[0] == 0 ? 1 : 0;
 	if (g_bon['d'] == 1)
-		cw_bonus_db_twoparams(proc, tmp, ocp, p);
+		cw_bonus_db_twoparams(proc, tmp, ocp, (int*)p);
 	return (2 + p_sze[0] + p_sze[1]);
 }
