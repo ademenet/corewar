@@ -62,6 +62,7 @@ int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->id = tmp->id;
 	proc->nb_proc++;
 	proc->champions->idp = proc->nb_proc;
+	proc->champions->ins = &proc->mem[tmp->pc % MEM_SIZE];
 	if (g_bon['d'] == 1)
 		cw_ins_fork_db(proc, tmp, ocp, p);
 	return (3);
