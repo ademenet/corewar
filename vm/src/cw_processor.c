@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 11:35:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:59:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	size = 0;
 	if (tmp->ins == NULL)
 	{
-		tmp->ins = (unsigned char *)1; //&proc->mem[tmp->pc];
+		tmp->ins = (unsigned char *)1;
 		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
 	}
 	else
@@ -54,7 +54,7 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		cw_exec_process_pcincrement(proc, tmp, size);
 		if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 		{
-			tmp->ins = (unsigned char *)1; //&proc->mem[tmp->pc];
+			tmp->ins = (unsigned char *)1;
 			tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
 		}
 		else
