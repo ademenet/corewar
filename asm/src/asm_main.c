@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-void		asm_init_global()
+void	asm_init_global(void)
 {
 	g_line = 0;
 	g_pos = 0;

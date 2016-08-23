@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-int asm_check_champ(char *champ)
+int			asm_check_champ(char *champ)
 {
 	int i;
 
@@ -20,9 +20,9 @@ int asm_check_champ(char *champ)
 	while (champ[i])
 		i++;
 	if (i > 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
-		return(1);
+		return (1);
 	else
-		return(asm_error(14));
+		return (asm_error(14));
 }
 
 char		*asm_put_line_in_file(char *line, int i, char *file)
