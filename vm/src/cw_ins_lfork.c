@@ -16,6 +16,31 @@
 ** Comme fork sans le %IDX_MOD Cette opération modifie le carry.
 */
 
+void		cw_ins_lfork_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
+			short int p)
+{
+	ft_printf("P%5d | %s %d (%d)\n", tmp->idp,
+		g_op[proc->mem[tmp->pc] - 1].name, p, (tmp->pc + p) % MEM_SIZE);
+}
+
+void		cw_ins_lfork_duplicate_reg(t_champion *new, t_champion *old)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < REG_NUMBER)
+	{
+		j = 0;
+		while (j < REG_SIZE)
+		{
+			new->reg[i][j] = old->reg[i][j];
+			j++;
+		}
+		i++;
+	}
+}
+
 int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	short int	p;
@@ -23,9 +48,9 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p = (short int)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
 	cw_lst_push(&proc->champions,
 		cw_lst_new(tmp->header, proc->champions->num));
-	cw_ins_fork_duplicate_reg(proc->champions, tmp);
+	cw_ins_lfork_duplicate_reg(proc->champions, tmp);
 	proc->champions->pc_origin = tmp->pc_origin;
-	proc->champions->pc = (tmp->pc + (unsigned short)p) % MEM_SIZE;
+	proc->champions->pc = (tmp->pc + (unsigned short)p % MEM_SIZE);
 	proc->champions->carry = tmp->carry;
 	proc->champions->inst_c = g_op[proc->mem[proc->champions->pc] - 1].cycles_nb;
 	proc->champions->lives = 0;
@@ -39,3 +64,4 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	// 	cw_ins_fork_db(proc, tmp, ocp, p);
 	return (3);
 }
+

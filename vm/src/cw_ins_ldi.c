@@ -13,7 +13,7 @@
 #include "../inc/corewar.h"
 
 /*
-** Cette opération modifie le carry. ldi 3,%4,r1 lit IND_SIZE octets a
+** Cette opération modifie le carry. ldi 3,%4,r1 lit IND_SIZE octets a
 ** l’adresse : (PC + (3 % IDX_MOD)) ajoute 4 à cette valeur. On nommera S
 ** cette somme. On lit REG_SIZE octet à l’adresse (PC + (S % IDX_MOD))
 ** que l’on copie dans r1. Les paramètres 1 et 2 sont des index.
@@ -27,12 +27,12 @@ int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 		&& proc->mem[(tmp->pc + 2 + p_sze) % MEM_SIZE] <= REG_NUMBER)
 	{
 		return (cw_get_data_reg(tmp,
-				proc->mem[(tmp->pc + 2 + p_sze) % MEM_SIZE] - 1) % IDX_MOD);
+				proc->mem[(tmp->pc + 2 + p_sze) % MEM_SIZE] - 1));
 	}
 	else if (ocp == DIR_CODE)
 	{
 		return (cw_get_data_dir(proc, tmp,
-				((tmp->pc + 2 + p_sze) % IDX_MOD) % MEM_SIZE, 2));
+				(tmp->pc + 2 + p_sze) % MEM_SIZE, 2));
 	}
 	return (0);
 }
@@ -43,15 +43,12 @@ int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 	if (ocp == REG_CODE && proc->mem[(tmp->pc + 2) % MEM_SIZE] > 0
 		&& proc->mem[(tmp->pc + 2) % MEM_SIZE] <= REG_NUMBER)
 		return (cw_get_data_reg(tmp,
-				proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) % IDX_MOD);
+				proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1));
 	else if (ocp == DIR_CODE)
 		return (cw_get_data_dir(proc, tmp,
-				(((tmp->pc + 2) % MEM_SIZE) % IDX_MOD), 2));
+				((tmp->pc + 2) % MEM_SIZE), 2));
 	else if (ocp == IND_CODE)
-	{
-		return (cw_get_data_ind(proc, tmp,
-			((tmp->pc + 2) % MEM_SIZE) % IDX_MOD));
-	}
+		return (cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE));
 	return (0);
 }
 
@@ -68,9 +65,8 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 	p[0] = cw_ins_ldi_firstparamhandler(proc, tmp, ocp->first);
 	p[1] = cw_ins_ldi_secondparamhandler(proc, tmp, ocp->second, p_sze[0]);
-	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE] % IDX_MOD;
-	ret = cw_get_data_dir(proc, tmp,
-		(tmp->pc + ((p[0] + p[1]) % IDX_MOD)) % MEM_SIZE, 4);
+	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
+	ret = cw_get_data_dir(proc, tmp, (tmp->pc + ((p[0] + p[1]) % IDX_MOD)), 4);
 	if (p[2] > 0 && p[2] <= REG_NUMBER)
 	{
 		tmp->reg[p[2] - 1][0] = ret >> 24;

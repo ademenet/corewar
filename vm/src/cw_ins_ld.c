@@ -22,7 +22,6 @@ int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
 	unsigned int    p[2];
-	// unsigned char	reg;
 
 	p_sze[0] = cw_ins_param_sze(ocp->first, 4);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 4);

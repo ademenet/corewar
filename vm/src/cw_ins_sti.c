@@ -60,7 +60,7 @@ int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
 	p[0] = proc->mem[tmp->pc + 2];
 	if (ocp->second == REG_CODE)
-		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
+		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1) % IDX_MOD;
 	else if (ocp->second == DIR_CODE)
 		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2) %IDX_MOD;
 	else if (ocp->second == IND_CODE)
