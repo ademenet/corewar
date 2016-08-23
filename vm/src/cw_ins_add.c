@@ -27,11 +27,16 @@ int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	param[3];
 
-	if (proc->mem[tmp->pc + 2] > 0 && proc->mem[tmp->pc + 2] <= REG_NUMBER
-		&& proc->mem[tmp->pc + 3] > 0 && proc->mem[tmp->pc + 3] <= REG_NUMBER)
+	if (proc->mem[(tmp->pc + 2) % MEM_SIZE] > 0 && proc->mem[(tmp->pc + 2) %
+		MEM_SIZE] <= REG_NUMBER && proc->mem[(tmp->pc + 3) % MEM_SIZE] > 0 &&
+		proc->mem[(tmp->pc + 3) % MEM_SIZE] <= REG_NUMBER &&
+		proc->mem[(tmp->pc + 4) % MEM_SIZE] > 0 && proc->mem[(tmp->pc + 4) %
+		MEM_SIZE]<= REG_NUMBER)
 	{
-		param[0] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2] - 1);
-		param[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 3] - 1);
+		param[0] = cw_get_data_reg(
+			tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1);
+		param[1] = cw_get_data_reg(
+			tmp, proc->mem[(tmp->pc + 3) % MEM_SIZE] - 1);
 		param[2] = param[0] + param[1];
 		tmp->reg[proc->mem[tmp->pc + 4] - 1][0] = param[2] >> 24;
 		tmp->reg[proc->mem[tmp->pc + 4] - 1][1] = param[2] >> 16;

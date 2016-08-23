@@ -16,9 +16,12 @@
 ** Même que and mais avec le ou ( | du c).
 */
 
-void	cw_exec_or(t_champion *tmp, unsigned int total, unsigned int p[3])
-{
-	if (p[2] > 0 && p[2] <= REG_NUMBER)
+void	cw_exec_or(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
+{	
+	unsigned int	total;
+
+	total = p[1] | p[0];
+	if (p[2] > 0 && p[2] <= REG_NUMBER && p_sze[0] && p_sze[1] && p_sze[2])
 	{
 		tmp->reg[p[2] - 1][0] = total >> 24;
 		tmp->reg[p[2] - 1][1] = total >> 16;
@@ -35,7 +38,6 @@ int			cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	unsigned int	p[3];
-	unsigned int	total;
 
 	p_sze[0] = cw_ins_param_sze(ocp->first, 4);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 4);
@@ -57,7 +59,6 @@ int			cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	else if (ocp->second == IND_CODE)
 		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
 	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
-	total = p[1] | p[0];
-	cw_exec_or(tmp, total, p);
+	cw_exec_or(tmp, p, p_sze);
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }

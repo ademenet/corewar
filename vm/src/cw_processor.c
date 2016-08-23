@@ -26,6 +26,13 @@ void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	tmp->pc = (tmp->pc + (unsigned short)size) % MEM_SIZE;
+	if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
+	{
+		tmp->ins = &proc->mem[tmp->pc];
+		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+	}
+	else
+		tmp->ins = NULL;
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, tmp->id);
 }
@@ -52,13 +59,7 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		cw_ins_ocp(proc, tmp, ocp);
 		size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
 		cw_exec_process_pcincrement(proc, tmp, size);
-		if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-		{
-			tmp->ins = &proc->mem[tmp->pc];
-			tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-		}
-		else
-			tmp->ins = NULL;
+
 	}
 }
 

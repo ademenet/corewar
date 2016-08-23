@@ -266,6 +266,8 @@ unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
 								unsigned int sze, int dir);
 unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
 								unsigned int sze);
+unsigned int					cw_get_data_ind_l(t_proc *proc, t_champion *champ,
+								unsigned int sze);
 /*
 ** BONUS : VISUALISEUR
 */
