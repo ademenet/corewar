@@ -12,6 +12,19 @@
 
 #include "../inc/asm.h"
 
+int asm_check_champ(char *champ)
+{
+	int i;
+
+	i = 0;
+	while (champ[i])
+		i++;
+	if (i > 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
+		return(1);
+	else
+		return(asm_error(14));
+}
+
 char		*asm_put_line_in_file(char *line, int i, char *file)
 {
 	while (line[i] == '\t' || line[i] == ' ')
@@ -69,6 +82,7 @@ int			asm_parsing(char *champion, t_header *head)
 	pos = 0;
 	label = NULL;
 	file = NULL;
+	asm_check_champ(champion);
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
 	asm_handler_name_comment(fd, head);

@@ -24,6 +24,8 @@ int		asm_error_sec(int error)
 		ft_printf("No instructions in label -> line: %d\n", g_line);
 	if (error == 13)
 		ft_printf("Error multiple lines on name or comment\n");
+	if (error == 14)
+		ft_printf("Wrong file extension\n");
 	exit(0);
 	return (0);
 }

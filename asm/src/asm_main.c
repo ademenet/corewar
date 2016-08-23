@@ -38,9 +38,6 @@ int		main(int argc, char **argv)
 		}
 	}
 	else
-	{
-		ft_printf("Put one champion, please !");
-		return (0);
-	}
+		ft_printf("Put one champion, please !\n");
 	return (0);
 }
