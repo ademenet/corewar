@@ -27,6 +27,7 @@ static void	cw_ins_live_display(t_proc *proc, t_champion *tmp)
 			tmp->num, tmp->header->prog_name);
 	}
 	else if (g_bon['d'])
+	{
 		ft_printf("P%5d | %s %d\n", tmp->idp, g_op[proc->mem[tmp->pc] - 1].name,
 		tmp->num);
 
