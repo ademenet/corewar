@@ -24,7 +24,7 @@ void		cw_ins_fork_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 			short int p)
 {
 	ft_printf("P%5d | %s %d (%d)\n", tmp->idp,
-		g_op[proc->mem[tmp->pc] - 1].name, p, (tmp->pc + p) % MEM_SIZE);
+		"fork", p, (tmp->pc + (p % IDX_MOD)) % MEM_SIZE);
 }
 
 void		cw_ins_fork_duplicate_reg(t_champion *new, t_champion *old)

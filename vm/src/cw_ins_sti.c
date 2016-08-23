@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/23 16:07:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 18:17:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 void		cw_exec_sti(t_proc *proc, t_champion *tmp, short int p[3])
 {
 	unsigned int	i;
-	int				total;
+	short			total;
 
 	i = -1;
-	total = (p[1] + p[2]) % IDX_MOD;
+	total = (short)(p[1] + p[2]) % IDX_MOD;
 	while (++i < REG_SIZE)
 	{
 		proc->mem[(tmp->pc + total + i) % MEM_SIZE] =
@@ -56,16 +56,16 @@ int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
 	p[0] = proc->mem[tmp->pc + 2];
 	if (ocp->second == REG_CODE)
-		p[1] = (short)cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
+		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
 	else if (ocp->second == DIR_CODE)
-		p[1] = (short)cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
+		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
 	else if (ocp->second == IND_CODE)
-		p[1] = (short)cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
+		p[1] = cw_get_data_ind_l(proc, tmp, tmp->pc + 2 + p_sze[0]);
 	if (ocp->third == REG_CODE)
-		p[2] = (short)cw_get_data_reg(
+		p[2] = cw_get_data_reg(
 		tmp, proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1);
 	else if (ocp->third == DIR_CODE)
-		p[2] = (short)cw_get_data_dir(
+		p[2] = cw_get_data_dir(
 		proc, tmp, tmp->pc + 2 + p_sze[0] + p_sze[1], 2);
 	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
 		return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
