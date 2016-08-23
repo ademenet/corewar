@@ -108,8 +108,11 @@ int			cw_processor(t_proc *proc)
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
 	while (c_check)
 	{
+		if (g_bon['d'])
+			ft_printf("It is now cycle %d\n", proc->c);
 		cw_exec_process(proc);
 		if (g_bon['z'])
 			c_check = cw_dump_display_zazlike(proc);
