@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:17:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/23 16:07:58 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 	ft_printf("%d ", p[1]);
 	ft_printf("%d\n", p[2]);
 	ft_printf("%6s | -> store to %d + %d = %d (with pc and mod %d)\n",
-		" ", proc->mem[tmp->pc + p[1]], p[2], p[1] + p[2], (tmp->pc + (p[1] + p[2]) % IDX_MOD));
+		" ", p[1], p[2], p[1] + p[2], (tmp->pc + (p[1] + p[2]) % IDX_MOD));
 }
 
 void		cw_exec_sti(t_proc *proc, t_champion *tmp, short int p[3])
