@@ -137,7 +137,7 @@ int		cw_cycles_checks(t_proc *proc)
 {
 	if (proc->dump != 0 && proc->c == proc->dump) // vérifie si -dump
 	{
-		cw_dump_display(proc);
+		cw_dump_display_zazlike(proc);
 		return (0);
 	}
 	if (proc->c % proc->c_to_die == 0 && proc->c != 0) // tous les CYCLE_TO_DIE
