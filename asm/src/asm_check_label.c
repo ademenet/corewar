@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:34:32 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 18:21:51 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/23 10:31:57 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		asm_match_label(t_label *label, char *str)
 		}
 		label = label->next;
 	}
-	printf("LABEL QUI MATCH PAS : -%.10s-\n", str);
 	return (asm_error(10));
 }
 
