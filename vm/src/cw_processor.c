@@ -111,6 +111,8 @@ int			cw_processor(t_proc *proc)
 	while (c_check)
 	{
 		cw_exec_process(proc);
+		if (g_bon['z'])
+			c_check = cw_dump_display_zazlike(proc);
 		c_check = cw_cycles_checks(proc);
 		proc->c++;
 	}

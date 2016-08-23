@@ -6,11 +6,31 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 16:37:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/23 10:44:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+/*
+** Dump la mémoire zaz-like !
+*/
+
+void		cw_dump_display_zazlike(t_proc *proc)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i % 64 == 0)
+			ft_printf("%.4x : ", i);
+		if (i != 0)
+			i % 64 == 0 ? ft_printf("\n") : ft_printf(" ");
+		ft_printf("%.2hhx", proc->mem[i]);
+		i++;
+	}
+}
 
 /*
 ** Affiche la mémoire selon la norme imposée dans le sujet : 32 octets par
