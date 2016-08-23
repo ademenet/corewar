@@ -16,7 +16,7 @@
 ** Même que and mais avec le ou exclusif (^ du c).
 */
 
-void	cw_exec_xor(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
+void	cw_exec_xor(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3], t_ocp *ocp)
 {
 	unsigned int	total;
 
@@ -27,11 +27,22 @@ void	cw_exec_xor(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
 		tmp->reg[p[2] - 1][1] = total >> 16;
 		tmp->reg[p[2] - 1][2] = total >> 8;
 		tmp->reg[p[2] - 1][3] = total;
+	
+		if (total == 0)
+			tmp->carry = 1;
+		else
+			tmp->carry = 0;
+		if (g_bon['d'])
+		{
+			ft_printf("P%5d | %s ", tmp->idp, "xor");
+			ft_printf("%d ", p[0]);
+			ft_printf("%d ", p[1]);
+			if (ocp->third == REG_CODE)
+				ft_printf("r%d\n", p[2]);
+			else
+				ft_printf("%d\n", p[2]);
+		}
 	}
-	if (total == 0)
-		tmp->carry = 1;
-	else
-		tmp->carry = 0;
 }
 
 int			cw_ins_xor(t_proc *proc, t_champion *tmp, t_ocp *ocp)
@@ -59,6 +70,6 @@ int			cw_ins_xor(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	else if (ocp->second == IND_CODE)
 		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
 	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
-	cw_exec_xor(tmp, p, p_sze);
+	cw_exec_xor(tmp, p, p_sze, ocp);
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }

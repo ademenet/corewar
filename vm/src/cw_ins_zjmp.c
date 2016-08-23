@@ -23,17 +23,15 @@ int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	short int	p;
 
-	p = (short int)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2)
-		% IDX_MOD;
+	p = (short int)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
 	if (tmp->carry == 1)
 	{
 		if (g_bon['d'])
 			ft_printf("P%5d | %s %d OK\n", tmp->idp,
 			g_op[proc->mem[tmp->pc] - 1].name, p);
-		return (p);
+		return (p % IDX_MOD);
 	}
 	if (g_bon['d'])
-		ft_printf("P%5d | %s fail\n", tmp->idp,
-		g_op[proc->mem[tmp->pc] - 1].name);
+		ft_printf("P%5d | %s %d FAILED\n", tmp->idp, "zjmp", p);
 	return (3);
 }

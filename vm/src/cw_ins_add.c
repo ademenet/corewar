@@ -18,10 +18,13 @@
 ** carry. add r2,r3,r5 additionne r2 et r3 et met le résultat dans r5.
 */
 
-// void		cw_ins_add_db()
-// {
-//
-// }
+void		cw_ins_add_db(t_proc *proc, t_champion *tmp)
+{
+	ft_printf("P%5d | %s r%d r%d r%d\n", tmp->idp, "add",
+		proc->mem[(tmp->pc + 2) % MEM_SIZE],
+		proc->mem[(tmp->pc + 3) % MEM_SIZE],
+		proc->mem[(tmp->pc + 4) % MEM_SIZE]);
+}
 
 int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
@@ -42,12 +45,13 @@ int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		tmp->reg[proc->mem[tmp->pc + 4] - 1][1] = param[2] >> 16;
 		tmp->reg[proc->mem[tmp->pc + 4] - 1][2] = param[2] >> 8;
 		tmp->reg[proc->mem[tmp->pc + 4] - 1][3] = param[2];
-	}
+	
 	if (param[2] == 0)
 		tmp->carry = 1;
 	else
 		tmp->carry = 0;
-	// if (g_bon['d'] == 1)
-	// 	cw_ins_add_db();
+	if (g_bon['d'])
+		cw_ins_add_db(proc, tmp);
+	}
 	return (5);
 }
