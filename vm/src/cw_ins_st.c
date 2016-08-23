@@ -23,16 +23,17 @@ void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p,
 	unsigned int	i;
 
 	i = -1;
-	while (++i < REG_SIZE)
+	if (g_bon['v'])
 	{
-		if (g_bon['v'])
+		while (++i < REG_SIZE)
+		{
 			cw_vizualizer_print(proc, tmp, (tmp->pc + p + i) % MEM_SIZE,
 				tmp->reg[ind_reg][i]);
+		}
 	}
-	if (g_bon['d'])
+	else if (g_bon['d'])
 		ft_printf("P%5d | %s r%d %d\n", tmp->idp,
 		g_op[proc->mem[tmp->pc] - 1].name, ind_reg + 1, p);
-
 }
 
 int			cw_ins_st_pro(t_proc *proc, t_champion *tmp, t_ocp *ocp,

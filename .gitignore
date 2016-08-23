@@ -42,3 +42,7 @@ asm
 asmz
 *.diff
 *.db
+*.dump
+*.sh
+asmzaz
+corewarzaz
