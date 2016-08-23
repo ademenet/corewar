@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:20 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:43:45 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/22 16:55:01 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->id = tmp->id;
 	proc->nb_proc++;
 	proc->champions->idp = proc->nb_proc;
-	proc->champions->ins = &proc->mem[tmp->pc % MEM_SIZE];
-	if (g_bon['d'] == 1)
-		cw_ins_lfork_db(proc, tmp, ocp, p);
+	proc->champions->ins = (unsigned char *)1;
+	proc->champions->is_champ = 0;
+	// TODO bonus debug
+	// if (g_bon['d'] == 1)
+	// 	cw_ins_fork_db(proc, tmp, ocp, p);
 	return (3);
 }
 

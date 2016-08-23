@@ -302,6 +302,12 @@ void							cw_bonus_db_twoparams(t_proc *proc,
 								t_champion *tmp, t_ocp *ocp, int p[2]);
 
 /*
+** BONUS : DUMP ZAZ-LIKE
+*/
+
+int								cw_dump_display_zazlike(t_proc *proc);
+
+/*
 ** Structure de définition des instructions :
 ** - pointeur sur la fonction qui se charge de l'intruction,
 ** - nom,

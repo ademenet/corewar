@@ -29,7 +29,18 @@ static void	cw_ins_live_display(t_proc *proc, t_champion *tmp)
 	else if (g_bon['d'])
 		ft_printf("P%5d | %s %d\n", tmp->idp, g_op[proc->mem[tmp->pc] - 1].name,
 		tmp->num);
-	else
+
+		// ft_printf("lives_total == %u\n", proc->lives_total); // pour debug
+		// ft_printf("lives de P%d == %u\n", tmp->idp, tmp->lives); // pour debug
+		// int i = 0;
+		// while (i < 4)
+		// {
+		// 	ft_printf("lives de champ%d == %u\n", i + 1, proc->live[i]); // pour debug
+		// 	i++;
+		// }
+
+	}
+	else if (proc->dump == 0)
 		ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
 			tmp->num, tmp->header->prog_name);
 }
@@ -47,7 +58,7 @@ int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	{
 		if (temp->num == check && (temp->is_champ == 1 || temp->is_champ == -1))
 		{
-			proc->live[tmp->id - 1]++;
+			proc->live[tmp->id - 1] += 1;
 			cw_ins_live_display(proc, tmp);
 			proc->last_live_id = tmp->id;
 			return(5);

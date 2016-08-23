@@ -6,11 +6,32 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:07:17 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/23 10:44:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+/*
+** Dump la mémoire zaz-like !
+*/
+
+int			cw_dump_display_zazlike(t_proc *proc)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i == 0)
+			ft_printf("0x%04x : ", i);
+		if (i != 0)
+			i % 64 == 0 ? ft_printf("\n0x%04x : ", i) : ft_printf(" ");
+		ft_printf("%.2hhx", proc->mem[i]);
+		i++;
+	}
+	return (0);
+}
 
 /*
 ** Affiche la mémoire selon la norme imposée dans le sujet : 32 octets par
@@ -64,11 +85,7 @@ int			cw_cycles_end(t_proc *proc)
 void		cw_kill_process(t_proc *proc, t_champion *tmp)
 {
 	if (tmp->is_champ == 1) // si cest un champion on conserve ses infos...
-	{
 		tmp->is_champ = -1; // alors on met le is_champ a -1 et fera en sorte de le sauter dans les process
-		if (g_bon['v'])
-			cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
-	}
 	else
 	{
 		if (tmp->next !=NULL) // si pas dernier maillon
@@ -77,10 +94,10 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 			tmp->prev->next = tmp->next;
 		if (tmp == proc->champions)
 			proc->champions = tmp->next;
-		if (g_bon['v'])
-			cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 		free(tmp);
 	}
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	proc->nb_proc--;
 }
 
@@ -120,7 +137,7 @@ int		cw_cycles_checks(t_proc *proc)
 {
 	if (proc->dump != 0 && proc->c == proc->dump) // vérifie si -dump
 	{
-		cw_dump_display(proc);
+		cw_dump_display_zazlike(proc);
 		return (0);
 	}
 	if (proc->c % proc->c_to_die == 0 && proc->c != 0) // tous les CYCLE_TO_DIE
