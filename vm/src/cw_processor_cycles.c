@@ -16,20 +16,21 @@
 ** Dump la mémoire zaz-like !
 */
 
-void		cw_dump_display_zazlike(t_proc *proc)
+int			cw_dump_display_zazlike(t_proc *proc)
 {
 	int		i;
 
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)
-			ft_printf("%.4x : ", i);
+		if (i == 0)
+			ft_printf("0x%04x : ", i);
 		if (i != 0)
-			i % 64 == 0 ? ft_printf("\n") : ft_printf(" ");
+			i % 64 == 0 ? ft_printf("\n0x%04x : ", i) : ft_printf(" ");
 		ft_printf("%.2hhx", proc->mem[i]);
 		i++;
 	}
+	return (0);
 }
 
 /*
