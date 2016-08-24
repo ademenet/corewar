@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/27 18:54:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/20 18:17:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,59 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-int					cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
+			short int p[3])
 {
-	unsigned int	param[3];
-	short int		res;
-	int				i;
+	ft_printf("P%5d | %s ", tmp->idp, "sti");
+	ft_printf("r%d ", p[0]);
+	ft_printf("%d ", p[1]);
+	ft_printf("%d\n", p[2]);
+	ft_printf("%6s | -> store to %d + %d = %d (with pc and mod %d)\n",
+		" ", p[1], p[2], p[1] + p[2], (tmp->pc + (p[1] + p[2]) % IDX_MOD));
+}
+
+void		cw_exec_sti(t_proc *proc, t_champion *tmp, short int p[3])
+{
+	unsigned int	i;
+	short			total;
 
 	i = -1;
-	// ft_printf("je rentre dans sti\n");
-	param[0] = cw_ins_param_sze(ocp->first, 2);
-	param[1] = cw_ins_param_sze(ocp->second, 2);
-	param[2] = cw_ins_param_sze(ocp->third, 2);
-	res = proc->mem[tmp->pc + 1 + 1 + param[0]] << 8 |
-	proc->mem[tmp->pc + 1 + 1 + param[0] + 1];
-	res += proc->mem[tmp->pc + 1 + 1 + param[0] + param[1]] << 8 |
-	proc->mem[tmp->pc + 1 + 1 + param[0] + param[1] + 1];
-	if (proc->mem[tmp->pc + 1 + 1] < 1 ||
-		proc->mem[tmp->pc + 1 + 1] > REG_NUMBER)
-		return (1 + 1 + param[0] + param[1] + param[2]);
+	total = (short)(p[1] + p[2]) % IDX_MOD;
 	while (++i < REG_SIZE)
-		proc->mem[(tmp->pc + (res + i % IDX_MOD)) % MEM_SIZE]
-		= tmp->reg[proc->mem[tmp->pc + 1 + 1] - 1][i];
-	return (1 + 1 + param[0] + param[1] + param[2]);
+	{
+		proc->mem[(tmp->pc + total + i) % MEM_SIZE] =
+		tmp->reg[p[0] - 1][i];
+		if (g_bon['v'])
+			cw_vizualizer_print(proc, tmp,
+				(tmp->pc + total + i) % MEM_SIZE, tmp->reg[p[0] - 1][i]);
+	}
+}
+
+int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+{
+	unsigned int	p_sze[3];
+	short int		p[3];
+
+	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
+	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
+	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
+	p[0] = proc->mem[tmp->pc + 2];
+	if (ocp->second == REG_CODE)
+		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
+	else if (ocp->second == DIR_CODE)
+		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
+	else if (ocp->second == IND_CODE)
+		p[1] = cw_get_data_ind_l(proc, tmp, tmp->pc + 2 + p_sze[0]);
+	if (ocp->third == REG_CODE)
+		p[2] = cw_get_data_reg(
+		tmp, proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1);
+	else if (ocp->third == DIR_CODE)
+		p[2] = cw_get_data_dir(
+		proc, tmp, tmp->pc + 2 + p_sze[0] + p_sze[1], 2);
+	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
+		return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
+	cw_exec_sti(proc, tmp, p);
+	if (g_bon['d'] == 1)
+		cw_ins_sti_db(proc, tmp, ocp, p);
+	return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
 }

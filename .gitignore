@@ -35,3 +35,9 @@
 corewar
 *.cor
 *.s
+*.sh
+*.dump
+*.db
+*.diff
+corewarzaz
+asmzaz

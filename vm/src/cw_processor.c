@@ -6,16 +6,42 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/05 16:14:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 13:24:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
-// TODO cw_check_live_process()
-	// TODO verifier que les processus ont bien fait au moins un live
-// TODO verifier que CYCLE_TO_DIE != 0
-	// TODO renvoyer 0 sinon.
+/*
+** Incrémente le PC de la size renvoyé par la fonction de l'instruction. Cette
+** dernière calcule la size du saut de PC à partir de la taille attendue des
+** paramètres donnés par l'OCP. S'il n'y en a pas, alors on a une taille
+** définie.
+** Si le visualiseur est activé, l'ancien PC en couleur est réinitialisé (mis
+** en blanc et noir) et le nouveau hérite de la couleur en surbrillance.
+*/
+
+void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
+{
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
+	mvprintw(0, 0, "size P%d == %hu && opcode %d", tmp->idp, size, tmp->inst_num);
+	tmp->pc = (tmp->pc + (unsigned short)size) % MEM_SIZE;
+	if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
+	{
+		tmp->ins = (unsigned char *)1;
+		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+		tmp->inst_num = g_op[proc->mem[tmp->pc] - 1].opcode;
+	}
+	else
+	{
+		tmp->ins = NULL;
+		tmp->inst_c = 0;
+		tmp->inst_num = 0;
+	}
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, tmp->id);
+}
 
 /*
 ** Effectue l'instruction puis fait sauter le PC et réinitialise le cycles
@@ -29,24 +55,18 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	int		size;
 
 	size = 0;
-	if (tmp->ins == NULL)
-	{
-		tmp->ins = &proc->mem[tmp->pc];
-		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-	}
-	else
-	{
+	// if (tmp->ins == NULL)
+	// {
+	// 	tmp->ins = (unsigned char *)1;
+	// 	tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+	// 	tmp->inst_num = g_op[proc->mem[tmp->pc] - 1].opcode;
+	// }
+	// else
+	// {
 		cw_ins_ocp(proc, tmp, ocp);
-		size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
-		tmp->pc = (tmp->pc + size) % MEM_SIZE;
-		if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-		{
-			tmp->ins = &proc->mem[tmp->pc];
-			tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-		}
-		else
-			tmp->ins = NULL;
-	}
+		size = g_op[tmp->inst_num - 1].ptr(proc, tmp, ocp);
+		cw_exec_process_pcincrement(proc, tmp, size);
+	// }
 }
 
 /*
@@ -66,15 +86,22 @@ void		cw_exec_process(t_proc *proc)
 	{
 		if (tmp->is_champ != -1)
 		{
-			if (tmp->inst_c == 0)
+			if (tmp->inst_num > 0 && tmp->inst_num < 17)
 			{
-				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-					cw_exec_process_instruct(proc, tmp, &ocp);
+				if (tmp->inst_c == 0)
+				{
+					// if ((proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11) &&
+					// 	tmp->ins != 0)
+					// {
+						// ft_printf("cycle num %d et P%d inst == %.2hhx et inst_c == %d\n", proc->c, tmp->idp, proc->mem[tmp->pc], tmp->inst_c);
+						cw_exec_process_instruct(proc, tmp, &ocp);
+					// }
+				}
 				else
-					tmp->pc++;
+					tmp->inst_c--;
 			}
 			else
-				tmp->inst_c--;
+				cw_exec_process_pcincrement(proc, tmp, 1);
 		}
 		tmp = tmp->next;
 	}
@@ -92,9 +119,14 @@ int			cw_processor(t_proc *proc)
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
-	while (cw_cycles(proc) && c_check)
+	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
+	while (c_check)
 	{
+		// if (g_bon['d'])
+		// 	ft_printf("It is now cycle %d\n", proc->c);
 		cw_exec_process(proc);
+		if (g_bon['z'])
+			c_check = cw_dump_display_zazlike(proc);
 		c_check = cw_cycles_checks(proc);
 		proc->c++;
 	}

@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_main.c                                          :+:      :+:    :+:   */
+/*   cw_bonus_debug.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 14:40:21 by ademenet         ###   ########.fr       */
+/*   Created: 2016/08/20 16:01:21 by ademenet          #+#    #+#             */
+/*   Updated: 2016/08/22 11:35:27 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
-int				main(int ac, char **av)
+void		cw_bonus_db_twoparams(t_proc *proc, t_champion *tmp, t_ocp *ocp,
+			int p[2])
 {
-	t_proc		proc;
-
-	proc.champions = NULL;
-	proc.nb_proc = 0;
-	proc.dump = 0;
-	ft_bzero(proc.mem, MEM_SIZE);
-	if (cw_param(av, ac, &proc) <= 0)
-		return (ft_printf("Fail !\n"));
-	cw_load_ins_mem(&proc);
-	if (g_bon['v'])
-		cw_vizualizer_processor(&proc);
+	ft_printf("P%5d | %s ", tmp->idp, g_op[proc->mem[tmp->pc] - 1].name);
+	if (ocp->first == REG_CODE)
+		ft_printf("r%d ", p[0]);
 	else
-		cw_processor(&proc);
-	return (0);
+		ft_printf("%d ", p[0]);
+	if (ocp->second == REG_CODE)
+		ft_printf("r%d\n", p[1]);
+	else
+		ft_printf("%d\n", p[1]);
 }

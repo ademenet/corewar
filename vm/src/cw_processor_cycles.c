@@ -6,30 +6,31 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/05 16:54:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/23 10:44:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
 
 /*
-** cw_check_live_process vérifie si un processus a bien fait un live en
-** CYCLE_TO_DIE cycles.
+** Dump la mémoire zaz-like !
 */
 
-int			cw_check_live_process(t_proc *proc)
+int			cw_dump_display_zazlike(t_proc *proc)
 {
-	t_champion	*tmp;
+	int		i;
 
-	tmp = proc->champions;
-	while (tmp)
+	i = 0;
+	while (i < MEM_SIZE)
 	{
-		if (tmp->lives == 0)
-			// kill le process en le retirant de la liste
-		tmp = tmp->next;
+		if (i == 0)
+			ft_printf("0x%04x : ", i);
+		if (i != 0)
+			i % 64 == 0 ? ft_printf("\n0x%04x : ", i) : ft_printf(" ");
+		ft_printf("%.2hhx", proc->mem[i]);
+		i++;
 	}
-	proc->checks++; // incremente le checks car on a effectue un nouveau check
-	return (1);
+	return (0);
 }
 
 /*
@@ -52,32 +53,28 @@ void		cw_dump_display(t_proc *proc)
 }
 
 /*
-** cw_cycles vérifie si un nouveau cycle doit être exécuté.
-** Si les conditions suivantes sont remplies alors les cycles s'arrêtent :
-** - CYCLE_TO_DIE atteint 0 ;
-** - depuis CYCLE_TO_DIE cycles un seul processus a été rapporté en vie.
-*/
-
-int			cw_cycles(t_proc *proc)
-{
-	if (proc->c_to_die <= 0)
-		return(0);
-	// if (proc->checks % MAX_CHECKS == 0)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	// if (proc->c % CYCLE_TO_DIE == 0) // condition a verifier si on a decrementer ctd entre temps
-	// 	cw_check_live_process(proc);
-	// if (proc->lives_total >= NBR_LIVE)
-	// 	proc->c_to_die -= CYCLE_DELTA;
-	return (1);
-}
-
-/*
 ** Vérifie qui est le gagnant et l'affiche.
 */
 
-void		cw_cycles_end(t_proc *proc)
+int			cw_cycles_end(t_proc *proc)
 {
+	t_champion	*winner;
+	t_champion	*tmp;
 
+	tmp = proc->champions;
+	winner = tmp;
+	while (tmp)
+	{
+		if (proc->last_live_id == tmp->id)
+		{
+			winner = tmp;
+			break;
+		}
+	 	tmp = tmp->next;
+	}
+	ft_printf("Le joueur %d(%s) a gagné\n", winner->num,
+		winner->header->prog_name);
+	return (0);
 }
 
 /*
@@ -99,6 +96,8 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 			proc->champions = tmp->next;
 		free(tmp);
 	}
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	proc->nb_proc--;
 }
 
@@ -120,7 +119,7 @@ void		cw_cycles_checks_lives(t_proc *proc)
 			{
 				cw_kill_process(proc, tmp); // retire le processus definitivement de la liste
 				// if () // si bonus son active produit un son pour le kill !
-				// printf("\a"); produit un son
+				// printf("\a"); // produit un son
 			}
 			else
 				tmp->lives = 0;
@@ -138,7 +137,7 @@ int		cw_cycles_checks(t_proc *proc)
 {
 	if (proc->dump != 0 && proc->c == proc->dump) // vérifie si -dump
 	{
-		cw_dump_display(proc);
+		cw_dump_display_zazlike(proc);
 		return (0);
 	}
 	if (proc->c % proc->c_to_die == 0 && proc->c != 0) // tous les CYCLE_TO_DIE
@@ -155,6 +154,6 @@ int		cw_cycles_checks(t_proc *proc)
 		proc->lives_total = 0;
 	}
 	if (proc->nb_proc == 0 || proc->c_to_die <= 0)
-		cw_cycles_end(proc); // fonction qui soccupe de voir qui a gagne
+		return (cw_cycles_end(proc)); // fonction qui soccupe de voir qui a gagne
 	return (1);
 }

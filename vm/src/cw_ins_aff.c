@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:17:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 15:17:34 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/02 19:23:22 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@
 
 int			cw_ins_aff(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	return (1);
+	unsigned int	p;
+
+	p = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) % 256;
+	ft_printf("%c", p);
+	return (3);
 }
