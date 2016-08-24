@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 10:21:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 14:11:24 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ typedef struct 					s_champion
 	unsigned short int			pc_origin;
 	unsigned short int			pc; // le PC est codé sur 2 octets
 	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
-	unsigned char				inst_num; // numero de l'instruction chargee
 	unsigned int				inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
+	unsigned char				inst_num;
 	unsigned int				num; // numero du processus
 	unsigned int				lives;
 	char						is_champ;
