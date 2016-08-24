@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/25 18:27:46 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 14:44:40 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 18:47:40 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		cw_proc_init(t_proc *proc)
 {
 	t_champion	*tmp;
 
-	proc->c_to_die = CYCLE_TO_DIE;
+	proc->c_to_die = CYCLE_TO_DIE + CYCLE_DELTA;
 	proc->c = 1;
 	ft_bzero(proc->live, MAX_PLAYERS + 1);
 	proc->lives_total = 0;
@@ -29,7 +29,7 @@ void		cw_proc_init(t_proc *proc)
 	while (tmp)
 	{
 		tmp->pc = tmp->pc_origin;
-		tmp->ins = (unsigned char *)1;
+		tmp->inst_c = 0;
 		tmp = tmp->next;
 	}
 }
@@ -50,7 +50,11 @@ void		cw_load_ins_c(t_proc *proc)
 	while (tmp)
 	{
 		if (tmp->inst_c == 0)
+		{
+			tmp->ins = (unsigned char *)1;
 			tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+			tmp->inst_num = g_op[proc->mem[tmp->pc] - 1].opcode;
+		}
 		tmp = tmp->next;
 	}
 }

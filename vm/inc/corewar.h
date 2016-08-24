@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 11:35:35 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 18:37:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct 					s_champion
 	unsigned short int			pc; // le PC est codé sur 2 octets
 	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
 	unsigned int				inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
+	unsigned char				inst_num;
 	unsigned int				num; // numero du processus
 	unsigned int				lives;
 	char						is_champ;
@@ -193,7 +194,7 @@ void							cw_exec_process(t_proc *proc);
 void							cw_exec_process_instruct(t_proc *proc,
 								t_champion *tmp, t_ocp *ocp);
 int								cw_check_live_process(t_proc *proc);
-int								cw_cycles_checks(t_proc *proc);
+int								cw_cycles_checks(t_proc *proc, int *c_to_die);
 void							cw_dump_display(t_proc *proc);
 
 /*

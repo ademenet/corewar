@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:08:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 18:41:30 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p[0] = (short)cw_ins_ldi_firstparamhandler(proc, tmp, ocp->first);
 	p[1] = (short)cw_ins_ldi_secondparamhandler(proc, tmp, ocp->second, p_sze[0]);
 	p[2] = (short)proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
-	ret = (short)cw_get_data_dir(proc, tmp, (tmp->pc + ((p[0] + p[1]) % IDX_MOD)), 4);
+	ret = cw_get_data_dir(proc, tmp, (tmp->pc + ((p[0] + p[1]) % IDX_MOD)), 4);
 	if (p[2] > 0 && p[2] <= REG_NUMBER)
 	{
 		tmp->reg[p[2] - 1][0] = ret >> 24;

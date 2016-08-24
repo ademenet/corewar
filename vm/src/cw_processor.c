@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 16:59:35 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 18:46:11 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
 	{
 		tmp->ins = (unsigned char *)1;
 		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
+		tmp->inst_num = g_op[proc->mem[tmp->pc] - 1].opcode;
 	}
 	else
+	{
 		tmp->ins = NULL;
+		tmp->inst_c = 0;
+		tmp->inst_num = 0;
+	}
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, tmp->id);
 }
@@ -48,18 +53,9 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	int		size;
 
-	size = 0;
-	if (tmp->ins == NULL)
-	{
-		tmp->ins = (unsigned char *)1;
-		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-	}
-	else
-	{
-		cw_ins_ocp(proc, tmp, ocp);
-		size = g_op[proc->mem[tmp->pc] - 1].ptr(proc, tmp, ocp);
-		cw_exec_process_pcincrement(proc, tmp, size);
-	}
+	cw_ins_ocp(proc, tmp, ocp);
+	size = g_op[tmp->inst_num - 1].ptr(proc, tmp, ocp);
+	cw_exec_process_pcincrement(proc, tmp, size);
 }
 
 /*
@@ -79,18 +75,15 @@ void		cw_exec_process(t_proc *proc)
 	{
 		if (tmp->is_champ != -1)
 		{
-			if (tmp->inst_c == 0)
+			if (tmp->inst_num > 0 && tmp->inst_num < 17)
 			{
-				if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-				{
-					// ft_printf("cycle num %d et P%d inst == %.2hhx et inst_c == %d\n", proc->c, tmp->idp, proc->mem[tmp->pc], tmp->inst_c);
+				if (tmp->inst_c == 0)
 					cw_exec_process_instruct(proc, tmp, &ocp);
-				}
 				else
-					cw_exec_process_pcincrement(proc, tmp, 1);
+					tmp->inst_c--;
 			}
 			else
-				tmp->inst_c--;
+				cw_exec_process_pcincrement(proc, tmp, 1);
 		}
 		tmp = tmp->next;
 	}
@@ -104,19 +97,22 @@ void		cw_exec_process(t_proc *proc)
 int			cw_processor(t_proc *proc)
 {
 	int		c_check;
+	int		c_to_die;
 
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+	c_to_die = proc->c_to_die;
 	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
 	while (c_check)
 	{
-		// if (g_bon['d'])
-		// 	ft_printf("It is now cycle %d\n", proc->c);
+		if (g_bon['c'])
+			ft_printf("It is now cycle %d\n", proc->c);
 		cw_exec_process(proc);
 		if (g_bon['z'])
 			c_check = cw_dump_display_zazlike(proc);
-		c_check = cw_cycles_checks(proc);
+		c_check = cw_cycles_checks(proc, &c_to_die);
+		c_to_die--;
 		proc->c++;
 	}
 	return (1);

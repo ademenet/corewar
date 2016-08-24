@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 16:41:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 18:48:25 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,32 +135,15 @@ int			cw_vizualizer_processor(t_proc *proc)
 	int		c_check;
 	int i = 0;
 	int ch;
+	int		c_to_die;
 
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+	c_to_die = proc->c_to_die;
 	cw_vizualizer_init(proc);
 	cw_vizualizer_init_memprint(proc);
 	keypad(stdscr, TRUE);
-	// while (1)
-	// {
-	// 	ch = getch();
-	// 	if (cw_vizualizer_control(&play, &ch))
-	// 	{
-	// 		while (cw_cycles(proc))
-	// 		{
-	// 			mvprintw(0, 200, "[%d]", ch);
-	// 			ch = getch();
-	// 			cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-	// 			cw_vizualizer(proc, win[1]); // fonction pour afficher la mem
-	// 			cw_vizualizer_infos(proc, win[2]); // fonction pour afficher les infos en dessous
-	// 			wrefresh(win[1]);
-	// 			wrefresh(win[2]);
-	// 			wrefresh(win[0]);
-	// 			proc->c++;
-	// 			usleep(300000000);
-	// 		}
-	// 	}
 	while (c_check)
 	{
 		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
@@ -179,7 +162,8 @@ int			cw_vizualizer_processor(t_proc *proc)
 				i = 1;
 		}
 		i--;
-		c_check = cw_cycles_checks(proc);
+		c_check = cw_cycles_checks(proc, &c_to_die);
+		c_to_die--;
 		proc->c++;
 	}
 	delwin(proc->win[1]);

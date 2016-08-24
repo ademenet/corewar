@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:20 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 16:55:01 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 18:42:26 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->pc = (tmp->pc + (unsigned short)p % MEM_SIZE);
 	proc->champions->carry = tmp->carry;
 	proc->champions->inst_c = g_op[proc->mem[proc->champions->pc] - 1].cycles_nb;
+	proc->champions->inst_num = g_op[proc->mem[tmp->pc] - 1].opcode;
 	proc->champions->lives = 0;
 	proc->champions->id = tmp->id;
 	proc->nb_proc++;
@@ -64,4 +65,3 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	// 	cw_ins_fork_db(proc, tmp, ocp, p);
 	return (3);
 }
-
