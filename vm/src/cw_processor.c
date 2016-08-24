@@ -25,7 +25,6 @@ void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
 {
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
-	mvprintw(0, 0, "size P%d == %hu && opcode %d", tmp->idp, size, tmp->inst_num);
 	tmp->pc = (tmp->pc + (unsigned short)size) % MEM_SIZE;
 	if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
 	{
@@ -124,7 +123,7 @@ int			cw_processor(t_proc *proc)
 	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
 	while (c_check)
 	{
-		if (g_bon['d'])
+		if (g_bon['c'])
 			ft_printf("It is now cycle %d\n", proc->c);
 		cw_exec_process(proc);
 		if (g_bon['z'])
