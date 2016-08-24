@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 19:13:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 14:19:51 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p,
 	}
 	else if (g_bon['d'])
 		ft_printf("P%5d | %s r%d %d\n", tmp->idp,
-		g_op[proc->mem[tmp->pc] - 1].name, ind_reg + 1, p);
+		"st", ind_reg + 1, p);
 }
 
 int			cw_ins_st_pro(t_proc *proc, t_champion *tmp, t_ocp *ocp,

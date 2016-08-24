@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 13:55:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 14:35:05 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	cw_ins_live_display(t_proc *proc, t_champion *tmp)
 	}
 	else if (g_bon['d'])
 	{
-		ft_printf("P%5d | live %d\n", tmp->idp, tmp->num);
+		ft_printf("P%5d | %s %d\n", tmp->idp, "live", tmp->num);
 
 		// ft_printf("lives_total == %u\n", proc->lives_total); // pour debug
 		// ft_printf("lives de P%d == %u\n", tmp->idp, tmp->lives); // pour debug
@@ -66,7 +66,7 @@ int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		temp = temp->next;
 	}
 	if (g_bon['d'])
-		ft_printf("P%5d | %s %d\n", tmp->idp, g_op[proc->mem[tmp->pc] - 1].name,
+		ft_printf("P%5d | %s %d\n", tmp->idp, "live",
 		check);
 	return (5);
 }
