@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 16:41:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 16:30:03 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,12 @@ int			cw_vizualizer_processor(t_proc *proc)
 	int		c_check;
 	int i = 0;
 	int ch;
+	int		c_to_die;
 
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+	c_to_die = proc->c_to_die;
 	cw_vizualizer_init(proc);
 	cw_vizualizer_init_memprint(proc);
 	keypad(stdscr, TRUE);
@@ -179,7 +181,8 @@ int			cw_vizualizer_processor(t_proc *proc)
 				i = 1;
 		}
 		i--;
-		c_check = cw_cycles_checks(proc);
+		c_check = cw_cycles_checks(proc, &c_to_die);
+		c_to_die--;
 		proc->c++;
 	}
 	delwin(proc->win[1]);

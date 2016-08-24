@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/23 10:44:12 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 16:51:30 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,14 @@ void		cw_cycles_checks_lives(t_proc *proc)
 ** condtions de victoires.
 */
 
-int		cw_cycles_checks(t_proc *proc)
+int			cw_cycles_checks(t_proc *proc, int *c_to_die)
 {
 	if (proc->dump != 0 && proc->c == proc->dump) // vérifie si -dump
 	{
 		cw_dump_display_zazlike(proc);
 		return (0);
 	}
-	if (proc->c % proc->c_to_die == 0 && proc->c != 0) // tous les CYCLE_TO_DIE
+	if (*c_to_die == 0) // tous les CYCLE_TO_DIE
 	{
 		proc->checks++;
 		if (proc->lives_total >= NBR_LIVE) // si nombre de lives totaux > NBR LIVE on decremente
@@ -152,8 +152,11 @@ int		cw_cycles_checks(t_proc *proc)
 		}
 		cw_cycles_checks_lives(proc);
 		proc->lives_total = 0;
+		*c_to_die = proc->c_to_die;
 	}
 	if (proc->nb_proc == 0 || proc->c_to_die <= 0)
+	{
 		return (cw_cycles_end(proc)); // fonction qui soccupe de voir qui a gagne
+	}
 	return (1);
 }

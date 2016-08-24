@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 13:24:35 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/24 16:30:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,22 @@ void		cw_exec_process(t_proc *proc)
 int			cw_processor(t_proc *proc)
 {
 	int		c_check;
+	int		c_to_die;
 
 	c_check = 1;
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
+	c_to_die = proc->c_to_die;
 	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
 	while (c_check)
 	{
-		// if (g_bon['d'])
-		// 	ft_printf("It is now cycle %d\n", proc->c);
+		if (g_bon['d'])
+			ft_printf("It is now cycle %d\n", proc->c);
 		cw_exec_process(proc);
 		if (g_bon['z'])
 			c_check = cw_dump_display_zazlike(proc);
-		c_check = cw_cycles_checks(proc);
+		c_check = cw_cycles_checks(proc, &c_to_die);
+		c_to_die--;
 		proc->c++;
 	}
 	return (1);
