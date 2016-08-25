@@ -104,6 +104,7 @@ typedef struct 					s_champion
 typedef struct 					s_proc
 {
 	t_champion					*champions;
+	t_champion					*champ_by_id[5]; // tableau contenant des pointeurs sur les champions selon leur id. 
 	// memoire du processeur
 	unsigned char				mem[MEM_SIZE];
 	unsigned int				dump;
@@ -166,8 +167,6 @@ char							g_bon[128];
 ** RECUPERATION ET INITIALISATION DES CHAMPIONS
 */
 
-int								cw_error_msg(char *msg);
-int								cw_invert_endian(int x);
 int								cw_param(char **av, int ac, t_proc *proc);
 int								cw_create_champion(char *file, int c_nb, t_proc
 								*proc, int n);
@@ -184,6 +183,7 @@ void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
 void							cw_lst_dsort_by_num(t_champion **champions);
+void							cw_init_champ_array(t_proc *proc);
 
 /*
 ** PROCESSOR
@@ -256,6 +256,8 @@ int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 								t_ocp *ocp);
 unsigned int					cw_get_data_reg(t_champion *champ,
 								unsigned char reg);
+int								cw_error_msg(char *msg);
+int								cw_invert_endian(int x);
 
 /*
 ** INSTRUCTIONS : FONCTIONS GET DATA

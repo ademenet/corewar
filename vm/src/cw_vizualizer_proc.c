@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/25 14:29:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 14:52:53 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:04:17 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void		cw_vizualizer_proc_init(t_proc *proc, int *c_to_die)
 	cw_vizualizer_init_memprint(proc);
 	keypad(stdscr, TRUE);
 }
+
+/*
+** Permet de contrôler le jump de cycles avec les touches.
+*/
 
 int			cw_vizualizer_proc_control(t_proc *proc, int i)
 {
