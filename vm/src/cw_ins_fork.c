@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 18:40:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 11:25:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,22 @@ int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->pc_origin = tmp->pc_origin;
 	proc->champions->pc = (tmp->pc + (unsigned short)(p % IDX_MOD)) % MEM_SIZE;
 	proc->champions->carry = tmp->carry;
-	proc->champions->inst_c = g_op[proc->mem[proc->champions->pc] - 1].cycles_nb;
-	// if (proc->mem[proc->champions->pc] > 0x00 && proc->mem[proc->champions->pc] < 0x11)
+	if (proc->mem[proc->champions->pc] > 0x00 && proc->mem[proc->champions->pc] < 0x11)
+	{
+		proc->champions->inst_c = g_op[proc->mem[proc->champions->pc] - 1].cycles_nb;
 		proc->champions->inst_num = g_op[proc->mem[proc->champions->pc] - 1].opcode;
-	// else
-	// 	proc->champions->inst_num = 0;
+		proc->champions->ins = (unsigned char *)1;
+	}
+	else
+	{
+		proc->champions->inst_c = 0;
+		proc->champions->inst_num = 0;
+		proc->champions->ins = NULL;
+	}
 	proc->champions->lives = 0;
 	proc->champions->id = tmp->id;
 	proc->nb_proc++;
 	proc->champions->idp = proc->nb_proc;
-	proc->champions->ins = (unsigned char *)1;
 	proc->champions->is_champ = 0;
 	if (g_bon['d'] == 1)
 		cw_ins_fork_db(proc, tmp, ocp, p);
