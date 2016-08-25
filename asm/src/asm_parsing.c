@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/25 15:14:36 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:19:04 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,17 @@ t_label		*asm_parse_line(int fd, char **file)
 	return (label);
 }
 
+void		asm_bonus_champ(t_header *head)
+{
+	ft_printf("%-15s : %s\n", "Nom du champion", head->prog_name);
+	ft_printf("%-15s : %s\n", "Commentaire", head->comment);
+}
+
 /*
 ** Début du parsing
 */
 
-int			asm_parsing(char *champion, t_header *head)
+int			asm_parsing(char *champion, t_header *head, int check)
 {
 	int			fd;
 	int			pos;
@@ -94,6 +100,8 @@ int			asm_parsing(char *champion, t_header *head)
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
 	asm_handler_name_comment(fd, head);
+	if (check == 1)
+		asm_bonus_champ(head);
 	label = asm_parse_line(fd, &file);
 	asm_check_double_label(label);
 	if (asm_check_label_exist(label, file) == 0)
