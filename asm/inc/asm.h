@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/25 15:51:19 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:21:01 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,12 @@ char					*asm_free_join(char *line, char *file);
 char					*asm_realloc(char *line, char *file, int i);
 
 /*
+**	Main
+*/
+
+void					asm_init_global(void);
+
+/*
 ** Parse_instruct
 */
 
@@ -101,8 +107,10 @@ int						asm_check_arg_sec(char **line, int op);
 ** Parsing
 */
 
+int						asm_check_champ(char *champ);
 char					*asm_put_line_in_file(char *line, int i, char *file);
 t_label					*asm_parse_line(int fd, char **file);
+void					asm_bonus_champ(t_header *head);
 int						asm_parsing(char *champion, t_header *head, int check);
 
 /*
