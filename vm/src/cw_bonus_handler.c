@@ -12,10 +12,11 @@
 
 #include "../inc/corewar.h"
 
-/*	Pour ajouter la gestion d'une option, ajouter la lettre choisie dans la
+/*
+**	Pour ajouter la gestion d'une option, ajouter la lettre choisie dans la
 **	string de ft_cinstr
-**	/!\ ne pas ajouter la lettre 'n'
 */
+
 void	cw_bon_handler(char **av, int ac, int param)
 {
 	arr_set(g_bon, 0, 256);

@@ -59,7 +59,7 @@ int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		if (temp->num == check && (temp->is_champ == 1 || temp->is_champ == -1))
 		{
 			proc->live[tmp->id - 1] += 1;
-			cw_ins_live_display(proc, tmp);
+			cw_ins_live_display(proc, temp);
 			proc->last_live_id = tmp->id;
 			return(5);
 		}
