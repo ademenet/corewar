@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 10:38:48 by gseropia          #+#    #+#             */
-/*   Updated: 2016/07/28 10:05:31 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:13:38 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,21 @@ int		asm_header_creator(int fd, t_header *header)
 
 char	*asm_morph_cor(char *champ)
 {
+	char	*str;
 	int		i;
 
 	i = 0;
-	while (champ[i] != '.')
+	str = malloc(sizeof(char*) * (ft_strlen(champ) + 3));
+	while (champ[i])
+	{
+		str[i] = champ[i];
 		i++;
-	champ[i++] = '.';
-	champ[i++] = 'c';
-	champ[i++] = 'o';
-	champ[i++] = 'r';
-	champ[i] = '\0';
-	return (champ);
+	}
+	str[i - 1] = 'c';
+	str[i] = 'o';
+	str[++i] = 'r';
+	str[++i] = '\0';
+	return (str);
 }
 
 int		asm_reader(t_label *label, t_header *header, char *champ, char *file)
@@ -77,6 +81,7 @@ int		asm_reader(t_label *label, t_header *header, char *champ, char *file)
 		asm_binary_creator(fd, label, file);
 	}
 	ft_printf("Writing output program OK\n");
+	free(file_name);
 	close(fd);
 	return (1);
 }
