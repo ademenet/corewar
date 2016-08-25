@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 12:06:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:23:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,18 @@ int			cw_cycles_end(t_proc *proc)
 	t_champion	*tmp;
 
 	tmp = proc->champions;
-	winner = tmp;
+	winner = NULL;
 	while (tmp)
 	{
-		if (proc->last_live_id == tmp->id)
-		{
-			winner = tmp;
+		if (proc->last_live_id == tmp->id && tmp->is_champ != 0)
 			break;
-		}
-	 	tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	if (g_bon['v'])
 		cw_vizualizer_winner(proc, winner);
 	else
-		ft_printf("Le joueur %d(%s) a gagné\n", winner->num,
-		winner->header->prog_name);
+		ft_printf("Le joueur %d(%s) a gagné\n", tmp->num,
+		tmp->header->prog_name);
 	return (0);
 }
 
