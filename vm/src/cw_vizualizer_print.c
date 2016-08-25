@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 12:03:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:29:59 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
 }
 
 /*
-** Affiche les informations se trouvant sur le côté de la VM.
+** Affiche les informations se trouvant sur le côté de la VM. No bullshit.
 */
 
 void		cw_vizualizer_infos_side(t_proc *proc, int y)
@@ -75,7 +75,7 @@ void		cw_vizualizer_infos_side(t_proc *proc, int y)
 }
 
 /*
-** Affiche les informations qui se trouvent à côté du visualiseur de mémoire.
+** Affiche les informations concernant les joueurs.
 */
 
 void		cw_vizualizer_infos(t_proc *proc)
@@ -104,19 +104,6 @@ void		cw_vizualizer_infos(t_proc *proc)
 }
 
 /*
-** TODO fonction en cours de travail pour gérer le start/pause.
-*/
-
-int			cw_vizualizer_control(char *play, int *ch)
-{
-	if (*play == 1 & *ch == 32)
-		return (0);
-	else if (*play == 0 & *ch == 32)
-		return (1);
-	return (0);
-}
-
-/*
 ** Fonction qui affiche le gagnant dans le visualiseur.
 */
 
@@ -134,50 +121,4 @@ void		cw_vizualizer_winner(t_proc *proc, t_champion *winner)
 		if (getch() == 27)
 			return ;
 	}
-}
-
-/*
-** Le processeur du Corewar équipé du visualiseur.
-*/
-
-int			cw_vizualizer_processor(t_proc *proc)
-{
-	int		c_check;
-	int i = 0;
-	int ch;
-	int		c_to_die;
-
-	c_check = 1;
-	cw_proc_init(proc);
-	cw_load_ins_c(proc);
-	c_to_die = proc->c_to_die;
-	cw_vizualizer_init(proc);
-	cw_vizualizer_init_memprint(proc);
-	keypad(stdscr, TRUE);
-	while (c_check)
-	{
-		cw_exec_process(proc); // fonction qui itere sur liste des process pour exec ou non
-		cw_vizualizer_infos(proc); // fonction pour afficher les infos en dessous
-		if (i == 0)
-		{
-			wrefresh(proc->win[1]);
-			wrefresh(proc->win[0]);
-			refresh();
-			ch = getch();
-			if (ch == 32)
-				i = 10;
-			else if (ch == 127)
-				i = 100;
-			else
-				i = 1;
-		}
-		i--;
-		c_check = cw_cycles_checks(proc, &c_to_die);
-		c_to_die--;
-		proc->c++;
-	}
-	delwin(proc->win[1]);
-	delwin(proc->win[0]);
-	endwin();
-	return (1);
 }
