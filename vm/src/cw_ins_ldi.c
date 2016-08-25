@@ -31,7 +31,7 @@ int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 	}
 	else if (ocp == DIR_CODE)
 	{
-		return (cw_get_data_dir(proc, tmp,
+		return ((short)cw_get_data_dir(proc, tmp,
 				(tmp->pc + 2 + p_sze) % MEM_SIZE, 2));
 	}
 	return (0);
@@ -45,14 +45,14 @@ int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 		return (cw_get_data_reg(tmp,
 				proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1));
 	else if (ocp == DIR_CODE)
-		return (cw_get_data_dir(proc, tmp,
+		return ((short)cw_get_data_dir(proc, tmp,
 				((tmp->pc + 2) % MEM_SIZE), 2));
 	else if (ocp == IND_CODE)
 		return (cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE));
 	return (0);
 }
 
-void		cw_ins_ldi_b(short int p[3], t_champion *tmp, t_ocp *ocp)
+void		cw_ins_ldi_b(int p[3], t_champion *tmp, t_ocp *ocp)
 {
 	if (g_bon['d'])
 	{
@@ -70,19 +70,19 @@ void		cw_ins_ldi_b(short int p[3], t_champion *tmp, t_ocp *ocp)
 
 int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
-	short int		p[3];
+	int				p[3];
 	unsigned int	p_sze[3];
-	unsigned int	ret;
+	int				ret;
 
 	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
 	if (ocp->third != REG_CODE)
 		return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
-	p[0] = (short)cw_ins_ldi_firstparamhandler(proc, tmp, ocp->first);
-	p[1] = (short)cw_ins_ldi_secondparamhandler(proc,
+	p[0] = cw_ins_ldi_firstparamhandler(proc, tmp, ocp->first);
+	p[1] = cw_ins_ldi_secondparamhandler(proc,
 		tmp, ocp->second, p_sze[0]);
-	p[2] = (short)proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
+	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
 	ret = cw_get_data_dir(proc, tmp, (tmp->pc + ((p[0] + p[1]) % IDX_MOD)), 4);
 	if (p[2] > 0 && p[2] <= REG_NUMBER)
 	{

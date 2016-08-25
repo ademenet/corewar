@@ -45,16 +45,16 @@ unsigned int		cw_get_data_dir(t_proc *proc, t_champion *champ,
 unsigned int		cw_get_data_ind(t_proc *proc, t_champion *champ,
 					unsigned int sze)
 {
-	short			ret;
+	int				ret;
 	short			ind;
 
 	ind = (short)(proc->mem[sze % MEM_SIZE] << 8 |
 		proc->mem[(sze + 1) % MEM_SIZE])
 	% IDX_MOD;
-	ret = (short)proc->mem[(champ->pc + ind) % MEM_SIZE] << 24
+	ret = (proc->mem[(champ->pc + ind) % MEM_SIZE] << 24
 		| proc->mem[(champ->pc + ind + 1) % MEM_SIZE] << 16
 		| proc->mem[(champ->pc + ind + 2) % MEM_SIZE] << 8
-		| proc->mem[(champ->pc + ind + 3) % MEM_SIZE];
+		| proc->mem[(champ->pc + ind + 3) % MEM_SIZE]);
 	return (ret);
 }
 
@@ -66,9 +66,9 @@ unsigned int		cw_get_data_ind_l(t_proc *proc, t_champion *champ,
 
 	ind = (short)(proc->mem[sze % MEM_SIZE] << 8 |
 		proc->mem[(sze + 1) % MEM_SIZE]);
-	ret = (short)proc->mem[(champ->pc + ind) % MEM_SIZE] << 24
+	ret = (proc->mem[(champ->pc + ind) % MEM_SIZE] << 24
 		| proc->mem[(champ->pc + ind + 1) % MEM_SIZE] << 16
 		| proc->mem[(champ->pc + ind + 2) % MEM_SIZE] << 8
-		| proc->mem[(champ->pc + ind + 3) % MEM_SIZE];
+		| proc->mem[(champ->pc + ind + 3) % MEM_SIZE]);
 	return (ret);
 }

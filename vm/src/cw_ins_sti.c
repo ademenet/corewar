@@ -18,8 +18,7 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
-			short int p[3])
+void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp, int p[3])
 {
 	ft_printf("P%5d | %s ", tmp->idp, "sti");
 	ft_printf("r%d ", p[0]);
@@ -29,13 +28,13 @@ void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 		" ", p[1], p[2], p[1] + p[2], (tmp->pc + (p[1] + p[2]) % IDX_MOD));
 }
 
-void		cw_exec_sti(t_proc *proc, t_champion *tmp, short int p[3])
+void		cw_exec_sti(t_proc *proc, t_champion *tmp, int p[3])
 {
 	unsigned int	i;
-	short			total;
+	int				total;
 
 	i = -1;
-	total = (short)(p[1] + p[2]) % IDX_MOD;
+	total = (p[1] + p[2]) % IDX_MOD;
 	while (++i < REG_SIZE)
 	{
 		proc->mem[(tmp->pc + total + i) % MEM_SIZE] =
@@ -49,7 +48,7 @@ void		cw_exec_sti(t_proc *proc, t_champion *tmp, short int p[3])
 int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
-	short int		p[3];
+	int				p[3];
 
 	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
@@ -58,14 +57,14 @@ int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (ocp->second == REG_CODE)
 		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
 	else if (ocp->second == DIR_CODE)
-		p[1] = cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
+		p[1] = (short)cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
 	else if (ocp->second == IND_CODE)
-		p[1] = cw_get_data_ind_l(proc, tmp, tmp->pc + 2 + p_sze[0]);
+		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
 	if (ocp->third == REG_CODE)
 		p[2] = cw_get_data_reg(
 		tmp, proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1);
 	else if (ocp->third == DIR_CODE)
-		p[2] = cw_get_data_dir(
+		p[2] = (short)cw_get_data_dir(
 		proc, tmp, tmp->pc + 2 + p_sze[0] + p_sze[1], 2);
 	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
 		return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
