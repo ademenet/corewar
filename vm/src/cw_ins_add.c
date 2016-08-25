@@ -41,10 +41,10 @@ int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		param[1] = cw_get_data_reg(
 			tmp, proc->mem[(tmp->pc + 3) % MEM_SIZE] - 1);
 		param[2] = param[0] + param[1];
-		tmp->reg[proc->mem[tmp->pc + 4] - 1][0] = param[2] >> 24;
-		tmp->reg[proc->mem[tmp->pc + 4] - 1][1] = param[2] >> 16;
-		tmp->reg[proc->mem[tmp->pc + 4] - 1][2] = param[2] >> 8;
-		tmp->reg[proc->mem[tmp->pc + 4] - 1][3] = param[2];
+		tmp->reg[proc->mem[tmp->pc + 4 % MEM_SIZE] - 1][0] = param[2] >> 24;
+		tmp->reg[proc->mem[tmp->pc + 4 % MEM_SIZE] - 1][1] = param[2] >> 16;
+		tmp->reg[proc->mem[tmp->pc + 4 % MEM_SIZE] - 1][2] = param[2] >> 8;
+		tmp->reg[proc->mem[tmp->pc + 4 % MEM_SIZE] - 1][3] = param[2];
 	
 	if (param[2] == 0)
 		tmp->carry = 1;

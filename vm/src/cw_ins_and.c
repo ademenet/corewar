@@ -48,9 +48,9 @@ int			cw_ins_and(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		proc->mem[(tmp->pc + 2) % MEM_SIZE] <= REG_NUMBER)
 		p[0] = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1);
 	else if (ocp->first == DIR_CODE)
-		p[0] = cw_get_data_dir(proc, tmp, tmp->pc + 2, 4);
+		p[0] = cw_get_data_dir(proc, tmp, (tmp->pc + 2) % MEM_SIZE, 4);
 	else if (ocp->first == IND_CODE)
-		p[0] = cw_get_data_ind(proc, tmp, tmp->pc + 2);
+		p[0] = cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE);
 	if (ocp->second == REG_CODE &&
 		proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] > 0 &&
 		proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] <= REG_NUMBER)

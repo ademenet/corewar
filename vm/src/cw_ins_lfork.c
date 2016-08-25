@@ -19,7 +19,8 @@
 void		cw_ins_lfork_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 			short int p)
 {
-	ft_printf("P%5d | %s %d (%d)\n", tmp->idp,
+	if (g_bon['d'])
+		ft_printf("P%5d | %s %d (%d)\n", tmp->idp,
 		g_op[proc->mem[tmp->pc] - 1].name, p, (tmp->pc + p) % MEM_SIZE);
 }
 
@@ -70,7 +71,6 @@ int			cw_ins_lfork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->idp = proc->nb_proc;
 	proc->champions->is_champ = 0;
 	proc->nb_proc++;
-	if (g_bon['d'])
-		cw_ins_lfork_db(proc, tmp, ocp, p);
+	cw_ins_lfork_db(proc, tmp, ocp, p);
 	return (3);
 }
