@@ -34,13 +34,13 @@ int					cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
 		ocp_v = proc->mem[champ->pc + 1];
 		ocp->first = ocp_v >> 6;
 		ocp->second = (ocp_v >> 4) & 0x03;
-		ocp->third = (ocp_v >>2) & 0x03;
+		ocp->third = (ocp_v >> 2) & 0x03;
 	}
 	return (1);
 }
 
 /*
-** Renvoi la taille en octet de l'octet
+** Renvoie la taille en octet de l'octet
 */
 
 unsigned int		cw_ins_param_sze(char param, int dir)
@@ -61,22 +61,15 @@ unsigned int		cw_ins_param_sze(char param, int dir)
 ** avec i un int ou autre d'ailleurs.
 */
 
-void		cw_show_mem(char *start, int n)
+void				cw_show_mem(char *start, int n)
 {
-    int		i;
+	int	i;
 
 	i = 0;
-	// Pour affichage dans le visualiseur
 	move(0, 0);
-
 	while (i < n)
 	{
-		// ft_printf("%.2x", start[i]);
-
-		// Pour affichage dans le visualiseur
 		printw("%.2hhx ", start[i]);
-
 		i++;
 	}
-    // ft_printf("\n");
 }

@@ -17,7 +17,7 @@
 */
 
 void	cw_exec_or(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
-{	
+{
 	unsigned int	total;
 
 	total = p[1] | p[0];
@@ -34,7 +34,7 @@ void	cw_exec_or(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
 		tmp->carry = 0;
 }
 
-int			cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int		cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	unsigned int	p[3];
