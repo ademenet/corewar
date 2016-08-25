@@ -6,13 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 09:48:03 by ademenet          #+#    #+#             */
-/*   Updated: 2016/06/28 15:56:39 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/01 11:00:10 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BUFF_SIZE 100
+# define BUFF_SIZE 1
 
 # include <string.h>
 # include <sys/types.h>
@@ -35,6 +35,7 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *s);
+int					ft_strclen(char *str, char c);
 char				*ft_strdup(const char *s1);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);

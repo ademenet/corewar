@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   ft_strclen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 14:01:47 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 16:58:19 by tvisenti         ###   ########.fr       */
+/*   Created: 2016/07/12 17:49:58 by tvisenti          #+#    #+#             */
+/*   Updated: 2016/07/12 19:03:33 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncat(char *s1, const char *s2, size_t n)
+int		ft_strclen(char *str, char c)
 {
 	int	i;
-	int j;
 
 	i = 0;
-	j = 0;
-	while (s1[i] != '\0')
+	while (str[i] != '\0' && str[i] != c)
 		i++;
-	while (n-- && s2[j])
-	{
-		s1[i] = s2[j];
-		i++;
-		j++;
-	}
-	s1[i] = '\0';
-	return (s1);
+	return (i);
 }

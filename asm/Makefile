@@ -3,58 +3,43 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
+#    By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/04/20 11:33:31 by ademenet          #+#    #+#              #
-#    Updated: 2016/07/26 14:20:10 by tvisenti         ###   ########.fr        #
+#    Created: 2016/07/11 18:14:04 by tvisenti          #+#    #+#              #
+#    Updated: 2016/07/27 10:29:24 by gseropia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re norme
+.PHONY: all clean fclean re
 
 CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-CPP_FLAGS = -Iinclude
-
-NAME = libftprintf.a
+NAME = asm
 
 SRC_PATH = ./src
 LIB_PATH = ./lib
-INC_PATH = ./include
+INC_PATH = ./inc
 OBJ_PATH = ./obj
 OBJLIB_PATH = ./obj
 
-SRC_NAME =	fpf_apply_flags.c\
-			fpf_check.c\
-			fpf_dispatcher.c\
-			fpf_display_char.c\
-			fpf_display_numb.c\
-			fpf_flag_s.c\
-			fpf_flag_c.c\
-			fpf_flag_d.c\
-			fpf_flag_p_undefined.c\
-			fpf_flag_wu_wo.c\
-			fpf_flag_u_o.c\
-			fpf_flag_x.c\
-			fpf_handler.c\
-			fpf_printf.c\
-			fpf_buf.c\
-			fpf_transform_wchar.c\
-			fpf_wildcard.c
+SRC_NAME =	asm_main.c\
+			asm_parsing.c\
+			asm_copy_header.c\
+			asm_binary_writer.c\
+			asm_check_arg.c\
+			asm_check_instruction.c\
+			asm_check_label.c\
+			asm_parse_instruct.c\
+			asm_write_octal.c\
+			asm_writer.c\
 
-LIB_NAME = 	fpf_atoi.c\
-			fpf_isdigit.c\
-			fpf_itoa_base.c\
-			fpf_strlen.c\
-			fpf_strsub.c\
-			fpf_wcharlen.c\
-			fpf_strlwr.c\
-			fpf_wstrlen.c\
-			fpf_wstrsub.c
+LIB_NAME =	asm_init.c\
+			asm_error.c\
+			asm_free.c\
 
-INC_NAME = fpf_printf.h
+INC_NAME =	asm.h\
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJLIB_NAME = $(LIB_NAME:.c=.o)
@@ -68,28 +53,32 @@ OBJLIB = $(addprefix $(OBJLIB_PATH)/,$(OBJLIB_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJLIB)
-	@ar rc $(NAME) $(OBJ) $(OBJLIB)
-	@ranlib $(NAME)
-	@echo "\033[1;34mLibftprintf\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
+	@make -C ../libft
+	@$(CC) $(FLAGS) -o $@ $^ ../libft/libft.a ../libft/ft_printf/libftprintf.a
+	@echo "\033[1;34mASM\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) -o $@ -c $<
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
 	@mkdir $(OBJLIB_PATH) 2> /dev/null || true
-	@$(CC) -o $@ -c $<
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
-	@rm -rf ./obj
-	@echo "\033[1;34mLibftprintf\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
+	@rm -rf $(OBJ) $(OBJLIB)
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
+	@cd ../libft && $(MAKE) clean
+	@cd ../libft/ft_printf && $(MAKE) clean
 
-fclean:
-	@rm -rf $(NAME)
-	@echo "\033[1;34mLibftprintf\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
+fclean: clean
+	@rm -rf ./obj $(NAME)
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
+	@cd ../libft && $(MAKE) fclean
+	@cd ../libft/ft_printf && $(MAKE) fclean
 
 re: fclean all
 
 norme:
 	@norminette $(SRC) $(LIB) $(INC)
-	@echo "\033[1;34mLibftprintf\t\033[1;33mNorme\t\033[0;32m[OK]\033[0m"
+	@echo "\033[1;34mASM\t\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
