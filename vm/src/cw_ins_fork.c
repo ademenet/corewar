@@ -15,9 +15,9 @@
 /*
 ** Cette instruction n’est pas suivie d’octet pour décrire les paramètres.
 ** Elle prend toujours un index et crée un nouveau programme qui s’exécute
-** à partir de l’adresse : (PC + (premier paramètre % IDX_MOD)). Fork %34 crée
-** un nouveau programme. Le nouveau programme hérite des di érents états
-** du père.
+** à partir de l’adresse : (PC + (premier paramètre % IDX_MOD)).
+** Fork %34 crée un nouveau programme. Le nouveau programme
+** hérite des différents états du père.
 */
 
 void		cw_ins_fork_db(t_proc *proc, t_champion *tmp, t_ocp *ocp,
@@ -45,6 +45,25 @@ void		cw_ins_fork_duplicate_reg(t_champion *new, t_champion *old)
 	}
 }
 
+void		cw_ins_fork_init(t_proc *proc)
+{
+	if (proc->mem[proc->champions->pc] > 0x00 &&
+		proc->mem[proc->champions->pc] < 0x11)
+	{
+		proc->champions->inst_c =
+			g_op[proc->mem[proc->champions->pc] - 1].cycles_nb;
+		proc->champions->inst_num =
+			g_op[proc->mem[proc->champions->pc] - 1].opcode;
+		proc->champions->ins = (unsigned char *)1;
+	}
+	else
+	{
+		proc->champions->inst_c = 0;
+		proc->champions->inst_num = 0;
+		proc->champions->ins = NULL;
+	}
+}
+
 int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	short int	p;
@@ -56,18 +75,7 @@ int			cw_ins_fork(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	proc->champions->pc_origin = tmp->pc_origin;
 	proc->champions->pc = (tmp->pc + (unsigned short)(p % IDX_MOD)) % MEM_SIZE;
 	proc->champions->carry = tmp->carry;
-	if (proc->mem[proc->champions->pc] > 0x00 && proc->mem[proc->champions->pc] < 0x11)
-	{
-		proc->champions->inst_c = g_op[proc->mem[proc->champions->pc] - 1].cycles_nb;
-		proc->champions->inst_num = g_op[proc->mem[proc->champions->pc] - 1].opcode;
-		proc->champions->ins = (unsigned char *)1;
-	}
-	else
-	{
-		proc->champions->inst_c = 0;
-		proc->champions->inst_num = 0;
-		proc->champions->ins = NULL;
-	}
+	cw_ins_fork_init(proc);
 	proc->champions->lives = 0;
 	proc->champions->id = tmp->id;
 	proc->nb_proc++;
