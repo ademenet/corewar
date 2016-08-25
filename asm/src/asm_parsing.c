@@ -6,11 +6,15 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/01 18:19:40 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 12:29:49 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
+
+/*
+** Check si le fichier se ter;ine par .s
+*/
 
 int			asm_check_champ(char *champ)
 {
@@ -25,6 +29,10 @@ int			asm_check_champ(char *champ)
 		return (asm_error(14));
 }
 
+/*
+** Mets la ligne valide dans le char *
+*/
+
 char		*asm_put_line_in_file(char *line, int i, char *file)
 {
 	while (line[i] == '\t' || line[i] == ' ')
@@ -38,7 +46,7 @@ char		*asm_put_line_in_file(char *line, int i, char *file)
 }
 
 /*
-** Récursive qui récupere le nom du label, position dans une liste chainée
+** Récupere le nom du label, position dans une liste chainée
 */
 
 t_label		*asm_parse_line(int fd, char **file)
