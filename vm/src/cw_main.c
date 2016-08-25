@@ -23,6 +23,7 @@ int				main(int ac, char **av)
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
 	cw_load_ins_mem(&proc);
+	cw_init_champ_array(&proc);
 	if (g_bon['v'])
 		cw_vizualizer_processor(&proc);
 	else
