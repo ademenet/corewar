@@ -93,6 +93,8 @@ char		*asm_realloc(char *line, char *file, int i)
 	tmp = ft_strcat(tmp, sub);
 	free(file);
 	free(sub);
+	file = NULL;
+	sub = NULL;
 	while (tmp[len])
 		len++;
 	tmp[len] = '\n';

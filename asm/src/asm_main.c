@@ -37,6 +37,7 @@ int		main(int argc, char **argv)
 		{
 			head = asm_header_init();
 			asm_parsing(argv[index++], head, check);
+			free(head);
 			head = NULL;
 			asm_init_global();
 		}
