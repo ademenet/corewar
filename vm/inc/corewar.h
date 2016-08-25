@@ -10,19 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _COREWAR_H_
-# define _COREWAR_H_
+#ifndef COREWAR_H
+# define COREWAR_H
 
 # include <ncurses.h>
 # include <panel.h>
 # include "colors.h"
 # include "../../libft/libft.h"
-# include "../../libft/ft_printf/include/fpf_printf.h" // a remplacer par les chevrons et compilation
-
-// # include <libft.h>
-// # include <fpf_printf.h>
-
-# define DB(msg) fprintf(stderr, "%s\n", msg);
+# include "../../libft/ft_printf/include/fpf_printf.h"
 
 /*
 ** Toutes les tailles sont en octets.
@@ -46,10 +41,6 @@
 # define CYCLE_DELTA			50
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
-
-/*
-**
-*/
 
 typedef char		t_arg_type;
 
@@ -78,17 +69,17 @@ typedef struct					s_header
 ** Structure d'un processus :
 */
 
-typedef struct 					s_champion
+typedef struct					s_champion
 {
 	t_header					*header;
 	char						reg[REG_NUMBER][REG_SIZE];
-	unsigned char				*ins; // 1 sert a stocker les processus avant chargement puis 2 sert de flag pour savoir si une instruction est en attente de traitement
+	unsigned char				*ins;
 	unsigned short int			pc_origin;
-	unsigned short int			pc; // le PC est codé sur 2 octets
-	char						carry; // pas besoin de le stocker dans int, un char suffit : 0 ou 1
-	unsigned int				inst_c; // nombre de cycles de l'instruction, se decremente a chaque cycle jusqu'a execution
+	unsigned short int			pc;
+	char						carry;
+	unsigned int				inst_c;
 	unsigned char				inst_num;
-	unsigned int				num; // numero du processus
+	unsigned int				num;
 	unsigned int				lives;
 	char						is_champ;
 	char						id;
@@ -101,25 +92,20 @@ typedef struct 					s_champion
 ** Structure du processeur :
 */
 
-typedef struct 					s_proc
+typedef struct					s_proc
 {
 	t_champion					*champions;
-	t_champion					*champ_by_id[5]; // tableau contenant des pointeurs sur les champions selon leur id. 
-	// memoire du processeur
+	t_champion					*champ_by_id[5];
 	unsigned char				mem[MEM_SIZE];
 	unsigned int				dump;
-	unsigned int				nb_proc; // nombre de processus courants
-	// c_to_die : valeur qui vaut CYCLE_TO_DIE au début et qui sera décrémenté de
-	// CYCLE_DELTA tous les blablablas
+	unsigned int				nb_proc;
 	int							c_to_die;
-	// c : index des cycles. Init à 0.
 	unsigned int				c;
-	// live[5] : enregistre le nombre de live émis sur la période CYCLE_TO_DIE par champions.
 	unsigned int				live[MAX_PLAYERS + 1];
-	unsigned int				lives_total; // nombre total de lives sur une periode CTOD
+	unsigned int				lives_total;
 	unsigned int				checks;
 	unsigned char				last_live_id;
-	WINDOW						*win[2]; // ajout pour faciliter l'affichage en couleur
+	WINDOW						*win[2];
 }								t_proc;
 
 /*
@@ -157,8 +143,8 @@ typedef struct					s_op
 
 /*
 ** Tableau global des bonus initialisé à 0 - lorsqu'une option est implementée,
-la case du tableau a l'index correspondant passe à 1.
-ex avec -v : g_bon['v'] sera egale a 1.
+**la case du tableau a l'index correspondant passe à 1.
+**ex avec -v : g_bon['v'] sera egale a 1.
 */
 
 char							g_bon[128];
@@ -246,7 +232,7 @@ int								cw_ins_sub(t_proc *proc, t_champion *tmp,
 int								cw_ins_xor(t_proc *proc, t_champion *tmp,
 								t_ocp *ocp);
 int								cw_ins_zjmp(t_proc *proc, t_champion *tmp,
-	 							t_ocp *ocp);
+								t_ocp *ocp);
 
 /*
 ** INSTRUCTIONS : FONCTIONS OUTILS
@@ -269,8 +255,8 @@ unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
 								unsigned int sze, int dir);
 unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
 								unsigned int sze);
-unsigned int					cw_get_data_ind_l(t_proc *proc, t_champion *champ,
-								unsigned int sze);
+unsigned int					cw_get_data_ind_l(t_proc *proc,
+								t_champion *champ, unsigned int sze);
 /*
 ** BONUS : VISUALISEUR
 */
