@@ -20,22 +20,6 @@
 ** T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG
 */
 
-void		cw_ins_ldi_db(t_proc *proc, t_champion *tmp, t_ocp *ocp)
-{
-	if (g_bon['d'])
-	{
-		ft_printf("P%5d | %s ", tmp->idp, "ldi");
-		ft_printf("%d ", p[0]);
-		ft_printf("%d ", p[1]);
-		if (ocp->third == REG_CODE)
-			ft_printf("r%d\n", p[2]);
-		else
-			ft_printf("%d\n", p[2]);
-		ft_printf("%8 | -> load from %d + %d = %d (with pc and mod %d)\n",
-		p[0], p[1], p[0] + p[1], tmp->pc + (p[0] + p[1]) % IDX_MOD);
-	}
-}
-
 int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 										char ocp, unsigned int p_sze)
 {
@@ -50,7 +34,7 @@ int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 		return (cw_get_data_dir(proc, tmp,
 				(tmp->pc + 2 + p_sze) % MEM_SIZE, 2));
 	}
-	return (-1);
+	return (0);
 }
 
 int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
@@ -65,7 +49,7 @@ int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 				((tmp->pc + 2) % MEM_SIZE), 2));
 	else if (ocp == IND_CODE)
 		return (cw_get_data_ind(proc, tmp, (tmp->pc + 2) % MEM_SIZE));
-	return (-1);
+	return (0);
 }
 
 int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
@@ -77,13 +61,10 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
-	if (ocp->third != REG_CODE || ocp->second * cop->third == 0)
+	if (ocp->third != REG_CODE)
 		return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 	p[0] = (short)cw_ins_ldi_firstparamhandler(proc, tmp, ocp->first);
-	p[1] = (short)cw_ins_ldi_secondparamhandler(proc, tmp,
-			ocp->second, p_sze[0]);
-	if (p[0] < 0 || p[1] < 0)
-		return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
+	p[1] = (short)cw_ins_ldi_secondparamhandler(proc, tmp, ocp->second, p_sze[0]);
 	p[2] = (short)proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
 	ret = cw_get_data_dir(proc, tmp, (tmp->pc + ((p[0] + p[1]) % IDX_MOD)), 4);
 	if (p[2] > 0 && p[2] <= REG_NUMBER)
@@ -94,5 +75,16 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		tmp->reg[p[2] - 1][3] = ret;
 	}
 	tmp->carry = ret == 0 ? 1 : 0;
+	if (g_bon['d'])
+	{
+		ft_printf("P%5d | %s ", tmp->idp, "ldi");
+		ft_printf("%d ", p[0]);
+		ft_printf("%d ", p[1]);
+		if (ocp->third == REG_CODE)
+			ft_printf("r%d\n", p[2]);
+		else
+			ft_printf("%d\n", p[2]);
+		ft_printf("%8 | -> load from %d + %d = %d (with pc and mod %d)\n", p[0], p[1], p[0] + p[1], tmp->pc + (p[0] + p[1]) % IDX_MOD);
+	}
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }
