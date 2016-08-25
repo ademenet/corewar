@@ -52,6 +52,22 @@ int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 	return (0);
 }
 
+void		cw_ins_ldi_b(short int p[3], t_champion *tmp, t_ocp *ocp)
+{
+	if (g_bon['d'])
+	{
+		ft_printf("P%5d | %s ", tmp->idp, "ldi");
+		ft_printf("%d ", p[0]);
+		ft_printf("%d ", p[1]);
+		if (ocp->third == REG_CODE)
+			ft_printf("r%d\n", p[2]);
+		else
+			ft_printf("%d\n", p[2]);
+		ft_printf("%8 | -> load from %d + %d = %d (with pc and mod %d)\n",
+			p[0], p[1], p[0] + p[1], tmp->pc + (p[0] + p[1]) % IDX_MOD);
+	}
+}
+
 int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	short int		p[3];
@@ -64,7 +80,8 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (ocp->third != REG_CODE)
 		return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 	p[0] = (short)cw_ins_ldi_firstparamhandler(proc, tmp, ocp->first);
-	p[1] = (short)cw_ins_ldi_secondparamhandler(proc, tmp, ocp->second, p_sze[0]);
+	p[1] = (short)cw_ins_ldi_secondparamhandler(proc,
+		tmp, ocp->second, p_sze[0]);
 	p[2] = (short)proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
 	ret = cw_get_data_dir(proc, tmp, (tmp->pc + ((p[0] + p[1]) % IDX_MOD)), 4);
 	if (p[2] > 0 && p[2] <= REG_NUMBER)
@@ -75,16 +92,6 @@ int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 		tmp->reg[p[2] - 1][3] = ret;
 	}
 	tmp->carry = ret == 0 ? 1 : 0;
-	if (g_bon['d'])
-	{
-		ft_printf("P%5d | %s ", tmp->idp, "ldi");
-		ft_printf("%d ", p[0]);
-		ft_printf("%d ", p[1]);
-		if (ocp->third == REG_CODE)
-			ft_printf("r%d\n", p[2]);
-		else
-			ft_printf("%d\n", p[2]);
-		ft_printf("%8 | -> load from %d + %d = %d (with pc and mod %d)\n", p[0], p[1], p[0] + p[1], tmp->pc + (p[0] + p[1]) % IDX_MOD);
-	}
+	cw_ins_ldi_b(p, tmp, ocp);
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }

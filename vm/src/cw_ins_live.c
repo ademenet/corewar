@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 14:55:34 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:59:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static void	cw_ins_live_display(t_proc *proc, t_champion *tmp)
 			tmp->num, tmp->header->prog_name);
 	}
 	else if (g_bon['d'])
-	{
 		ft_printf("P%5d | %s %d\n", tmp->idp, "live", tmp->num);
-	}
 	else if (proc->dump == 0)
 		ft_printf("Un processus dit que le joueur %d(%s) est en vie\n",
 			tmp->num, tmp->header->prog_name);
@@ -51,7 +49,7 @@ int			cw_ins_live(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 			proc->live[temp->id - 1] += 1;
 			cw_ins_live_display(proc, temp);
 			proc->last_live_id = temp->id;
-			return(5);
+			return (5);
 		}
 		temp = temp->next;
 	}
