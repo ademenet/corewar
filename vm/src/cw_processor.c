@@ -103,7 +103,6 @@ int			cw_processor(t_proc *proc)
 	cw_proc_init(proc);
 	cw_load_ins_c(proc);
 	c_to_die = proc->c_to_die;
-	ft_printf("Introducing contestants...\n* Player 1, weighing 617 bytes, \"helltrain\" (\"choo-choo, motherf*****s !\") !\n");
 	while (c_check)
 	{
 		if (g_bon['c'])

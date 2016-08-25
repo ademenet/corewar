@@ -14,7 +14,7 @@
 
 int		cw_error_msg(char *msg)
 {
-	ft_printf("%s%s%s\n",RED, msg, EOC);
+	ft_printf("%s%s%s\n", RED, msg, EOC);
 	return (0);
 }
 

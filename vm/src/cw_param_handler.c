@@ -20,10 +20,10 @@ long	cw_cnb_chk(long c_nb, t_proc *proc, char *str)
 	cur = -1;
 	while (str[++cur])
 		if (!isdigit(str[cur]) && str[0] != '-')
-			return(cw_error_msg("The player number is not valid"));
+			return (cw_error_msg("The player number is not valid"));
 	tmp = proc->champions;
 	if (c_nb <= 0)
-		return(cw_error_msg("The player number musn't be negative or nil"));
+		return (cw_error_msg("The player number musn't be negative or nil"));
 	while (tmp)
 	{
 		if (tmp->num == c_nb)

@@ -28,7 +28,7 @@ void		cw_vizualizer_proc_init(t_proc *proc, int *c_to_die)
 
 int			cw_vizualizer_proc_control(t_proc *proc, int i)
 {
-	int 	ch;
+	int	ch;
 
 	wrefresh(proc->win[1]);
 	wrefresh(proc->win[0]);
@@ -49,7 +49,7 @@ int			cw_vizualizer_proc_control(t_proc *proc, int i)
 int			cw_vizualizer_processor(t_proc *proc)
 {
 	int		c_check;
-	int 	i;
+	int		i;
 	int		c_to_die;
 
 	c_check = 1;

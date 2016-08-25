@@ -20,7 +20,7 @@ int				cw_load_ins_mem(t_proc *proc)
 
 	cnt = 0;
 	tmp = proc->champions;
-	if((nb_champ = cw_lst_sze(proc->champions)) > MAX_PLAYERS || !nb_champ)
+	if ((nb_champ = cw_lst_sze(proc->champions)) > MAX_PLAYERS || !nb_champ)
 		return (cw_error_msg("ERROR : wrong number of champ to load in mem"));
 	while (tmp)
 	{

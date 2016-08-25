@@ -18,7 +18,7 @@ t_champion			*cw_lst_new(t_header *header, int num)
 	int				reg_sze;
 	int				reg_nb;
 
-	if((new = malloc(sizeof(t_champion))) == NULL)
+	if ((new = malloc(sizeof(t_champion))) == NULL)
 		return (NULL);
 	reg_sze = -1;
 	reg_nb = -1;
@@ -77,7 +77,6 @@ void				cw_lst_add(t_champion **begin, t_champion *new)
 		new->prev = NULL;
 	}
 	new->next = NULL;
-
 }
 
 int					cw_lst_sze(t_champion *begin)
