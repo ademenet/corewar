@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ademenet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 14:01:47 by ademenet          #+#    #+#             */
-/*   Updated: 2015/11/25 10:06:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:58:19 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strncat(char *s1, const char *s2, size_t n)
 	j = 0;
 	while (s1[i] != '\0')
 		i++;
-	while (n--)
+	while (n-- && s2[j])
 	{
 		s1[i] = s2[j];
 		i++;

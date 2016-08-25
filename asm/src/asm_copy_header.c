@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 10:20:25 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/25 15:55:22 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 17:06:23 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_header	*asm_copy_header(char *line, t_header *head, int check)
 	}
 	if (tmp != NULL)
 		free(tmp);
+	tmp = NULL;
 	return (head);
 }
 

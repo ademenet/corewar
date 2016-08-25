@@ -6,7 +6,7 @@
 /*   By: Transmet <Transmet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 16:13:52 by Transmet          #+#    #+#             */
-/*   Updated: 2016/08/25 15:42:41 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 17:01:33 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char		*asm_free_join(char *line, char *file)
 			file[len] = '\n';
 			file[len + 1] = '\0';
 			free(sub);
+			sub = NULL;
 		}
 		else
 			file = asm_realloc(line, file, i);
