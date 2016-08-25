@@ -6,14 +6,14 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:53:48 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/25 12:29:49 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/25 14:40:23 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
 /*
-** Check si le fichier se ter;ine par .s
+** Check si le fichier se termine par .s
 */
 
 int			asm_check_champ(char *champ)
