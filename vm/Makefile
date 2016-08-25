@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/25 10:18:16 by ademenet          #+#    #+#              #
-#    Updated: 2016/08/20 16:22:55 by ademenet         ###   ########.fr        #
+#    Updated: 2016/08/25 12:13:19 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo ""
 	@make -C ../libft
 	@$(CC) $(FLAGS) $(DFLAGS) $(CURSE) -o $@ $^ -I$(INC_PATH) -I $(LIB_PATH) -I $(INC_PATH_P) ../libft/libft.a ../libft/ft_printf/libftprintf.a
 	@echo "\033[1;34mCorewar\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
@@ -97,4 +98,4 @@ norme:
 	@norminette */*[hc]
 	@echo "\033[1;34mCorewar\t\033[1;33mNorme\t\033[0;32m[OK]\033[0m"
 
-.PHONY: all test clean fclean re norme
+.PHONY: all clean fclean re norme
