@@ -27,8 +27,7 @@ int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (tmp->carry == 1)
 	{
 		if (g_bon['d'])
-			ft_printf("P%5d | %s %d OK\n", tmp->idp,
-			g_op[proc->mem[tmp->pc] - 1].name, p);
+			ft_printf("P%5d | %s %d OK\n", tmp->idp, "zjmp", p);
 		return (p % IDX_MOD);
 	}
 	if (g_bon['d'])
