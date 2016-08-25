@@ -25,7 +25,7 @@ int		cw_invert_endian(int x)
 	return (x);
 }
 
-void			cw_init_champ_array(t_proc *proc)
+void	cw_init_champ_array(t_proc *proc)
 {
 	t_champion	*tmp;
 	int			i;

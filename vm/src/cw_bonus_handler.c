@@ -36,4 +36,6 @@ void	cw_bon_handler(char **av, int ac, int param)
 		}
 		param++;
 	}
+	if (g_bon['d'])
+		g_bon['v'] = 0;
 }
