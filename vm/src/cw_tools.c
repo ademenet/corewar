@@ -24,3 +24,21 @@ int		cw_invert_endian(int x)
 		| ((x << 24) & 0xff000000);
 	return (x);
 }
+
+void			cw_init_champ_array(t_proc *proc)
+{
+	t_champion	*tmp;
+	int			i;
+
+	i = -1;
+	while (++i < 5)
+		proc->champ_by_id[i] = NULL;
+	tmp = proc->champions;
+	i = 0;
+	while (tmp)
+	{
+		proc->champ_by_id[i] = tmp;
+		i++;
+		tmp = tmp->next;
+	}
+}
