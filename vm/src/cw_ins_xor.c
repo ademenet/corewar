@@ -16,7 +16,8 @@
 ** Même que and mais avec le ou exclusif (^ du c).
 */
 
-void	cw_exec_xor(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3], t_ocp *ocp)
+void		cw_exec_xor(t_champion *tmp, unsigned int p[3],
+			unsigned int p_sze[3], t_ocp *ocp)
 {
 	unsigned int	total;
 
@@ -27,7 +28,6 @@ void	cw_exec_xor(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3], t_oc
 		tmp->reg[p[2] - 1][1] = total >> 16;
 		tmp->reg[p[2] - 1][2] = total >> 8;
 		tmp->reg[p[2] - 1][3] = total;
-	
 		if (total == 0)
 			tmp->carry = 1;
 		else
