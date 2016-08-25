@@ -25,3 +25,24 @@ void		cw_bonus_db_twoparams(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 	else
 		ft_printf("%d\n", p[1]);
 }
+
+/*
+** Dump la mémoire zaz-like !
+*/
+
+int			cw_dump_display_zazlike(t_proc *proc)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i == 0)
+			ft_printf("0x%04x : ", i);
+		if (i != 0)
+			i % 64 == 0 ? ft_printf("\n0x%04x : ", i) : ft_printf(" ");
+		ft_printf("%.2hhx", proc->mem[i]);
+		i++;
+	}
+	return (0);
+}

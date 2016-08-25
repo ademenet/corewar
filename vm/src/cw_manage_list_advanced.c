@@ -16,32 +16,32 @@ t_champion		*cw_lst_swap(t_champion **champions, t_champion **next)
 {
 	t_champion	tmp;
 	int			i;
-	i= -1;
+
+	i = -1;
 	tmp.header = (*next)->header;
-	while(++i < REG_SIZE)
+	while (++i < REG_SIZE)
 		tmp.reg[0][i] = (*next)->reg[0][i];
 	tmp.ins = (*next)->ins;
 	tmp.pc = (*next)->pc;
 	tmp.num = (*next)->num;
 	(*next)->header = (*champions)->header;
 	i = -1;
-	while(++i < REG_SIZE)
+	while (++i < REG_SIZE)
 		(*next)->reg[0][i] = (*champions)->reg[0][i];
 	(*next)->ins = (*champions)->ins;
 	(*next)->pc = (*champions)->pc;
 	(*next)->num = (*champions)->num;
 	(*champions)->header = tmp.header;
 	i = -1;
-	while(++i < REG_SIZE)
+	while (++i < REG_SIZE)
 		(*champions)->reg[0][i] = tmp.reg[0][i];
 	(*champions)->ins = tmp.ins;
 	(*champions)->pc = tmp.pc;
 	(*champions)->num = tmp.num;
 	return (*next);
-
 }
 
-void	cw_lst_dsort_by_num(t_champion **champions)
+void			cw_lst_dsort_by_num(t_champion **champions)
 {
 	t_champion	*tmp;
 	int			id;
@@ -59,7 +59,7 @@ void	cw_lst_dsort_by_num(t_champion **champions)
 			tmp = tmp->next;
 	}
 	tmp = *champions;
-	while(tmp)
+	while (tmp)
 	{
 		tmp->id = id;
 		tmp->idp = id;

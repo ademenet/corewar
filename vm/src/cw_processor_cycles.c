@@ -6,32 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 14:56:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 15:50:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
-
-/*
-** Dump la mémoire zaz-like !
-*/
-
-int			cw_dump_display_zazlike(t_proc *proc)
-{
-	int		i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (i == 0)
-			ft_printf("0x%04x : ", i);
-		if (i != 0)
-			i % 64 == 0 ? ft_printf("\n0x%04x : ", i) : ft_printf(" ");
-		ft_printf("%.2hhx", proc->mem[i]);
-		i++;
-	}
-	return (0);
-}
 
 /*
 ** Affiche la mémoire selon la norme imposée dans le sujet : 32 octets par
@@ -58,20 +37,20 @@ void		cw_dump_display(t_proc *proc)
 
 int			cw_cycles_end(t_proc *proc)
 {
-	t_champion	*tmp;
+	int		i;
 
-	tmp = proc->champions;
-	while (tmp)
+	i = 0;
+	while (proc->champ_by_id[i] != NULL)
 	{
-		if (proc->last_live_id == tmp->id && tmp->is_champ != 0)
-			break;
-		tmp = tmp->next;
+		if (proc->champ_by_id[i]->id == proc->last_live_id)
+			break ;
+		i++;
 	}
 	if (g_bon['v'])
-		cw_vizualizer_winner(proc, tmp);
+		cw_vizualizer_winner(proc, proc->champ_by_id[i]);
 	else
-		ft_printf("Le joueur %d(%s) a gagné\n", tmp->num,
-		tmp->header->prog_name);
+		ft_printf("Le joueur %d(%s) a gagné\n", proc->champ_by_id[i]->num,
+		proc->champ_by_id[i]->header->prog_name);
 	return (0);
 }
 
@@ -82,13 +61,13 @@ int			cw_cycles_end(t_proc *proc)
 
 void		cw_kill_process(t_proc *proc, t_champion *tmp)
 {
-	if (tmp->is_champ == 1) // si cest un champion on conserve ses infos...
-		tmp->is_champ = -1; // alors on met le is_champ a -1 et fera en sorte de le sauter dans les process
+	if (tmp->is_champ == 1)
+		tmp->is_champ = -1;
 	else
 	{
-		if (tmp->next !=NULL) // si pas dernier maillon
+		if (tmp->next != NULL)
 			tmp->next->prev = tmp->prev;
-		if (tmp->prev != NULL) // si pas premier maillon
+		if (tmp->prev != NULL)
 			tmp->prev->next = tmp->next;
 		if (tmp == proc->champions)
 			proc->champions = tmp->next;
@@ -114,11 +93,7 @@ void		cw_cycles_checks_lives(t_proc *proc)
 		if (tmp->is_champ != -1)
 		{
 			if (tmp->lives == 0)
-			{
-				cw_kill_process(proc, tmp); // retire le processus definitivement de la liste
-				// if () // si bonus son active produit un son pour le kill !
-				// printf("\a"); // produit un son
-			}
+				cw_kill_process(proc, tmp);
 			else
 				tmp->lives = 0;
 		}
@@ -133,15 +108,15 @@ void		cw_cycles_checks_lives(t_proc *proc)
 
 int			cw_cycles_checks(t_proc *proc, int *c_to_die)
 {
-	if (proc->dump != 0 && proc->c == proc->dump) // vérifie si -dump
+	if (proc->dump != 0 && proc->c == proc->dump)
 	{
 		cw_dump_display_zazlike(proc);
 		return (0);
 	}
-	if (*c_to_die == 0) // tous les CYCLE_TO_DIE
+	if (*c_to_die == 0)
 	{
 		proc->checks++;
-		if (proc->lives_total >= NBR_LIVE) // si nombre de lives totaux > NBR LIVE on decremente
+		if (proc->lives_total >= NBR_LIVE)
 			proc->c_to_die -= CYCLE_DELTA;
 		if (proc->checks == MAX_CHECKS)
 		{
@@ -153,6 +128,6 @@ int			cw_cycles_checks(t_proc *proc, int *c_to_die)
 		*c_to_die = proc->c_to_die;
 	}
 	if (proc->nb_proc == 0 || proc->c_to_die <= 0)
-		return (cw_cycles_end(proc)); // fonction qui soccupe de voir qui a gagne
+		return (cw_cycles_end(proc));
 	return (1);
 }

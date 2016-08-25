@@ -14,7 +14,7 @@
 
 int		cw_error_msg(char *msg)
 {
-	ft_printf("%s%s%s\n",RED, msg, EOC);
+	ft_printf("%s%s%s\n", RED, msg, EOC);
 	return (0);
 }
 
@@ -25,7 +25,7 @@ int		cw_invert_endian(int x)
 	return (x);
 }
 
-void			cw_init_champ_array(t_proc *proc)
+void	cw_init_champ_array(t_proc *proc)
 {
 	t_champion	*tmp;
 	int			i;
