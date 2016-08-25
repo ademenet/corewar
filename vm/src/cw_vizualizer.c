@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 18:48:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 12:03:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,23 @@ int			cw_vizualizer_control(char *play, int *ch)
 }
 
 /*
-** TODO fonction qui permet de gérer la vitesse en gérant le paramétre de la
-** fonction usleep().
+** Fonction qui affiche le gagnant dans le visualiseur.
 */
 
-int			cw_vizualizer_speed(int *ch)
+void		cw_vizualizer_winner(t_proc *proc, t_champion *winner)
 {
-	return (1);
+	werase(proc->win[1]);
+	wattron(proc->win[1], COLOR_PAIR(winner->id + 10) | A_BOLD);
+	mvwprintw(proc->win[1], 60, 2, "Le joueur %d(%s) a gagné", winner->num,
+	winner->header->prog_name);
+	wattroff(proc->win[1], COLOR_PAIR(winner->id + 10) | A_BOLD);
+	mvwprintw(proc->win[1], 62, 2, "(appuyer sur [echap] pour quitter)");
+	wrefresh(proc->win[1]);
+	while (1)
+	{
+		if (getch() == 27)
+			return ;
+	}
 }
 
 /*
