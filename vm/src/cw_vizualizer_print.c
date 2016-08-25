@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_vizualizer.c                                    :+:      :+:    :+:   */
+/*   cw_vizualizer_print.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 14:29:59 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/25 16:34:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		cw_vizualizer_infos_side(t_proc *proc, int y)
 	mvwprintw(proc->win[1], (y = y + 1), 2, "nb process\t: %8d",
 		proc->nb_proc);
 	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_TO_DIE\t: %8d",
-		proc->c_to_die);
+		proc->c_to_die - CYCLE_DELTA);
 	mvwprintw(proc->win[1], (y = y + 1), 2, "CYCLE_DELTA\t: %8d", CYCLE_DELTA);
 	mvwprintw(proc->win[1], (y = y + 1), 2, "NBR_LIVE\t: %8d", NBR_LIVE);
 	mvwprintw(proc->win[1], (y = y + 1), 2, "MAX_CHECKS\t: %8d", MAX_CHECKS);
