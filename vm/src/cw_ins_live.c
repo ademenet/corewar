@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:05:56 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 15:51:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/26 12:51:22 by alain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	cw_ins_live_display(t_proc *proc, t_champion *tmp)
 	}
 	else if (g_bon['d'])
 		ft_printf("P%5d | %s %d\n", tmp->idp, "live", tmp->num);
-	else if (proc->dump == 0)
+	else if (proc->dump == 0 && g_bon['m'] == 0)
 		ft_printf("Un processus dit que le joueur %d(%s) est en vie\n",
 			tmp->num, tmp->header->prog_name);
 }

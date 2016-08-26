@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 18:39:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/26 12:55:50 by alain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	cw_bon_handler(char **av, int ac, int param)
 	arr_set(g_bon, 0, 256);
 	while (param < ac)
 	{
-		if (av[param][0] == '-' && ft_cinstr(param[av][1], "vdzc"))
+		if (av[param][0] == '-' && ft_cinstr(param[av][1], "vdzcm"))
 			g_bon[(unsigned char)av[param][1]] = 1;
 		else
 		{
@@ -32,6 +32,7 @@ void	cw_bon_handler(char **av, int ac, int param)
 			ft_printf("-d : debug mode%s\n", EOC);
 			ft_printf("-c : display cycles%s\n", EOC);
 			ft_printf("-z : dump zaz-like%s\n", EOC);
+			ft_printf("-m : mute live messages%s\n", EOC);
 			exit(1);
 		}
 		param++;
