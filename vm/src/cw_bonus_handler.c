@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/26 12:55:50 by alain            ###   ########.fr       */
+/*   Updated: 2016/08/26 16:58:22 by alain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cw_bon_handler(char **av, int ac, int param)
 			ft_printf("-v : nCurse visualiser%s\n", EOC);
 			ft_printf("-d : debug mode%s\n", EOC);
 			ft_printf("-c : display cycles%s\n", EOC);
-			ft_printf("-z : dump zaz-like%s\n", EOC);
+			ft_printf("-z : dump zaz-like (use with dump option)%s\n", EOC);
 			ft_printf("-m : mute live messages%s\n", EOC);
 			exit(1);
 		}

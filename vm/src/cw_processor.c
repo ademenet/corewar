@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 18:46:11 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/26 17:01:42 by alain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ int			cw_processor(t_proc *proc)
 		if (g_bon['c'])
 			ft_printf("It is now cycle %d\n", proc->c);
 		cw_exec_process(proc);
-		if (g_bon['z'])
-			c_check = cw_dump_display_zazlike(proc);
 		c_check = cw_cycles_checks(proc, &c_to_die);
 		c_to_die--;
 		proc->c++;

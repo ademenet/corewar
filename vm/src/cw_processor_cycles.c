@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 16:50:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/26 17:04:11 by alain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ void		cw_dump_display(t_proc *proc)
 	int		i;
 
 	i = 0;
-	while (i < MEM_SIZE)
+	if (g_bon ['z'])
+		cw_dump_display_zazlike(proc);
+	else
 	{
-		if (i != 0)
-			i % 32 == 0 ? ft_printf("\n") : ft_printf(" ");
-		ft_printf("%.2hhx", proc->mem[i]);
-		i++;
+		while (i < MEM_SIZE)
+		{
+			if (i != 0)
+				i % 32 == 0 ? ft_printf("\n") : ft_printf(" ");
+			ft_printf("%.2hhx", proc->mem[i]);
+			i++;
+		}
 	}
 }
 
@@ -121,7 +126,7 @@ int			cw_cycles_checks(t_proc *proc, int *c_to_die)
 {
 	if (proc->dump != 0 && proc->c == proc->dump)
 	{
-		cw_dump_display_zazlike(proc);
+		cw_dump_display(proc);
 		return (0);
 	}
 	if (*c_to_die == 0)
