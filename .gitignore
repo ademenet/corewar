@@ -38,11 +38,9 @@ test*
 
 corewar
 *.cor
-*.s
 asm
 
 # Hided files
-.*
 asmz
 *.diff
 *.db
