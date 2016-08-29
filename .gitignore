@@ -35,5 +35,18 @@ test
 test.*
 asm/asm
 test*
+
+corewar
 *.cor
 *.s
+asm
+
+# Hided files
+.*
+asmz
+*.diff
+*.db
+*.dump
+*.sh
+asmzaz
+corewarzaz

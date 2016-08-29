@@ -87,6 +87,8 @@ SOURCES = ft_atoi.c\
 		  ft_abs.c\
 		  ft_power.c\
 		  ft_lstappend.c\
+		  ft_arr_set.c\
+		  ft_cinstr.c\
 
 HEADERS = libft.h
 
