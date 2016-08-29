@@ -28,15 +28,15 @@ void	cw_bon_handler(char **av, int ac, int param)
 		{
 			cw_error_msg("Wrong option format");
 			ft_printf("%sOptions available :\n", GRE);
-			ft_printf("-v : nCurse visualiser%s\n", EOC);
-			ft_printf("-d : debug mode%s\n", EOC);
-			ft_printf("-c : display cycles%s\n", EOC);
-			ft_printf("-z : dump zaz-like (use with dump option)%s\n", EOC);
+			ft_printf("-v : nCurse visualiser\n");
+			ft_printf("-d : debug mode\n");
+			ft_printf("-c : display cycles\n");
+			ft_printf("-z : dump zaz-like (use with dump option)\n");
 			ft_printf("-m : mute live messages%s\n", EOC);
 			exit(1);
 		}
 		param++;
 	}
-	if (g_bon['d'])
+	if (g_bon['d'] || g_bon['z'] || g_bon['c'])
 		g_bon['v'] = 0;
 }
