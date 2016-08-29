@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:10:01 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/25 16:21:01 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/29 09:25:00 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char					*asm_realloc(char *line, char *file, int i);
 */
 
 void					asm_init_global(void);
+int						asm_argc_check(int argc);
 
 /*
 ** Parse_instruct
