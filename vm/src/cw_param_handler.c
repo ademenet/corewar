@@ -40,9 +40,8 @@ int		cw_crea_step(int n[2], t_proc *proc, char **av, int c_nb)
 		if (cw_create_champion(av[n[1]], c_nb, proc, 0) <= 0)
 			return (cw_error_msg("Wrong champion file !"));
 	}
-	else
-		if (cw_create_champion(av[n[1]], n[0], proc, 1) <= 0)
-			return (cw_error_msg("Wrong champion file !"));
+	else if (cw_create_champion(av[n[1]], n[0], proc, 1) <= 0)
+		return (cw_error_msg("Wrong champion file !"));
 	if (cw_lst_sze(proc->champions) > 4)
 		return (cw_error_msg("Too much players (4 max)"));
 	return (1);
@@ -52,7 +51,7 @@ int		cw_param_loop(int param, int ac, char **av, t_proc *proc)
 {
 	long			n;
 	unsigned int	c_nb;
-	int tab[2];
+	int				tab[2];
 
 	c_nb = 0;
 	while ((n = 0) || (++param < ac && !(av[param][0] == '-' &&
@@ -104,7 +103,7 @@ int		cw_param(char **av, int ac, t_proc *proc)
 	n = 0;
 	if (!cw_param_fst_chk(ac, 1, av, proc))
 		return (0);
-	param = proc->dump ? param  + 2 : param;
+	param = proc->dump ? param + 2 : param;
 	if (!(param = cw_param_loop(param, ac, av, proc)))
 		return (0);
 	cw_bon_handler(av, ac, param);

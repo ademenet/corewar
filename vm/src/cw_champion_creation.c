@@ -73,7 +73,7 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 
 	if ((fd = open(file, O_RDONLY, 0555)) == -1)
 		return (cw_error_msg("failed to open .cor"));
-	if((chk = cw_get_header(proc, fd, c_nb, n)) == 0)
+	if ((chk = cw_get_header(proc, fd, c_nb, n)) == 0)
 		return (0);
 	c_nb = n ? c_nb : cw_find_num(proc, c_nb);
 	proc->champions->num = proc->champions->num ? proc->champions->num : c_nb;

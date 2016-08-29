@@ -22,7 +22,7 @@ void		cw_dump_display(t_proc *proc)
 	int		i;
 
 	i = 0;
-	if (g_bon ['z'])
+	if (g_bon['z'])
 		cw_dump_display_zazlike(proc);
 	else
 	{
