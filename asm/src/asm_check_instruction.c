@@ -6,7 +6,7 @@
 /*   By: gseropia <gseropia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 14:57:05 by gseropia          #+#    #+#             */
-/*   Updated: 2016/08/29 11:33:55 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/29 15:04:19 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int		asm_check_dir(char **line, int op, int check)
 		else
 			g_pos = g_pos + 4;
 		(*line)++;
-		if (**line != LABEL_CHAR && !(**line >= '0' && **line <= '9'))
+		if (**line != LABEL_CHAR && !(**line >= '0' && **line <= '9') &&
+		**line != '-' && **line != '+')
 			asm_error_sec(15);
 		if (**line == LABEL_CHAR)
 			(*line)++;
