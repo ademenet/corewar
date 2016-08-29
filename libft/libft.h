@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 09:48:03 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/01 11:00:10 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/29 14:35:56 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ float				ft_power(int nb, int exp);
 void				ft_lstappend(t_list *list, t_list *new);
 void				arr_set(char arr[256], char set, int len);
 int					ft_cinstr(char c, char *str);
+int					ft_strclen(char *str, char c);
 
 #endif
