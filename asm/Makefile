@@ -6,7 +6,7 @@
 #    By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/07/11 18:14:04 by tvisenti          #+#    #+#              #
-#    Updated: 2016/07/27 10:29:24 by gseropia         ###   ########.fr        #
+#    Updated: 2016/08/29 14:42:09 by tvisenti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ OBJLIB = $(addprefix $(OBJLIB_PATH)/,$(OBJLIB_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJLIB)
+	@echo ""
 	@make -C ../libft
 	@$(CC) $(FLAGS) -o $@ $^ ../libft/libft.a ../libft/ft_printf/libftprintf.a
 	@echo "\033[1;34mASM\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
@@ -60,22 +61,24 @@ $(NAME): $(OBJ) $(OBJLIB)
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(FLAGS) -o $@ -c $<
+	@printf "\033[42m \033[0m"
 
 $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
 	@mkdir $(OBJLIB_PATH) 2> /dev/null || true
 	@$(CC) $(FLAGS) -o $@ -c $<
+	@printf "\033[42m \033[0m"
 
 clean:
 	@rm -rf $(OBJ) $(OBJLIB)
-	@echo "\033[1;34mASM\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 	@cd ../libft && $(MAKE) clean
 	@cd ../libft/ft_printf && $(MAKE) clean
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 
 fclean: clean
 	@rm -rf ./obj $(NAME)
-	@echo "\033[1;34mASM\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 	@cd ../libft && $(MAKE) fclean
 	@cd ../libft/ft_printf && $(MAKE) fclean
+	@echo "\033[1;34mASM\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 
 re: fclean all
 
