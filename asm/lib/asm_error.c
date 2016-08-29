@@ -6,7 +6,7 @@
 /*   By: tvisenti <tvisenti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 19:08:37 by tvisenti          #+#    #+#             */
-/*   Updated: 2016/08/29 09:49:23 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/08/29 11:34:07 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int		asm_error_sec(int error)
 		ft_printf("Error multiple lines on name or comment\n");
 	if (error == 14)
 		ft_printf("Wrong file extension\n");
+	if (error == 15)
+		ft_printf("Damn it, you forgot a LABEL_CHAR\n");
 	exit(0);
 	return (0);
 }
