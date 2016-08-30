@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 12:06:03 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/30 14:19:53 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,20 @@ typedef struct					s_header
 typedef struct					s_champion
 {
 	t_header					*header;
-	char						reg[REG_NUMBER][REG_SIZE];
 	unsigned char				*ins;
-	unsigned short int			pc_origin;
-	unsigned short int			pc;
-	char						carry;
-	unsigned int				inst_c;
-	unsigned char				inst_num;
-	unsigned int				num;
-	unsigned int				lives;
-	char						is_champ;
-	char						id;
-	unsigned char				idp;
 	struct s_champion			*next;
 	struct s_champion			*prev;
+	unsigned int				inst_c;
+	unsigned int				num;
+	unsigned int				lives;
+	unsigned short int			pc_origin;
+	unsigned short int			pc;
+	unsigned char				inst_num;
+	unsigned char				idp;
+	char						is_champ;
+	char						carry;
+	char						id;
+	char						reg[REG_NUMBER][REG_SIZE];
 }								t_champion;
 
 /*
