@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/30 10:45:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/30 14:26:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int			cw_cycles_end(t_proc *proc)
 
 void		cw_kill_process(t_proc *proc, t_champion *tmp)
 {
+	if (g_bon['v'])
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	if (tmp->is_champ == 1)
 		tmp->is_champ = -1;
 	else
@@ -87,8 +89,6 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 			proc->champions = tmp->next;
 		free(tmp);
 	}
-	if (g_bon['v'])
-		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	if (g_bon['s'])
 		printf("\a");
 	proc->nb_proc--;
@@ -109,9 +109,7 @@ void		cw_cycles_checks_lives(t_proc *proc)
 		if (tmp->is_champ != -1)
 		{
 			if (tmp->lives == 0)
-			{
 				cw_kill_process(proc, tmp);
-			}
 			else
 				tmp->lives = 0;
 		}
