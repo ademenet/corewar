@@ -23,8 +23,13 @@
 int			cw_ins_aff(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 {
 	unsigned int	p;
+	int				reg;
 
-	p = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1) % 256;
-	ft_printf("%c", p);
+	reg = proc->mem[(tmp->pc + 2) % MEM_SIZE];
+	if (reg >= 1 && reg <= REG_SIZE && g_bon['m'] == 0)
+	{
+		p = cw_get_data_reg(tmp, reg - 1) % 256;
+		ft_printf("%c", p);
+	}
 	return (3);
 }
