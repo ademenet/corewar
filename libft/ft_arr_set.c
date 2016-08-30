@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void		arr_set(char arr[256], char set, int len)
+void		arr_set(char arr[128], char set, int len)
 {
 	int		i;
 

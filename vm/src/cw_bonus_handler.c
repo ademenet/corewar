@@ -19,7 +19,7 @@
 
 void	cw_bon_handler(char **av, int ac, int param)
 {
-	arr_set(g_bon, 0, 256);
+	arr_set(g_bon, 0, 128);
 	while (param < ac)
 	{
 		if (av[param][0] == '-' && ft_cinstr(param[av][1], "vdzcms"))
