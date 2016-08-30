@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/30 14:26:12 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/30 18:28:39 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,17 @@ int			cw_cycles_end(t_proc *proc)
 ** original alors on passe son flag is_champ à -1 pour signaler qu'il est mort.
 */
 
-void		cw_kill_process(t_proc *proc, t_champion *tmp)
+t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
 {
+	t_champion	*to_del;
+
+	to_del = tmp;
+	tmp = tmp->next;
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
-	if (tmp->is_champ == 1)
-		tmp->is_champ = -1;
-	else
+	if (to_del->is_champ == 1)
+		to_del->is_champ = -1;
+	else if (tmp != NULL)
 	{
 		if (tmp->next != NULL)
 			tmp->next->prev = tmp->prev;
@@ -87,11 +91,12 @@ void		cw_kill_process(t_proc *proc, t_champion *tmp)
 			tmp->prev->next = tmp->next;
 		if (tmp == proc->champions)
 			proc->champions = tmp->next;
-		free(tmp);
+		free(to_del);
 	}
 	if (g_bon['s'])
 		printf("\a");
 	proc->nb_proc--;
+	return (tmp);
 }
 
 /*
@@ -109,11 +114,15 @@ void		cw_cycles_checks_lives(t_proc *proc)
 		if (tmp->is_champ != -1)
 		{
 			if (tmp->lives == 0)
-				cw_kill_process(proc, tmp);
+				tmp = cw_kill_process(proc, tmp);
 			else
+			{
 				tmp->lives = 0;
+				tmp = tmp->next;
+			}
 		}
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 }
 
