@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 14:30:05 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 15:46:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** ligne.
 */
 
-void		cw_dump_display(t_proc *proc)
+void			cw_dump_display(t_proc *proc)
 {
 	int		i;
 
@@ -40,7 +40,7 @@ void		cw_dump_display(t_proc *proc)
 ** Vérifie qui est le gagnant et l'affiche.
 */
 
-int			cw_cycles_end(t_proc *proc)
+int				cw_cycles_end(t_proc *proc)
 {
 	int		i;
 
@@ -105,7 +105,7 @@ t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
 ** donnée.
 */
 
-void		cw_cycles_checks_lives(t_proc *proc)
+void			cw_cycles_checks_lives(t_proc *proc)
 {
 	t_champion	*tmp;
 
@@ -132,7 +132,7 @@ void		cw_cycles_checks_lives(t_proc *proc)
 ** condtions de victoires.
 */
 
-int			cw_cycles_checks(t_proc *proc, int *c_to_die)
+int				cw_cycles_checks(t_proc *proc, int *c_to_die)
 {
 	if (proc->dump != 0 && proc->c == proc->dump)
 	{
