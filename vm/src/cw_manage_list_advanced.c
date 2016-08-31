@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:48:15 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 15:46:25 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,16 @@ void			cw_lst_dsort_by_num(t_champion **champions)
 		id++;
 		tmp = tmp->next;
 	}
+}
+
+t_champion		*cw_lst_last(t_champion *begin)
+{
+	t_champion		*tmp;
+
+	tmp = begin;
+	if (begin == NULL)
+		return (begin);
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }
