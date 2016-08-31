@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/07/26 10:41:01 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 14:03:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int				cw_chk_champions(t_proc *proc)
 int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 {
 	t_header	*header;
+	t_champion	*new;
 
 	if ((header = malloc(sizeof(t_header))) == NULL)
 		return (cw_error_msg("failed to malloc the header"));
@@ -54,12 +55,14 @@ int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 	header->magic = cw_invert_endian(header->magic);
 	if (n)
 	{
-		cw_lst_add(&(proc->champions), cw_lst_new(header, c_nb));
+		new = cw_lst_new(header, c_nb);
+		cw_lst_add(&(proc->champions), new);
 		cw_lst_last(proc->champions)->is_champ = 1;
 	}
 	else
 	{
-		cw_lst_push(&(proc->champions), cw_lst_new(header, 0));
+		new = cw_lst_new(header, 0);
+		proc->champions = cw_lst_push(proc, new);
 		proc->champions->is_champ = 1;
 	}
 	return (cw_chk_champions(proc));
