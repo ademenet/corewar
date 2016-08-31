@@ -78,9 +78,9 @@ t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
 	t_champion	*to_del;
 
 	to_del = tmp;
-	tmp = tmp->next;
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
+	tmp = tmp->next;
 	if (to_del->is_champ == 1)
 		to_del->is_champ = -1;
 	else if (to_del != NULL)
