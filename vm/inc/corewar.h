@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 15:42:44 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 18:28:05 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,27 @@ typedef struct					s_header
 ** Structure d'un processus :
 */
 
+typedef struct					s_p
+{
+	struct s_p					*next;
+	struct s_p					*prev;
+	char						reg[REG_NUMBER][REG_SIZE];
+	unsigned int				ins_c;
+	unsigned int				lives;
+	int							id;
+	unsigned short int			pc;
+	unsigned char				opcode;
+	char						carry;
+}								t_p;
+
+/*
+** Structure contenant les infos des champions :
+*/
+
 typedef struct					s_champion
 {
 	t_header					*header;
-	unsigned char				*ins;
-	struct s_champion			*next;
-	struct s_champion			*prev;
-	unsigned int				inst_c;
 	unsigned int				num;
-	unsigned int				lives;
-	unsigned short int			pc_origin;
-	unsigned short int			pc;
-	unsigned char				inst_num;
-	unsigned int				idp;
-	char						is_champ;
-	char						carry;
-	char						id;
-	char						reg[REG_NUMBER][REG_SIZE];
 }								t_champion;
 
 /*
@@ -94,18 +98,17 @@ typedef struct					s_champion
 
 typedef struct					s_proc
 {
-	t_champion					*champions;
-	t_champion					*champ_by_id[5];
 	unsigned char				mem[MEM_SIZE];
+	t_champion					*champions[MAX_PLAYERS + 1];
+	WINDOW						*win[2];
+	t_p							*process;
 	unsigned int				dump;
 	unsigned int				nb_proc;
 	int							c_to_die;
 	unsigned int				c;
-	unsigned int				live[MAX_PLAYERS + 1];
 	unsigned int				lives_total;
 	unsigned int				checks;
-	unsigned char				last_live_id;
-	WINDOW						*win[2];
+	unsigned int				last_live_num;
 }								t_proc;
 
 /*
