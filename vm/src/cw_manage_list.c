@@ -6,11 +6,24 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 15:39:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 15:43:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/corewar.h"
+
+void				cw_lst_new_init(t_champion *new)
+{
+	new->ins = 0;
+	new->inst_c = 0;
+	new->lives = 0;
+	new->pc_origin = 0;
+	new->pc = 0;
+	new->inst_num = 0;
+	new->idp = 0;
+	new->carry = 0;
+	new->id = 0;
+}
 
 t_champion			*cw_lst_new(t_header *header, int num)
 {
@@ -27,6 +40,7 @@ t_champion			*cw_lst_new(t_header *header, int num)
 	new->next = NULL;
 	new->prev = NULL;
 	new->is_champ = 0;
+	cw_lst_new_init(new);
 	while (++reg_nb < REG_NUMBER)
 	{
 		while (++reg_sze < REG_SIZE)
@@ -36,22 +50,21 @@ t_champion			*cw_lst_new(t_header *header, int num)
 	return (new);
 }
 
-void				cw_lst_push(t_champion **begin, t_champion *new)
+t_champion			*cw_lst_push(t_proc *proc, t_champion *new)
 {
 	if (new == NULL)
 	{
 		ft_printf("In - cw_lst_push - new is NULL\n");
-		return ;
+		return (proc->champions);
 	}
-	if (*begin == NULL)
-		*begin = new;
-	else
+	if (proc->champions != NULL)
 	{
-		(*begin)->prev = new;
-		new->next = *begin;
+		proc->champions->prev = new;
+		new->next = proc->champions;
 		new->prev = NULL;
-		*begin = new;
 	}
+	proc->champions = new;
+	return (proc->champions);
 }
 
 void				cw_lst_add(t_champion **begin, t_champion *new)
@@ -92,16 +105,4 @@ int					cw_lst_sze(t_champion *begin)
 		sze++;
 	}
 	return (sze);
-}
-
-t_champion			*cw_lst_last(t_champion *begin)
-{
-	t_champion		*tmp;
-
-	tmp = begin;
-	if (begin == NULL)
-		return (begin);
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
 }
