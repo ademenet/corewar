@@ -90,7 +90,7 @@ t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
 		if (to_del->prev != NULL)
 			to_del->prev->next = to_del->next;
 		if (to_del == proc->champions)
-			proc->champions = tmp->next;
+			proc->champions = tmp;
 		free(to_del);
 		to_del = NULL;
 	}
