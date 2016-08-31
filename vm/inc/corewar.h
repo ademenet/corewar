@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/30 14:19:53 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 15:42:44 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct					s_champion
 	unsigned short int			pc_origin;
 	unsigned short int			pc;
 	unsigned char				inst_num;
-	unsigned char				idp;
+	unsigned int				idp;
 	char						is_champ;
 	char						carry;
 	char						id;
@@ -163,8 +163,7 @@ int								cw_load_ins_mem(t_proc *proc);
 */
 
 t_champion						*cw_lst_new(t_header *header, int num);
-void							cw_lst_push(t_champion **begin,
-								t_champion *new);
+t_champion						*cw_lst_push(t_proc *proc, t_champion *new);
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
 t_champion						*cw_lst_last(t_champion *begin);
