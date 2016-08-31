@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/30 18:28:39 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/08/31 14:30:05 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,16 @@ t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	if (to_del->is_champ == 1)
 		to_del->is_champ = -1;
-	else if (tmp != NULL)
+	else if (to_del != NULL)
 	{
-		if (tmp->next != NULL)
-			tmp->next->prev = tmp->prev;
-		if (tmp->prev != NULL)
-			tmp->prev->next = tmp->next;
-		if (tmp == proc->champions)
+		if (to_del->next != NULL)
+			to_del->next->prev = to_del->prev;
+		if (to_del->prev != NULL)
+			to_del->prev->next = to_del->next;
+		if (to_del == proc->champions)
 			proc->champions = tmp->next;
 		free(to_del);
+		to_del = NULL;
 	}
 	if (g_bon['s'])
 		printf("\a");
@@ -111,7 +112,7 @@ void		cw_cycles_checks_lives(t_proc *proc)
 	tmp = proc->champions;
 	while (tmp)
 	{
-		if (tmp->is_champ != -1)
+		if (tmp->is_champ > -1)
 		{
 			if (tmp->lives == 0)
 				tmp = cw_kill_process(proc, tmp);
