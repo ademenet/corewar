@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:24 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:20:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:10:43 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Même que and mais avec le ou exclusif (^ du c).
 */
 
-void		cw_exec_xor(t_champion *tmp, unsigned int p[3],
+void		cw_exec_xor(t_p *tmp, unsigned int p[3],
 			unsigned int p_sze[3], t_ocp *ocp)
 {
 	unsigned int	total;
@@ -34,7 +34,7 @@ void		cw_exec_xor(t_champion *tmp, unsigned int p[3],
 			tmp->carry = 0;
 		if (g_bon['d'])
 		{
-			ft_printf("P%5d | %s ", tmp->idp, "xor");
+			ft_printf("P%5d | %s ", tmp->id, "xor");
 			ft_printf("%d ", p[0]);
 			ft_printf("%d ", p[1]);
 			if (ocp->third == REG_CODE)
@@ -45,7 +45,7 @@ void		cw_exec_xor(t_champion *tmp, unsigned int p[3],
 	}
 }
 
-int			cw_ins_xor(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_xor(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	unsigned int	p[3];

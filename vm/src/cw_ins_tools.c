@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/22 15:19:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 14:00:07 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:24:10 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** - IND_CODE = 3 (0x03).
 */
 
-int					cw_ins_ocp(t_proc *proc, t_champion *champ, t_ocp *ocp)
+int					cw_ins_ocp(t_proc *proc, t_p *champ, t_ocp *ocp)
 {
 	unsigned char	ocp_v;
 

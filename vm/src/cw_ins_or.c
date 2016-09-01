@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/14 12:57:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:17:05 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:11:01 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Même que and mais avec le ou ( | du c).
 */
 
-void	cw_exec_or(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
+void	cw_exec_or(t_p *tmp, unsigned int p[3], unsigned int p_sze[3])
 {
 	unsigned int	total;
 
@@ -34,7 +34,7 @@ void	cw_exec_or(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
 		tmp->carry = 0;
 }
 
-int		cw_ins_or(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int		cw_ins_or(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	unsigned int	p[3];

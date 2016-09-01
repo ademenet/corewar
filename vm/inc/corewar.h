@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 10:50:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:28:49 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct					s_p
 	unsigned int				ins_c;
 	unsigned int				lives;
 	unsigned int				id;
+	int							id_champion;
 	unsigned short int			pc;
 	unsigned char				opcode;
 	char						carry;
@@ -91,6 +92,7 @@ typedef struct					s_champion
 	t_header					*header;
 	char						*insert;
 	unsigned int				num;
+	int							id_champion;
 }								t_champion;
 
 /*
@@ -101,6 +103,7 @@ typedef struct					s_proc
 {
 	unsigned char				mem[MEM_SIZE];
 	t_champion					champions[MAX_PLAYERS + 1];
+	unsigned int				lives_champions[MAX_PLAYERS + 1];
 	WINDOW						*win[2];
 	t_p							*process;
 	unsigned int				dump;
@@ -180,8 +183,10 @@ void							cw_init_champ_array(t_proc *proc);
 
 int								cw_processor(t_proc *proc);
 void							cw_exec_process(t_proc *proc);
-void							cw_exec_process_instruct(t_proc *proc,
-								t_champion *tmp, t_ocp *ocp);
+void							cw_exec_process_instruct(t_proc *proc, t_p *tmp,
+								t_ocp *ocp);
+void							cw_exec_process_pcincrement(t_proc *proc,
+								t_p *tmp, int size);
 int								cw_check_live_process(t_proc *proc);
 int								cw_cycles_checks(t_proc *proc, int *c_to_die);
 void							cw_dump_display(t_proc *proc);
@@ -191,6 +196,7 @@ void							cw_dump_display(t_proc *proc);
 */
 
 void							cw_proc_init(t_proc *proc);
+void							cw_get_opcode(t_proc *proc, t_p *tmp);
 void							cw_load_ins_c(t_proc *proc);
 unsigned int					cw_ins_param_sze(char param, int dir);
 
@@ -273,14 +279,13 @@ void							cw_vizualizer_init_memprint(t_proc *proc);
 void							cw_vizualizer_init_memprint(t_proc *proc);
 void							cw_vizualizer_infos(t_proc *proc);
 void							cw_vizualizer_infos_side(t_proc *proc, int y);
-void							cw_vizualizer_pcprint(t_proc *proc,
-								t_champion *tmp, char col);
-void							cw_vizualizer_print(t_proc *proc,
-								t_champion *tmp, int where, unsigned char what);
-
+void							cw_vizualizer_pcprint(t_proc *proc, t_p *tmp,
+								char col);
+void							cw_vizualizer_print(t_proc *proc, t_p *tmp,
+								int where, unsigned char what);
 void							cw_show_mem(char *start, int n);
 void							cw_vizualizer_winner(t_proc *proc,
-								t_champion *winner);
+								t_champion winner);
 
 /*
 **	BONUS : GESTION DES OPTIONs
@@ -292,8 +297,8 @@ void							cw_bon_handler(char **av, int ac, int param);
 ** BONUS : DEBUGGER
 */
 
-void							cw_bonus_db_twoparams(t_proc *proc,
-								t_champion *tmp, t_ocp *ocp, int p[2]);
+void							cw_bonus_db_twoparams(t_proc *proc, t_p *tmp,
+								t_ocp *ocp, int p[2]);
 
 /*
 ** BONUS : DUMP ZAZ-LIKE

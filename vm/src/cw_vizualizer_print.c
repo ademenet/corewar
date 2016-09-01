@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/25 16:34:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:29:27 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** visualiseur.
 */
 
-void		cw_vizualizer_print(t_proc *proc, t_champion *tmp, int where,
+void		cw_vizualizer_print(t_proc *proc, t_p *tmp, int where,
 			unsigned char what)
 {
 	int		*coord;
@@ -28,9 +28,9 @@ void		cw_vizualizer_print(t_proc *proc, t_champion *tmp, int where,
 		coord[1] = where % 64 + 1;
 	else
 		coord[1] = where % 64 * 3 + 1;
-	wattron(proc->win[0], COLOR_PAIR(tmp->id + 10));
+	wattron(proc->win[0], COLOR_PAIR(tmp->id_champion + 10));
 	mvwprintw(proc->win[0], coord[0], coord[1], "%.2hhx", what);
-	wattroff(proc->win[0], COLOR_PAIR(tmp->id + 10));
+	wattroff(proc->win[0], COLOR_PAIR(tmp->id_champion + 10));
 	free(coord);
 }
 
@@ -41,7 +41,7 @@ void		cw_vizualizer_print(t_proc *proc, t_champion *tmp, int where,
 ** 5 permet de réinitialiser la couleur.
 */
 
-void		cw_vizualizer_pcprint(t_proc *proc, t_champion *tmp, char col)
+void		cw_vizualizer_pcprint(t_proc *proc, t_p *tmp, char col)
 {
 	int		*coord;
 
@@ -88,17 +88,13 @@ void		cw_vizualizer_infos(t_proc *proc)
 	y = 4;
 	while (tmp)
 	{
-		if (tmp->is_champ != 0)
-		{
-			wattron(proc->win[1], COLOR_PAIR(tmp->id + 10) | A_BOLD);
-			mvwprintw(proc->win[1], y, 2, "Player %d : %s", tmp->num,
-				tmp->header->prog_name);
-			wattroff(proc->win[1], COLOR_PAIR(tmp->id + 10) | A_BOLD);
-			mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u",
-				proc->live[tmp->id - 1]);
-			y += 2;
-		}
-		tmp = tmp->next;
+		wattron(proc->win[1], COLOR_PAIR(tmp->id_champion + 10) | A_BOLD);
+		mvwprintw(proc->win[1], y, 2, "Player %d : %s", tmp->num,
+			tmp->header->prog_name);
+		wattroff(proc->win[1], COLOR_PAIR(tmp->id_champion + 10) | A_BOLD);
+		mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u",
+			proc->lives_champions[tmp->id_champion - 1]);
+		y += 2;
 	}
 	cw_vizualizer_infos_side(proc, y);
 }
@@ -107,13 +103,13 @@ void		cw_vizualizer_infos(t_proc *proc)
 ** Fonction qui affiche le gagnant dans le visualiseur.
 */
 
-void		cw_vizualizer_winner(t_proc *proc, t_champion *winner)
+void		cw_vizualizer_winner(t_proc *proc, t_champion winner)
 {
 	werase(proc->win[1]);
-	wattron(proc->win[1], COLOR_PAIR(winner->id + 10) | A_BOLD);
-	mvwprintw(proc->win[1], 60, 2, "Le joueur %d(%s) a gagné", winner->num,
-	winner->header->prog_name);
-	wattroff(proc->win[1], COLOR_PAIR(winner->id + 10) | A_BOLD);
+	wattron(proc->win[1], COLOR_PAIR(winner.id_champion + 10) | A_BOLD);
+	mvwprintw(proc->win[1], 60, 2, "Le joueur %d(%s) a gagné", winner.num,
+	winner.header->prog_name);
+	wattroff(proc->win[1], COLOR_PAIR(winner.id_champion + 10) | A_BOLD);
 	mvwprintw(proc->win[1], 62, 2, "(appuyer sur [echap] pour quitter)");
 	wrefresh(proc->win[1]);
 	while (1)

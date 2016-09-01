@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 11:44:29 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/22 12:10:07 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:30:14 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 
 void		cw_vizualizer_init_pc(t_proc *proc)
 {
-	t_champion	*tmp;
+	t_p		*tmp;
 
-	tmp = proc->champions;
+	tmp = proc->process;
 	while (tmp)
 	{
-		cw_vizualizer_pcprint(proc, tmp, tmp->id);
+		cw_vizualizer_pcprint(proc, tmp, tmp->id_champion);
 		tmp = tmp->next;
 	}
 }
@@ -39,14 +39,14 @@ void		cw_vizualizer_init_pc(t_proc *proc)
 
 int			cw_vizualizer_colinit(t_proc *proc, int i)
 {
-	t_champion	*tmp;
+	t_p		*tmp;
 
-	tmp = proc->champions;
+	tmp = proc->process;
 	while (tmp)
 	{
-		if (i >= tmp->pc_origin && i <
-			(tmp->pc_origin + tmp->header->prog_size))
-			return ((tmp->id + 10));
+		if (i >= tmp->pc && i <
+			(tmp->pc + proc->champions[tmp->id_champion].header->prog_size)) // a revoir pour index de champion[...]
+			return ((tmp->id_champion + 10));
 		tmp = tmp->next;
 	}
 	return (5);

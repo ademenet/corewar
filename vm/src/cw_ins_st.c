@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 18:43:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:22:53 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** du premier argument (toujours un registre) dans le second.
 */
 
-void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p,
+void		cw_ins_st_display(t_proc *proc, t_p *tmp, unsigned int p,
 			unsigned int ind_reg)
 {
 	unsigned int	i;
@@ -32,10 +32,10 @@ void		cw_ins_st_display(t_proc *proc, t_champion *tmp, unsigned int p,
 		}
 	}
 	else if (g_bon['d'])
-		ft_printf("P%5d | %s r%d %d\n", tmp->idp, "st", ind_reg + 1, p);
+		ft_printf("P%5d | %s r%d %d\n", tmp->id, "st", ind_reg + 1, p);
 }
 
-int			cw_ins_st_pro(t_proc *proc, t_champion *tmp, t_ocp *ocp,
+int			cw_ins_st_pro(t_proc *proc, t_p *tmp, t_ocp *ocp,
 			unsigned int p_sze[2])
 {
 	if ((proc->mem[(tmp->pc + 2 + p_sze[0]) % MEM_SIZE] - 1 < 0 &&
@@ -44,7 +44,7 @@ int			cw_ins_st_pro(t_proc *proc, t_champion *tmp, t_ocp *ocp,
 	return (0);
 }
 
-int			cw_ins_st(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_st(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
 	short int		p[2];

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:34 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:15:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:25:21 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Comme ldi sans le %IDX_MOD Cette opération modifie le carry.
 */
 
-int			cw_ins_lldi_secondparamhandler(t_proc *proc, t_champion *tmp,
+int			cw_ins_lldi_secondparamhandler(t_proc *proc, t_p *tmp,
 										char ocp, unsigned int p_sze)
 {
 	if (ocp == REG_CODE && proc->mem[(tmp->pc + 2 + p_sze) % MEM_SIZE] > 0
@@ -33,7 +33,7 @@ int			cw_ins_lldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 	return (0);
 }
 
-int			cw_ins_lldi_firstparamhandler(t_proc *proc, t_champion *tmp,
+int			cw_ins_lldi_firstparamhandler(t_proc *proc, t_p *tmp,
 										char ocp)
 {
 	if (ocp == REG_CODE && proc->mem[(tmp->pc + 2) % MEM_SIZE] > 0
@@ -49,7 +49,7 @@ int			cw_ins_lldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 	return (0);
 }
 
-int			cw_ins_lldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_lldi(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p[3];
 	unsigned int	p_sze[3];

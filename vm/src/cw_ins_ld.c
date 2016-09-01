@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:11:59 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:14:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:32:58 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** le registre. Cette opération modifie le carry.
 */
 
-int			cw_ins_ld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_ld(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
 	unsigned int	p[2];

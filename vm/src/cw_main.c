@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 10:34:15 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 17:55:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:49:46 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void			cw_proc_init(t_proc *proc)
 {
-	ft_bzero(proc->mem, MEM_SIZE);
+	ft_bzero(proc->mem, sizeof(unsigned char) * MEM_SIZE);
 	ft_bzero(proc->champions, sizeof(t_champion) * (MAX_PLAYERS + 1));
+	ft_bzero(proc->lives_champions, sizeof(unsigned int) * (MAX_PLAYERS + 1));
+	proc->process = NULL;
 	proc->dump = 0;
 	proc->nb_proc = 0;
 	proc->c_to_die = 0;
@@ -38,10 +40,10 @@ int				main(int ac, char **av)
 			proc.champions[i].header->comment);
 	printf("dump : %d\nnb proc : %d\n", proc.dump, proc.nb_proc);
 	cw_load_ins_mem(&proc);
-	// cw_init_champ_array(&proc);
-	// if (g_bon['v'])
-	// 	cw_vizualizer_processor(&proc);
-	// else
-	// 	cw_processor(&proc);
+	cw_init_champ_array(&proc);
+	if (g_bon['v'])
+		cw_vizualizer_processor(&proc);
+	else
+		cw_processor(&proc);
 	return (0);
 }
