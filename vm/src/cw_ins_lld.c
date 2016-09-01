@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:31 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/19 10:23:28 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:27:27 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Comme ld sans le %IDX_MOD Cette opération modifie le carry.
 */
 
-int			cw_ins_lld(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_lld(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[2];
 	unsigned int	p[2];
