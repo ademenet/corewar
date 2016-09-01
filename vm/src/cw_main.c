@@ -35,11 +35,18 @@ int				main(int ac, char **av)
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
 	int i = -1;
-	while (proc.champions[++i].num)
-		printf("num : %d\nnom %s\ncommentaire %s\n", proc.champions[i].num, proc.champions[i].header->prog_name,
-			proc.champions[i].header->comment);
-	printf("dump : %d\nnb proc : %d\n", proc.dump, proc.nb_proc);
+	// while (proc.champions[++i].num)
+	// 	printf("num : %d\nnom %s\ncommentaire %s\n", proc.champions[i].num, proc.champions[i].header->prog_name,
+	// 		proc.champions[i].header->comment);
+	// printf("dump : %d\nnb proc : %d\n", proc.dump, proc.nb_proc);
 	cw_load_ins_mem(&proc);
+	t_p *tmp;
+	tmp = proc.process;
+	while (tmp)
+	{
+		printf("id %d\n", tmp->id);
+		tmp = tmp->next;
+	}
 	if (g_bon['v'])
 		cw_vizualizer_processor(&proc);
 	else

@@ -20,9 +20,11 @@ int				cw_biggest_num(t_proc *proc)
 
 
 	i = 0;
+	ret = 0;
 	num = proc->champions[i].num;
 	while (proc->champions[i].num)
 	{
+		printf("%d\n", proc->champions[i].num);
 		if (num < proc->champions[i].num && proc->champions[i].insert)
 		{
 			num = proc->champions[i].num;
@@ -30,6 +32,8 @@ int				cw_biggest_num(t_proc *proc)
 		}
 		i++;
 	}
+	printf("%d\n", ret);
+	printf("%d\n", proc->champions[i].num);
 	return (ret);
 }
 
@@ -43,7 +47,7 @@ int				cw_load_ins_mem(t_proc *proc)
 
 	cnt = 0;
 	i = 0;
-	cnt2 = 0;
+	cnt2 = -1;
 	while (++cnt2 < proc->nb_proc)
 	{
 		tmp = proc->champions[cw_biggest_num(proc)];
