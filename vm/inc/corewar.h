@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 10:50:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 14:26:20 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,10 @@ void							cw_init_champ_array(t_proc *proc);
 
 int								cw_processor(t_proc *proc);
 void							cw_exec_process(t_proc *proc);
-void							cw_exec_process_instruct(t_proc *proc,
-								t_champion *tmp, t_ocp *ocp);
+void							cw_exec_process_instruct(t_proc *proc, t_p *tmp,
+								t_ocp *ocp);
+void							cw_exec_process_pcincrement(t_proc *proc,
+								t_p *tmp, int size);
 int								cw_check_live_process(t_proc *proc);
 int								cw_cycles_checks(t_proc *proc, int *c_to_die);
 void							cw_dump_display(t_proc *proc);
@@ -191,6 +193,7 @@ void							cw_dump_display(t_proc *proc);
 */
 
 void							cw_proc_init(t_proc *proc);
+void							cw_get_opcode(t_proc *proc, t_p *tmp);
 void							cw_load_ins_c(t_proc *proc);
 unsigned int					cw_ins_param_sze(char param, int dir);
 
@@ -292,8 +295,8 @@ void							cw_bon_handler(char **av, int ac, int param);
 ** BONUS : DEBUGGER
 */
 
-void							cw_bonus_db_twoparams(t_proc *proc,
-								t_champion *tmp, t_ocp *ocp, int p[2]);
+void							cw_bonus_db_twoparams(t_proc *proc, t_p *tmp,
+								t_ocp *ocp, int p[2]);
 
 /*
 ** BONUS : DUMP ZAZ-LIKE
