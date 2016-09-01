@@ -24,13 +24,13 @@ static void	cw_ins_live_display(t_proc *proc, t_p *tmp, t_champion *champ)
 		werase(proc->win[1]);
 		mvwprintw(proc->win[1], 60, 2,
 			"Un processus dit que le joueur %d(%s) est en vie\n",
-			champ->num, champ.header->prog_name);
+			champ->num, champ->header->prog_name);
 	}
 	else if (g_bon['d'])
-		ft_printf("P%5d | %s %d\n", tmp->id, "live", champ.num);
+		ft_printf("P%5d | %s %d\n", tmp->id, "live", champ->num);
 	else if (proc->dump == 0 && g_bon['m'] == 0)
 		ft_printf("Un processus dit que le joueur %d(%s) est en vie\n",
-			champ->num, champ.header->prog_name);
+			champ->num, champ->header->prog_name);
 }
 
 int			cw_ins_live(t_proc *proc, t_p *tmp, t_ocp *ocp)
@@ -47,7 +47,7 @@ int			cw_ins_live(t_proc *proc, t_p *tmp, t_ocp *ocp)
 		if (proc->champions[i].num == check)
 		{
 			proc->lives_champions[tmp->id_champion - 1] += 1;
-			cw_ins_live_display(proc, tmp, proc->champions[i]);
+			cw_ins_live_display(proc, tmp, &proc->champions[i]);
 			proc->last_live_num = proc->champions[i].num;
 			return (5);
 		}

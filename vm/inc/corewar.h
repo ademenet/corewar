@@ -170,7 +170,7 @@ int								cw_load_ins_mem(t_proc *proc);
 ** GESTION DES LISTES DE CHAMPIONS
 */
 
-t_champion						*cw_lst_new(t_header *header, int num);
+t_champion						*cw_lst_new(int num);
 t_champion						*cw_lst_push(t_proc *proc, t_champion *new);
 void							cw_lst_add(t_champion **begin, t_champion *new);
 int								cw_lst_sze(t_champion *begin);
@@ -232,7 +232,7 @@ int								cw_ins_zjmp(t_proc *proc, t_p *tmp, t_ocp *ocp);
 ** INSTRUCTIONS : FONCTIONS OUTILS
 */
 
-int								cw_ins_ocp(t_proc *proc, t_champion *champ,
+int								cw_ins_ocp(t_proc *proc, t_p *champ,
 								t_ocp *ocp);
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);

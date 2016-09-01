@@ -47,7 +47,7 @@ int				cw_load_ins_mem(t_proc *proc)
 	while (++cnt2 < proc->nb_proc)
 	{
 		tmp = proc->champions[cw_biggest_num(proc)];
-		lst_add(proc->process, lst_new(tmp.id_champion));
+		lst_add(&proc->process, lst_new(tmp.id_champion));
 		last = lst_last(proc->process);
 		last->reg[0][0] = tmp->num >> 24;
 		last->reg[0][1] = tmp->num >> 16;
