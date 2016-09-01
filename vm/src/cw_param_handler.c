@@ -14,27 +14,33 @@
 
 long	cw_cnb_chk(long c_nb, t_proc *proc, char *str)
 {
-	t_champion		*tmp;
+	t_champion		tmp;
 	int				cur;
+	int				i;
 
+	i = 0;
+	tmp = proc->champions[i];
 	cur = -1;
 	while (str[++cur])
 		if (!isdigit(str[cur]) && str[0] != '-')
 			return (cw_error_msg("The player number is not valid"));
-	tmp = proc->champions;
 	if (c_nb <= 0)
 		return (cw_error_msg("The player number musn't be negative or nil"));
-	while (tmp)
+	while (tmp.num)
 	{
-		if (tmp->num == c_nb)
+		if (tmp.num == c_nb)
 			return (cw_error_msg("Number already assigned to a player"));
-		tmp = tmp->next;
+		i++;
+		tmp = proc->champions[i];
 	}
 	return (1);
 }
 
 int		cw_crea_step(int n[2], t_proc *proc, char **av, int c_nb)
 {
+	int				i;
+
+	i = 0;
 	if (!n[0])
 	{
 		if (cw_create_champion(av[n[1]], c_nb, proc, 0) <= 0)
@@ -42,8 +48,10 @@ int		cw_crea_step(int n[2], t_proc *proc, char **av, int c_nb)
 	}
 	else if (cw_create_champion(av[n[1]], n[0], proc, 1) <= 0)
 		return (cw_error_msg("Wrong champion file !"));
-	if (cw_lst_sze(proc->champions) > 4)
-		return (cw_error_msg("Too much players (4 max)"));
+	while (proc->champions[i].num != 0)
+		i++;
+	if (i > MAX_PLAYERS)
+		return (cw_error_msg("Too much players"));
 	return (1);
 }
 
@@ -73,12 +81,12 @@ int		cw_param_loop(int param, int ac, char **av, t_proc *proc)
 		if (!cw_crea_step(tab, proc, av, c_nb))
 			return (0);
 	}
-	return (proc->champions == NULL ? cw_error_msg("Wrong format") : param);
+	return (proc->champions[0].num == 0 ? cw_error_msg("Wrong format") : param);
 }
 
 int		cw_param_fst_chk(int ac, int param, char **av, t_proc *proc)
 {
-	unsigned int	n;
+	int				n;
 
 	n = -1;
 	if (ac < 2)
@@ -103,83 +111,82 @@ int		cw_param(char **av, int ac, t_proc *proc)
 	c_nb = 0;
 	if (!cw_param_fst_chk(ac, 1, av, proc))
 		return (0);
-	param = proc->dump ? param + 2 : param; // recupere dump
+	param = proc->dump ? param + 2 : param;
 	if (!(param = cw_param_loop(param, ac, av, proc)))
 		return (0);
-	cw_bon_handler(av, ac, param);
-	cw_lst_dsort_by_num(&(proc->champions));
+	//cw_bon_handler(av, ac, param);
 	return (1);
 }
 
-void		cw_param_bonus_alert(void)
-{
-	cw_error_msg("Wrong option format");
-	ft_printf("%sOptions available :\n", GRE);
-	ft_printf("-v : nCurse visualiser\n");
-	ft_printf("-d : debug mode\n");
-	ft_printf("-c : display cycles\n");
-	ft_printf("-s : play beep when process is killed\n");
-	ft_printf("-z : dump zaz-like (use with dump option)\n");
-	ft_printf("-m : mute live messages%s\n", EOC);
-	exit(1);
-}
+// void		cw_param_bonus_alert(void)
+// {
+// 	cw_error_msg("Wrong option format");
+// 	ft_printf("%sOptions available :\n", GRE);
+// 	ft_printf("-v : nCurse visualiser\n");
+// 	ft_printf("-d : debug mode\n");
+// 	ft_printf("-c : display cycles\n");
+// 	ft_printf("-s : play beep when process is killed\n");
+// 	ft_printf("-z : dump zaz-like (use with dump option)\n");
+// 	ft_printf("-m : mute live messages%s\n", EOC);
+// 	exit(1);
+// }
 
-int		cw_param_bonus(char *av)
-{
-	arr_set(g_bon, 0, 128);
-	while (*av)
-	{
-		if (ft_cinstr(av[1], "vdzcms"))
-			g_bon[(unsigned char)av] = 1;
-		else
-			cw_param_bonus_alert();
-		av++;
-	}
-	if (g_bon['d'] || g_bon['z'] || g_bon['c'])
-		g_bon['v'] = 0;
-	return (0);
-}
+// int		cw_param_bonus(char *av)
+// {
+// 	arr_set(g_bon, 0, 128);
+// 	while (*av)
+// 	{
+// 		if (ft_cinstr(av[1], "vdzcms"))
+// 			g_bon[(unsigned char)av] = 1;
+// 		else
+// 			cw_param_bonus_alert();
+// 		av++;
+// 	}
+// 	if (g_bon['d'] || g_bon['z'] || g_bon['c'])
+// 		g_bon['v'] = 0;
+// 	return (0);
+// }
 
-int		cw_param_file(unsigned int num;)
-{
-	if (num > 0)
+// int		cw_param_file(unsigned int num;)
+// {
+// 	if (num > 0)
 
-	return (0);
-}
+// 	return (0);
+// }
 
-int		cw_param_arguments(t_proc *proc, char **av, int i)
-{
-	int				ret;
-	unsigned int	n;
+// int		cw_param_arguments(t_proc *proc, char **av, int i)
+// {
+// 	int				ret;
+// 	unsigned int	n;
 
-	ret = 0;
-	if (ft_strcmp(av[i], "-dump") == 0 && (av[i + 1] != NULL ||
-		(n = ft_atoi(av[i + 1])) > 0))
-		proc->dump = n;
-	else if (av[i][1] == 'n' && (av[i + 1] != NULL ||
-		(n = ft_atoi(av[i + 1])) > 0))
-		cw_param_file(n);
-	else
-		cw_param_bonus(av[i]);
-	return (ret);
-}
+// 	ret = 0;
+// 	if (ft_strcmp(av[i], "-dump") == 0 && (av[i + 1] != NULL ||
+// 		(n = ft_atoi(av[i + 1])) > 0))
+// 		proc->dump = n;
+// 	else if (av[i][1] == 'n' && (av[i + 1] != NULL ||
+// 		(n = ft_atoi(av[i + 1])) > 0))
+// 		cw_param_file(n);
+// 	else
+// 		cw_param_bonus(av[i]);
+// 	return (ret);
+// }
 
-int		cw_param(char **av, int ac, t_proc *proc)
-{
-	int	i;
-	int	ret;
+// int		cw_param(char **av, int ac, t_proc *proc)
+// {
+// 	int	i;
+// 	int	ret;
 
-	i = 1;
-	ret = 0;
-	while (i < ac)
-	{
-		if (av[i][0] == '-' && (i + 1) < ac)
-			ret = cw_param_arguments(proc, av, i);
-		else
-			ret = cw_param_file(0);
-		if (ret != 0)
-			return (0);
-		i += ret;
-	}
-	return (0);
-}
+// 	i = 1;
+// 	ret = 0;
+// 	while (i < ac)
+// 	{
+// 		if (av[i][0] == '-' && (i + 1) < ac)
+// 			ret = cw_param_arguments(proc, av, i);
+// 		else
+// 			ret = cw_param_file(0);
+// 		if (ret != 0)
+// 			return (0);
+// 		i += ret;
+// 	}
+// 	return (0);
+// }

@@ -17,6 +17,7 @@ void			cw_proc_init(t_proc *proc)
 	ft_bzero(proc->mem, sizeof(unsigned char) * MEM_SIZE);
 	ft_bzero(proc->champions, sizeof(t_champion) * (MAX_PLAYERS + 1));
 	ft_bzero(proc->lives_champions, sizeof(unsigned int) * (MAX_PLAYERS + 1));
+	proc->process = NULL;
 	proc->dump = 0;
 	proc->nb_proc = 0;
 	proc->c_to_die = 0;
@@ -33,6 +34,11 @@ int				main(int ac, char **av)
 	cw_proc_init(&proc);
 	if (cw_param(av, ac, &proc) <= 0)
 		return (ft_printf("Fail !\n"));
+	int i = -1;
+	while (proc.champions[++i].num)
+		printf("num : %d\nnom %s\ncommentaire %s\n", proc.champions[i].num, proc.champions[i].header->prog_name,
+			proc.champions[i].header->comment);
+	printf("dump : %d\nnb proc : %d\n", proc.dump, proc.nb_proc);
 	cw_load_ins_mem(&proc);
 	cw_init_champ_array(&proc);
 	if (g_bon['v'])

@@ -12,64 +12,54 @@
 
 #include "../inc/corewar.h"
 
-void				cw_lst_new_init(t_champion *new)
+t_p				*cw_lst_new(int num)
 {
-	new->ins = 0;
-	new->inst_c = 0;
-	new->lives = 0;
-	new->pc_origin = 0;
-	new->pc = 0;
-	new->inst_num = 0;
-	new->idp = 0;
-	new->carry = 0;
-	new->id = 0;
-}
+	t_p			*new;
+	int			reg_sze;
+	int			reg_nb;
 
-t_champion			*cw_lst_new(t_header *header, int num)
-{
-	t_champion		*new;
-	int				reg_sze;
-	int				reg_nb;
-
-	if ((new = malloc(sizeof(t_champion))) == NULL)
+	if ((new = malloc(sizeof(t_p))) == NULL)
 		return (NULL);
 	reg_sze = -1;
 	reg_nb = -1;
-	new->header = header;
-	new->num = num;
 	new->next = NULL;
 	new->prev = NULL;
-	new->is_champ = 0;
-	cw_lst_new_init(new);
 	while (++reg_nb < REG_NUMBER)
 	{
 		while (++reg_sze < REG_SIZE)
 			new->reg[reg_nb][reg_sze] = 0;
 		reg_sze = -1;
 	}
+	new->inst_c = 0;
+	new->lives = 0;
+	new->id = 0;
+	new->id_champion = num;
+	new->pc = 0;
+	new->opcode = 0;
+	new->carry = 0;
 	return (new);
 }
 
-t_champion			*cw_lst_push(t_proc *proc, t_champion *new)
+t_p				*cw_lst_push(t_proc *proc, t_p *new)
 {
 	if (new == NULL)
 	{
 		ft_printf("In - cw_lst_push - new is NULL\n");
-		return (proc->champions);
+		return (proc->process);
 	}
-	if (proc->champions != NULL)
+	if (proc->process != NULL)
 	{
-		proc->champions->prev = new;
-		new->next = proc->champions;
+		proc->process->prev = new;
+		new->next = proc->process;
 		new->prev = NULL;
 	}
-	proc->champions = new;
-	return (proc->champions);
+	proc->process = new;
+	return (proc->process);
 }
 
-void				cw_lst_add(t_champion **begin, t_champion *new)
+void			cw_lst_add(t_p **begin, t_p *new)
 {
-	t_champion		*tmp;
+	t_p			*tmp;
 
 	if (new == NULL)
 	{
@@ -92,10 +82,10 @@ void				cw_lst_add(t_champion **begin, t_champion *new)
 	new->next = NULL;
 }
 
-int					cw_lst_sze(t_champion *begin)
+int			cw_lst_sze(t_p *begin)
 {
-	t_champion		*tmp;
-	int				sze;
+	t_p		*tmp;
+	int		sze;
 
 	sze = 0;
 	tmp = begin;

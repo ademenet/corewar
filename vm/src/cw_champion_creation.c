@@ -12,32 +12,48 @@
 
 #include "../inc/corewar.h"
 
+int		cw_error_msg(char *msg)
+{
+	ft_printf("%s%s%s\n", RED, msg, EOC);
+	return (0);
+}
+
+int		cw_invert_endian(int x)
+{
+	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000)
+		| ((x << 24) & 0xff000000);
+	return (x);
+}
+
 int				cw_find_num(t_proc *proc, int c_nb)
 {
-	t_champion	*tmp;
+	t_champion	tmp;
+	int			i;
 
-	tmp = proc->champions;
-	while (tmp)
+	i = 0;
+	tmp = proc->champions[i];
+	while (tmp.num)
 	{
-		if (tmp->num == c_nb)
+		if (tmp.num == c_nb)
 		{
 			c_nb++;
-			tmp = proc->champions;
+			i = 0;
+			tmp = proc->champions[i];
 		}
 		else
-			tmp = tmp->next;
+			tmp = proc->champions[++i];
 	}
 	return (c_nb);
 }
 
-int				cw_chk_champions(t_proc *proc)
+int				cw_chk_champions(t_proc *proc, int i)
 {
-	t_champion	*champ;
+	t_champion	champ;
 
-	champ = cw_lst_last(proc->champions);
-	if (champ->header->magic != COREWAR_EXEC_MAGIC)
+	champ = proc->champions[i];
+	if (champ.header->magic != COREWAR_EXEC_MAGIC)
 		return (cw_error_msg("Wrong magic number"));
-	if (champ->header->prog_size > CHAMP_MAX_SIZE)
+	if (champ.header->prog_size > CHAMP_MAX_SIZE)
 		return (cw_error_msg("a champion is too fat"));
 	return (1);
 }
@@ -45,50 +61,50 @@ int				cw_chk_champions(t_proc *proc)
 int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 {
 	t_header	*header;
-	t_champion	*new;
+	t_champion	new;
+	int			i;
 
+	i = 0;
 	if ((header = malloc(sizeof(t_header))) == NULL)
 		return (cw_error_msg("failed to malloc the header"));
 	if (read(fd, header, sizeof(t_header)) == -1)
 		return (cw_error_msg("failed to read the header"));
 	header->prog_size = cw_invert_endian(header->prog_size);
 	header->magic = cw_invert_endian(header->magic);
-	if (n)
-	{
-		new = cw_lst_new(header, c_nb);
-		cw_lst_add(&(proc->champions), new);
-		cw_lst_last(proc->champions)->is_champ = 1;
-	}
-	else
-	{
-		new = cw_lst_new(header, 0);
-		proc->champions = cw_lst_push(proc, new);
-		proc->champions->is_champ = 1;
-	}
-	return (cw_chk_champions(proc));
+	while (proc->champions[i].num)
+		i++;
+	proc->champions[i].header = header; 
+	return (cw_chk_champions(proc, i));
 }
 
 int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 {
 	int			fd;
 	int			chk;
-	t_champion	*c_in_load;
+	t_champion	c_in_load;
+	int			i;
 
+	i = 0;
 	if ((fd = open(file, O_RDONLY, 0555)) == -1)
-		return (cw_error_msg("failed to open .cor"));
+		return (cw_error_msg("failed to open the champion file"));
 	if ((chk = cw_get_header(proc, fd, c_nb, n)) == 0)
 		return (0);
 	c_nb = n ? c_nb : cw_find_num(proc, c_nb);
-	proc->champions->num = proc->champions->num ? proc->champions->num : c_nb;
-	c_in_load = n ? cw_lst_last(proc->champions) : proc->champions;
-	c_in_load->reg[0][0] = c_in_load->num >> 24;
-	c_in_load->reg[0][1] = c_in_load->num >> 16;
-	c_in_load->reg[0][2] = c_in_load->num >> 8;
-	c_in_load->reg[0][3] = c_in_load->num;
-	if (chk && (c_in_load->ins = malloc(c_in_load->header->prog_size)) == NULL)
+	while (proc->champions[i].num)
+		i++;
+	proc->champions[i].num = c_nb;
+	// c_in_load->reg[0][0] = c_in_load->num >> 24;
+	// c_in_load->reg[0][1] = c_in_load->num >> 16;
+	// c_in_load->reg[0][2] = c_in_load->num >> 8;
+	// c_in_load->reg[0][3] = c_in_load->num;
+	if (chk && (proc->champions[i].insert =
+		malloc(proc->champions[i].header->prog_size)) == NULL)
 		return (cw_error_msg("failed to malloc instruction failed"));
-	if (read(fd, c_in_load->ins, c_in_load->header->prog_size) == -1)
+	if (read(fd, proc->champions[i].insert,
+		proc->champions[i].header->prog_size) == -1)
 		return (cw_error_msg("failed to load instructions"));
-	proc->nb_proc = cw_lst_sze(proc->champions);
+	proc->nb_proc = i + 1;
+	if (close(fd) == -1)
+		return (cw_error_msg("failed to close the file"));
 	return (chk);
 }

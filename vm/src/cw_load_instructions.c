@@ -12,24 +12,47 @@
 
 #include "../inc/corewar.h"
 
+int				cw_biggest_num(t_proc *proc)
+{
+	int			i;
+	int			num;
+	int			ret;
+
+
+	i = 0;
+	num = proc->championsp[i].num;
+	while (proc->championsp[i].num)
+	{
+		if (num < proc->championsp[i].num && proc->champions[i]->insert)
+		{
+			num = proc->championsp[i].num
+			ret = i;
+		}
+		i++;
+	}
+	return (ret)
+}
+
 int				cw_load_ins_mem(t_proc *proc)
 {
-	int			nb_champ;
 	int			cnt;
-	t_champion	*tmp;
+	int			i;
+	int			cnt2;
+	t_champion	tmp;
 
 	cnt = 0;
-	tmp = proc->champions;
-	if ((nb_champ = cw_lst_sze(proc->champions)) > MAX_PLAYERS || !nb_champ)
-		return (cw_error_msg("ERROR : wrong number of champ to load in mem"));
-	while (tmp)
+	i = 0;
+	cnt2 = 0;
+	while (++cnt2 < proc->nb_proc)
 	{
-		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / nb_champ]),
-		tmp->ins, tmp->header->prog_size);
-		tmp->pc_origin = cnt * MEM_SIZE / nb_champ;
-		free(tmp->ins);
-		tmp->ins = NULL;
-		tmp = tmp->next;
+		tmp = proc->champions[cw_biggest_num(proc)];
+		lst_add(proc->process, lst_new(tmp.id_champion));
+		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / proc.nb_proc]),
+		tmp.ins, tmp.header->prog_size);
+		tmp.pc_origin = cnt * MEM_SIZE / proc.nb_proc;
+		free(tmp.insert);
+		tmp.insert = NULL;
+		i++;
 		cnt++;
 	}
 	return (1);
