@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:15:25 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/24 18:41:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:32:01 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG
 */
 
-int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
+int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_p *tmp,
 										char ocp, unsigned int p_sze)
 {
 	if (ocp == REG_CODE && proc->mem[(tmp->pc + 2 + p_sze) % MEM_SIZE] > 0
@@ -37,7 +37,7 @@ int			cw_ins_ldi_secondparamhandler(t_proc *proc, t_champion *tmp,
 	return (0);
 }
 
-int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
+int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_p *tmp,
 										char ocp)
 {
 	if (ocp == REG_CODE && proc->mem[(tmp->pc + 2) % MEM_SIZE] > 0
@@ -52,11 +52,11 @@ int			cw_ins_ldi_firstparamhandler(t_proc *proc, t_champion *tmp,
 	return (0);
 }
 
-void		cw_ins_ldi_b(int p[3], t_champion *tmp, t_ocp *ocp)
+void		cw_ins_ldi_b(int p[3], t_p *tmp, t_ocp *ocp)
 {
 	if (g_bon['d'])
 	{
-		ft_printf("P%5d | %s ", tmp->idp, "ldi");
+		ft_printf("P%5d | %s ", tmp->id, "ldi");
 		ft_printf("%d ", p[0]);
 		ft_printf("%d ", p[1]);
 		if (ocp->third == REG_CODE)
@@ -68,7 +68,7 @@ void		cw_ins_ldi_b(int p[3], t_champion *tmp, t_ocp *ocp)
 	}
 }
 
-int			cw_ins_ldi(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_ldi(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	int				p[3];
 	unsigned int	p_sze[3];
