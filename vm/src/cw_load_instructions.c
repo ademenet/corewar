@@ -50,8 +50,8 @@ int				cw_load_ins_mem(t_proc *proc)
 		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / proc.nb_proc]),
 		tmp.ins, tmp.header->prog_size);
 		tmp.pc_origin = cnt * MEM_SIZE / proc.nb_proc;
-		free(tmp.ins);
-		tmp.ins = NULL;
+		free(tmp.insert);
+		tmp.insert = NULL;
 		i++;
 		cnt++;
 	}
