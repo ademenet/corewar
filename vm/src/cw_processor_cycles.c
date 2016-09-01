@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 14:28:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:28:23 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_p				*cw_kill_process(t_proc *proc, t_p *tmp)
 
 	to_del = tmp;
 	if (g_bon['v'])
-		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id_champion + 10));
 	tmp = tmp->next;
 	if (to_del != NULL)
 	{

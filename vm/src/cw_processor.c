@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 12:35:03 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:20:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 void		cw_exec_process_pcincrement(t_proc *proc, t_p *tmp, int size)
 {
 	if (g_bon['v'])
-		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
+		cw_vizualizer_pcprint(proc, tmp, (tmp->id_champion + 10));
 	tmp->pc = (tmp->pc + (unsigned short)size) % MEM_SIZE;
 	cw_get_opcode(proc, tmp);
 	if (g_bon['v'])
-		cw_vizualizer_pcprint(proc, tmp, tmp->id);
+		cw_vizualizer_pcprint(proc, tmp, tmp->id_champion);
 }
 
 /*

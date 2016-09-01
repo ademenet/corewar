@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 15:13:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:28:49 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ void							cw_vizualizer_print(t_proc *proc, t_p *tmp,
 								int where, unsigned char what);
 void							cw_show_mem(char *start, int n);
 void							cw_vizualizer_winner(t_proc *proc,
-								t_champion *winner);
+								t_champion winner);
 
 /*
 **	BONUS : GESTION DES OPTIONs

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 15:17:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:29:27 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ void		cw_vizualizer_infos(t_proc *proc)
 ** Fonction qui affiche le gagnant dans le visualiseur.
 */
 
-void		cw_vizualizer_winner(t_proc *proc, t_champion *winner)
+void		cw_vizualizer_winner(t_proc *proc, t_champion winner)
 {
 	werase(proc->win[1]);
-	wattron(proc->win[1], COLOR_PAIR(winner->id_champion + 10) | A_BOLD);
-	mvwprintw(proc->win[1], 60, 2, "Le joueur %d(%s) a gagné", winner->num,
-	winner->header->prog_name);
-	wattroff(proc->win[1], COLOR_PAIR(winner->id_champion + 10) | A_BOLD);
+	wattron(proc->win[1], COLOR_PAIR(winner.id_champion + 10) | A_BOLD);
+	mvwprintw(proc->win[1], 60, 2, "Le joueur %d(%s) a gagné", winner.num,
+	winner.header->prog_name);
+	wattroff(proc->win[1], COLOR_PAIR(winner.id_champion + 10) | A_BOLD);
 	mvwprintw(proc->win[1], 62, 2, "(appuyer sur [echap] pour quitter)");
 	wrefresh(proc->win[1]);
 	while (1)
