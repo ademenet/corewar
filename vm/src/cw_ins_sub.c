@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:13:18 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:19:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:18:57 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 ** Cette opération modifie le carry.
 */
 
-void		cw_ins_sub_db(t_proc *proc, t_champion *tmp)
+void		cw_ins_sub_db(t_proc *proc, t_p *tmp)
 {
-	ft_printf("P%5d | %s r%d r%d r%d\n", tmp->idp, "sub",
+	ft_printf("P%5d | %s r%d r%d r%d\n", tmp->id, "sub",
 		proc->mem[(tmp->pc + 2) % MEM_SIZE],
 		proc->mem[(tmp->pc + 3) % MEM_SIZE],
 		proc->mem[(tmp->pc + 4) % MEM_SIZE]);
 }
 
-int			cw_ins_sub(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_sub(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	param[3];
 
