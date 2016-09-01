@@ -39,6 +39,7 @@ int				cw_load_ins_mem(t_proc *proc)
 	int			i;
 	int			cnt2;
 	t_champion	tmp;
+	t_p			*last;
 
 	cnt = 0;
 	i = 0;
@@ -47,6 +48,11 @@ int				cw_load_ins_mem(t_proc *proc)
 	{
 		tmp = proc->champions[cw_biggest_num(proc)];
 		lst_add(proc->process, lst_new(tmp.id_champion));
+		last = lst_last(proc->process);
+		last->reg[0][0] = tmp->num >> 24;
+		last->reg[0][1] = tmp->num >> 16;
+		last->reg[0][2] = tmp->num >> 8;
+		last->reg[0][3] = tmp->num;
 		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / proc.nb_proc]),
 		tmp.ins, tmp.header->prog_size);
 		tmp.pc_origin = cnt * MEM_SIZE / proc.nb_proc;

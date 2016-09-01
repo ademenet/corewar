@@ -73,7 +73,9 @@ int				cw_get_header(t_proc *proc, int fd, int c_nb, int n)
 	header->magic = cw_invert_endian(header->magic);
 	while (proc->champions[i].num)
 		i++;
-	proc->champions[i].header = header; 
+	proc->champions[i].header = header;
+	proc->champions[i].id_champion = i ? proc->champions[i - 1].id_champion + 1
+	: 1;
 	return (cw_chk_champions(proc, i));
 }
 
@@ -93,10 +95,6 @@ int				cw_create_champion(char *file, int c_nb, t_proc *proc, int n)
 	while (proc->champions[i].num)
 		i++;
 	proc->champions[i].num = c_nb;
-	// c_in_load->reg[0][0] = c_in_load->num >> 24;
-	// c_in_load->reg[0][1] = c_in_load->num >> 16;
-	// c_in_load->reg[0][2] = c_in_load->num >> 8;
-	// c_in_load->reg[0][3] = c_in_load->num;
 	if (chk && (proc->champions[i].insert =
 		malloc(proc->champions[i].header->prog_size)) == NULL)
 		return (cw_error_msg("failed to malloc instruction failed"));
