@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 15:46:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 14:28:19 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void			cw_dump_display(t_proc *proc)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	if (g_bon['z'])
@@ -42,29 +42,29 @@ void			cw_dump_display(t_proc *proc)
 
 int				cw_cycles_end(t_proc *proc)
 {
-	int		i;
+	int			i;
 
-	i = 0;
-	if (proc->last_live_id == 0)
+	if (proc->last_live_num == 0)
 	{
 		if (g_bon['v'])
-			cw_vizualizer_winner(proc, proc->champ_by_id[i]);
+			cw_vizualizer_winner(proc, proc->champions[0]);
 		else
-			ft_printf("Le joueur %d(%s) a gagné\n", proc->champ_by_id[0]->num,
-			proc->champ_by_id[0]->header->prog_name);
+			ft_printf("Le joueur %d(%s) a gagné\n", proc->champions[0].num,
+			proc->champions[0].header->prog_name);
 		return (0);
 	}
-	while (proc->champ_by_id[i] != NULL)
+	i = 0;
+	while (proc->champions[i].num != 0) // peut-etre remplacer proc->champions[i] != NULL si pointeur
 	{
-		if (proc->champ_by_id[i]->id == proc->last_live_id)
+		if (proc->champions[i].num == proc->last_live_num)
 			break ;
 		i++;
 	}
 	if (g_bon['v'])
-		cw_vizualizer_winner(proc, proc->champ_by_id[i]);
+		cw_vizualizer_winner(proc, proc->champions[i]);
 	else
-		ft_printf("Le joueur %d(%s) a gagné\n", proc->champ_by_id[i]->num,
-		proc->champ_by_id[i]->header->prog_name);
+		ft_printf("Le joueur %d(%s) a gagné\n", proc->champions[i].num,
+		proc->champions[i].header->prog_name);
 	return (0);
 }
 
@@ -73,24 +73,22 @@ int				cw_cycles_end(t_proc *proc)
 ** original alors on passe son flag is_champ à -1 pour signaler qu'il est mort.
 */
 
-t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
+t_p				*cw_kill_process(t_proc *proc, t_p *tmp)
 {
-	t_champion	*to_del;
+	t_p			*to_del;
 
 	to_del = tmp;
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	tmp = tmp->next;
-	if (to_del->is_champ == 1)
-		to_del->is_champ = -1;
-	else if (to_del != NULL)
+	if (to_del != NULL)
 	{
 		if (to_del->next != NULL)
 			to_del->next->prev = to_del->prev;
 		if (to_del->prev != NULL)
 			to_del->prev->next = to_del->next;
-		if (to_del == proc->champions)
-			proc->champions = tmp;
+		if (to_del == proc->process)
+			proc->process = tmp;
 		free(to_del);
 		to_del = NULL;
 	}
@@ -107,23 +105,18 @@ t_champion		*cw_kill_process(t_proc *proc, t_champion *tmp)
 
 void			cw_cycles_checks_lives(t_proc *proc)
 {
-	t_champion	*tmp;
+	t_p			*tmp;
 
-	tmp = proc->champions;
+	tmp = proc->process;
 	while (tmp)
 	{
-		if (tmp->is_champ > -1)
-		{
-			if (tmp->lives == 0)
-				tmp = cw_kill_process(proc, tmp);
-			else
-			{
-				tmp->lives = 0;
-				tmp = tmp->next;
-			}
-		}
+		if (tmp->lives == 0)
+			tmp = cw_kill_process(proc, tmp);
 		else
+		{
+			tmp->lives = 0;
 			tmp = tmp->next;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 15:40:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:35:03 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,12 @@
 ** en blanc et noir) et le nouveau hérite de la couleur en surbrillance.
 */
 
-void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
+void		cw_exec_process_pcincrement(t_proc *proc, t_p *tmp, int size)
 {
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, (tmp->id + 10));
 	tmp->pc = (tmp->pc + (unsigned short)size) % MEM_SIZE;
-	if (proc->mem[tmp->pc] > 0x00 && proc->mem[tmp->pc] < 0x11)
-	{
-		tmp->ins = (unsigned char *)1;
-		tmp->inst_c = g_op[proc->mem[tmp->pc] - 1].cycles_nb;
-		tmp->inst_num = g_op[proc->mem[tmp->pc] - 1].opcode;
-	}
-	else
-	{
-		tmp->ins = NULL;
-		tmp->inst_c = 0;
-		tmp->inst_num = 0;
-	}
+	cw_get_opcode(proc, tmp);
 	if (g_bon['v'])
 		cw_vizualizer_pcprint(proc, tmp, tmp->id);
 }
@@ -49,12 +38,12 @@ void		cw_exec_process_pcincrement(t_proc *proc, t_champion *tmp, int size)
 ** cette instruction et on charge le temps de l'instruction.
 */
 
-void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+void		cw_exec_process_instruct(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	int		size;
 
 	cw_ins_ocp(proc, tmp, ocp);
-	size = g_op[tmp->inst_num - 1].ptr(proc, tmp, ocp);
+	size = g_op[tmp->opcode - 1].ptr(proc, tmp, ocp);
 	cw_exec_process_pcincrement(proc, tmp, size);
 }
 
@@ -67,24 +56,21 @@ void		cw_exec_process_instruct(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 
 void		cw_exec_process(t_proc *proc)
 {
-	t_champion	*tmp;
+	t_p			*tmp;
 	t_ocp		ocp;
 
-	tmp = proc->champions;
+	tmp = proc->process;
 	while (tmp)
 	{
-		if (tmp->is_champ > -1)
+		if (tmp->opcode > 0x00 && tmp->opcode < 0x11)
 		{
-			if (tmp->inst_num > 0 && tmp->inst_num < 17)
-			{
-				if (tmp->inst_c == 0)
-					cw_exec_process_instruct(proc, tmp, &ocp);
-				else
-					tmp->inst_c--;
-			}
+			if (tmp->ins_c == 0)
+				cw_exec_process_instruct(proc, tmp, &ocp);
 			else
-				cw_exec_process_pcincrement(proc, tmp, 1);
+				tmp->ins_c--;
 		}
+		else
+			cw_exec_process_pcincrement(proc, tmp, 1);
 		tmp = tmp->next;
 	}
 }
