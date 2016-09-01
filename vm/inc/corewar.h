@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 15:28:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 16:51:48 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct					s_proc
 	unsigned int				lives_total;
 	unsigned int				checks;
 	unsigned int				last_live_num;
+	unsigned int				total_id;
 }								t_proc;
 
 /*
