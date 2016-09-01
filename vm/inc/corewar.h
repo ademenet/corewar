@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 17:47:51 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 18:03:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,11 @@ int								cw_load_ins_mem(t_proc *proc);
 ** GESTION DES LISTES DE CHAMPIONS
 */
 
-t_champion						*cw_lst_new(int num);
-t_champion						*cw_lst_push(t_proc *proc, t_champion *new);
-void							cw_lst_add(t_champion **begin, t_champion *new);
-int								cw_lst_sze(t_champion *begin);
-t_champion						*cw_lst_last(t_champion *begin);
-void							cw_lst_dsort_by_num(t_champion **champions);
+t_p								*cw_lst_new(int num);
+t_p								*cw_lst_push(t_proc *proc, t_p *new);
+void							cw_lst_add(t_p **begin, t_p *new);
+int								cw_lst_sze(t_p *begin);
+t_p								*cw_lst_last(t_p *begin);
 void							cw_init_champ_array(t_proc *proc);
 
 /*

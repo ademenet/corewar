@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 15:43:35 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 17:59:34 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_p				*cw_lst_new(int num)
 			new->reg[reg_nb][reg_sze] = 0;
 		reg_sze = -1;
 	}
-	new->inst_c = 0;
+	new->ins_c = 0;
 	new->lives = 0;
 	new->id = 0;
 	new->id_champion = num;
