@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 15:28:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 17:36:30 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,44 +204,28 @@ unsigned int					cw_ins_param_sze(char param, int dir);
 ** INSTRUCTIONS
 */
 
-int								cw_ins_add(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_aff(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_and(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-void							cw_ins_fork_duplicate_reg(t_champion *new,
-								t_champion *old);
-int								cw_ins_fork(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_ld(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_ldi(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
+int								cw_ins_add(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_aff(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_and(t_proc *proc, t_p *tmp, t_ocp *ocp);
+void							cw_ins_fork_duplicate_reg(t_p *new, t_p *old);
+int								cw_ins_fork(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_ld(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_ldi(t_proc *proc, t_p *tmp, t_ocp *ocp);
 int								cw_ins_ldi_firstparamhandler(t_proc *proc,
-								t_champion *tmp, char ocp);
+								t_p *tmp, char ocp);
 int								cw_ins_ldi_secondparamhandler(t_proc *proc,
-								t_champion *tmp, char ocp, unsigned int p_sze);
-int								cw_ins_lfork(t_proc *proc, t_champion *tmp,
+								t_p *tmp, char ocp, unsigned int p_sze);
+int								cw_ins_lfork(t_proc *proc, t_p *tmp,
 								t_ocp *ocp);
-int								cw_ins_live(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_lld(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_lldi(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_or(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_st(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_sti(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_sub(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_xor(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
-int								cw_ins_zjmp(t_proc *proc, t_champion *tmp,
-								t_ocp *ocp);
+int								cw_ins_live(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_lld(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_lldi(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_or(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_st(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_sti(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_sub(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_xor(t_proc *proc, t_p *tmp, t_ocp *ocp);
+int								cw_ins_zjmp(t_proc *proc, t_p *tmp, t_ocp *ocp);
 
 /*
 ** INSTRUCTIONS : FONCTIONS OUTILS
