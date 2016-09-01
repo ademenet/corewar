@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 17:36:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 17:46:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,8 +233,6 @@ int								cw_ins_zjmp(t_proc *proc, t_p *tmp, t_ocp *ocp);
 
 int								cw_ins_ocp(t_proc *proc, t_champion *champ,
 								t_ocp *ocp);
-unsigned int					cw_get_data_reg(t_champion *champ,
-								unsigned char reg);
 int								cw_error_msg(char *msg);
 int								cw_invert_endian(int x);
 
@@ -242,14 +240,13 @@ int								cw_invert_endian(int x);
 ** INSTRUCTIONS : FONCTIONS GET DATA
 */
 
-unsigned int					cw_get_data_reg(t_champion *champ,
-								unsigned char reg);
-unsigned int					cw_get_data_dir(t_proc *proc, t_champion *champ,
+unsigned int					cw_get_data_reg(t_p *champ, unsigned char reg);
+unsigned int					cw_get_data_dir(t_proc *proc, t_p *champ,
 								unsigned int sze, int dir);
-unsigned int					cw_get_data_ind(t_proc *proc, t_champion *champ,
+unsigned int					cw_get_data_ind(t_proc *proc, t_p *champ,
 								unsigned int sze);
 unsigned int					cw_get_data_ind_l(t_proc *proc,
-								t_champion *champ, unsigned int sze);
+								t_p *champ, unsigned int sze);
 /*
 ** BONUS : VISUALISEUR
 */
