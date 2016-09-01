@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 14:49:48 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 16:04:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:13:30 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 ** le carry. add r2,r3,r5 additionne r2 et r3 et met le résultat dans r5.
 */
 
-void		cw_ins_add_db(t_proc *proc, t_champion *tmp)
+void		cw_ins_add_db(t_proc *proc, t_p *tmp)
 {
-	ft_printf("P%5d | %s r%d r%d r%d\n", tmp->idp, "add",
+	ft_printf("P%5d | %s r%d r%d r%d\n", tmp->id, "add",
 		proc->mem[(tmp->pc + 2) % MEM_SIZE],
 		proc->mem[(tmp->pc + 3) % MEM_SIZE],
 		proc->mem[(tmp->pc + 4) % MEM_SIZE]);
 }
 
-int			cw_ins_add(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_add(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	param[3];
 
