@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:17:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/02 19:23:22 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:34:26 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** est affiché sur la sortie standard).
 */
 
-int			cw_ins_aff(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_aff(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p;
 	int				reg;

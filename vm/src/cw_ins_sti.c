@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:17:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:21:05 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 ** sont des registres, on utilisera leur contenu comme un index.
 */
 
-void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp, int p[3])
+void		cw_ins_sti_db(t_proc *proc, t_p *tmp, t_ocp *ocp, int p[3])
 {
-	ft_printf("P%5d | %s ", tmp->idp, "sti");
+	ft_printf("P%5d | %s ", tmp->id, "sti");
 	ft_printf("r%d ", p[0]);
 	ft_printf("%d ", p[1]);
 	ft_printf("%d\n", p[2]);
@@ -28,7 +28,7 @@ void		cw_ins_sti_db(t_proc *proc, t_champion *tmp, t_ocp *ocp, int p[3])
 		" ", p[1], p[2], p[1] + p[2], (tmp->pc + (p[1] + p[2]) % IDX_MOD));
 }
 
-void		cw_exec_sti(t_proc *proc, t_champion *tmp, int p[3])
+void		cw_exec_sti(t_proc *proc, t_p *tmp, int p[3])
 {
 	unsigned int	i;
 	int				total;
@@ -45,7 +45,7 @@ void		cw_exec_sti(t_proc *proc, t_champion *tmp, int p[3])
 	}
 }
 
-int			cw_ins_sti(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_sti(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	int				p[3];

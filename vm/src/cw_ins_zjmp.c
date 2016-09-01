@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/20 18:44:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:08:08 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** consomme le même temps.
 */
 
-int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int			cw_ins_zjmp(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	short int	p;
 
@@ -27,10 +27,10 @@ int			cw_ins_zjmp(t_proc *proc, t_champion *tmp, t_ocp *ocp)
 	if (tmp->carry == 1)
 	{
 		if (g_bon['d'])
-			ft_printf("P%5d | %s %d OK\n", tmp->idp, "zjmp", p);
+			ft_printf("P%5d | %s %d OK\n", tmp->id, "zjmp", p);
 		return (p % IDX_MOD);
 	}
 	if (g_bon['d'])
-		ft_printf("P%5d | %s %d FAILED\n", tmp->idp, "zjmp", p);
+		ft_printf("P%5d | %s %d FAILED\n", tmp->id, "zjmp", p);
 	return (3);
 }

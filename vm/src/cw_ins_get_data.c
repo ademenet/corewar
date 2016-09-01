@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/03 11:28:27 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:34:04 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Récupère le contenu d'un registre et retourne ce dernier dans un int.
 */
 
-unsigned int		cw_get_data_reg(t_champion *champ, unsigned char reg)
+unsigned int		cw_get_data_reg(t_p *champ, unsigned char reg)
 {
 	unsigned int	ret;
 
@@ -27,7 +27,7 @@ unsigned int		cw_get_data_reg(t_champion *champ, unsigned char reg)
 	return (ret);
 }
 
-unsigned int		cw_get_data_dir(t_proc *proc, t_champion *champ,
+unsigned int		cw_get_data_dir(t_proc *proc, t_p *champ,
 					unsigned int sze, int dir)
 {
 	unsigned int	ret;
@@ -42,7 +42,7 @@ unsigned int		cw_get_data_dir(t_proc *proc, t_champion *champ,
 	return (ret);
 }
 
-unsigned int		cw_get_data_ind(t_proc *proc, t_champion *champ,
+unsigned int		cw_get_data_ind(t_proc *proc, t_p *champ,
 					unsigned int sze)
 {
 	int				ret;
@@ -58,7 +58,7 @@ unsigned int		cw_get_data_ind(t_proc *proc, t_champion *champ,
 	return (ret);
 }
 
-unsigned int		cw_get_data_ind_l(t_proc *proc, t_champion *champ,
+unsigned int		cw_get_data_ind_l(t_proc *proc, t_p *champ,
 					unsigned int sze)
 {
 	short			ret;
