@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 14:48:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 15:02:00 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct					s_proc
 {
 	unsigned char				mem[MEM_SIZE];
 	t_champion					champions[MAX_PLAYERS + 1];
+	unsigned int				lives_champions[MAX_PLAYERS + 1];
 	WINDOW						*win[2];
 	t_p							*process;
 	unsigned int				dump;
