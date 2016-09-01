@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/12 16:09:36 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 12:18:05 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG
 */
 
-void	cw_exec_and(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
+void	cw_exec_and(t_p *tmp, unsigned int p[3], unsigned int p_sze[3])
 {
 	unsigned int	total;
 
@@ -36,7 +36,7 @@ void	cw_exec_and(t_champion *tmp, unsigned int p[3], unsigned int p_sze[3])
 		tmp->carry = 0;
 }
 
-int		cw_ins_and(t_proc *proc, t_champion *tmp, t_ocp *ocp)
+int		cw_ins_and(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	unsigned int	p[3];
