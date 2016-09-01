@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 14:26:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 14:46:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct					s_p
 	unsigned int				ins_c;
 	unsigned int				lives;
 	unsigned int				id;
+	int							id_champion;
 	unsigned short int			pc;
 	unsigned char				opcode;
 	char						carry;
@@ -91,6 +92,7 @@ typedef struct					s_champion
 	t_header					*header;
 	char						*insert;
 	unsigned int				num;
+	int							id_champion;
 }								t_champion;
 
 /*
