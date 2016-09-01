@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 18:03:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 18:13:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ t_p								*cw_lst_push(t_proc *proc, t_p *new);
 void							cw_lst_add(t_p **begin, t_p *new);
 int								cw_lst_sze(t_p *begin);
 t_p								*cw_lst_last(t_p *begin);
-void							cw_init_champ_array(t_proc *proc);
 
 /*
 ** PROCESSOR

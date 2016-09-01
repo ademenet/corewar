@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 12:15:17 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 15:20:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 18:13:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ int			cw_processor(t_proc *proc)
 	int		c_to_die;
 
 	c_check = 1;
-	cw_proc_init(proc);
+	proc->c_to_die = CYCLE_TO_DIE + CYCLE_DELTA;
+	proc->c = 1;
+	proc->lives_total = 0;
+	proc->checks = 0;
 	cw_load_ins_c(proc);
 	c_to_die = proc->c_to_die;
 	while (c_check)
