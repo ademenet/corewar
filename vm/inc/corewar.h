@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 18:11:30 by ademenet          #+#    #+#             */
-/*   Updated: 2016/08/31 18:28:05 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 10:50:19 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct					s_p
 	char						reg[REG_NUMBER][REG_SIZE];
 	unsigned int				ins_c;
 	unsigned int				lives;
-	int							id;
+	unsigned int				id;
 	unsigned short int			pc;
 	unsigned char				opcode;
 	char						carry;
@@ -89,6 +89,7 @@ typedef struct					s_p
 typedef struct					s_champion
 {
 	t_header					*header;
+	char						*insert;
 	unsigned int				num;
 }								t_champion;
 
@@ -99,7 +100,7 @@ typedef struct					s_champion
 typedef struct					s_proc
 {
 	unsigned char				mem[MEM_SIZE];
-	t_champion					*champions[MAX_PLAYERS + 1];
+	t_champion					champions[MAX_PLAYERS + 1];
 	WINDOW						*win[2];
 	t_p							*process;
 	unsigned int				dump;
