@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 18:08:19 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 11:20:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				cw_load_ins_mem(t_proc *proc)
 		last->id = last->prev ? last->prev->id + 1 : 1;
 		ft_memcpy(&(proc->mem[cnt * MEM_SIZE / proc->nb_proc]),
 		proc->champions[i].insert, proc->champions[i].header->prog_size);
+		last->pc = cnt * MEM_SIZE / proc->nb_proc;
 		free(proc->champions[i].insert);
 		proc->champions[i].insert = NULL;
 		cnt++;
