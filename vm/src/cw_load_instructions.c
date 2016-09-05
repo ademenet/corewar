@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 11:20:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 16:47:43 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int				cw_biggest_num(t_proc *proc)
 
 	i = 0;
 	ret = 0;
-	num = -1;
+	num = 0;
 	while (proc->champions[i].num)
 	{
-		if (num < (int)proc->champions[i].num && proc->champions[i].insert)
+		if (num < proc->champions[i].num && proc->champions[i].insert)
 		{
 			num = proc->champions[i].num;
 			ret = i;
