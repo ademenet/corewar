@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/25 14:29:42 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 15:29:30 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 11:11:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 void		cw_vizualizer_proc_init(t_proc *proc, int *c_to_die)
 {
-	cw_proc_init(proc);
+	proc->c_to_die = CYCLE_TO_DIE + CYCLE_DELTA;
+	proc->c = 1;
+	proc->lives_total = 0;
+	proc->checks = 0;
 	cw_load_ins_c(proc);
 	*c_to_die = proc->c_to_die;
 	cw_vizualizer_init(proc);

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 17:57:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/01 18:45:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,24 @@ void		cw_vizualizer_infos_side(t_proc *proc, int y)
 
 void		cw_vizualizer_infos(t_proc *proc)
 {
-	t_champion	*tmp;
+	int			i;
 	int			y;
 
 	mvwprintw(proc->win[1], 1, 2, "Cycle\t: %8d", proc->c);
-	tmp = proc->champions;
 	y = 4;
-	while (tmp)
+	i = 0;
+	while (proc->champions[i].num)
 	{
-		wattron(proc->win[1], COLOR_PAIR(tmp->id_champion + 10) | A_BOLD);
-		mvwprintw(proc->win[1], y, 2, "Player %d : %s", tmp->num,
-			tmp->header->prog_name);
-		wattroff(proc->win[1], COLOR_PAIR(tmp->id_champion + 10) | A_BOLD);
+		wattron(proc->win[1],
+			COLOR_PAIR(proc->champions->id_champion + 10) | A_BOLD);
+		mvwprintw(proc->win[1], y, 2, "Player %d : %s", proc->champions->num,
+			proc->champions->header->prog_name);
+		wattroff(proc->win[1],
+			COLOR_PAIR(proc->champions->id_champion + 10) | A_BOLD);
 		mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u",
-			proc->lives_champions[tmp->id_champion - 1]);
+			proc->lives_champions[proc->champions[i].id_champion - 1]);
 		y += 2;
+		i++;
 	}
 	cw_vizualizer_infos_side(proc, y);
 }
