@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:20 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 12:24:49 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/05 15:10:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			cw_ins_lfork(t_proc *proc, t_p *tmp, t_ocp *ocp)
 	t_p			*new;
 
 	p = (short int)cw_get_data_dir(proc, tmp, (tmp->pc + 1) % MEM_SIZE, 2);
-	new = cw_lst_new(proc->champions[tmp->id_champion - 1].num);
+	new = cw_lst_new(proc->champions[tmp->id_champion - 1].id_champion);
 	proc->process = cw_lst_push(proc, new);
 	cw_ins_fork_duplicate_reg(new, tmp);
 	new->pc = (tmp->pc + (unsigned short)p) % MEM_SIZE;
