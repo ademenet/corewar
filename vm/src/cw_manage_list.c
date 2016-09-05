@@ -12,7 +12,7 @@
 
 #include "../inc/corewar.h"
 
-t_p				*cw_lst_new(int num)
+t_p				*cw_lst_new(int id_champ)
 {
 	t_p			*new;
 	int			reg_sze;
@@ -33,7 +33,7 @@ t_p				*cw_lst_new(int num)
 	new->ins_c = 0;
 	new->lives = 0;
 	new->id = 0;
-	new->id_champion = num;
+	new->id_champion = id_champ;
 	new->pc = 0;
 	new->opcode = 0;
 	new->carry = 0;
