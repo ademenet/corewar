@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 12:32:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 17:06:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_p				*cw_lst_new(int id_champ)
 	int			reg_sze;
 	int			reg_nb;
 
-	if ((new = malloc(sizeof(t_p) * 2)) == NULL)
+	if ((new = malloc(sizeof(t_p))) == NULL)
 		return (NULL);
 	reg_sze = -1;
 	reg_nb = -1;
