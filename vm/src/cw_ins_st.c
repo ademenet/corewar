@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 16:35:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 17:01:26 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int			cw_ins_st(t_proc *proc, t_p *tmp, t_ocp *ocp)
 	{
 		if (ocp->second == IND_CODE)
 			proc->mem[(tmp->pc + p[1] + i) % MEM_SIZE] = tmp->reg[ind_reg][i];
-		else if (ocp->second == REG_CODE)
-			tmp->reg[p[1]][i] = tmp->reg[ind_reg][i];
+		else if (ocp->second == REG_CODE && p[1] > 0 && p[1] <= REG_NUMBER)
+			tmp->reg[p[1] - 1][i] = tmp->reg[ind_reg][i];
 	}
 	cw_ins_st_display(proc, tmp, p[1], ind_reg);
 	return (2 + p_sze[0] + p_sze[1]);
