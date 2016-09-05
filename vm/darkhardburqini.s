@@ -1,18 +1,12 @@
 .name "Dark Hard Burqini"
 .comment "You 'r' goin' to taste my anger!"
 
-wall_init1:
-	sti		r1, %:wall_init2, %2
-
-wall_init2:
-	ld		%0, r7
-
-wall_init3:
-	sti		r7, %:live, %1
-	sti		r7, %:wall_front, %1
-	sti		r7, %:wall_back, %1
-	sti		r7, %:proc_plant, %1
-	sti		r7, %:proc_plant, %9
+wall_init:
+	sti		r1, %:live, %1
+	sti		r1, %:wall_front, %1
+	sti		r1, %:wall_back, %1
+	sti		r1, %:proc_plant, %1
+	sti		r1, %:proc_plant, %9
 	ld		%0, r16
 
 proc_plant:
@@ -23,7 +17,7 @@ proc_plant:
 	live	%0
 	fork	%:live
 	live	%0
-	fork	%:wall_init3
+	fork	%:wall_init
 
 wall_front:
 	live	%0
