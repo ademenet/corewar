@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 16:59:07 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 17:52:11 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ int			cw_ins_sti_check(t_ocp *ocp, int *p)
 {
 	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
 		return (1);
-	else if (p[1] == REG_CODE || p[2] == REG_CODE)
+	if (p[1] == REG_CODE)
 	{
-		if (p[1] < 0 || p[1] >= REG_NUMBER || p[2] < 0 || p[2] >= REG_NUMBER)
+		if (p[1] < 1 || p[1] > REG_NUMBER)
+			return (1);
+	}
+	if (p[2] == REG_CODE)
+	{
+		if (p[2] < 1 || p[2] > REG_NUMBER)
 			return (1);
 	}
 	return (0);
