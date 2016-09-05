@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 16:07:20 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 16:57:19 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/05 12:24:49 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			cw_ins_lfork(t_proc *proc, t_p *tmp, t_ocp *ocp)
 	new->carry = tmp->carry;
 	cw_get_opcode(proc, new);
 	new->lives = 0;
-	new->id = proc->total_id++;
+	new->id = ++proc->total_id;
 	proc->nb_proc++;
 	if (g_bon['d'] == 1)
 		cw_ins_lfork_db(proc, tmp, ocp, p);
