@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 12:21:05 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/05 16:59:07 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ void		cw_exec_sti(t_proc *proc, t_p *tmp, int p[3])
 	}
 }
 
+int			cw_ins_sti_check(t_ocp *ocp, int *p)
+{
+	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
+		return (1);
+	else if (p[1] == REG_CODE || p[2] == REG_CODE)
+	{
+		if (p[1] < 0 || p[1] >= REG_NUMBER || p[2] < 0 || p[2] >= REG_NUMBER)
+			return (1);
+	}
+	return (0);
+}
+
 int			cw_ins_sti(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
@@ -53,20 +65,23 @@ int			cw_ins_sti(t_proc *proc, t_p *tmp, t_ocp *ocp)
 	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
+	p[0] = 0;
+	p[1] = 0;
+	p[2] = 0;
 	p[0] = proc->mem[tmp->pc + 2];
-	if (ocp->second == REG_CODE)
+	if (ocp->second == REG_CODE && (proc->mem[tmp->pc + 2 + p_sze[0]] - 1) >= 0 && (proc->mem[tmp->pc + 2 + p_sze[0]] - 1) < REG_NUMBER)
 		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
 	else if (ocp->second == DIR_CODE)
 		p[1] = (short)cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
 	else if (ocp->second == IND_CODE)
 		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
-	if (ocp->third == REG_CODE)
+	if (ocp->third == REG_CODE && (proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1) >= 0 && (proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1) < REG_NUMBER)
 		p[2] = cw_get_data_reg(
 		tmp, proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1);
 	else if (ocp->third == DIR_CODE)
 		p[2] = (short)cw_get_data_dir(
 		proc, tmp, tmp->pc + 2 + p_sze[0] + p_sze[1], 2);
-	if (p[0] < 1 || p[0] > REG_NUMBER || ocp->third == IND_CODE)
+	if (cw_ins_sti_check(ocp, p))
 		return (1 + 1 + p_sze[0] + p_sze[1] + p_sze[2]);
 	cw_exec_sti(proc, tmp, p);
 	if (g_bon['d'] == 1)
