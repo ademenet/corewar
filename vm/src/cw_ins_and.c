@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:14:06 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 16:58:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 18:18:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,22 @@ void	cw_exec_and(t_p *tmp, unsigned int p[3], unsigned int p_sze[3])
 		tmp->carry = 0;
 }
 
-int		cw_ins_and(t_proc *proc, t_p *tmp, t_ocp *ocp)
+void	cw_ins_and_init(t_ocp *ocp, unsigned int *p_sze, unsigned int *p)
 {
-	unsigned int	p_sze[3];
-	unsigned int	p[3];
-
 	p_sze[0] = cw_ins_param_sze(ocp->first, 4);
 	p_sze[1] = cw_ins_param_sze(ocp->second, 4);
 	p_sze[2] = cw_ins_param_sze(ocp->third, 4);
 	p[0] = 0;
 	p[1] = 0;
 	p[2] = 0;
+}
+
+int		cw_ins_and(t_proc *proc, t_p *tmp, t_ocp *ocp)
+{
+	unsigned int	p_sze[3];
+	unsigned int	p[3];
+
+	cw_ins_and_init(ocp, p_sze, p);
 	if (ocp->first == REG_CODE && proc->mem[(tmp->pc + 2) % MEM_SIZE] > 0 &&
 		proc->mem[(tmp->pc + 2) % MEM_SIZE] <= REG_NUMBER)
 		p[0] = cw_get_data_reg(tmp, proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1);

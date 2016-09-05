@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 17:06:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 18:02:12 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void			cw_lst_add(t_p **begin, t_p *new)
 	new->next = NULL;
 }
 
-int			cw_lst_sze(t_p *begin)
+int				cw_lst_sze(t_p *begin)
 {
 	t_p		*tmp;
 	int		sze;

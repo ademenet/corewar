@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:12:38 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 17:01:26 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 18:16:45 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ void		cw_ins_st_display(t_proc *proc, t_p *tmp, unsigned int p,
 		ft_printf("P%5d | %s r%d %d\n", tmp->id, "st", ind_reg + 1, p);
 }
 
+int			cw_ins_st_indreg_check(int ind_reg)
+{
+	if ((int)ind_reg < 0 || (int)ind_reg >= REG_NUMBER)
+		return (1);
+	return (0);
+}
+
 int			cw_ins_st_pro(t_proc *proc, t_p *tmp, t_ocp *ocp,
 			unsigned int p_sze[2])
 {
@@ -55,8 +62,7 @@ int			cw_ins_st(t_proc *proc, t_p *tmp, t_ocp *ocp)
 	p_sze[0] = 1;
 	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
 	ind_reg = proc->mem[(tmp->pc + 2) % MEM_SIZE] - 1;
-	if ((int)ind_reg < 0 || (int)ind_reg >= REG_NUMBER
-		|| cw_ins_st_pro(proc, tmp, ocp, p_sze))
+	if (cw_ins_st_indreg_check(ind_reg) || cw_ins_st_pro(proc, tmp, ocp, p_sze))
 		return (2 + p_sze[0] + p_sze[1]);
 	p[0] = cw_get_data_reg(tmp, ind_reg);
 	if (ocp->second == REG_CODE)

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 16:47:43 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/09/05 18:12:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int				cw_biggest_num(t_proc *proc)
 	int			i;
 	int			num;
 	int			ret;
-
 
 	i = 0;
 	ret = 0;

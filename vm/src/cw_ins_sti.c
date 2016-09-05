@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 15:16:01 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/05 17:52:11 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 18:11:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,33 @@ int			cw_ins_sti_check(t_ocp *ocp, int *p)
 	return (0);
 }
 
+void		cw_ins_sti_init(unsigned char initpzero, t_ocp *ocp,
+			unsigned int *p_sze, int *p)
+{
+	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
+	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
+	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
+	p[0] = initpzero;
+	p[1] = 0;
+	p[2] = 0;
+}
+
 int			cw_ins_sti(t_proc *proc, t_p *tmp, t_ocp *ocp)
 {
 	unsigned int	p_sze[3];
 	int				p[3];
 
-	p_sze[0] = cw_ins_param_sze(ocp->first, 2);
-	p_sze[1] = cw_ins_param_sze(ocp->second, 2);
-	p_sze[2] = cw_ins_param_sze(ocp->third, 2);
-	p[0] = 0;
-	p[1] = 0;
-	p[2] = 0;
-	p[0] = proc->mem[tmp->pc + 2];
-	if (ocp->second == REG_CODE && (proc->mem[tmp->pc + 2 + p_sze[0]] - 1) >= 0 && (proc->mem[tmp->pc + 2 + p_sze[0]] - 1) < REG_NUMBER)
+	cw_ins_sti_init(proc->mem[tmp->pc + 2], ocp, p_sze, p);
+	if (ocp->second == REG_CODE && (proc->mem[tmp->pc + 2 + p_sze[0]] - 1) >= 0
+		&& (proc->mem[tmp->pc + 2 + p_sze[0]] - 1) < REG_NUMBER)
 		p[1] = cw_get_data_reg(tmp, proc->mem[tmp->pc + 2 + p_sze[0]] - 1);
 	else if (ocp->second == DIR_CODE)
 		p[1] = (short)cw_get_data_dir(proc, tmp, tmp->pc + 2 + p_sze[0], 2);
 	else if (ocp->second == IND_CODE)
 		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
-	if (ocp->third == REG_CODE && (proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1) >= 0 && (proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1) < REG_NUMBER)
+	if (ocp->third == REG_CODE &&
+		(proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1) >= 0 &&
+		(proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1) < REG_NUMBER)
 		p[2] = cw_get_data_reg(
 		tmp, proc->mem[tmp->pc + 2 + p_sze[0] + p_sze[1]] - 1);
 	else if (ocp->third == DIR_CODE)
