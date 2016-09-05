@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 18:18:16 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 17:46:05 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 15:14:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				cw_cycles_end(t_proc *proc)
 		return (0);
 	}
 	i = 0;
-	while (proc->champions[i].num != 0) // peut-etre remplacer proc->champions[i] != NULL si pointeur
+	while (proc->champions[i].num != 0)
 	{
 		if (proc->champions[i].num == proc->last_live_num)
 			break ;
@@ -108,7 +108,7 @@ void			cw_cycles_checks_lives(t_proc *proc)
 	t_p			*tmp;
 
 	tmp = proc->process;
-	while (tmp)
+	while (tmp != NULL)
 	{
 		if (tmp->lives == 0)
 			tmp = cw_kill_process(proc, tmp);
