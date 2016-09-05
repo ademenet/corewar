@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/11 15:54:35 by ademenet          #+#    #+#             */
-/*   Updated: 2016/09/01 18:45:22 by ademenet         ###   ########.fr       */
+/*   Updated: 2016/09/05 11:24:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void		cw_vizualizer_infos(t_proc *proc)
 	while (proc->champions[i].num)
 	{
 		wattron(proc->win[1],
-			COLOR_PAIR(proc->champions->id_champion + 10) | A_BOLD);
-		mvwprintw(proc->win[1], y, 2, "Player %d : %s", proc->champions->num,
-			proc->champions->header->prog_name);
+			COLOR_PAIR(proc->champions[i].id_champion + 10) | A_BOLD);
+		mvwprintw(proc->win[1], y, 2, "Player %d : %s", proc->champions[i].num,
+			proc->champions[i].header->prog_name);
 		wattroff(proc->win[1],
-			COLOR_PAIR(proc->champions->id_champion + 10) | A_BOLD);
+			COLOR_PAIR(proc->champions[i].id_champion + 10) | A_BOLD);
 		mvwprintw(proc->win[1], (y = y + 1), 4, "lives : %u",
 			proc->lives_champions[proc->champions[i].id_champion - 1]);
 		y += 2;
