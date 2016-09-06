@@ -18,7 +18,8 @@
 ** T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG
 */
 
-void	cw_exec_and(t_p *tmp, unsigned int p[3], unsigned int p_sze[3])
+void	cw_exec_and(t_p *tmp, unsigned int p[3], unsigned int p_sze[3],
+		t_ocp *ocp)
 {
 	unsigned int	total;
 
@@ -34,6 +35,16 @@ void	cw_exec_and(t_p *tmp, unsigned int p[3], unsigned int p_sze[3])
 		tmp->carry = 1;
 	else
 		tmp->carry = 0;
+	if (g_bon['d'])
+	{
+		ft_printf("P%5d | %s ", tmp->id, "and");
+		ft_printf("%d ", p[0]);
+		ft_printf("%d ", p[1]);
+		if (ocp->third == REG_CODE)
+			ft_printf("r%d\n", p[2]);
+		else
+			ft_printf("%d\n", p[2]);
+	}
 }
 
 void	cw_ins_and_init(t_ocp *ocp, unsigned int *p_sze, unsigned int *p)
@@ -69,6 +80,6 @@ int		cw_ins_and(t_proc *proc, t_p *tmp, t_ocp *ocp)
 	else if (ocp->second == IND_CODE)
 		p[1] = cw_get_data_ind(proc, tmp, tmp->pc + 2 + p_sze[0]);
 	p[2] = proc->mem[(tmp->pc + 2 + p_sze[0] + p_sze[1]) % MEM_SIZE];
-	cw_exec_and(tmp, p, p_sze);
+	cw_exec_and(tmp, p, p_sze, ocp);
 	return (2 + p_sze[0] + p_sze[1] + p_sze[2]);
 }
